@@ -65,6 +65,10 @@ export class AppComponent {
     this.sub1.unsubscribe()
   
   }
+  omar() {
+    this.sub1.unsubscribe()
+  
+  }
   setPageDir(val: string) {
     if (val === 'en') {
       this.pageDir = 'ltr'
