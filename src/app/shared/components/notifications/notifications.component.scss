@@ -1,0 +1,97 @@
+.notifications {
+    background-color: #F7F7F7;
+    .main-row {
+        margin-top: 50px;
+
+        .result-head {
+            .form-select {
+                border-radius: 20px;
+                border: 0;
+                outline: 0;
+                box-shadow: 0px 3px 6px #59595919;
+            }
+        }
+        .notification-row {
+            position: relative;
+            .border{
+                position: absolute;
+                left: 0;
+                top: 12%;
+                width: 4px;
+                height: 75%;
+                background: #FD7363;
+                border: none;
+            }
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            .time {
+                display: inline-block;
+                width: 82px !important;
+                font-size: 15px;
+                color: #A9A9A9;
+            }
+            p {
+                span {
+                    width: 28px;
+                    height: 31px;
+                    padding-right: 5px;
+                }
+
+                &.date {
+                    color: #184D47;
+                    font-family: 'Rubik-Regular';
+                    padding-left: 40px;
+                }
+            }
+        }
+        .actions {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            @media (max-width:768px) {
+                margin-top: 20px;
+            }
+        
+            >p {
+                color: #4E4E56;
+            }
+            b {
+                color: #1B4D47;
+                font-family: 'Rubik-Regular';
+            }
+            .loading {
+                color: #FD7363;
+                display: inline-block;
+                font-size: 16px;
+                padding-right: 4px;
+            }
+            button {
+                display: block;
+                width: 100%;
+                border-radius: 10px;
+                color: #fff;
+                background-color: #18AD57;
+                padding: 10px;
+                margin: 10px auto;
+
+                &.keep-it {
+                    background-color: #18AD57;
+                }
+                &.update {
+                    background-color: #99B2AF;
+                }
+                &.remove {
+                    background-color: #EA1335;
+                }
+
+                &:hover {
+                    opacity: .9;
+                }
+            }
+        }
+    }
+
+}

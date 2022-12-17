@@ -1,0 +1,133 @@
+<div [hidden]="uploadingPhotos" class="container form-stepper">
+    <form [formGroup]="stepForm" autocomplete="off" novalidate #formRef="ngForm">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12" *ngFor="let ctrl of stepForm.controls | keyvalue;let index = index;">
+                <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
+                    <span> <img [src]="getImageSrc(ctrl.key,formData)"  alt="..."/></span>
+                    {{getKeyName(ctrl.key, formData)}}
+                </p>
+                <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
+                    <ng-container
+                        [ngTemplateOutlet]="getType(formData, ctrl.key) === 'dropdownSelect' ? dropdownSelect : getType(formData, ctrl.key) === 'upload' ? imagesUpload : getType(formData, ctrl.key) === 'inputNumber' ?  inputNumber : multiSelectCheckbox"
+                        [ngTemplateOutletContext]="{key: index}">
+                    </ng-container>
+                </div>
+                <ng-template #imagesUpload let-key="key">
+                    <div class="imagesUpload">
+                        <button *ngIf="!uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0"
+                            style="background-color: #184D471A;">
+                            {{'sell.unit Photos' | translate}} <img
+                                src="../../../../assets/images/add-box-line.svg" alt="..."/></button>
+                        <div class="row" *ngIf="imagesPreview() && !uploadingPhotos" style="position: relative;">
+                            <img *ngFor="let item of imagesPreview();let index = index;" src="{{item}}"
+                                style="width: 70px; height: auto;height:70px; border-radius: 10px;margin-bottom: 10px;padding: 5px;" alt="..."/>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #multiSelectCheckbox let-key="key">
+                    <div class="col-6 mb-2"
+                        *ngFor="let sValue of util.getFilteredValues(ctrl.key,formData);let i = index;">
+                        <input ng-change="false"
+                            (change)="setupFormControlValue($event,ctrl.key, sValue, checkIsSelected(ctrl.key, sValue))"
+                            mdbCheckbox type="checkbox" class="btn-check" [id]="ctrl.key + i" autocomplete="off" />
+                        <label [class.filled]="checkIsSelected(ctrl.key, sValue) !== -1" class="btn btn-primary"
+                            [for]="ctrl.key + i">
+                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                        </label>
+                    </div>
+                </ng-template>
+
+                <ng-template #radioButton let-key="key">
+                    <div class="col-6 mb-2 btn-group"
+                        *ngFor="let sValue of util.getFilteredValues(ctrl.key,formData);let i = index;">
+                        <input mdbRadio type="radio" class="btn-check-" [id]="ctrl.key + i" autocomplete="off"
+                            [checked]="checkIsSelected(ctrl.key, sValue.id) !== -1" [value]="sValue.id" />
+                        <label [class.filled]="checkIsSelected(ctrl.key, sValue.id) !== -1" class="btn btn-primary"
+                            [for]="ctrl.key + i">
+                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                        </label>
+                    </div>
+                </ng-template>
+                <ng-template #dropdownSelect let-key="key">
+                    <div [formGroup]="stepForm" class="col-12 mb-3">
+                        <select #dropdwnSelect (change)="onDropdownSelectChanged(ctrl.key, dropdwnSelect.value)"
+                            class="mt-3 form-select form-select-lg mb-3" aria-label="form-select-lg">
+                            <option value="" hidden>{{'sell.Select your option' | translate}}</option>
+                            <option [value]="option.id" *ngFor="let option of util.getFilteredValues(ctrl.key,formData)"
+                                [selected]="checkSelected(ctrl.key,option)"> {{activeLang === 'en' ? option.name_en :
+                                option.name_ar}}</option>
+                        </select>
+                    </div>
+                </ng-template>
+                <ng-template #inputNumber let-key="key">
+                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                        <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
+                            class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(ctrl.key)}}</span>
+                        <input [value]="getFormValue(ctrl.key)" placeholder="{{'sell.Enter value' | translate}}"
+                            (keyup)="onInputNumberChange(ctrl.key,$event)" style="height:48px" class="form-control mt-3"
+                            type="number" min="0" />
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div [hidden]="!uploadingPhotos" class="photos-uploader">
+    <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-pills">
+            <p style="width: 100%;padding: 15px;">{{'sell.photoUpload.Select category' | translate}}</p>
+            <li ngbNavItem *ngFor="let ctrl of imagesForm.controls | keyvalue;let index = index;" [ngbNavItem]="index"
+                class="mb-2">
+                <a class="tab-head" #index ngbNavLink>{{keyTranslate(ctrl.key, imgTags)}}</a>
+                <ng-template ngbNavContent>
+                    <div class="row content">
+                        <p class="pt-5" style="text-align: center;">{{'sell.photoUpload.Add photo for the' | translate}}
+                            {{keyTranslate(ctrl.key,
+                            imgTags)}}</p>
+                        <img (click)="file.click()" *ngIf="!myFilesPreview[ctrl.key]?.length" class="mb-2"
+                            style="width: 154px;margin: auto;display: block;cursor: pointer;"
+                            src="../../../../assets/images/photo__.svg" alt="..."/>
+                        <div class="row" *ngIf="myFilesPreview[ctrl.key]?.length">
+                            <div class="col-sm-12 col-md-6 mb-3"
+                                *ngFor="let item of myFilesPreview[ctrl.key];let index = index;"
+                                style="position: relative;">
+                                <img src="{{item}}" style="width: 100%; height: auto;height:250px;" alt="..."/>
+                                <span style="position: absolute;
+                            right: 20px;
+                            top: 8px;
+                            background-color: #FFFFFF;
+                            width: 25px;
+                            text-align: center;
+                            border-radius: 50%;
+                            height: 25px;
+                            cursor: pointer;" (click)="deleteImg(ctrl.key, index)">
+                                    <fa-icon style="font-size: 13px;" [icon]="faTimes" class="user-faTimes"></fa-icon>
+                                </span>
+                            </div>
+                        </div>
+                        <input hidden #file type="file" name="myFile" accept="image/png,image/jpeg"
+                            (change)="fileEvent($event,ctrl.key)" value="" multiple />
+                        <div class="row justify-content-center button-row">
+                            <button (click)="file.click()">
+                                <img src="../../../../assets/images/photo_.svg" width="20px" alt="..."/> {{'sell.photoUpload.add
+                                images' | translate}}</button>
+                            <button (click)="next()" class="done">
+                                {{'button.actions.Done' | translate}}</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <!-- <li ngbNavItem>
+              <a ngbNavLink>Second</a>
+              <ng-template ngbNavContent>Second content</ng-template>
+            </li> -->
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+        <!-- <div class="col-lg-6 col-sm-12" *ngFor="let ctrl of imagesForm.controls | keyvalue;let index = index;">
+            dd
+        </div> -->
+    </form>
+    <!-- <app-photos-uploader></app-photos-uploader> -->
+</div>

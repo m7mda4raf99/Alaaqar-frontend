@@ -1,0 +1,119 @@
+<div class="container-fluid contactus">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <div class="sub-head">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xs-12 col-md-10 ">
+                    <p class="title"> {{'contactus.title' | translate}}</p>
+                    <p class="sm-title"><span class="home-tab" [routerLink]="['/']">{{'contactus.sub.Home' | translate}}</span> <span>/ {{'contactus.sub.contact us' | translate}}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="background-color: #F7F7F7;">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-md-10 col-lg-8 main-content">
+                <div class="get-in-touch">
+                    <h2 style="padding-bottom: 15px;">
+                        <span class="top"></span>
+                        {{'contactus.Get in touch' | translate}} 
+                    </h2>
+                    <p style="color: #A9A9A9;padding-bottom: 50px;">
+                        {{'contactus.How can we help you? we are here for you!' | translate}}
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <form [formGroup]="contactForm" class="contactForm">
+                                <div class="nput-group mb-3">
+                                    <label for="name" class="form-label">{{'contactus.Name' | translate}}</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend">
+                                            <fa-icon [icon]="faUser" class="user-icon"></fa-icon>
+                                        </span>
+                                        <input formControlName="name" type="text" class="form-control" id="name"
+                                            aria-describedby="inputGroupPrepend" required>
+                                    </div>
+                                </div>
+                                <div class="nput-group mb-3">
+                                    <label for="validationCustomUsername" class="form-label">{{'contactus.Email' | translate}}</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend">
+                                            <fa-icon [icon]="faEnvelope" class="user-faEnvelope"></fa-icon>
+                                        </span>
+                                        <input formControlName="email" type="text" class="form-control"
+                                            id="validationCustomUsername" aria-describedby="inputGroupPrepend">
+                                    </div>
+                                </div>
+                                <div class="nput-group mb-3">
+                                    <label for="validationCustomUsername" class="form-label">{{'contactus.Phone' | translate}}</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend">
+                                            <fa-icon [icon]="faPhone" class="user-faEnvelope"></fa-icon>
+                                        </span>
+                                        <input formControlName="phone" type="text" class="form-control"
+                                            id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                                    </div>
+                                </div>
+                                <div class="nput-group mb-3">
+                                    <label for="validationCustomUsername" class="form-label">{{'contactus.Message' | translate}}</label>
+                                    <div class="input-group has-validation">
+                                        <textarea rows="7" formControlName="message" type="text" class="form-control"
+                                            id="validationCustomUsername"
+                                            aria-describedby="inputGroupPrepend"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button style="    width: 200px;height: 50px;" [disabled]="contactForm.invalid"
+                                        (click)="submit()" class="btn button-success" type="submit">{{'button.actions.Submit' | translate}}</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12 info">
+                                    <div>
+                                        <span>
+                                            <fa-icon [icon]="faPhone" class="user-phone"></fa-icon>
+                                        </span>
+                                      {{contacts.contact_phone}}
+
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <fa-icon [icon]="faEnvelope" class="user-faEnvelope"></fa-icon>
+                                        </span>
+                                        {{contacts.contact_email}}
+
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <fa-icon [icon]="faWhatsappSquare"></fa-icon>
+                                        </span>
+                                        {{contacts.contact_whatsapp}}
+
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
+                                        </span>
+                                        {{contacts.contact_location_en}}
+
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="map">
+                                        <div class="mapouter"><div class="gmap_canvas"><iframe width="383" height="325" id="gmap_canvas" src="https://maps.google.com/maps?q=%D8%A7%D9%84%D9%82%D8%B1%D9%86%D9%81%D9%84%20%D8%A7%D9%84%D8%AA%D8%AC%D9%85%D8%B9%20%D8%A7%D9%84%D8%AE%D8%A7%D9%85%D8%B3&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://fmovies-online.net"></a><br><style>.mapouter{position:relative;text-align:right;height:325px;width:383px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:325px;width:383px;}</style></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,54 @@
+$active_background: transparent linear-gradient(180deg, #fd4965 0%, #fd7363 100%) 0% 0% no-repeat padding-box;
+
+.alaqaar-how-it-works {
+    .row {
+        margin: 0;
+    }
+    padding: 50px 0px;
+    background-color: #fff;
+
+    .switcher {
+        background-color: #f7f7f7;
+        // padding: 5px;
+        border-radius: 20px;
+        .switch-tab {
+            font-family: "Rubik-medium";
+            font-size: 13px;
+            padding: 9px 7px;
+            color: #a9a9a9;
+            margin: 2px;
+            border-radius: 20px;
+            border: 1px solid #f7f7f7;
+            @media (max-width: 1024px) {
+                font-size: 12px;
+            }
+            &.left {
+                background: linear-gradient(to right, #f7f7f7 50%, rgb(253, 73, 101) 50%) left;
+                background-size: 200%;
+            }
+            &.right {
+                background: linear-gradient(to left, #f7f7f7 50%, rgb(253, 73, 101) 50%) right;
+                background-size: 200%;
+            }
+            @media (max-width: 768px) {
+                font-size: 10px;
+            }
+            &.active {
+                color: #fff;
+                transition: all 0.4s ease-out;
+                transition: color 0.5s ease-in-out;
+                -webkit-transition: all 0.4s ease-out;
+                -webkit-transition: color 0.5s ease-in-out;
+                background: $active_background;
+
+
+                &.left {
+                    background-position: right;
+                }
+                &.right {
+                    background-position: left;
+                }
+            }
+        }
+    }
+}

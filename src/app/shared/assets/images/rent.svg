@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39.999" height="36.822" viewBox="0 0 39.999 36.822">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fd4965"/>
+      <stop offset="1" stop-color="#fd7363"/>
+    </linearGradient>
+  </defs>
+  <g id="property-to-rent" transform="translate(-2 1)">
+    <rect id="Rectangle_391" data-name="Rectangle 391" width="9.317" height="4.286" transform="translate(17.715 31.536)" fill="url(#linear-gradient)"/>
+    <rect id="Rectangle_511" data-name="Rectangle 511" width="9.317" height="4.286" transform="translate(17.715 -0.5)" stroke="#f7f7f7" stroke-width="1" fill="url(#linear-gradient)"/>
+    <rect id="Rectangle_510" data-name="Rectangle 510" width="39.999" height="29.999" rx="4" transform="translate(2 1.643)" fill="url(#linear-gradient)"/>
+    <text id="RENT" transform="translate(5.331 19.93)" fill="#fff" font-size="13" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">RENT</tspan></text>
+  </g>
+</svg>

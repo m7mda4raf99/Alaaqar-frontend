@@ -1,0 +1,51 @@
+.footer {
+    box-shadow: 0px -3px 16px #59595919;
+    .logo {
+        display: block;
+        width: 250px;
+        height: 250px;
+        background: transparent url('../../assets/images/logo.svg') 0% 0% no-repeat padding-box;
+    }
+    h3 {
+        color: #2C2C2C;
+    }
+    p {
+        color: #A9A9A9;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+    .social-links {
+        span {
+            display: inline-block;
+            opacity: 1;
+            width: 24px;
+            height: 24px;
+            padding: 0px 24px;
+            &.fb {
+                background: transparent url('../../assets/images/facebook-fill.svg') 0% 0% no-repeat padding-box;
+            }
+            &.ig {
+                background: transparent url('../../assets/images/instagram-line.svg') 0% 0% no-repeat padding-box;
+            }
+            &.tw {
+                background: transparent url('../../assets/images/twitter-fill.svg') 0% 0% no-repeat padding-box;
+            }
+            &.you {
+                background: transparent url('../../assets/images/youtube-fill.svg') 0% 0% no-repeat padding-box;
+            }
+            &.ln {
+                background: transparent url('../../assets/images/linkedin-box-fill.svg') 0% 0% no-repeat padding-box;
+            }
+
+        }
+        
+    }
+
+    .line-break {
+        border: 1px solid #FD7363;
+        background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%) 0% 0% no-repeat padding-box;
+    
+    }
+}

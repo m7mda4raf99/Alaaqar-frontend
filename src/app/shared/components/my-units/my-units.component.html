@@ -1,0 +1,228 @@
+<div class="container-fluid my-units" [class.grid]="view === 'grid'" [class.list]="view === 'list'">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <div [hidden]="isLoading" class="row justify-content-center">
+        <div class="col-xs-12 col-lg-10">
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <p class="main-title">{{'myunits.title' | translate}}</p>
+                    <div class="head">
+                        <p> <span style="color: #ABABB6;cursor: pointer;"><span class="home-tab" [routerLink]="['/']">{{'myunits.sub.Home' | translate}}</span> </span>/
+                            {{'myunits.sub.myunits' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 switchers">
+                    <div class="row">
+                        <div class="col-6">
+                            <select [(ngModel)]="activeSection" class="form-select form-select-lg mb-3 float-end"
+                                aria-label=".form-select-lg example">
+                                <option value="property">{{'myunits.My Property' | translate}}</option>
+                                <option value="inquery">{{'myunits.My inquiry' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-6" style="position: relative;">
+                            <select [(ngModel)]="view" class="form-select list form-select-lg mb-3 float-end"
+                                aria-label=".form-select-lg example">
+                                <option value="grid"> {{'myunits.Grid View' | translate}} </option>
+                                <option value="list">{{'myunits.List View' | translate}}</option>
+                            </select>
+                            <fa-icon *ngIf="view === 'list'" [icon]="faListAlt"></fa-icon>
+                            <fa-icon *ngIf="view === 'grid'" [icon]="faTh"></fa-icon>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-lg-8">
+                    <div class="row">
+                        <div class="row justify-content-center mt-3 results" *ngIf="activeSection === 'property' && items.length > 0">
+                            <!-- property tab tab-->
+                            <div class="row" >
+                                <div *ngFor="let item of items | keyvalue;let in =index;" class="col-xs-12 col-sm-6"
+                                    [class.col-lg-12]="view === 'list'" [class.col-lg-6]="view === 'grid'">
+                                    <div class="card mb-3" *ngIf="item.key !== 'icons_path'" style="cursor: pointer;"
+                                        (click)="navigateToSingleUnit(item.value)">
+                                        <div class="row g-0">
+                                            <div [class.col-md-12]="view === 'grid'" [class.col-md-6]="view === 'list'">
+                                                <span style="cursor: pointer;" class="bage">{{
+                                                    toUpperCase(returnPropose(item.value)) }}</span>
+                                                <img src="{{getMAinImageSrc(item.value)}}" class="img-fluid" alt="...">
+                                            </div>
+                                            <div [class.col-md-12]="view === 'grid'" [class.col-md-6]="view === 'list'">
+                                                <div class="card-body" style="cursor: pointer;">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title">
+                                                                {{numberWithCommas(returnPrice(item.value))}} EGP </h5>
+                                                            <span class="location">
+                                                                <img
+                                                                    src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                                                {{returnLocation(item.value)}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-text">
+                                                        <div class="row">
+                                                            <div [class.col-6]="view === 'list'" [class.col-3]="view === 'grid'"  class="desc"
+                                                                *ngFor="let c of returnCriteria(item.value) | keyvalue| slice:0:4;let i =index;">
+                                                                <!-- <pre> {{c.value | json}}</pre> -->
+                                                                <!-- <div *ngIf="i < 4"> -->
+                                                                <img class="img-icon" src="{{returnIconPath(c.value)}}"
+                                                                    alt=".." />
+                                                                <p> {{returnOptionsName(c.value)}}</p>
+
+                                                                <!-- </div> -->
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row" *ngIf="items && items.length > 3">
+                                    <button (click)="getMoreUnits()" *ngIf="checkUnits()" [disabled]="loadMore" class="btn button-success more">
+                                        <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
+                                        <span *ngIf="loadMore">
+                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
+                                            Loading...
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="noResult" *ngIf="!checkUnits() && activeSection === 'property'">
+                            <div class="alert alert-light" role="alert" *ngIf="!checkUnits()">
+                                <div class="no-data">
+                                    <div class="no-data__icon">
+    
+                                        <img style="padding:0 30px;" src="../../assets/images/no-units.svg"/>
+                                    </div>
+                                    
+                                    <p>{{'no_properties' | translate}} <br> {{'list_properties' | translate}}</p>
+                                    
+                                    <span (click)="addUnit()" class="btn button-success more">{{'add_property' | translate}}</span>
+                                </div>
+                            </div>
+                            <button class="btn button-success add-property" (click)="addUnit()">{{'myunits.Add new
+                                Property' | translate}}</button>
+                        </div>
+                        <div class="row" *ngIf="activeSection === 'inquery' ">
+                            <div *ngFor="let item of visits" class="col-xs-12" [class.col-lg-6]="view === 'grid'" [class.grid-view]="view === 'grid'"
+                                [class.col-1g-12]="view === 'list'">
+                                <div class="single-item">
+                                    <div class="row">
+                                        <div class="col-9 details" [class.col-12]="view === 'grid' ">
+                                            <div class="row">
+                                                <div class="col-4 rt-icon" *ngIf="view === 'grid'">
+                                                    <div class="head">{{ activeLang === 'en' ? item.type_name_en : item.type_name_ar }}</div>
+                                                    <fa-icon [icon]="faCalendar"></fa-icon>
+                                                    <p>{{item.created_at}} <br> {{item.created_time}}</p>
+                                                </div>
+                                                <div class="col-8">
+                                                    <p class="title">{{item.title}}</p>
+                                                    <div class="location">
+                                                        <img src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                                        {{item.location}} {{getLocation(item)}}
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 desc"  *ngFor="let criteria of getCriteria(item)">
+                                                            <img class="img-icon"
+                                                                src="{{baseUrl + criteria.icon}}"
+                                                                alt=".." />
+                                                            {{getOption(criteria)}}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="actions">
+                                                    <button (click)="navigateToInquiryDetails(item)" class="btn button-success view-result">{{'myunits.View Results' | translate}}</button>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                        <div class="col-3 rt-icon" *ngIf="view === 'list'">
+                                            <div class="head">{{ activeLang === 'en' ? item.type_name_en : item.type_name_ar }}</div>
+                                            <fa-icon [icon]="faCalendar"></fa-icon>
+                                            <p>{{item.created_at}} <br> {{item.created_time}}</p>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                          <div class="row">
+                            <button (click)="getMoreInquires()" *ngIf="visits && visits.length > 0" [disabled]="loadMore" class="btn button-success more">
+                                <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
+                                <span *ngIf="loadMore">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
+                                    Loading...
+                                </span>
+                            </button>
+                          </div>
+
+                            <!-- <button *ngIf="visits.length > 0" class="btn button-success more">More</button> -->
+                            <div class="row" *ngIf="visits.length == 0">
+                                <div class="alert alert-light" role="alert">
+                                    {{'myunits.No visits yet' | translate}}
+                                 </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-4" style="position: relative;padding-bottom: 30px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section">
+                                <p class="title">{{'myunits.List a new Property' | translate}}</p>
+                                <p class="description">
+                                    It is a long established fact that a reader will be distracted by the readable
+                                    content of a page when looking at its layout It is a long established fact that a
+                                    reader will be distracted by the readable content of a page when looking at its
+                                    layout It is a long established fact that a reader will be distracted by the
+                                    readable content of a page when looking at its layout It is a long established fact
+                                    that a reader will be distracted by the readable content of a page when looking at
+                                    its layout.
+                                </p>
+                                <!-- <button class="btn button-success add-property" >{{'myunits.Add new
+                                    Property' | translate}}</button> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <div style="width: 100%;">
+                            <img src="../../../../assets/images/Ellipse 1264.png" alt="..."/>
+                            <p>Ahmed Ali</p>
+                            <div class="raiting-model">
+                                <ngb-rating [max]="5" [rate]="3">
+                                    <ng-template let-fill="fill" let-index="index">
+                                        <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                                    </ng-template>
+                                </ngb-rating>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <p style="text-align: center;">
+                            {{'model.one of our agents will contact you' | translate}} <b
+                                style="color: #FD4964;">09:00 AM to 09:00 PM</b>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-save" (click)="c('Save click')">{{'button.actions.Done' | translate}}</button>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>

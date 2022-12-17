@@ -1,0 +1,141 @@
+<div class="container-fluid my-visits" [class.grid]="view === 'grid'" [class.list]="view === 'list'">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-lg-10">
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <p class="main-title"> {{'myvisits.title' | translate}}</p>
+                    <div class="head">
+                        <p> <span style="color: #ABABB6;cursor: pointer;"><span class="home-tab"
+                                    [routerLink]="['/']">{{'myvisits.sub.Home' | translate}}</span> </span>/
+                            {{'myvisits.sub.myvisits' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 switchers">
+                    <div class="row">
+                        <div class="col-6">
+                            <select [(ngModel)]="activeSection" (ngModelChange)="filterVisits(activeSection)"
+                                class="form-select my-visits-select form-select-lg mb-3 float-end"
+                                aria-label=".form-select-lg example">
+                                <option value="upcoming">{{'myvisits.Upcoming Visits' | translate}} </option>
+                                <option value="old">{{'myvisits.Old visits' | translate}} </option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select [(ngModel)]="view" class="form-select list form-select-lg mb-3 float-end"
+                                aria-label=".form-select-lg example">
+                                <option value="grid">{{'myvisits.Grid View' | translate}}</option>
+                                <option value="list"> {{'myvisits.List View' | translate}}</option>
+                            </select>
+                            <fa-icon *ngIf="view === 'list'" [icon]="faListAlt"></fa-icon>
+                            <fa-icon *ngIf="view === 'grid'" [icon]="faTh"></fa-icon>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-lg-8">
+                    <div [hidden]="!items.length" class="row" *ngIf="items.length > 0">
+                        <div *ngFor="let item of items" class="col-xs-12" [class.col-xl-6]="view === 'grid'"
+                            [class.col-1g-12]="view === 'list'">
+                            <div class="single-item">
+                                <div class="row">
+                                    <div class="col-9 details">
+                                        <p class="title">{{item?.title}}</p>
+                                        <div class="location">
+                                            <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                                alt="..." />
+                                            {{item?.location}} new cairo
+                                        </div>
+                                        <div class="avatar">
+                                            <img src="{{setAvatarUrl(item)}}" alt="..." />
+                                            {{item?.agent}}
+                                        </div>
+                                        <p *ngIf="item.status === 'review'" class="helper-text" style="color: #5A8DEE;">
+                                            {{'model.one of our agents will contact you soon' | translate}}</p>
+                                        <div *ngIf="item?.status !== 'review'" class="actions">
+                                            <button (click)="reschedule(item,content)"
+                                                class="btn button-success reschedule">{{'myvisits.Reschedule' |
+                                                translate}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 rt-icon" [class.upcoming]="item.status !== 'review'"
+                                        [class.in-review]="item?.status === 'review'">
+                                        <fa-icon *ngIf="item?.status !== 'review' " [icon]="faCalendar"></fa-icon>
+                                        <fa-icon *ngIf="item?.status === 'review' " [icon]="faClock"></fa-icon>
+                                        <p *ngIf="item?.status === 'review' ">In review</p>
+                                        <p *ngIf="item?.status !== 'review' ">{{item.apointment_date}} <br>
+                                            {{item.apointment_time}}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!items.length">
+                        <div class="alert alert-light" role="alert">
+                            <div class="no-data">
+                                <div class="no-data__icon">
+
+                                    <img src="../../assets/images/no-visits.svg"/>
+                                </div>
+                                <p>{{'no_visits' | translate}}</p>
+                                <span (click)="addUnit()" class="btn button-success more">{{'finding_property' | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-4" style="position: relative;padding-bottom: 30px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section">
+                                <p class="title">{{'myvisits.List a new Property' | translate}}</p>
+                                <p class="description">
+                                    It is a long established fact that a reader will be distracted by the readable
+                                    content of a page when looking at its layout It is a long established fact that a
+                                    reader will be distracted by the readable content of a page when looking at its
+                                    layout It is a long established fact that a reader will be distracted by the
+                                    readable content of a page when looking at its layout It is a long established fact
+                                    that a reader will be distracted by the readable content of a page when looking at
+                                    its layout.
+                                </p>
+                                <!-- <button class="btn button-success add-property" (click)="addUnit()">{{'myvisits.Add new
+                                    Property' | translate}}</button> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <div style="width: 100%;">
+                            <img src="../../../../assets/images/Ellipse 1264.png" alt="..." />
+                            <p>Ahmed Ali</p>
+                            <div class="raiting-model">
+                                <ngb-rating [max]="5" [rate]="3">
+                                    <ng-template let-fill="fill" let-index="index">
+                                        <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                                    </ng-template>
+                                </ngb-rating>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <p style="text-align: center;">
+                            {{'model.one of our agents will contact you' | translate}} <b style="color: #FD4964;">09:00
+                                AM to 09:00 PM</b>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-save" (click)="c('Save click')">Done</button>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>

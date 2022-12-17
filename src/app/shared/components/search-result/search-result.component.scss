@@ -1,0 +1,551 @@
+
+
+
+.results {
+    background-color: #F7F7F7;
+
+    .main-row {
+        margin-top: 50px;
+
+        .result-head {
+            p.float-start {
+                font-family: 'Rubik-bold';
+                font-size: 25px;
+            }
+
+            .form-select {
+                border-radius: 20px;
+                border: 0;
+                outline: 0;
+                box-shadow: 0px 3px 6px #59595919;
+                padding-left: 50px;
+            }
+
+            fa-icon {
+                position: absolute;
+                top: 12px;
+                left: 34px;
+            }
+        }
+
+        .results {
+            .card-content {
+                border-top-left-radius: 20px;
+                overflow: hidden;
+                border-top-right-radius: 20px;
+
+                &:hover {
+                    .card-title {
+                        color: #FF725F;
+                    }
+
+                    // .overlay {
+                    //     background: transparent linear-gradient(
+                    //         180deg,#2b696242 0%,#327064bf 100%) 0% 0% no-repeat padding-box;
+                    // }
+                }
+
+                // .overlay {
+                //     width: 100%;
+                //     display: inline-block;
+                //     position: absolute;
+                //     height: 100%;
+                //     background: transparent linear-gradient(
+                // 180deg,#184D4742 0%,#092B24BF 100%) 0% 0% no-repeat padding-box;
+                //     border-top-left-radius: 20px;
+                //     border-top-right-radius: 20px;
+                //     cursor: pointer;
+                //     -webkit-transition: all 0.4s ease;
+                //     -ms-transition: all 0.4s ease;
+                //     transition: all 0.4s ease;
+
+
+                // }
+            }
+
+            background-color: #F7F7F7;
+
+
+
+
+        }
+    }
+
+}
+
+.card {
+    border: none;
+    border-radius: 20px;
+
+    .img-fluid {
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        width: 100%;
+        background: transparent linear-gradient(180deg, #184D4742 0%, #092B24BF 100%) 0% 0% no-repeat padding-box;
+    }
+
+    .card-title {
+        -webkit-transition: all 0.4s ease;
+        -ms-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+        font-family: 'Rubik-bold';
+        font-size: 22px;
+
+        span {
+            color: #FF725F;
+            font-size: 13px;
+        }
+
+    }
+
+    .location {
+        display: block;
+        font-size: 14px;
+        color: #ABABB6;
+        padding-bottom: 10px;
+
+        img {
+            width: 8px;
+            margin-right: 3px;
+        }
+    }
+
+    .card-text {
+        color: #ABABB6;
+
+        .desc {
+            padding-top: 5px;
+            font-size: 14px;
+
+            .img-icon {
+                width: 20px;
+            }
+        }
+    }
+
+    .card-body {
+        .percent {
+            border-radius: 50%;
+            padding: 4px;
+            background-image: linear-gradient(white, white),
+                linear-gradient(to right, #147AD6, #79D2DE, #C175E8, #EC6666, #F9C669);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            display: inline-block;
+            width: 55px;
+            height: 55px;
+
+            span {
+                padding: 10px 9px;
+            }
+        }
+
+        .score {
+            position: absolute;
+            right: 40px;
+            top: 20px;
+
+            @media (max-width: 320px) {
+                right: 17%;
+            }
+
+            @media (max-width: 375px) {
+                right: 32%;
+            }
+
+            @media (max-width: 425px) {
+                right: 32%;
+            }
+
+            @media (max-width: 768px) {
+                right: 41%;
+            }
+
+            @media (max-width: 1024px) {
+                right: 7%;
+            }
+
+            @media (max-width: 1440px) {
+                right: 34%;
+            }
+        }
+    }
+}
+
+.bage {
+    width: 100px;
+    // height: 40px;
+    background: transparent linear-gradient(180deg, rgba(253, 73, 101, 1) 0%, rgba(253, 115, 99, 1) 100%) 0% 0% no-repeat padding-box;
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+    padding-top: 8px;
+    border-radius: 5px;
+    left: 15px;
+    color: #fff;
+    top: 15px;
+    font-size: 13px;
+    line-height: 17px;
+    padding-bottom: 7px;
+
+    #mainApp.rtl & {
+        left: auto;
+        right: 10px;
+    }
+}
+
+.fav {
+    width: 35px;
+    height: 32px;
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    top: 15px;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.form-select {
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    box-shadow: 0px 3px 6px #59595919;
+    padding-left: 50px;
+}
+
+fa-icon {
+    position: absolute;
+    top: 12px;
+    left: 34px;
+}
+
+.main-bar{
+    display: flex;
+    margin-bottom: 15px;
+    flex-direction: row-reverse;
+    .btn{
+        width: 200px;
+        height: 40px;
+        line-height: 30px;
+    }
+}
+
+
+
+.search-filters {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 40px;
+
+    &__box {
+        display: flex;
+        flex-grow: 1;
+        flex-wrap: wrap;
+    }
+
+    &__filter {
+        margin-right: 20px;
+        position: relative;
+        margin-bottom: 15px;
+        &>p{
+            margin-bottom: 5px;
+            font-size: 14px;
+            
+        }
+        &.city,&.estate_type,&.propose{
+            ng-select {
+                max-width: 120px;
+            }   
+        }
+        &.area,&.neighborhood{
+            ng-select {
+                min-width: 300px;
+                max-width: 300px;
+                width: auto;
+                
+            }  
+            // .ng-input{
+            //     display: none !important;
+            // }
+        }
+        
+
+        .icon{
+            position: absolute;
+            right: 1px;
+            width: 35px;
+            height: 53px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            bottom: 1px;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            pointer-events: none;
+            z-index: 1001;
+            svg{
+                width: 18px;
+                height: 18px;
+                display: block;
+            }
+        }
+
+
+        
+        
+
+        ng-select {
+            // min-width: 120px;
+            width: 250px;
+
+            
+            
+            // .ng-select-container{
+            //     border-radius: 25px;
+            // }
+        }
+
+
+        &.priceRange {
+            // min-width: 21%;
+            min-width: 180px;
+            .setPriceBtn{
+                border-radius: 50px !important;
+                font-size: 14px;
+                box-shadow: 0 3px 6px #59595919 !important;
+                height: 55px;
+                min-width: 100%;
+                // width: 100%;
+            }
+
+            input {
+                width: 95%;
+
+                @media (max-width: 768px) {
+                    width: 95%;
+                }
+
+                @media (max-width: 425px) {
+                    width: 100%;
+                }
+
+                width: 95%;
+                display: inline-flex;
+                transition: all 0.2s ease;
+                margin: 0 4px;
+                height: 44px;
+                text-align: center;
+                border-radius: 10px;
+                background-color: rgb(246, 246, 250);
+                border: 1px solid rgb(209, 209, 213);
+                border-radius: 4px;
+                box-sizing: border-box;
+                caret-color: #fa5a64;
+            }
+
+            .select-price {
+                display: block;
+                border: none;
+                background: transparent;
+                text-align: center;
+                padding: 5px;
+                width: 100%;
+                cursor: pointer;
+                color: rgb(42, 42, 51);
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .setPriceBtn {
+                background: #fff;
+                // border: 1px solid #fa5a64;
+                color: #626265;
+                outline: none;
+                box-shadow: none;
+                border-radius: 4px;
+
+                @media (max-width: 768px) {
+                    width: 100%;
+                    text-align: unset;
+                    border: 1px solid #ccc;
+                }
+
+                &.dimmed {
+                    color: #999;
+                }
+            }
+
+            ul.dropdown-menu {
+                margin-top: 25px !important;
+                // display: block;
+                padding: 10px;
+                border-top: none;
+                width: 375px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+                z-index: 1002;
+                @media (max-width: 425px) {
+                    width: 340px;
+                }
+            }
+
+            .foot {
+                background: #fa5a64;
+                padding: 17px;
+                color: #fff;
+                display: block;
+                width: 95%;
+                margin: 0 auto;
+
+                button {
+                    width: 65px;
+                    color: #fa5a64;
+                    border: 1px solid #fff;
+                    background: #fff;
+                }
+            }
+        }
+
+    }
+    .button-success{
+        height: 55px;
+        border-radius: 50px;
+        position: relative;
+        top: 26px;
+        width: 200px;
+        @media (max-width:1300px){
+            width: 360px;
+        }
+    }
+}
+
+._filter::ng-deep .ng-select-container{
+    border-radius: 50px !important;
+    font-size: 14px;
+    height: 55px;
+    box-shadow: 0 3px 6px #59595919;
+}
+
+._filter.multi::ng-deep .ng-select-container .ng-value-container{
+    padding-top: 5px;
+}
+
+._filter::ng-deep .ng-select-container .ng-value-container .ng-input>input{
+    display: none;
+}
+
+.ng-select.ng-select-multiple::ng-deep .ng-select-container .ng-value-container .ng-value .ng-value-label{
+    font-size: 11px;
+}
+
+
+
+#dropdownMenuButton1:after{
+    opacity: 0;
+}
+
+.form-select{
+    font-size: 14px !important;
+    height: 55px;
+    border-radius: 50px !important;
+    padding-left: 15px;
+    & ~ fa-icon{
+        position: absolute;
+        top: 17px;
+        right: 12px !important;
+        background: #Fff;
+        width: 16px;
+        display: flex;
+        left:  initial !important;
+    }
+}
+
+.rtl{
+    .search-filters{
+        &__filter{
+            margin-right: 0;
+            margin-left: 20px;
+            .icon{
+                right: inherit;
+                left: 1px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+                border-top-left-radius: 50px;
+                border-bottom-left-radius: 50px;
+                
+            }
+        }
+    }
+    .form-select{
+        padding-left: 0px;
+        padding-right: 15px;
+        & ~ fa-icon{
+            right: initial !important;
+            left: 12px !important;
+        }
+    }
+}
+
+@media (max-width:1600px){
+    .search-filters{
+        &__box{
+            flex-wrap: wrap;
+        }
+        &__filter{
+            width: 30%;
+            margin-bottom: 15px;
+            &.city,&.area,&.neighborhood,&.estate_type,&.propose,&.rooms,&.space{
+                ._filter{
+                    max-width: none;
+                    min-width: 100%;
+                    max-width: 100%;
+                    
+                }
+            }
+            &.estate_type,&.priceRange{
+                width: 46%;
+            }
+        }
+    }
+}
+
+@media (max-width:1169px){
+    .search-filters{
+        &__filter{
+            width: 45%;
+        }
+    }
+}
+
+@media (max-width:768px){
+    .search-filters{
+        flex-direction: column;
+        &__filter{
+            width: 100%;
+            margin: 0;
+            margin-bottom: 15px;
+            &.city,&.area,&.neighborhood,&.estate_type{
+
+            }
+            &.estate_type,&.priceRange{
+                width: 100%;
+            }
+        }
+        .button-success{
+            position: inherit;
+            width: 100%;
+            margin-top: 15px;
+        }
+    }
+}
+
+.breadcrumb{
+    justify-content: space-between;
+}

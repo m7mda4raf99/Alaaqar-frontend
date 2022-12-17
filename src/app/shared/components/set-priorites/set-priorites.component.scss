@@ -1,0 +1,182 @@
+.set-priorities {
+    .head {
+        width: 100%;
+        height: 400px;
+        background: linear-gradient(to bottom, rgba(24, 77, 71, 0.77), rgba(24, 77, 71, 0.03)),
+            url("../../../../assets/images/verne-ho-0LAJfSNa-xQ-unsplash\ \(1\).png");
+
+        .title {
+            color: #ffffff;
+            font-size: 30px;
+            padding: 30px 0px;
+            font-family: "Rubik-bold";
+        }
+        .sm-title {
+            font-size: 20px;
+            color: #ababb6;
+            font-family: "Rubik-Regular";
+            span {
+                color: #fff;
+            }
+        }
+    }
+}
+.priorites-row {
+    @media (max-width:1024px) {
+        justify-content: start !important;
+    }
+}
+.main-content {
+    margin-top: -175px;
+    padding-bottom: 35px;
+    .priorites-list {
+        .custom-element {
+            @media (min-width: 1024px) {
+                width: 16.87%;
+            }
+            @media only screen and (min-width: 768px) and (max-width: 1024px) {
+                width: 20.87%;
+            }
+            &.selected {
+                display: none;
+            }
+        }
+        .main {
+            background-color: #fff;
+            border-radius: 20px;
+            padding-bottom: 40px;
+            @media (min-width: 1024px) {
+                height: 720px;
+            }
+            p {
+                color: #2c2c2c;
+                font-size: 16px;
+                padding-top: 30px;
+            }
+            .box {
+                max-width: 170px;
+                height: 110px;
+                border: 1px solid #E7E7E7;
+                border-radius: 10px;
+                text-align: center;
+                margin: auto;
+                cursor: pointer;
+                @media (max-width: 425px) {
+                    max-width: 114px;
+                    height: 95px;
+                }
+
+                .icon {
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    vertical-align: text-bottom;
+                    margin-top: 15px;
+                    background-color: #f7f7f7;
+                    border-radius: 10px;
+                    img {
+                        display: inline-block;
+                        width: 30px;
+
+                        padding: 9px 5px;
+                    }
+                    @media only screen and (min-width: 768px) and (max-width: 1350px) {
+                        margin-top: 10px;
+                    }
+                }
+
+                .text {
+                    color: #a9a9a9;
+                    font-size: 13px;
+                    display: block;
+                    padding: 10px;
+                    @media only screen and (min-width: 768px) and (max-width: 1440px) {
+                        font-size: 14px;
+                        //    display: block;
+                    }
+                    @media (max-width: 425px) {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        // padding: 15px;
+    }
+    .priorites-control {
+        background: #fff;
+        border-radius: 20px;
+        margin-top: 15px;
+        padding: 10px;
+        .text-head {
+            font-family: "Rubik-bold";
+            font-size: 20px;
+            padding: 5px 15px;
+        }
+        .text-desc {
+            color: #7c828a;
+            font-size: 16px;
+            font-family: "Rubik-Regular";
+            padding: 5px 15px;
+        }
+        .hint {
+            font-size: 13px;
+            padding-left: 15px;
+            margin-top: -13px;
+        }
+        .card-header {
+            color: #2c2c2c;
+        }
+        .col {
+            background-color: #fff;
+            border-radius: 20px;
+            @media (min-width:1024px) {
+                height: max-content;
+            }
+        }
+        .box {
+            border: 1px solid #184D47;
+            height: 85px;
+            width: 120px;
+            @media only screen and (min-width: 1024px) and (max-width: 1440px) {
+                width: 100px;
+            }
+            border-radius: 10px;
+            vertical-align: middle;
+            text-align: center;
+            padding-top: 13px;
+            background-color: #184d471a;
+            position: relative;
+            .icon {
+                img {
+                    background: #fff;
+                    padding: 8px;
+                    border-radius: 50%;
+                    width: 35px;
+                    height: 37px;
+                }
+                .delete {
+                    position: absolute;
+                    right: 5px;
+                    background: #fff;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 4px;
+                    color: #ff725f;
+                    top: 5px;
+                    cursor: pointer;
+                    text-align: center;
+                    display: inline-block;
+                    padding-bottom: 24px;
+                    fa-icon {
+                        font-size: 12px;
+                    }
+                }
+            }
+            .text {
+                display: block;
+                padding-top: 4px;
+                font-size: 11px;
+            }
+        }
+    }
+}

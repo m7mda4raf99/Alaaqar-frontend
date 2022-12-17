@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.5" height="21.5" viewBox="0 0 19.5 21.5">
+  <g id="Iconly_Light_Calendar" data-name="Iconly/Light/Calendar" transform="translate(-2.25 -1.25)">
+    <g id="Calendar" transform="translate(3 2)">
+      <line id="Line_200" x2="17.824" transform="translate(0.093 7.404)" fill="none" stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_201" x2="0.009" transform="translate(13.442 11.31)" fill="none" stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_202" x2="0.009" transform="translate(9.005 11.31)" fill="none" stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_203" x2="0.009" transform="translate(4.558 11.31)" fill="none" stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_204" x2="0.009" transform="translate(13.442 15.196)" fill="none" stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_205" x2="0.009" transform="translate(9.005 15.196)" fill="none" stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_206" x2="0.009" transform="translate(4.558 15.196)" fill="none" stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_207" y2="3.291" transform="translate(13.044)" fill="none" stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <line id="Line_208" y2="3.291" transform="translate(4.966)" fill="none" stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path" d="M13.238,1.579H4.771C1.834,1.579,0,3.215,0,6.222v9.05C0,18.326,1.834,20,4.771,20h8.458C16.175,20,18,18.355,18,15.347V6.222C18.009,3.215,16.184,1.579,13.238,1.579Z" fill="none" stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,88 @@
+<div class="container form-stepper">
+    <form [formGroup]="stepForm" autocomplete="off" novalidate #formRef="ngForm">
+        <div class="row">
+            
+            <div class="col-12 mb-2">
+                <div class="row">
+                    <div class="col-xs-6 col-lg-2 priority-header"
+                        *ngFor="let ctrl of stepForm.controls | keyvalue;let index = index;">
+                        <div style="border: 1px solid #29292919;
+                        border-radius: 10px;
+                        color: #A9A9A9;
+                        margin: 5px auto;
+                        text-align: center;
+                        height: 60px;
+                        padding-top: 15px;">
+                            <p>
+                                <span> <img width="23px" height="25px" [src]="getImageSrc(ctrl.key,formData)" alt="..."/></span>
+                                {{getKeyName(ctrl.key, formData)}}
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-1 mt-3 row-head">
+                <img style="width:16px;display: inline-block;margin-right: 10px;"
+                    src="../../../../../assets/images/Path 9705.svg" alt="..."/>
+                <p *ngIf="activeLang === 'en'">
+                    {{'buy.Choose Priority' | translate}} {{activeTab}} {{'buy.Options' | translate}}
+                    <span>{{'buy.Your chosen Items for Priority' | translate}} {{activeTab}}</span>
+                </p>
+                <p *ngIf="activeLang === 'ar'">
+                    {{'buy.ar Priority' | translate}} {{activeTab}} 
+                    <span>{{'buy.Your chosen Items for Priority' | translate}} {{activeTab}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-lg-6 col-sm-12" *ngFor="let ctrl of stepForm.controls | keyvalue;let index = index;">
+                <p class="title"
+                    [class.bordered-top]="index === 3 || index === 4">
+                    <span> <img [src]="getImageSrc(ctrl.key,formData)" alt="..."/></span>
+                    {{getKeyName(ctrl.key, formData)}}
+                </p>
+                <div class="row" [class.bordered]="index === 0 || index === 1 || index ===3 || index === 4">
+
+                    <!-- [ngTemplateOutlet]="getType(formData, ctrl.key) === true ? multiSelectCheckbox : radioButton" -->
+                    <ng-container
+                        [ngTemplateOutlet]="multiSelectCheckbox"
+                        [ngTemplateOutletContext]="{key: index}">
+                    </ng-container>
+
+
+                </div>
+                <ng-template #multiSelectCheckbox let-key="key">
+                    <div class="col-6 mb-2"
+                        *ngFor="let sValue of util.getFilteredValues(ctrl.key,formData);let i = index;">
+                        <input (change)="setupFormControlValue($event,ctrl.key, sValue)" mdbCheckbox type="checkbox"
+                            class="btn-check" [id]="ctrl.key + i" autocomplete="off" />
+                        <label [class.filled]="checkIsSelected(ctrl.key, sValue) !== -1" class="btn btn-primary"
+                            [for]="ctrl.key + i">
+                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                            <span *ngIf="checkIsSelected(ctrl.key, sValue) !== -1">{{'buy.Option' | translate}}
+                                {{checkIsSelected(ctrl.key,
+                                sValue)+1}}</span>
+                        </label>
+                    </div>
+                </ng-template>
+                <ng-template #radioButton let-key="key">
+                    <div class="col-6 mb-2"
+                        *ngFor="let sValue of util.getFilteredValues(ctrl.key,formData);let i = index;">
+                        <input (click)="setCheckboxValue(ctrl.key,sValue)" mdbCheckbox type="radio"
+                            class="btn-check" [id]="ctrl.key + i" autocomplete="off" />
+                        <label [class.filled]="checkIsSelected(ctrl.key, sValue) !== -1" class="btn btn-primary"
+                            [for]="ctrl.key + i">
+                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                            <!-- <span *ngIf="checkIsSelected(ctrl.key, sValue) !== -1">
+                                {{checkIsSelected(ctrl.key,
+                                sValue)+1}}</span> -->
+                        </label>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </form>
+
+</div>

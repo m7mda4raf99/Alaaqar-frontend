@@ -1,0 +1,97 @@
+<div class="container-fluied favourites">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <div class="row justify-content-center" style="margin: 0;">
+        <div class="col-xs-12 col-md-10 main-row">
+            <div class="result-head row">
+                <div class="row result-head">
+                    <div class="col-sm-6 col-lg-10">
+                        <p class="float-start">
+                            {{'favorites.title' | translate }}</p>
+                    </div>
+                    <!-- <div class="col-7 col-lg-2" style="position: relative;">
+                        <select #dropdownFilter (change)="filterBy(dropdownFilter.value)" class="form-select form-select-lg mb-3 float-end" aria-label=".form-select-lg example">
+                            <option selected value="">{{'Results.sub.filter by' | translate}}</option>
+                            <option value="price">{{'Results.sub.Price' | translate}}</option>
+                        </select>
+                        <fa-icon [icon]="faFilter" class="faFilter"></fa-icon>
+                    </div> -->
+                </div>
+
+
+            </div>
+            <div class="head">
+                <p> <span style="color: #ABABB6;cursor: pointer;"><span class="home-tab" [routerLink]="['/']">{{'favorites.sub.Home' | translate }}</span> </span>/ {{'favorites.sub.Favorites' | translate }}</p>
+            </div>
+            <div class="row mt-3 results" *ngIf="results.length > 0">
+                <div *ngFor="let item of results" class="col-xs-12 col-sm-6 col-xl-4">
+                    <div class="card mb-3">
+                        <div class="row g-0 card-content">
+                            <div class="col-12" style="position: relative;">
+                                <span (click)="navigateToItemDetails(item)" class="overlay"></span>
+                                <span style="cursor: pointer;" (click)="navigateToItemDetails(item)"
+                                    class="bage">{{getPropose(item)}}</span>
+                                <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                    src="../../../../assets/images/Path 165 copy.png" alt="..."/>
+                                <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                    src="../../../../assets/images/Path 165.png" alt="..."/>
+                                <img style="cursor: pointer;height: 230px;" (click)="navigateToItemDetails(item)"
+                                    src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                            </div>
+                            <div class="col-md-12"> 
+                                <div class="card-body" style="cursor: pointer;" (click)="navigateToItemDetails(item)">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <h5 class="card-title">
+                                                {{ numberWithCommas(item['price'])}}
+                                                <br>{{'propertyDetails.EGP' | translate}}
+                                            </h5>
+                                            <span class="location">
+                                                <img src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                                {{activeLang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                            </span>
+                                        </div>
+                                        <!-- <div class="col-4 float-end">
+                                                <nz-progress
+                                                class="float-end"
+                                                    nzType="circle" [nzPercent]="getScore(item['score'])"
+                                                    [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                                </nz-progress>
+                                        </div> -->
+
+                                    </div>
+                                    <div class="card-text">
+                                        <div class="row">
+                                            <div class="col-6 desc" *ngFor="let c of item['criteria'] | slice:0:4">
+                                                <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
+                                                {{getCriteriaOptions(c)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" *ngIf="!results.length">
+                <div class="alert alert-light" role="alert">
+                    {{'myunits.No result' | translate}}
+                </div>
+            </div>
+            <!-- <div class="row justify-content-center" *ngIf="results.length && results.length > 5">
+                <button class="btn button-success more" (click)="showMore()">
+                    <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
+                    <span *ngIf="loadMore">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
+                        Loading...
+                    </span>
+                </button>
+                    
+            </div> -->
+        </div>
+    </div>
+</div>

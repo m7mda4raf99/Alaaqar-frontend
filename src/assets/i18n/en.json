@@ -1,0 +1,353 @@
+{
+    "header": {
+        "tab_home": "Home",
+        "my_visits": "My visits",
+        "my_units": "My units",
+        "blog": "Blog",
+        "how it works": "How it works",
+        "about_us": "About us",
+        "contact_us": "Contact us",
+        "Notifications": "Notifications",
+        "Profile": {
+            "edit": "Edit profile",
+            "Favorites": "Favorites",
+            "logout": "Logout",
+            "logout message": "Do you really wish to leave and log out? All the unsaved changes will be lost."
+        }
+    },
+    "Profile": {
+        "Edit profile": "Edit profile",
+        "Home":"Home",
+        "success": "Your profile has been updated successfully!",
+        "Name":"Name",
+        "Please Enter a valid phone number":"Please Enter a valid phone number",
+        "Save Changes":"Save Changes"
+    },
+    "button": {
+        "actions": {
+            "cancel": "Cancel",
+            "Done": "Done",
+            "Apply & Continue": "Apply",
+            "More": "More",
+            "Submit": "Submit",
+            "Back":"Back",
+            "Next":"Next",
+            "Review":"Review"
+        }
+    },
+    "model":{
+        "one of our agents will contact you":"One of our agents will contact you during official working hours from",
+        "one of our agents will contact you soon":"One of our agents will contact you soon"
+    },
+    "footer": {
+        "Services": "Services",
+        "Important Links": "Important Links",
+        "How it works?": "How it works?",
+        "About us": "About us",
+        "Terms & Conditions": "Terms & Conditions",
+        "Blog": "Blog",
+        "Buy": "Buy",
+        "Rent": "Rent",
+        "Sell": "Sell",
+        "Rental": "Rental",
+        "Contact": "Contact"
+    },
+    "Oops": {
+        "Page Not Found!": "Page Not Found!",
+        "Back Home": "Back Home"
+    },
+    "error": {
+        "someThing went Wrong": "Something went wrong. Please try again or contact your administrator if problem persists.",
+        "session expired, please login again to continue":"session expired, please login again to continue!",
+        "login to continue":"Please login to continue!"
+    },
+    "success":{
+        "Your message has been sent successfully!":"Your message has been sent successfully!"
+    },
+    "validation": {
+        "This Filed Is Required!": "This Filed Is Required!"
+    },
+    "home": {
+        "Find Your Perfect": "Buy, Sell, or Rent  ",
+        "Future Home": "without hassle!",
+        "Hassle Free . Save Time . No Hidden Fees": "Highly Efficient. Saves Time . Saves Money",
+        "500 Developers":"(+30,000 Property , +500 Developers , 12 Areas, +100 Consultants)",
+        "Buy": "Buy",
+        "Rent": "Rent",
+        "Sell": "Sell",
+        "Rental": "Rental",
+        "City": "City",
+        "Area": "Area",
+        "Neighborhood": "Neighborhood",
+        "Real estate type": "Real estate type",
+        "Price range": "Price range",
+        "Select Area": "Select Area",
+        "Select Neighborhood": "Neighborhood",
+        "Select type": "Select type",
+        "Select price range": "Select price range",
+        "All Prices":"All Prices",
+        "Max Price": "Max Price",
+        "Min Price": "Min Price",
+        "any price": "any price",
+        "Price": "Price",
+        "description":"Write a unique description",
+        "Write a unique description of your unit": "Describe Your Property",
+        "Optional": "Optional",
+        "Recently Added": {
+            "title": "Recently Added"
+        },
+        "Download app": {
+            "title": "Download alaaqar App",
+            "description": "Use our website or download the app for quick updates on your property! Available for Android and iOS"
+        },
+        "About Alaaqar": {
+            "title": "About Alaaqar",
+            "description": ""
+        },
+        "Our Blog": {
+            "title": "Our Blog",
+            "description1": "Read up on articles about the real estate market",
+            "description2": "as well as tips and tricks on buying, selling, and renting apartments, houses",
+            "description3": "or commercial properties."
+        },
+        "howItWorks":{
+            "Its the easiest way to buy sell":"It's the easiest way to buy, sell, or rent residential or commercial",
+            "properties":"properties!",
+            "Find your perfectly":"Find your perfectly",
+            "matched property":"matched property",
+            "Reach ready buyers":"Reach ready buyers",
+            "looking for exactly":"looking for exactly",
+            "your property":"your property",
+            "Automatically book":"Automatically book",
+            "visits attended by":"visits attended by",
+            "your consultants":"your consultants",
+            "Complete your deal":"Complete your deal",
+            "with the lowest":"with the lowest",
+            "cost & effort":"cost & effort"
+        }
+    },
+    "blog": {
+        "title": "Blog",
+        "sub": {
+            "Home": "Home",
+            "Blog": "Blog",
+            "View":"View"
+        },
+        "no blogs":"No blogs yet."
+    },
+    "aboutus": {
+        "title": "About us",
+        "sub": {
+            "Home": "Home",
+            "About us": "About us"
+        },
+        "Who are we?": "Who are we?",
+        "Our vision": "Our vision",
+        "Our mission": "Our mission"
+    },
+    "terms": {
+        "title": "Terms & Conditions",
+        "sub": {
+            "Home": "Home",
+            "desc": "Terms & Conditions"
+        },
+        "terms": "Terms & Conditions"
+    },
+    "Privacy": {
+        "title": "Privacy Policy",
+        "sub": {
+            "Home": "Home",
+            "desc": "Privacy Policy"
+        },
+        "Privacy": "Privacy Policy"
+    },
+    "contactus": {
+        "title": "Contact us",
+        "sub": {
+            "Home": "Home",
+            "contact us": "Contact us"
+        },
+        "Get in touch": "Get in touch",
+        "How can we help you? we are here for you!": "How can we help you? we are here for you!",
+        "Name": "Name",
+        "Email": "Email",
+        "Phone": "Phone",
+        "Message": "Message"
+    },
+    "setPriorities":{
+        "You can remove or add up to 5 items":"You can remove or add up to 5 items",
+        "Set Priorities":"Set Priorities",
+        "Home":"Home",
+        "Buy a home":"Buy a home",
+        "Set your priorities and drag and drop them from left to right":"Set your priorities and drag and drop them from left to right",
+        "Priority 1":"Priority 1",
+        "Priority 2":"Priority 2",
+        "Priority 3":"Priority 3",
+        "Priority 4":"Priority 4"
+    },
+    "setupBuyerPriorities": {
+        "Priority":"Priority",
+        "option":"option",
+        "Back":"Back",
+        "Show Results":"Show Results",
+        "Go to your Home":"Go to your Home"
+    },
+    "myunits": {
+        "title": "My units",
+        "sub": {
+            "Home": "Home",
+            "myunits": "My units "
+        },
+        "My Property": "My Property",
+        "My inquiry": "My inquiry",
+        "Grid View": "Grid View",
+        "List View": "List View",
+        "No units yet": "No units yet.",
+        "No visits yet": "No visits yet.",
+        "No result": "No result found.",
+        "Add new Property": "Add new Property",
+        "List a new Property": "List a new Property",
+        "View Results":"View Results"
+    },
+    "myvisits": {
+        "title": "My visits",
+        "sub": {
+            "Home": "Home",
+            "myvisits": "My visits "
+        },
+        "Upcoming Visits": "Upcoming Visits",
+        "Old visits": "Old visits",
+        "Grid View": "Grid View",
+        "List View": "List View",
+        "Add new Property": "Add new Property",
+        "List a new Property": "List a new Property",
+        "Reschedule":"Reschedule",
+        "No visits yet":"No scheduled visits yet."
+    },
+    "notifications": {
+        "title": "Notifications",
+        "sub": {
+            "Home": "Home",
+            "notifications": "Notifications",
+            "alert15day":"It’s has been 15 days since your unit was offered for sale through us",
+            "Is your Property still Available":"Is your Property still Available?",
+            "Yes keep it":"Yes keep it",
+            "Update":"Update",
+            "Remove":"Remove"
+        },
+    "no notifications":"No notifications yet."
+    },
+    "sell": {
+        "options": "options",
+        "sub": {
+            "Home": "Home",
+            "sell": "Sell"
+        },
+        "Go to the best buyer":"Go to the best buyer",
+        "Step":"Step",
+        "unit Photos":"unit Photos",
+        "Select your option":"Select your option",
+        "Enter value":"Enter a numeric value",
+        "photoUpload": {
+            "Select category":"Select category to upload it's photos",
+            "Add photo for the":"Add at least 1 photo for the",
+            "add images":"add images"
+        }
+    },
+    "buy":{
+        "Choose Priority":"Choose Priority",
+        "Options":"Options",
+        "Your chosen Items for Priority":"Your chosen Items for Priority",
+        "Option":"Option",
+        "ar Priority":""
+
+    },
+    "propertyDetails":{
+        "All images":"All images",
+        "Previous":"Previous",
+        "Next":"Next",
+        "Click assign to evaluator":"Click 'assign to evaluator' to complete publishing.",
+        "Details":"Details",
+        "Edit this unit":"Edit this unit",
+        "Assign to evaluator":"Assign to evaluator",
+        "Request a visit":"Request a visit",
+        "EGP":"EGP",
+        "results match your choices by":"Based on selected Priorities, your results will match your choices by",
+        "Results Accuracy": "Results Accuracy",
+        "Show more":"Show more"
+
+    },
+    "Results": {
+        "title": "Results",
+        "sub": {
+            "Home": "Home",
+            "Buy a home":"Buy a home",
+            "Results": "Results",
+            "filter by":"Default",
+            "Price":"Price",
+            "Score":"Score"
+        }
+    },
+    "favorites": {
+        "title": "Favorites",
+        "sub": {
+            "Home": "Home",
+            "Favorites": "Favorites",
+            "filter by":"Filter by",
+            "Price":"Price"
+        }
+    },
+    "alerts":{
+        "Added to favorite":"Unit Added to your favorite Successfully",
+        "remove from favorite":"Unit removed from your favorite Successfully"
+    },
+    "signIn":{
+        "Sign In":"Sign In",
+        "OTP Verification":"OTP Verification",
+        "Your name and image":"Your name and image",
+        "Please Enter a valid phone number":" Please Enter a valid phone number",
+        "Request OTP":"Request OTP",
+        "Enter the OTP sent to":"Enter the OTP sent to",
+        "Invalid OTP, Please try again":"Invalid OTP, Please try again",
+        "Submit":"Submit",
+        "Did ont receive any code":"Didn’t receive any code?",
+        "Re-send code":"Re-send code",
+        "Name":"Name",
+        "I agree the website":"I agree the website",
+        "terms & conditions":"terms & conditions",
+        "and":"and",
+        "Privacy policy":"Privacy policy",
+        "Login":"Login"
+    },
+    "howItWorks":{
+        "How it works":"How it works",
+        "Home":"Home",
+        "a Buyer Tenant":"I'm a Buyer/Tenant",
+        "a Seller Landlord":"I'm a Seller/Landlord"
+    },
+    "search":{
+        "title":"Search results",
+        "count":"Properties"
+    },
+    "no_visits":"Visits you've completed with our consultants will appear here.",
+    "finding_property":"Find your matching property",
+    "no_properties":"You don't have any properties",
+    "list_properties":"List your properties and add their specs to view them here",
+    "add_property":"Add new property",
+    "alaqaar_solution":"Alaaqar Solution",
+    "solution_text":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+    "try_solution":"Try our solution",
+    "search_button":"Quick search",
+    "electronic_consultant":"Electronic Consultant",
+    "sign_up":"Sign up",
+    "current_language":"E",
+    "no_results":"No Results Found",
+    "no_results_text":"We couldn't find what you searched for, Try searching again.",
+    "no_notification":"You don't have any notifications",
+    "sell_rent":"For Sell / Rent",
+    "rooms":"rooms",
+    "space":"Space",
+    "egypt":"Egypt",
+    "saudi":"Saudi Arabia",
+    "coming_soon":"Coming soon"
+}

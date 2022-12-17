@@ -1,0 +1,94 @@
+.terms {
+    padding: 0;
+    .main-content {
+        margin-top: -175px;
+        padding-bottom: 35px;
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: 0px 3px 6px #59595919;
+
+        .who-we-are {
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+    }
+    .section-row {
+        margin-top: 50px;
+        .out-grid {
+            // background-color: #F7F7F7;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            min-height: 100px;
+            &.second {
+                border-top-right-radius: auto;
+                border-bottom-right-radius: auto;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+                .holder {
+                    border-top-right-radius: auto;
+                    border-top-left-radius: 40px;
+
+                    .img-group {
+                        img {
+                            margin-left: 30px;
+                            @media (max-width: 425px) {
+                                margin-left: 0px;
+                            }
+                            &.pull-this {
+                                margin-left: -40px;
+                                @media (max-width: 768px) {
+                                    margin: 0 auto;
+                                }
+                            }
+                        }
+                    }
+
+                    img {
+                        // left: -37px;
+                        right: auto;
+                        left: auto;
+                        position: relative;
+                        max-width: 100%;
+                        margin-left: -40px;
+                        border-radius: 20px;
+                    }
+                }
+            }
+            .holder {
+                position: relative;
+                margin: 20px 0px;
+                border-top-right-radius: 40px;
+
+                min-height: 355px;
+                @media (max-width: 768px) {
+                    min-height: 260px;
+                }
+
+                img {
+                    position: absolute;
+                    border-top-right-radius: 45px;
+                    margin-top: 20px;
+                    margin-right: -20px;
+                    right: -37px;
+                    top: 20px;
+                    max-width: 100%;
+                    @media (max-width: 768px) {
+                        right: auto;
+                    }
+                }
+            }
+        }
+        .description {
+            line-height: 1.9;
+            color: #a9a9a9;
+            font-family: "Rubik-medium";
+            // span {
+            //     width: auto !important;
+            //     display: auto !important;
+            //     height: auto !important;
+            //     background: auto !important;
+            //     margin-top: auto !important;
+            // }
+        }
+    }
+}

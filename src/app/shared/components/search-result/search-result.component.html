@@ -1,0 +1,241 @@
+<div *ngIf="selected_country != 'saudi'" class="alaqaar-blogs" [ngClass]="{'rtl' : activeLang.title === 'ar' || activeLang === 'ar'}">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+        <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+        
+    </ngx-spinner>
+    <div class="row justify-content-center" style="margin: 0;">
+        <div class="col-xs-12 col-sm-10">
+            <div class="main-bar">
+                <span routerLink="/home" class="btn button-success">{{'electronic_consultant' |
+                    translate}}</span>
+            </div>
+            <div style="display:flex;" class="breadcrumb">
+                <div class="col-md-10 col-xs-12 bg-head">
+                    <p class="main-title">{{'search.title' | translate}} <span>({{total_search_count}} {{'search.count' | translate}})</span></p>
+                    <div class="head">
+                        <p> <span style="color: #ABABB6;cursor: pointer;"> <span class="home-tab"
+                                    [routerLink]="['/']">{{'blog.sub.Home' | translate}}</span></span>/ {{'search.title' |
+                            translate}}</p>
+                    </div>
+                </div>
+                <div class="col-md-2" style="position: relative;">
+                    
+                    <select #dropdownFilter class="_filter" (change)="filterBy(dropdownFilter.value)"
+                        class="form-select form-select-lg mb-3 float-end" aria-label=".form-select-lg example">
+                        <option value="">{{'Results.sub.filter by' | translate}}</option>
+                        <option value="price">{{'Results.sub.Price' | translate}}</option>
+                    </select>
+                    <fa-icon [icon]="faFilter" class="faFilter"></fa-icon>
+                </div>
+            </div>
+
+            <form class="search-filters">
+                <div [formGroup]="searchForm" class="search-filters__box">
+                    <div class="search-filters__filter city">
+                        <p>{{'home.City' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر المدينة' :'Select city'" class="_filter" (change)="filtering($event,'cities')"  formControlName="cities">
+                            <ng-option [value]="city['id']" *ngFor="let city of cities">{{activeLang == 'ar' ? city['name_ar'] : city['name_en']}} ({{city['units_count']}})</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="search-filters__filter area">
+                        <p>{{'home.Area' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر المنطقة' :'Select area'" class="_filter multi" (change)="filtering($event,'areas')"  formControlName="areas" [multiple]="true" >
+                            <ng-option [value]="area['id']" [disabled]="areas_arr.length == 3 && !areas_arr.includes(area['id'])" *ngFor="let area of areas">{{activeLang == 'ar' ? area['name_ar'] : area['name_en']}} ({{area['units_count']}})</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+
+                    <div class="search-filters__filter neighborhood">
+                        <p>{{'home.Neighborhood' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر الحي' :'Select neighborhood'" class="_filter multi" (change)="filtering($event,'neighborhood')"  formControlName="neighborhood" [multiple]="true">
+                            <ng-option [value]="neighborhood['id']" [disabled]="neighborhoods_arr.length == 5 && !neighborhoods_arr.includes(neighborhood['id'])" *ngFor="let neighborhood of neighborhoods">{{activeLang == 'ar' ? neighborhood['name_ar'] : neighborhood['name_en']}} ({{neighborhood['units_count']}})</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+
+                    <div class="search-filters__filter estate_type">
+                        <p>{{'home.Real estate type' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر النوع' :'Select type'" class="_filter" (change)="filtering($event,'estate')"  formControlName="type" >
+                            <ng-option [value]="unit['id']" *ngFor="let unit of units_type">{{activeLang == 'ar' ? unit['name_ar'] : unit['name_en']}}</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+
+                    <div class="search-filters__filter priceRange">
+                        <p>{{'home.Price range' | translate}}</p>
+                        <div class="dropdown" ngbDropdown>
+                            <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
+                                (click)="focusMinPriceInput()" class="btn dropdown-toggle setPriceBtn ngSelect-input" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{setPricePlaceHolder()}}
+                            </button>
+                            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                                (click)="$event.stopPropagation()" style="overflow: hidden;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input (focus)="hideMaxRange=true;hideMinRange=false"
+                                            (blur)="setMaxSelections(priceMinRange)" #minPrice 
+                                            placeholder="{{'home.Min Price' | translate}}" [allowNegative]="false" type="text"
+                                            ngxNumberFormat="#,###,###,###" />
+                                    </div>
+                                    <div class="col-6">
+                                        <input (focus)="hideMinRange=true;hideMaxRange=false" #maxPrice
+                                             placeholder="{{'home.Max Price' | translate}}"
+                                            [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button [hidden]="hideMinRange" (click)="setMinValue(v.val)" class="select-price" *ngFor="let v of minPriceValue"
+                                            >{{v.view}}</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button [hidden]="hideMaxRange" class="select-price" *ngFor="let v of maxPriceValue"
+                                            (click)="setMaxValue(v.val)">{{v.view}}</button>
+                                    </div>
+                                    <div class=" col-12">
+                                        <div class="row">
+                                            <div class="col foot">
+        
+                                                <button type="button" (click)="toggleDropdown()"
+                                                    class="btn btn-done float-end">{{'button.actions.Done' |
+                                                    translate}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="search-filters__filter propose">
+                        <p>{{'sell_rent' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'للبيع / للإيجار' :'For Sell / Rent'" class="_filter" formControlName="propose">
+                            <ng-option [value]="'sell'">{{'home.Sell' | translate}}</ng-option>
+                            <ng-option [value]="'rent'">{{'home.Rent' | translate}}</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="search-filters__filter rooms">
+                        <p>{{'rooms' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'عدد الغرف' :'Rooms count'" class="_filter" formControlName="bedroom">
+                            <ng-option [value]="room['id']" *ngFor="let room of bedroom_arr">{{activeLang == 'ar' ? room['name_ar'] : room['name_en']}}</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="search-filters__filter space">
+                        <p>{{'space' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'المساحة' :'Space'" class="_filter" formControlName="space">
+                            <ng-option [value]="space['id']" *ngFor="let space of space_arr">{{activeLang == 'ar' ? space['name_ar'] : space['name_en']}}</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+
+
+                </div>
+                <button type="submit" (click)="quick_search()" class="btn button-success">{{'search_button' | translate}}</button>
+                
+            </form>
+            
+            <div class="row mt-3 results" *ngIf="results.length > 0">
+                <div *ngFor="let item of results" class="col-xs-12 col-sm-6 col-xl-4">
+                    <div class="card mb-3">
+                        <div class="row g-0 card-content">
+                            <div class="col-12" style="position: relative;">
+                                <span (click)="navigateToItemDetails(item)" class="overlay"></span>
+                                <span style="cursor: pointer;" (click)="navigateToItemDetails(item)"
+                                    class="bage">{{getPropose(item)}}</span>
+                                <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                    src="../../../../assets/images/Path 165 copy.png" alt="..." />
+                                <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                    src="../../../../assets/images/Path 165.png" alt="..." />
+                                <img style="cursor: pointer;height: 230px;" (click)="navigateToItemDetails(item)"
+                                    src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card-body" style="cursor: pointer;" (click)="navigateToItemDetails(item)">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="card-title">
+                                                {{ numberWithCommas(item['price'])}}
+                                                <!-- <br> -->
+                                                {{'propertyDetails.EGP' | translate}}
+                                            </h5>
+                                            <span class="location">
+                                                <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                                    alt="..." />
+                                                {{activeLang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                            </span>
+                                        </div>
+                                        <!-- <div class="col-4 float-end" style="position: relative;">
+                                            <nz-progress class="float-end" nzType="circle"
+                                                [nzPercent]="getScore(item['score'])"
+                                                [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                            </nz-progress>
+                                            <span class="score">{{getScore(item['score'])}}%</span>
+                                        </div> -->
+
+                                    </div>
+                                    <div class="card-text">
+                                        <div class="row">
+                                            <div class="col-6 desc" *ngFor="let c of item['criteria'] | slice:0:4">
+                                                <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
+                                                {{getCriteriaOptions(c)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf="results.length == 0">
+                <div class="no-data">
+                    <div class="no-data__icon">
+
+                        <img src="../../assets/images/no-data.png"/>
+                    </div>
+                    <h4 style="color: #fd4965;margin:0;">{{'no_results' | translate}}</h4>
+                    <p>{{'no_results_text' | translate}}</p>
+                    
+                </div>
+            </div>
+            
+            <div class="row justify-content-center" *ngIf="results.length && results.length > 5">
+                <button class="btn button-success more" (click)="showMore()">
+                    <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
+                    <span *ngIf="loadMore">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
+                        Loading...
+                    </span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="selected_country == 'saudi'" class="coming-soon">
+    <img src="../../assets/images/logo-header.svg"/>
+    <h1>{{'coming_soon' | translate}}</h1>
+</div>

@@ -1,0 +1,180 @@
+<div class="container-fluied property-details">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+
+    <div [hidden]="isLoading" class="row justify-content-center" style="margin: 0;">
+        <div class="col-xs-12 col-md-10 main-row">
+            <div class="row">
+                <div class="col-sm-12 col-lg-8">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="switcher">
+                                <select [(ngModel)]="activeItem" (change)="onChangeSlider(activeItem)"
+                                    class="form-select form-select-lg mb-3 float-end"
+                                    aria-label=".form-select-lg example" style="width:176px;">
+                                    <option value="" selected><span></span>{{'propertyDetails.All images' | translate}}
+                                    </option>
+                                    <option *ngFor="let item of sliderTags" value="{{item}}" [selected]="item === activeItem">{{item}}</option>
+                                </select>
+                                <img class="img-icon" src="../../../../assets/images/photo.svg" alt="..."/>
+                                <span class="count"><span style="color: #FF725F;">{{activeImageId + 1 <= tagLength && activeImageId + 1 !== 0
+                                    ?activeImageId + 1 : 1 }}</span>/{{tagLength}}</span>
+                            </div>
+                            <!-- ngfor loop using get dynamic value and ngclass for add acive class -->
+                            <div *ngFor="let result of sliderData; let i = index" >
+                                <div [attr.init]="i === activeImageId?setActiveIndex(i): false" class="carousel-item" 
+                                    [ngClass]="{'active': i === activeImageId}">
+                                    <img src={{result.image}} title={{result.title}} class="slider-img" alt="..."/>
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="handleSliderNavigation('back')" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <fa-icon [icon]="faAngleLeft" class="user-icon"></fa-icon>
+                            <span class="visually-hidden">{{'propertyDetails.Previous' | translate}}</span>
+                        </button>
+                        <button (click)="handleSliderNavigation('next')" class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <fa-icon [icon]="faAngleRight" class="user-icon"></fa-icon>
+                            <span class="visually-hidden">{{'propertyDetails.Next' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <div class="actions">
+                        <div class="head row">
+                            <div class="col float-start">
+                                <p>{{data?.propose?.toUpperCase()}}</p>
+                            </div>
+                            <div class="col float-end">
+                                <!-- <img *ngIf="propertyDetails.itemIsFavorite" (click)="AddToFavorite(propertyDetails)" class="fav float-end" src="../../../../assets//images/Path 165 copy.png" />
+                                <img *ngIf="!propertyDetails.itemIsFavorite" (click)="AddToFavorite(propertyDetails)" class="fav float-end" src="../../../../assets//images/Path 165.png" />
+                                <img (click)="copyUrl()" src="../../../../assets/images/Path 161.svg" class="float-end" /> -->
+                            </div>
+                        </div>
+                        <div class="accuracy row" *ngIf="proerityType === 'buy' ">
+                            <div class="col-8">
+                                <p class="text-head">Results Accuracy</p>
+                                <p class="text-desc">
+                                    Based on selected Priorities, your results will match your choices by 76%
+                                </p>
+                            </div>
+                            <div class="col-4">
+                                <div class="percent float-end">
+                                    <span class="float-end ">67%</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <p class="price">
+                            {{numberWithCommas(data?.price ? data.price : '')}} {{'propertyDetails.EGP' | translate}}
+                        </p>
+
+                        <div class="row">
+                            <span class="location" style="color: #ABABB6;">
+                                <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                {{activeLang === 'en' ? data.area_name_en : data.area_name_ar}}
+                            </span>
+                            <div class="row" style="color:#5A8DEE">
+                                <p style="padding:10px 20px">
+                                    {{data?.status}}
+                                </p>
+                            </div>
+                            <p *ngIf="proerityType === 'sell' " class="mt-5" style="color: #5A8DEE;">
+                                {{'propertyDetails.Click assign to evaluator' | translate}}
+                            </p>
+                            <!-- <button (click)="editUnit(params.id)" class="btn more edit-unit">Edit this unit</button> -->
+
+                            <!-- <button (click)="editUnit()" *ngIf="proerityType === 'sell' "
+                                class="btn more edit-unit">Edit this unit</button>
+                            <button *ngIf="proerityType === 'sell' " class="btn button-success more"
+                                (click)="addUnit(content)">Assign to evaluator</button>
+                            <button *ngIf="proerityType === 'buy' " class="btn button-success more"
+                                (click)="open(content)">Assign to evaluator</button> -->
+                                <button *ngIf="isPublic" style="margin-top: 50%;"  class="btn button-success more" (click)="requestVisit(sellerContent)">{{'propertyDetails.Request a visit' | translate}}</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row details mt-5 mb-5">
+                <div class="col-sm-12 col-lg-8">
+                    <p class="title">{{'propertyDetails.Details' | translate}}</p>
+                    <p class="desc">
+                        {{renderString(data?.description)}}
+                    </p>
+                </div>
+                <div class="col-12 more-details">
+                    <div class="row justify-content-center"
+                        *ngFor="let item of getItemCriteria(data) | keyvalue; let index = index;">
+                        <p class="head">{{getParentName(item.value)}}</p>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4 col-lg-3 mt-3"
+                                *ngFor="let sItem of getOptions(item.value) | keyvalue">
+                                <div class="box">
+                                    <span class="icon">
+                                        <img src="{{renderIconUrl(sItem.value)}}" alt="..."/>
+                                    </span>
+                                    <span class="text">
+                                        <span class="head">{{getObjKey(sItem.value)}}</span>
+                                        <span class="bold">
+                                            {{ getValue(sItem.value).type !== undefined ? activeLang === 'en' ?
+                                            getValue(sItem.value).data[0]['name_en'] :
+                                            getValue(sItem.value).data[0]['name_ar']
+                                            : getValue(sItem.value)}}
+                                            <span *ngIf="getValue(sItem.value).type !== undefined" class="show-more"
+                                                (click)="showMoreOptions(getObjKey(sItem.value),getValue(sItem.value).data,moreOptions)">{{'propertyDetails.Show
+                                                more' | translate}}</span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #sellerContent let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                <img src="{{evaluator.avatar ? evaluator.avatar : '../../../../../../assets/images/default.png'}}" alt="..."/>
+                <p>{{evaluator.name}}</p>
+                <div class="raiting-model">
+                    <ngb-rating [max]="5" [rate]="5">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                          </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+          <p style="text-align: center;">
+            {{'model.one of our agents will contact you' | translate}} <br><b style="color: #FD4964;">{{evaluator.workingHours}}</b>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-save" (click)="navigateToMyVisits()">{{'button.actions.Done' | translate}}</button>
+        </div>
+      </ng-template>
+    <ng-template #moreOptions let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                <p style="font-family: 'Rubik-medium';color: #ff725f;">{{moreData.title}}</p>
+            </div>
+        </div>
+        <div class="modal-body">
+            <p style="text-align: center;" *ngFor="let data of moreData.data">
+                {{activeLang === 'en' ? data.name_en : data.name_ar}}
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="modalService.dismissAll()">{{'button.actions.Done' |
+                translate}}</button>
+        </div>
+    </ng-template>
+</div>

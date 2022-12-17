@@ -1,0 +1,72 @@
+<div class="container-fluid edit-profile">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <div class="row justify-content-center">
+        <div class="col-xs-12 col-lg-10">
+            <div class="row justify-content-center">
+                <div class="col-xs-12">
+                    <p class="main-title"> {{'Profile.Edit profile' | translate}}</p>
+                    <div class="head">
+                        <p> <span style="color: #ABABB6;cursor: pointer;">{{'Profile.Home' | translate}}</span>
+                            / {{'Profile.Edit profile' | translate}}</p>
+                    </div>
+                </div>
+                <div class="col-xs-11 col-md-9">
+                    <div class="main-bg">
+                        <div class="row justify-content-center">
+                            <div class="col-xs-11 col-md-8 edit-profile-form">
+                                <h4 class="title">{{'Profile.Edit profile' | translate}}</h4>
+                                <form #f="ngForm" [formGroup]="phoneForm">
+                                    <div>
+                                        <input hidden #file type="file" accept="image/png,image/jpeg" name="myFile" (change)="fileEvent($event)" />
+                                        <span class="avatar">
+                                            <img (click)="file.click()" class="main-img" src="{{setAvatarSrc()}}" alt="..."/>
+                                            <img (click)="file.click()" class="icon"
+                                                src="../../../../assets/images/Path 9801.png" alt="..."/>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label for="validationCustom01" class="form-label">{{'Profile.Name' |
+                                            translate}}</label>
+                                        <input formControlName="name" type="text" class="form-control" id="name"
+                                            aria-describedby="inputGroupPrepend" placeholder="Your name">
+                                    </div>
+                                    <div>
+                                        <ngx-intl-tel-input style="display: block;width: 100%;" [cssClass]="'custom'"
+                                            [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                                            [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                            [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Egypt"
+                                            [maxLength]="'11'" [phoneValidation]="true"
+                                            [separateDialCode]="separateDialCode"
+                                            [numberFormat]="PhoneNumberFormat.National" name="phone"
+                                            formControlName="phone">
+                                        </ngx-intl-tel-input>
+                                        <div *ngIf="(phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"
+                                            class="text-invalid">
+                                            {{'Profile.Please Enter a valid phone number' | translate}}
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn submit-btn button-success save-changes"
+                                        [disabled]="isLoading || (phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"
+                                        (click)="updateProfile()">
+                                        <span *ngIf="!isLoading">{{'Profile.Save Changes' | translate }}</span>
+                                        <span *ngIf="isLoading">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            Loading...
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

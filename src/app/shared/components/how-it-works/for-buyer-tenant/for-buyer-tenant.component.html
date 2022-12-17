@@ -1,0 +1,29 @@
+<div class="row justify-content-center buyer-tenant mt-5" style="margin: 0;">
+        <ng-container
+        *ngFor="let item of data"
+        [ngTemplateOutlet]="template"
+        [ngTemplateOutletContext]="{item}">
+    </ng-container>
+    </div>
+
+    <ng-template #template let-item="item">
+        <div class="row mt-3">
+            <div class="col-xs-12 col-lg-6" [class.order-lg-1]="item.order === 1">
+                <img src="{{item.imageSrc}}" style="max-width: 100%;display: inherit;margin: 0 auto;" alt="..."/>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <div *ngFor="let el of item.description" class="text-col" [class.multi]="item.description.length > 1">
+                    <h4>
+                        <span style="width: 40px;">{{el.id}}</span>
+                        <h4 class="main-title">{{lang === 'en' ? el.head_en : el.head_ar}}</h4>
+                    </h4>
+                    <p *ngFor="let item of getDescription(el)" style="line-height: 1;display: flex;">
+                        <span style="width:10px">- </span>{{item}}
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+        
+    </ng-template>
+    

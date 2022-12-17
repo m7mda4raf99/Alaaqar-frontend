@@ -1,0 +1,66 @@
+.alaqaar-blogs {
+    padding: 50px 0px;
+    .bg-head {
+        .main-title {
+            font-family: 'Rubik-Bold';
+            font-size: 25px;
+            // padding-top: 25px;
+        }
+
+    }
+    background-color: #F7F7F7;
+
+    .card {
+        border-radius: 20px;
+        padding: 10px;
+        cursor: pointer;
+
+        .overlay{ 
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+        .main-img{
+            border-top-left-radius: 20px;
+            max-width: 100%;
+            width:100%;
+            height:180px;
+        }
+
+        .card-title {
+            font-family: Rubik-bold;
+            // font-size: 20px;
+        }
+        .card-foot {
+            color: #99B2AF;
+            font-size: 14px;
+            padding-top: 20px;
+
+            .col {
+                img {
+                    width: 18px;
+                    height: 18px;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        &:hover {
+            .card-title {
+                color: #fa5a64;
+            }
+            // .overlay {
+            //     background: transparent linear-gradient(
+            //         180deg,#2b696242 0%,#327064bf 100%) 0% 0% no-repeat padding-box;
+            // }
+        }
+    }
+    .more {
+        display: inline-block;
+        width: 356px;
+        border-radius: 10px;
+        margin: 50px auto;
+        @media (max-width: 768px) {
+            width: 240px;
+        }
+    }
+}

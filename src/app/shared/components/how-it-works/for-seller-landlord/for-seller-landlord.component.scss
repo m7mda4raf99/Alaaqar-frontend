@@ -1,0 +1,40 @@
+.sell-landlord{
+    .main-title {
+        display: inline;
+        padding: 5px;
+        color: #2c2c2c;
+        width: 92%;
+        vertical-align: top;
+        float: right;
+    }
+    .text-col {
+        margin-top: 90px;
+        &.multi {
+            margin-top: 75px;
+        }
+        @media only screen and (min-width: 768px) and (max-width: 1024px) {
+            margin-top: 10px;
+         }
+        h4 {
+            span {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                background-color: #f7f7f7;
+                color: #ff725f;
+                text-align: center;
+                border-radius: 50%;
+                vertical-align: middle;
+                padding-top: 5px;
+            }
+            font-family: 'Rubik-bold';
+            color: #2C2C2C;
+        }
+        p {
+            color: #6A6A6A;
+            padding-left: 45px;
+            line-height: 2;
+            font-size: 15px;
+        }
+    }
+}

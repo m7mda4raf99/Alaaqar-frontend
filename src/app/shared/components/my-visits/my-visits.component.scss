@@ -1,0 +1,151 @@
+.my-visits {
+    padding-top: 35px;
+    .switchers {
+        .my-visits-select {
+            @media only screen and (min-width: 1024px) and (max-width: 1440px) {
+                    font-size: 16px;
+                    height: 46px;
+            }
+        }
+        .form-select {
+            border-radius: 20px;
+            border: 0;
+            outline: 0;
+            box-shadow: 0px 3px 6px #59595919;
+           
+            // font-size: 11px;
+
+            &.list {
+                padding-left: 40px;
+
+            }
+            
+        }
+        fa-icon {
+            position: absolute;
+            margin-left: 15px;
+            margin-top: 12px;
+            color: #FF725F;
+            // @media only screen and (min-width: 1024px) and (max-width: 1440px) {
+            //     margin-top: 7px;
+            // }
+        }
+    }
+    .main-title {
+        font-family: 'Rubik-Bold';
+        font-size: 25px;
+    }
+    // padding: 50px 0px;
+    background-color: #F7F7F7;
+    .single-item {
+        overflow: hidden;
+        background-color: #fff;
+        border-radius: 20px;
+        margin: 20px auto;
+        .details {
+            padding: 20px 30px;
+            .title{
+                font-family: 'Rubik-Bold';
+            }
+                // padding: 15px;
+                .location {
+                    font-size: 14px;
+                    color: #626262;
+                    img {
+                        width: 13px;
+                        display: inline-block;
+                    }
+                }
+                .avatar {
+                margin-top: 20px;
+                color: #626262;
+                    img {
+                        display: inline-block;
+                        width: 32px;
+
+                    }
+                }
+                .helper-text {
+                    padding-top: 20px;
+                }
+                .actions {
+                    .reschedule {
+                        min-width: 70%;
+                        background: #fff;
+                        color: #FF725F;
+                        border: 1px solid #FF725F;
+                        border-radius: 10px;
+                        margin-top: 20px;
+                    }
+                }
+
+            }
+        .rt-icon {
+            text-align: center;
+           fa-icon {
+            text-align: center;
+            font-size: xxx-large;
+            margin-top: 19%;
+            display: inline-block;
+            @media (max-width:425px) {
+                margin-top: 74% ;
+               font-size: x-large !important;
+            }
+           }
+            &.upcoming {
+                background-color: #E7EDEC;
+                color: #626262;
+            }
+            &.in-review {
+                background-color: #E2ECFF;
+                color: #5A8DEE;
+            }
+        }
+    }
+    .section {
+        position: relative;
+        min-height: 77vh;
+        .title {
+            font-family: 'Rubik-Bold';
+            font-size: 25px;
+        }
+        .description {
+            color: #7C828A;
+        }
+        background-color: #fff;
+        border-radius: 20px;
+        // margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 20px;
+
+        .add-property {
+            position: absolute;
+            bottom: 35px;
+            width: 90%;
+            height: 50px;
+            background: #fff;
+            color: #FF725F;
+            border:1px solid #FF725F;
+            border-radius: 5px;
+        }
+    }
+
+    &.grid  {
+        .rt-icon {
+            fa-icon { 
+                @media only screen and (min-width: 1024px) and (max-width: 1440px) {
+                    margin-top: 65% !important;
+                    // margin-top: 10px;
+                    font-size: xx-large !important;
+                 }
+               
+            }
+
+            p {
+                @media only screen and (min-width: 1024px) and (max-width: 1440px) {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

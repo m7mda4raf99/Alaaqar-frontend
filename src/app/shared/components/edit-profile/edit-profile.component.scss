@@ -1,0 +1,42 @@
+.edit-profile {
+    padding-top: 35px;
+    background-color: #F7F7F7;
+    .main-title {
+        font-family: 'Rubik-Bold';
+        font-size: 25px;
+    }
+    .main-bg {
+        background-color: #fff;
+        border-radius: 20px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        .title {
+            text-align:center;
+            padding: 20px 0px;
+        }
+        .avatar {
+            display: block;
+            /* margin: 0 auto; */
+            width: 150px;
+            margin: 20px auto;
+            position: relative;
+            cursor: pointer;
+            .icon {
+                position: absolute;
+                right: 0;
+                bottom: 31px;
+                background-color: #99B2AF;
+                padding: 7px;
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+            }
+            .main-img{
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 4px solid #FF725F;
+            }
+        }
+    }
+}

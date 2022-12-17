@@ -1,0 +1,75 @@
+<div class="container-fluied notifications">
+    <div class="row justify-content-center" style="margin: 0;">
+        <div class="col-xs-12 col-md-10 main-row">
+            <div class="result-head row">
+                <div class="row result-head">
+                    <div class="col-12">
+                        <h2 class="float-start">
+                            {{'notifications.title' | translate}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="head" *ngIf="myNotifications">
+                <p> <span style="color: #ABABB6;cursor: pointer;"><span class="home-tab" [routerLink]="['/']">{{'notifications.sub.Home' | translate}}</span> </span>/ {{'notifications.sub.notifications' | translate}}</p>
+            </div>
+            <div *ngIf="!myNotifications.length" class="col-12 mt-3">
+                <div class="no-data">
+                    <div class="no-data__icon">
+
+                        <img style="padding:0 30px;" src="../../assets/images/no-notifications.png"/>
+                    </div>
+                    
+                    <p>{{'no_notification' | translate}}</p>
+                    
+                </div>
+            </div>
+            <div class="row" *ngIf="myNotifications" [hidden]="!myNotifications">
+                <div class="col-xs-12 col-lg-8">
+                    <p class="head mt-5"></p>
+                    <!-- {{notification['created_at'] | date:'yyyy-MM-dd HH:mm:ss'}} -->
+                    <div class="col-12 mt-3" *ngFor="let notification of myNotifications">
+                        <div *ngIf="notification && notification.param_type !== 'unit-expired'" class="notification-row"  style="cursor: pointer;" (click)="notificationHandler(notification)">
+                            <!-- <div > -->
+                                <span class="border"></span>
+                                <p style="color:#4E4E56;margin-bottom: 5px">
+                                    <span> <img src="../../../../assets//images/Iconly-Light-Calendar.svg" alt="..."/> </span>  
+                                    <!-- We’d like to inform you that the requested visit has been scheduled in  -->
+                                        {{activeLang === 'en' ? notification['notification_en'] : notification['notification_ar'] }}
+                                    <span class="float-end time"></span>
+                                </p>
+                                <p class="date">{{notification['created_at'] | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" *ngFor="let notification of myNotifications">
+                    <div class="actions col-lg-6" *ngIf="notification && notification.param_type === 'unit-expired'">
+                        <p>
+                            <span class="loading">
+                                <fa-icon [icon]="loading"></fa-icon>
+                            </span>
+                           {{ 'notifications.sub.alert15day' | translate }}
+                        </p>
+                        <p> {{ 'notifications.sub.Is your Property still Available' | translate }}</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn keep-it" (click)="keepUnit(notification.id)">
+                                    <fa-icon [icon]="faCheckCircle"></fa-icon> {{'notifications.sub.Yes keep it' | translate }}
+                                </button>
+                            </div>
+                            <div class="col-6"><button class="btn update" (click)="updateUnit(notification.params,notification.id)">
+                                    <fa-icon [icon]="faEdit"></fa-icon> {{'notifications.sub.Update' | translate}}
+                                </button></div>
+                            <div class="col-6"><button class="btn remove" (click)="deleteUnit(notification.params,notification.id)">
+                                    <fa-icon [icon]="faTrashAlt"></fa-icon> {{'notifications.sub.Remove' | translate}}
+                                </button></div>
+                        </div>
+                    </div>
+                
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>

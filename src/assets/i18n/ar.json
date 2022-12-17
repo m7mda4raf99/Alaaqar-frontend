@@ -1,0 +1,354 @@
+{
+    "header": {
+        "tab_home": "الرئيسية",
+        "my_visits": "زياراتي",
+        "my_units": "عقاراتي",
+        "blog": "المدونة",
+        "how it works":"كيف يعمل",
+        "about_us": "عنا",
+        "contact_us": "اتصل بنا",
+        "Notifications":"الإشعارات",
+        "Profile":{
+            "edit":"تعديل الملف ",
+            "Favorites": "المفضلة",
+            "logout":"تسجيل الخروج",
+            "logout message":"هل تريد حقا تسجيل الخروج؟ سوف تفقد جميع التغييرات الغير محفوظة."
+        }
+    },
+     "Profile": {
+        "Edit profile": "تعديل الملف الشخصي",
+        "Home":"الرئيسية",
+        "success": "تم تحديث الملف الشخصي بنجاح!",
+        "Name":"الاسم",
+        "Please Enter a valid phone number":"من فضلك ادخل رقم هاتف صحيح!",
+        "Save Changes":"حفظ التغيرات"
+    },
+    "button":{
+        "actions":{
+            "cancel":"الغاء",
+            "Done":"حفط",
+            "Apply & Continue":"تطبيق",
+            "More":"المزيد",
+            "Submit":"إرسال",
+            "Back":"رجوع",
+            "Next":"القادم",
+            "Review":"مراجعة"
+        }
+    },
+    "model":{
+        "one of our agents will contact you":"سيتصل بك أحد وكلائنا خلال ساعات العمل الرسمية من",
+        "one of our agents will contact you soon":"سيتصل بك أحد وكلائنا قريبا"
+
+    },
+    "footer": {
+        "Important Links":"روابط هامة",
+        "How it works?":"كيف تعمل؟",
+        "About us":"عنا",
+        "Terms & Conditions":"الشروط والأحكام",
+        "Blog":"المدونة",
+        "Buy": "شراء",
+        "Rent": "إيجار",
+        "Sell": "بيع",
+        "Rental": "تأجير",
+        "Contact": "للتواصل معنا"
+    },
+    "Oops": {
+        "Page Not Found!": "لم يتم العثور على الصفحة!",
+        "Back Home": "الرجوع للرئيسية"
+    },
+    "error":{
+        "someThing went Wrong":"حدث خطأ ما. يرجي المحاولة مرة اخرى أو الاتصال بالمسؤول إذا استمرت المشكلة",
+        "session expired, please login again to continue":"انتهت الجلسة، من فضلك سجل دخولك للمتابعة",
+        "login to continue":"للاستمرار من فضلك سجل دخلولك!"
+    },
+    "success":{
+        "Your message has been sent successfully!":"تم ارسال رسالتك بنجاح !"
+    },
+    "validation":{
+        "This Filed Is Required!":"هذا الحقل مطلوب!"
+    },
+    "home":{
+        "Find Your Perfect" :"بيع، اشتري او أجر",
+        "Future Home" :"بدون متاعب!",
+        "Hassle Free . Save Time . No Hidden Fees":"بكفاءة عالية. وفر الوقت . وفر المال",
+        "500 Developers":"( +٣٠,٠٠٠ وحدة , + ٥٠٠ مطور عقاري , ١٢ منطقة , + ١٠٠ مستشار عقاري)",
+        "Buy":"شراء",
+        "Rent":"ايجار",
+        "Sell":"بيع",
+        "Rental":"تأجير",
+        "City":"المدينة",
+        "Area":"المنطقة",
+        "Neighborhood":"الحي",
+        "Real estate type":"نوع العقار",
+        "Price range":"متوسط السعر",
+        "Select Area":"اختار المنطقة",
+        "Select Neighborhood":"اختار الحي",
+        "Select type":"اختار نوع العقار",
+        "Select price range":"اختار متوسط السعر",
+        "All Prices":"كل الاسعار",
+        "Max Price":"اقصي سعر",
+        "Min Price":"اقل سعر",
+        "any price":"اي سعر",
+        "Price":"السعر",
+        "description":"اكتب وصفًا",
+        "Write a unique description of your unit":"اكتب وصفًا فريدًا للوحدة الخاصة بك",
+        "Optional":"اختياري",
+        "Recently Added":{
+            "title":"أضيف حديثا"
+        },
+        "Download app": {
+            "title":"تحميل تطبيق العقار",
+            "description":"أستخدم منصة العقار  أو قم بتحميل التطبيق للحصول على تحديثات سريعة على ممتلكاتك وطلباتك العقارية ! متاح لأجهزة Android و iOS"
+        },
+        "About Alaaqar":{
+            "title":"عن العقار",
+            "description":""
+        },
+        "Our Blog":{
+            "title":"المدونة",
+            "description1": "اقرأ مقالات عن سوق العقارات",
+            "description2": "بالإضافة إلى النصائح والحيل حول شراء وبيع وتأجير الشقق والمنازل",
+            "description3": "أو العقارات التجارية"
+        },
+        "howItWorks":{
+            "Its the easiest way to buy sell":"إنها أسهل طريقة لشراء أو بيع أو تأجير وحدة",
+            "properties":"سكنية او تجارية !",
+            "Find your perfectly":"ابحث عن العقار",
+            "matched property":"متطابق مع احلامك وتفضيلاتك",
+            "Reach ready buyers":"الوصول الي مشترين",
+            "looking for exactly":"يبحثون عن عقار مطابق لعقارك ",
+            "your property":" تماما",
+            "Automatically book":"حجز الزيارات",
+            "visits attended by":"تلقائيا بحضور المستشارين ",
+            "your consultants":"العقاريين",
+            "Complete your deal":"أكمل صفقتك",
+            "with the lowest":"بأقل تكلفة",
+            "cost & effort":"وجهد"
+        }
+    },
+    "blog":{
+        "title":"المدونة",
+        "sub":{
+            "Home":"الرئيسية",
+            "Blog":"المدونة",
+            "View":"زيارة"
+        },
+        "no blogs":"لايوجد مدونات."
+    },
+    "aboutus":{
+        "title":"عنا",
+        "sub":{
+            "Home":"الرئيسية",
+            "About us":"عنا"
+        },
+        "Who are we?":"من نحن؟",
+        "Our vision":"رؤيتنا",
+        "Our mission":"مهمتنا"
+    },
+    "terms": {
+        "title": "الشروط والأحكام",
+        "sub": {
+            "Home": "الرئيسية",
+            "desc": "الشروط والأحكام"
+        },
+        "terms": "الشروط والأحكام"
+    },
+    "Privacy": {
+        "title": "سياسة الاستخدام",
+        "sub": {
+            "Home": "الرئيسية",
+            "desc": "سياسة الاستخدام"
+        },
+        "Privacy": "سياسة الاستخدام"
+    },
+    "contactus":{
+        "title":"اتصل بنا",
+        "sub":{
+            "Home":"الرئيسية",
+            "contact us":"اتصل بنا"
+        },
+        "Get in touch":"ابق على اتصال",
+        "How can we help you? we are here for you!":"كيف يمكننا مساعدتك؟ نحن هنا من أجلك!",
+        "Name":"الاسم",
+        "Email":"البريد الالكتروني",
+        "Phone":"الهاتف",
+        "Message":"الرسالة"
+    },
+    "setPriorities":{
+        "You can remove or add up to 5 items":"يمكنك إزالة أو إضافة ما يصل إلى 5 عناصر",
+        "Set Priorities":"حدد الأولويات",
+        "Home":"الرئيسية",
+        "Buy a home":"شراء منزل",
+        "Set your priorities and drag and drop them from left to right":"حدد أولوياتك واختارها من اليسار إلى اليمين",
+        "Priority 1":"الأولوية ١",
+        "Priority 2":"الأولوية ٢",
+        "Priority 3":"الأولوية ٣",
+        "Priority 4":"الأولوية ٤"
+    },
+    "setupBuyerPriorities": {
+        "Priority":"الاولوية",
+        "option":"خيار",
+        "Back":"رجوع",
+        "Show Results":"اظهار النتائج",
+        "Go to your Home":"اذهب إلى منزلك"
+    },
+    "myunits":{
+        "title":"عقاراتي",
+        "sub":{
+            "Home":"الرئيسية",
+            "myunits":"عقاراتي "
+        },
+        "My Property":"عقاراتي",
+        "My inquiry":"استعلاماتي",
+        "Grid View":"عرض الشبكة",
+        "List View":"عرض القائمة",
+        "No units yet":"لا يوجد لديك عقارات",
+        "No visits yet": "لايوجد زيارات بعد.",
+        "No result": "لايوجد نتائج للبحث.",
+        "Add new Property":"اضافة عقار جديد",
+        "List a new Property": "اضافة عقار جديد",
+        "View Results":" مشاهدة النتائج"
+    },
+    "myvisits": {
+        "title": "زياراتي",
+        "sub": {
+            "Home": "الرئيسية",
+            "myvisits": "زياراتي"
+        },
+        "Upcoming Visits": "الزيارات القادمة",
+        "Old visits": "الزيارات القديمة",
+        "My inquiry":"استعلاماتي",
+        "Grid View":"عرض الشبكة",
+        "List View":"عرض القائمة",
+        "No units yet":"لا يوجد لديك عقارات",
+        "Add new Property":"اضافة عقار جديد",
+        "List a new Property": "اضافة عقار جديد",
+        "Reschedule":"إعادة الجدولة",
+        "No visits yet":"لاتوجد زيارات ."
+    },
+    "notifications": {
+        "title": "الإشعارات",
+        "sub": {
+            "Home": "الرئيسية",
+            "notifications": "الإشعارات",
+            "alert15day":"لقد مرت 15 يومًا منذ أن تم عرض وحدتك للبيع من خلالنا",
+            "Is your Property still Available":"هل الوحدة لاتزال متاحة؟",
+            "Yes keep it":"نعم أبق عليها",
+            "Update":"تحديث",
+            "Remove":"حذف"
+        },
+        "no notifications":"لاتوجد إشعارات."
+    },
+    "sell": {
+        "options": "خيارات",
+        "sub": {
+            "Home": "الرئيسية",
+            "sell": "بيع"
+        },
+        "Go to the best buyer":"الوصول الي احسن بائع",
+        "Step":"خطوة",
+        "unit Photos":"صور الوحدة",
+        "Select your option":"حدد خيارك",
+        "Enter value":"ادخل قيمة رقمية",
+        "photoUpload": {
+            "Select category":"حدد الفئة التي تريد تحميل الصور لها.",
+            "Add photo for the":"اضف صورة واحده علي الاقل ل ",
+            "add images":"اضافة صور"
+        }
+    },
+    "buy":{
+        "Choose Priority":"اختر الأولوية",
+        "Options":"خيارات",
+        "Your chosen Items for Priority":"العناصر التي اخترتها للأولوية",
+        "Option":"خيار",
+        "ar Priority":"حدد خيارات الاولولية "
+    },
+    "propertyDetails":{
+        "All images":"كل الصور",
+        "Previous":"السابق",
+        "Next":"التالي",
+        "Click assign to evaluator":"انقر 'إرسال الي المقييم' لإكمال النشر",
+        "Details":"التفاصيل",
+        "Edit this unit":"تعديل الوحدة",
+        "Assign to evaluator":"إرسال الي المقييم",
+        "Request a visit":"اطلب زيارة",
+        "EGP":"جنيه",
+        "results match your choices by":"بناءً على الأولويات المحددة ، ستطابق نتائجك اختياراتك بنسبة ",
+        "Results Accuracy": "دقة النتائج",
+        "Show more":"عرض المزيد"
+    },
+    "Results": {
+        "title": "نتائج البحث",
+        "sub": {
+            "Home": "الرئيسية",
+            "Buy a home":"شراء",
+            "Results": "نتائج البحث",
+            "filter by":"إفتراضي",
+            "Price":"السعر",
+            "Score":"Score"
+        }
+    },
+    "favorites": {
+        "title": "المفضلة",
+        "sub": {
+            "Home": "الرئيسية",
+            "Favorites": "المفضلة",
+            "filter by":"التصفية حسب",
+            "Price":"السعر"
+        }
+    },
+    "alerts":{
+        "Added to favorite":"تمت اضافة الوحدة الي المفضلة بنجاح !",
+        "remove from favorite":"تمت ازالة الوحدة من المفضلة بنجاح !"
+    },
+    "signIn":{
+        "Sign In":"تسجيل الدخول",
+        "OTP Verification":"التحقق من رمز ال OTP",
+        "Your name and image":"الاسم والصوره ",
+        "Please Enter a valid phone number":"من فضلك ادخل رقم هاتف صحيح",
+        "Request OTP":"طلب رمز التحقق",
+        "Enter the OTP sent to":"ادخل رمز التحقق المرسل الي ",
+        "Invalid OTP, Please try again":"رمز تحقق خاطئ، من فضلم حاول مره اخري",
+        "Submit":"ارسال",
+        "Did ont receive any code":"لم يصلك الرمز؟",
+        "Re-send code":"اعادة ارسال الرمز",
+        "Name":"الاسم",
+        "I agree the website":"اوافق على ",
+        "terms & conditions":"الشروط والاحكام",
+        "and":"و",
+        "Privacy policy":"سياسة الاستخدام للموقع",
+        "Login":"دخول"
+    },
+    "howItWorks":{
+        "How it works":"كيف يعمل",
+        "Home":"الرئيسية",
+        "a Buyer Tenant":"أنا مشتري / مستأجر",
+        "a Seller Landlord":"أنا بائع / مالك"
+    },
+    "search":{
+        "title":"نتائج البحث",
+        "count":"وحدة"
+    },
+    "no_visits":"ستظهر هنا الزيارات التي أكملتها مع مستشارينا.",
+    "finding_property":"البحث عن الممتلكات المطابقة الخاصة بك",
+    "no_properties":"ليس لديك أية خصائص",
+    "list_properties":"قائمة الممتلكات الخاصة بك وإضافة المواصفات الخاصة بهم لعرضها هنا",
+    "add_property":"إضافة خاصية جديدة",
+    "alaqaar_solution":"إقتراح العقار",
+    "solution_text":"هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت",
+    "try_solution":"جرب حل العقار",
+    "search_button":"بحث سريع",
+    "electronic_consultant":"المستشار الإلكتروني",
+    "sign_up":"إنشاء حساب",
+    "current_language":"ع",
+    "no_results":"لا يوجد نتائج بحث",
+    "no_results_text":"لم يتم الوصول لما تبحث إليه, حاول مرة أخري",
+    "no_notification":"ليس لديك أي إشعارات",
+    "sell_rent":"للبيع / للإيجار",
+    "rooms":"الغرف",
+    "space":"المساحة",
+    "egypt":"مصر",
+    "saudi":"السعودية",
+    "coming_soon":"قريباً"
+
+}

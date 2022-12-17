@@ -1,0 +1,131 @@
+.login {
+    background-color: #F7F7F7;
+    @media (max-width: 768px){
+        min-height: 660px;
+    }
+
+    .login-area {
+        background-color: #FFF;
+        border-radius: 10px;
+        margin: 70px 0px;
+        position: relative;
+        .main-row {
+            @media only screen and (min-width: 768px) and (max-width: 1024px) {
+                min-height: 500px;
+             }
+        }
+        .login-container {
+            position: relative;
+            @media (max-width: 768px){
+                position: absolute;
+                top: 20%;
+                .login-sec {
+                    min-height: 460px;
+                }
+            }
+            .login-sec {
+                width: 100%;
+                height: 88%;
+                background-color: #F7F7F7;
+                margin: 50px;
+                border-radius: 10px;
+                position: absolute;
+                right: -240px;
+                @media (max-width: 768px) {
+                    position: relative;
+                    width: auto;
+                    right: auto;
+                    margin: 35px 40px;
+                    margin-bottom: 170px;
+                }
+                @media (max-width: 425px) {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+                .section {
+                    @media (max-width: 425px) {
+                        padding: 30px;
+                    }
+                    .login-form {
+                        margin-top: 5% !important;
+
+                        .terms-agreement {
+                            a {
+                                color: #fe5d64;
+                            }
+                        }
+                        .submit-btn {
+                            display: block;
+                            width: 100%;
+                            margin-top: 20px;
+                            border-radius: 10px;
+                            padding: 12px 0px;
+                        }
+
+                        .resendOtp {
+                            display: block;
+                            text-align: center;
+                            margin: 20px auto;
+
+                            span {
+                                color: #FF725F;
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+
+                        }
+
+                        .avatar {
+                            display: block;
+                            /* margin: 0 auto; */
+                            width: 150px;
+                            margin: 0 auto;
+                            position: relative;
+                            cursor: pointer;
+                            .icon {
+                                position: absolute;
+                                right: 0;
+                                bottom: 31px;
+                                background-color: #99B2AF;
+                                padding: 7px;
+                                border-radius: 50%;
+                                width: 35px;
+                                height: 35px;
+                            }
+                            .main-img{
+                                width: 150px;
+                                height: 150px;
+                                border-radius: 50%;
+                                border: 4px solid #FF725F;
+                            }
+                        }
+                    }
+    
+                    .head {
+                        b {
+                            font-family: 'Rubik-bold';
+                            display: block;
+                            padding: 20px 35px;
+                            font-size: 29px;
+                            .arrow {
+                                display: inline-block;
+                                width: 25px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .bg {
+            @media (max-width:768px) {
+                padding:0;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+            }
+            // background: transparent url('../../../../assets/images/joel-filipe-RFDP7_80v5A-unsplash.png') 0% 0% no-repeat padding-box;
+        }
+    }
+}

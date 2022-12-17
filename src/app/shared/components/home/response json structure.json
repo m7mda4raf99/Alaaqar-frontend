@@ -1,0 +1,24 @@
+[
+    {
+        "img":"string",
+        "price":"string",
+        "location":"string",
+        "percentage":"string", //%
+        "space":"string", //m
+        "rooms":"string",
+        "baths":"string",
+        "floor":"string",
+        "label":"string" // is for sale
+    },
+    {
+        "img":"string",
+        "price":"string",
+        "location":"string",
+        "percentage":"string", //%
+        "space":"string", //m
+        "rooms":"string",
+        "baths":"string",
+        "floor":"string",
+        "label":"string" // is for sale
+    }
+]

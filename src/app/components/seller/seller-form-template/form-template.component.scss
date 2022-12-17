@@ -1,0 +1,33 @@
+.content {
+    .button-row {
+        button {
+            background-color: transparent;
+            max-width: 300px;
+            // margin: auto;
+            display: inline-block;
+            border: 1px solid #a9a9a9;
+            border-radius: 10px;
+            padding: 5px;
+            height: 50px;
+            width: 250px;
+            background-color: transparent;
+            max-width: 300px;
+            display: inline-block;
+            border: 1px solid #a9a9a9;
+            border-radius: 10px;
+            padding: 5px;
+            width: 250px;
+            margin-left: 15px;
+            margin-top: 90px;
+            @media (max-width:768px) {
+                margin-top: 20px;
+            }
+
+            &.done {
+                background: transparent linear-gradient(180deg,#FD4965 0%,#FD7363 100%) 0% 0% no-repeat padding-box;
+                color: #fff;
+                border: none;
+            }
+        }
+    }
+}

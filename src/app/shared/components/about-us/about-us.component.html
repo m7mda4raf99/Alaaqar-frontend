@@ -1,0 +1,108 @@
+<div class="container-fluid aboutus">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <div class="sub-head">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xs-12 col-md-10 ">
+                    <p class="title">{{'aboutus.title' | translate}}</p>
+                    <p class="sm-title"><span class="home-tab" [routerLink]="['/']">{{'setPriorities.Home' | translate}}</span> <span>/ {{'aboutus.sub.About us' | translate}}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-md-10 main-content">
+                <div class="who-we-are">
+                    <div class="section-head-left">
+                        <h2 style="padding-bottom: 30px;">
+                            <span class="top"></span>
+                            <!-- {{'aboutus.Who are we?' | translate}} -->
+                            {{activeLang === 'en' ? about.about_who_we_are_title_en : about.about_who_we_are_title_ar}}
+                            <span> </span>
+                        </h2>
+                        <p class="description" style="line-height: 1.9">
+                            {{activeLang === 'en' ? about.about_who_we_are_description_en : about.about_who_we_are_description_ar}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row section-row">
+            <div class="col-lg-6 col-xs-12 out-grid">
+                <div class="row">
+                    <div class="col-lg-1 d-none d-lg-block" style=" background-color: #F7F7F7; margin: 20px 0px;"></div>
+                    <div class="col-lg-8 col-xs-12 holder" style=" background-color: #F7F7F7;">
+                        <img src="../../../../assets/images/Screen Shot 2021-11-29 at 4.21.04 PM.png" alt="..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xs-12">
+                <div class="section-head-left">
+                    <h2 style="padding-bottom: 30px;">
+                        <span class="top"></span>
+                        <!-- {{'aboutus.Our vision' | translate}} -->
+                        {{activeLang === 'en' ? about.about_our_vision_title_en : about.about_our_vision_title_ar}}
+                        <span></span>
+                    </h2>
+                    <p class="description">
+                        {{activeLang === 'en' ? about.about_our_vision_description_en : about.about_our_vision_description_ar}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row section-row" style="
+        margin-bottom: 40px;
+        padding-bottom: 50px;">
+            <div class="col-lg-1 d-none d-lg-block" style=" margin: 20px 0px;"></div>
+            <div class=" col-lg-6 col-xs-12">
+                <div class="section-head-left">
+                    <h2 style="padding-bottom: 30px;">
+                        <span class="top"></span>
+                        <!-- {{'aboutus.Our mission' | translate}} -->
+                        {{activeLang === 'en' ? about.about_our_mision_title_en : about.about_our_mision_title_ar}}
+
+                        <span></span>
+                    </h2>
+                    <p class="description col-xs-12 col-lg-8">
+                        {{activeLang === 'en' ? about.about_our_mision_description_en : about.about_our_mision_description_ar}}
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-xs-12 out-grid second ">
+                <div class="row">
+
+                    <div class="col-xs-12 holder " style=" background-color: #F7F7F7;">
+                        <div class="row">
+                            <div class="col img-group">
+                                <img class="pull-this"
+                                    src="../../../../assets/images/Screen Shot 2021-11-29 at 5.39.41 PM.png" alt="..."/>
+                                <img src="../../../../assets/images/Screen Shot 2021-11-29 at 5.39.56 PM.png" alt="..."/>
+                            </div>
+                            <!-- <div class="col">
+                                </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <img src="../../../../assets/images/Screen Shot 2021-11-29 at 5.40.10 PM.png" alt="..."/>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                        <div class="col-12">
+                            <img src="../../../../assets/images/Screen Shot 2021-11-29 at 5.33.05 PM.png" />
+                        </div>
+                    </div> -->
+                        <!-- <img src="../../../../assets/images/Screen Shot 2021-11-29 at 4.21.04 PM.png" /> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+
+    <div class="footer row justify-content-center pt-5">
+        <div class="col-xs-12 col-sm-10">
+            <div class="row">
+                <div class="col-sm-12 col-sm-3 col-lg-3">
+                    <span class="logo"></span>
+                </div>
+                <div class="col-sm-12 col-sm-3 col-lg-3">
+                    <h3> {{'footer.Important Links' | translate}}</h3>
+                    <p> <a routerLink='/how-it-works'>{{'footer.How it works?' | translate}}</a></p>
+                    <p><a routerLink='/about'>{{'footer.About us' | translate}}</a></p>
+                    <p><a routerLink='/terms-condition'>{{'footer.Terms & Conditions' | translate}}</a></p>
+                    <p><a routerLink='/blog'>{{'footer.Blog' | translate}}</a></p>
+                </div>
+                <div class="col-sm-12 col-sm-3 col-lg-3">
+                    <h3> {{'footer.Services' | translate}}</h3>
+                    <p> <a routerLink=''>{{'footer.Buy' | translate}}</a></p>
+                    <p><a routerLink=''>{{'footer.Rent' | translate}}</a></p>
+                    <p><a routerLink=''>{{'footer.Sell' | translate}}</a></p>
+                    <p><a routerLink=''>{{'footer.Rental' | translate}}</a></p>
+                </div>
+                <div class="col-sm-12 col-sm-3 col-lg-3">
+                    <h3> {{'footer.Contact' | translate}}</h3>
+                    <p>{{contacts.contact_phone}}</p>
+                    <p>{{contacts.contact_email}}</p>
+                    <div class="social-links col">
+                        <a (click)="openNewTab(contacts.social_facebook)" routerLink='' > <span class="fb"></span></a>
+                        <a (click)="openNewTab(contacts.social_instagram)"  routerLink=''> <span class="ig"></span></a>
+                        <a (click)="openNewTab(contacts.social_twitter)"  routerLink=''> <span class="tw"></span></a>
+                        <a (click)="openNewTab(contacts.social_youtube)" routerLink=''> <span class="you"></span></a>
+                        <a (click)="openNewTab(contacts.social_linkedin)" routerLink=''> <span class="ln"></span></a>
+                       
+                    </div>
+                </div>
+
+            </div>
+            <hr class="line-break">
+            <img style="width:200px;margin-bottom: 10px;" src="../../../../assets/images/Group 1347@2x.png" alt="..."/>
+        </div>
+    </div>
+</div>

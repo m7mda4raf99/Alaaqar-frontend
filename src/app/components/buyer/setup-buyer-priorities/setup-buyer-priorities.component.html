@@ -1,0 +1,316 @@
+<div class="container--fluid priorities-form">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+  <div class="sub-head">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-md-10 ">
+          <p class="title"> {{'setPriorities.Set Priorities' | translate}}</p>
+          <p class="sm-title"><span class="home-tab" [routerLink]="['/']">{{'setPriorities.Home' | translate}}</span> <span>/ {{'setPriorities.Buy a home' | translate}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row justify-content-center " style="background-color: #F7F7F7;">
+      <div class="col-xs-12 col-md-10 main-content">
+        <div class="row">
+          <div class="col-xs-12  priorites-list">
+            <div class="col holder mt-3">
+              <div class="row justify-content-center">
+                <div class="row head-section">
+                  <p class="title-head col-6 float-start">{{'setupBuyerPriorities.Go to your Home' | translate}}</p>
+                  <!-- <p class="title-head col-6">
+                    <span (click)="showMatchingGraph(content)" class="float-end matchingGraph">Show Matching Graph</span>
+                  </p> -->
+                  <div class="progress-bars col-12">
+                    <div class="row">
+                      <div class="col-5 d-none d-lg-block" [class.active-sm]="currentStep === 1">
+                        <span class="man-icon" [class.active]="currentStep === 1">
+                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 40%
+                        </span>
+                        <div class="progress" [class.done]="currentStep > 1">
+                          <div class="progress-bar one" role="progressbar" style="width: 100%" aria-valuenow="100"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                      <div class="col-3 d-none d-lg-block" [class.active-sm]="currentStep === 2">
+                        <span class="man-icon" [class.active]="currentStep === 2">
+                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 70%
+                        </span>
+                        <div class="progress" [class.done]="currentStep > 2">
+                          <div class="progress-bar two" role="progressbar" style="width: 100%" aria-valuenow="100"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                      </div>
+                      <div class="col-2 d-none d-lg-block" [class.active-sm]="currentStep === 3">
+                        <span class="man-icon" [class.active]="currentStep === 3">
+                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 90%
+                        </span>
+                        <div class="progress" [class.done]="currentStep > 3">
+                          <div class="progress-bar three" role="progressbar" style="width: 100%" aria-valuenow="100"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                      <div class="col-1 d-none d-lg-block" [class.active-sm]="currentStep === 4">
+                        <span class="man-icon" [class.active]="currentStep === 4">
+                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 100%
+                        </span>
+                        <div class="progress" [class.done]="!validateSubmit()">
+                          <div class="progress-bar four" role="progressbar" style="width: 100%" aria-valuenow="100"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                      <div class="col-1 col-image d-none d-lg-block">
+                        <img src="../../../../assets/images/Path 508.svg" alt="...">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-stepper #cdkStepper [linear]="false">
+                <cdk-step [stepControl]="stepOne.stepForm" [optional]="false">
+                  <ng-template cdkStepLabel>
+                  </ng-template>
+                  <app-form-template #stepOne></app-form-template>
+                </cdk-step>
+
+                <cdk-step [stepControl]="stepTwo.stepForm" [optional]="false">
+                  <ng-template cdkStepLabel>
+                  </ng-template>
+                  <app-form-template #stepTwo></app-form-template>
+                </cdk-step>
+
+                <cdk-step [stepControl]="stepThree.stepForm" [optional]="false">
+                  <ng-template cdkStepLabel>
+                  </ng-template>
+                  <app-form-template #stepThree></app-form-template>
+                </cdk-step>
+
+                <cdk-step [stepControl]="stepFour.stepForm" [optional]="false">
+                  <ng-template cdkStepLabel>
+                  </ng-template>
+                  <app-form-template #stepFour></app-form-template>
+                </cdk-step>
+              </ng-stepper>
+
+            </div>
+            <div class="row" style="min-height: 90px;">
+              <div class="col-6 d-none d-lg-block"></div>
+              <div class="button col-12 col-lg-6">
+
+                <button *ngIf="currentStep < 4" (click)="next()" [disabled]="validateNext()"
+                  class="button btn button-success float-end">{{setUpButtonPlaceHolder() }}  ></button>
+                <button *ngIf="currentStep >= 4" [disabled]='validateSubmit()' class="btn button-success float-end"
+                  (click)="doSearchQuery()">{{'setupBuyerPriorities.Show Results' | translate}}</button>
+                <button (click)="back()" [disabled]="currentStep === 1"
+                  class="button btn button-success sub-action next-back float-end">{{'setupBuyerPriorities.Back' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <ng-template #content let-c="close" let-d="dismiss" class="priority-modal">
+    <div class="modal-body">
+      <div class="col-xs-12 priorites-control ">
+
+        <div class="col mt-3">
+          <div class="row">
+            <div class="col-9">
+              <p class="text-head">Results Accuracy</p>
+              <p class="text-desc">
+                Based on selected Priorities, your results will match your choices by 76%
+              </p>
+            </div>
+            <div class="col-3">
+              <div class="percent float-end">
+                <span class="float-end ">67%</span>
+
+              </div>
+            </div>
+
+          </div>
+          <ngb-accordion #myaccordion="ngbAccordion" (panelChange)="beforeChange($event)" [closeOthers]="true"
+            activeIds="{{activeIds}}">
+            <ngb-panel id="tab-1" title="Priority 1">
+              <ng-template ngbPanelContent>
+                <div class="row justify-content-center results">
+                  <div class="content">
+                    <div class="progress">
+                      <div [style.background-color]="bgColors[0]" class="progress-bar" role="progressbar"
+                        style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                        <span>8%</span>
+                      </div>
+                      <div [style.background-color]="bgColors[1]" class="progress-bar" role="progressbar"
+                        style="width: 100%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                        <span>8%</span>
+                      </div>
+                      <div [style.background-color]="bgColors[2]" class="progress-bar" role="progressbar"
+                        style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                        <span>8%</span>
+                      </div>
+                      <div [style.background-color]="bgColors[3]" class="progress-bar" role="progressbar"
+                        style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                        <span>8%</span>
+                      </div>
+                    </div>
+                    <div class="row mt-4">
+                      <div class="col-4" *ngFor='let item of getCurrentActiveForm("1") | keyvalue;let i =index;'>
+
+                        <p class="regular">
+                          <span [style.background-color]="bgColors[i]" class="before"></span>{{item.key}}
+                        </p>
+                        <div *ngFor="let val of getPriorityFormValue(item.value)"
+                          style="padding: 0px 15px;font-size: 14px;color: #A9A9A9;">
+                          {{val}}<br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel [disabled]="disableTab2" id="tab-2" title="Priority 2">
+              <ng-template ngbPanelContent>
+                <div class="row justify-content-center">
+                  <div class="row justify-content-center results">
+                    <div class="content">
+                      <div class="progress">
+                        <div [style.background-color]="bgColors[0]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                        <div [style.background-color]="bgColors[1]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                        <div [style.background-color]="bgColors[2]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                        <div [style.background-color]="bgColors[3]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-4" *ngFor='let item of getCurrentActiveForm("2") | keyvalue;let i =index;'>
+
+                          <p class="regular">
+                            <span [style.background-color]="bgColors[i]" class="before"></span>{{item.key}}
+                          </p>
+                          <div *ngFor="let val of getPriorityFormValue(item.value)"
+                            style="padding: 0px 15px;font-size: 14px;color: #A9A9A9;">
+                            {{val}}<br>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel [disabled]="disableTab3" id="tab-3" title="Priority 3">
+              <ng-template ngbPanelContent>
+                <div class="row justify-content-center">
+                  <div class="row justify-content-center">
+                    <div class="row justify-content-center results">
+                      <div class="content">
+                        <div class="progress">
+                          <div [style.background-color]="bgColors[0]" class="progress-bar" role="progressbar"
+                            style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                            <span>8%</span>
+                          </div>
+                          <div [style.background-color]="bgColors[1]" class="progress-bar" role="progressbar"
+                            style="width: 100%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                            <span>8%</span>
+                          </div>
+                          <div [style.background-color]="bgColors[2]" class="progress-bar" role="progressbar"
+                            style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span>8%</span>
+                          </div>
+                          <div [style.background-color]="bgColors[3]" class="progress-bar" role="progressbar"
+                            style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span>8%</span>
+                          </div>
+                        </div>
+                        <div class="row mt-4">
+                          <div class="col-4" *ngFor='let item of getCurrentActiveForm("3") | keyvalue;let i =index;'>
+
+                            <p class="regular">
+                              <span [style.background-color]="bgColors[i]" class="before"></span>{{item.key}}
+                            </p>
+                            <div *ngFor="let val of getPriorityFormValue(item.value)"
+                              style="padding: 0px 15px;font-size: 14px;color: #A9A9A9;">
+                              {{val}}<br>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel [disabled]="disableTab4" id="tab-4" title="Priority 4">
+              <ng-template ngbPanelContent>
+                <div class="row justify-content-center">
+                  <div class="row justify-content-center results">
+                    <div class="content">
+                      <div class="progress">
+                        <div [style.background-color]="bgColors[0]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                        <div [style.background-color]="bgColors[1]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                        <div [style.background-color]="bgColors[2]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                        <div [style.background-color]="bgColors[3]" class="progress-bar" role="progressbar"
+                          style="width: 100%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span>8%</span>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-4" *ngFor='let item of getCurrentActiveForm("4") | keyvalue;let i =index;'>
+
+                          <p class="regular">
+                            <span [style.background-color]="bgColors[i]" class="before"></span>{{item.key}}
+                          </p>
+                          <div *ngFor="let val of getPriorityFormValue(item.value)"
+                            style="padding: 0px 15px;font-size: 14px;color: #A9A9A9;">
+                            {{val}}<br>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+          <!-- <div class="button">
+            <button (click)="back()" [disabled]="currentStep === 1"
+              class="button btn button-success next-back">Back</button>
+            <button *ngIf="validateSubmit()" (click)="next()" [disabled]="validateNext()"
+              class="button btn button-success">Next</button>
+            <button *ngIf="!validateSubmit()" [disabled]='validateSubmit()'
+              class="btn button-success show-result" (click)="doSearchQuery()">Show Results</button>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </ng-template>
+</div>
