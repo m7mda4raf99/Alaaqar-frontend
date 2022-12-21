@@ -334,6 +334,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   validateNext(): boolean {
     const currentStep = String(this.currentStep)
     if (this.prioritiesService.sellerForm.get(currentStep)?.valid && currentStep !== '4') {
+      console.log("false")
       return false
     }
     return true

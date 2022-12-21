@@ -159,6 +159,7 @@ export class SellFormTemplateComponent implements OnInit {
   getFormValue(key: any) {
     let val = this.stepForm.get(key)?.value
     if (Array.isArray(val) && val.length > 0) {
+      console.log(val[0].value)
       return val[0].value
     }
     return '';
@@ -166,7 +167,6 @@ export class SellFormTemplateComponent implements OnInit {
   getHelperText(key: any){
     for (const element of this.formData) {
       if (element.name_en === key || element.name_ar === key){
-        console.log(element)
         return this.activeLang === 'en' ? element.measuring_unit_en : element.measuring_unit_ar
       }
     }

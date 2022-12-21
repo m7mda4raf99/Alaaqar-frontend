@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { AppServiceService } from '../../../services/app-service.service'
@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment'
 import { FormBuilder } from '@angular/forms'
 import { Title, Meta } from '@angular/platform-browser'
 import { json } from 'stream/consumers'
+import { HttpClient } from '@angular/common/http'
 
 
 
@@ -30,6 +31,20 @@ export class HomeComponent implements OnInit {
   video_src = 'alaqaar-solution.mp4'
 
   selected_country:any
+
+  ipAddress = '';
+
+  video_variable = false;
+  @HostListener("document:scroll")
+  scrollfunction(){
+    if(document.body.scrollTop > 0 || document.documentElement.scrollTop > 0){
+      this.video_variable = true;
+      // console.log(this.video_variable);
+    }
+    else{
+      this.video_variable = false
+    }
+  }
 
   lang: string = ''
   BaseURL = environment.baseUrl
@@ -78,6 +93,8 @@ export class HomeComponent implements OnInit {
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
 
+
+
   minPriceValue = [
     { val: 0, view: '0 EGP' },
     { val: 100000, view: this.abbreviateNumber(100000) },
@@ -106,7 +123,9 @@ export class HomeComponent implements OnInit {
     public formBuilder: FormBuilder,
     private translateService: TranslateService,
     private metaService: Meta,
-    private titleService: Title) {
+    private titleService: Title,
+    private http:HttpClient
+    ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
       this.selectedArea = null
@@ -153,6 +172,42 @@ export class HomeComponent implements OnInit {
     this.getUnitTypes()
     this.spinner.hide()
     this.resetFormData()
+    // this.getLocation()
+    this.getIPAddress();
+  
+  }
+  getIPAddress()
+  {
+    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
+      this.ipAddress = res.ip;
+      console.log(this.ipAddress)
+    });
+  }
+  watchPosition(){
+    let desLat = 0 ;
+    let desLon = 0 ;
+    let id = navigator.geolocation.watchPosition((position) =>{
+      console.log(position.coords.latitude + position.coords.longitude);
+
+    },(err) =>{
+      console.log("error is " +err);
+    }, {
+      enableHighAccuracy :false,
+      timeout:5000,
+      maximumAge :0,
+    }
+    )
+  }
+  getLocation(): void{
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position)=>{
+          const longitude = position.coords.longitude;
+          const latitude = position.coords.latitude;
+                    
+        });
+    } else {
+       console.log("No support for geolocation")
+    }
   }
 
   resetFormData() {
@@ -317,9 +372,7 @@ export class HomeComponent implements OnInit {
     this.cites = areaArr
     this.neighborhood = neighborhoodArr
 
-    console.log(this.countries)
-    console.log(this.cites)
-    console.log(this.neighborhood)
+
   }
 
   search_model: any = {
@@ -409,7 +462,6 @@ export class HomeComponent implements OnInit {
   }
 
   setActiveTab(tab: string) {
-    console.log(tab)
     this.resetSelection()
     const queryParams: Params = { q: tab }
     if(tab == 'buy'){
@@ -434,7 +486,7 @@ export class HomeComponent implements OnInit {
     this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = false
   }
   submit(data: any) {
-    console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
+    // console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
     if (!data.SelectedRealEstateType || data.SelectedRealEstateType === this.defaultSelectedRealEstateType) { this.SelectedRealEstateTypeNotValid = true }
     // if (!data.selectedNeighborhood || data.selectedNeighborhood === this.defaultSelectedNeighborhood) { this.SelectedNeighborhoodNotValid = true }
     if ((this.activeTab === 'sell' || this.activeTab === 'rental') && data.unitDescription == '') { this.unitDescriptionNotValid = true }
@@ -636,4 +688,10 @@ export class HomeComponent implements OnInit {
   //   this.videoplayer.nativeElement.play();
   // }
 
+  
+
 }
+function reverseGeocodingWithGoogle(latitude: number, longitude: number) {
+  throw new Error('Function not implemented.')
+}
+

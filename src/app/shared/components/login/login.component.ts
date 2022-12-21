@@ -9,6 +9,7 @@ import { AppServiceService } from '../../../services/app-service.service'
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+import { NgxSpinnerService } from "ngx-spinner"
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
     private appService: AppServiceService,
     private location: Location,
     private translateService: TranslateService,
+    private spinner: NgxSpinnerService,
     private httpClient: HttpClient) { }
 
   ngOnInit(): void {
@@ -133,6 +135,7 @@ export class LoginComponent implements OnInit {
     return this.avatarUrl ? this.avatarUrl : '../../../../assets/images/Ellipse 1264.png'
   }
   async Register() {
+    this.isLoading = true
     if (this.filedata && this.phoneForm.get('name')?.valid && this.phoneForm.get('phone')?.valid) {
       let obj = {
         'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),

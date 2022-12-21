@@ -1,6 +1,7 @@
 <div *ngIf="selected_country != 'saudi'" class="container-fluid home">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
-        <p style="color: white"> Loading... </p>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+        <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+
     </ngx-spinner>
     <!-- First section (Find Your Perfect Future Home)-->
     <div class="row first-sec ">
@@ -148,7 +149,7 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <div class="video-preview">
-                            <video class="video" controls #videoPlayer>
+                            <video  [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
                                 <source src="../../assets/images/{{video_src}}" type="video/mp4" />
                             </video>
                         </div>
@@ -157,13 +158,14 @@
                         <div class="section-head-center normal">
                             <h2>
                                 <span class="top"></span>
-                                {{'alaqaar_solution' | translate}}
+                                <!-- {{'alaqaar_solution' | translate}} -->
                                 <span></span>
                             </h2>
                         </div>
                         <p class="large-text">{{'solution_text' | translate}}</p>
-                        <button (click)="scroll_to_form()" class="btn button-success more">{{'try_solution' |
-                            translate}}</button>
+                  <button (click)="scroll_to_form()" class="btn button-success more">{{'try_solution' |
+                            translate}}</button> 
+                            
                     </div>
                 </div>
             </div>
@@ -189,17 +191,16 @@
                     </p> -->
                 </div>
                 <div class="row justify-content-center" style="margin: 0;">
-                    <div *ngFor="let item of recentlyAdded" class="col-xs-12 col-xl-5">
-                        <div class="card mb-3">
+                    <div *ngFor="let item of recentlyAdded" class="col-xs-3 col-xl-5">
+                        <div class="card mb-3" style="width: 80%;" >
                             <div class="row g-0">
-                                <div class="col-md-4 imageSection">
                                     <div style="position: relative;">
                                         <span class="bage">{{getPropose(item)}}</span>
                                         <span (click)="navigateToSingleItem(item)" class="overlay"
                                             style="border-radius: 20px;"></span>
                                         <img src="{{item['image'] ? item['image']  : '../../../../assets/images/empty.jpeg'}}"
                                             class="img-fluid back-img" alt="...">
-                                    </div>
+                                    
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -243,6 +244,7 @@
             </div>
 
         </div>
+        
         <!-- How it works-->
         <div class="row how-it-works">
             <div class="section-head-center">
@@ -298,7 +300,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
                             <div class="card">
                                 <span class="icons">
