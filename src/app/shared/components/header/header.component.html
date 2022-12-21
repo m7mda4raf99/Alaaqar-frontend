@@ -178,7 +178,22 @@
                         <fa-icon [icon]="faEllipsisV"></fa-icon>
                       </span> -->
                     </button>
-                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  style="transform: translate(140px,44px) !important;">
+                        <li>
+                            <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
+                                type="button">
+                                <fa-icon [icon]="faEdit" class="user-icon"></fa-icon> {{'header.Profile.edit' |
+                                translate}}
+                            </button>
+                        </li>
+                        <!-- <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item" type="button"><fa-icon [icon]="faHeart" class="user-icon"></fa-icon> {{'header.Profile.Favorites' | translate}}</button></li> -->
+                        <li><button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
+                                type="button">
+                                <fa-icon [icon]="faSignOutAlt" class="user-icon"></fa-icon> {{'header.Profile.logout' |
+                                translate}}
+                            </button></li>
+                    </ul>
+                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'"   >
                         <li>
                             <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
                                 type="button">

@@ -1,6 +1,22 @@
 $active_color: #fa5664;
 $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%) 0% 0% no-repeat padding-box;
 
+.mydropdown.dropdown-menu.show{
+
+    inset: 0px 0px auto;
+    margin: 0px;
+    position: absolute;
+    will-change: transform;
+    transform: translate(140px, 40px) !important;
+}
+// .dropdown-menu.show{
+
+//     inset: 0px 0px auto;
+//     margin: 0px;
+//     position: absolute;
+//     will-change: transform;
+//     transform: translate(140px, 40px) !important;
+// }
 .app-header{
     // height: 80px;
     display: flex;
@@ -185,6 +201,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
         .dropdown{
             width: 100%;
             height: 100%;
+            
         }
         .btn-avatar{
             border:none;
