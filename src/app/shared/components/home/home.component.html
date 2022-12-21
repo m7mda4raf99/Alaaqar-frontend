@@ -1,4 +1,5 @@
-<div *ngIf="selected_country != 'saudi'" class="container-fluid home">
+
+<div id="home" *ngIf="selected_country != 'saudi'" class="container-fluid home">
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
         <p style="color: white"> Loading... </p>
     </ngx-spinner>
@@ -441,10 +442,11 @@
         <ng-template #buyRent let-type="type">
             <div class="col-6 col-lg-1 ngSelect main">
                 <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-                <ng-select bindLabel="name" [(ngModel)]="defaultCountry" (change)="onChangeCity(defaultCountry)">
+                <ng-select bindLabel="name" [(ngModel)]="defaultCountry"  placeholder="{{'home.Select city'| translate}}"(change)="onChangeCity(defaultCountry)">
                     <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}} ({{c.units_count}})
                     </ng-option>
                 </ng-select>
+                <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
             </div>
             <div class="col-6 col-lg-1 ngSelect city">
                 <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
@@ -466,8 +468,7 @@
                         ({{c.units_count}})
                     </ng-option>
                 </ng-select>
-                <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span> -->
+                <span *ngIf="SelectedNeighborhoodNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
             </div>
 
             <div class="col-xs-12 col-lg-2 ngSelect realState">
@@ -526,7 +527,10 @@
                             </div>
                         </div>
                     </ul>
+
                 </div>
+                <!-- <span *ngIf="priceMinRange==''||priceMaxRange==''">{{'validation.This Filed Is Required!' | translate}}</span> -->
+                
             </div>
 
             <div class="col-xs-12 col-lg-3 ngSelect submit_buttons">
@@ -563,13 +567,13 @@
             </div>
             <div class="col-xs-12 col-lg-3 ngSelect">
                 <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                <ng-select [items]="neighborhood" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
+                <ng-select [items]="neighborhood"  [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
                     bindLabel="name"
                     (change)="validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
+                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood" >
                 </ng-select>
-                <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span> -->
+                <!-- <span *ngIf="SelectedNeighborhoodNotValid">{{'validation.This Filed Is Required!' | translate}}</span> -->
+                    
             </div>
 
             <div class="col-xs-12 col-lg-3 ngSelect">

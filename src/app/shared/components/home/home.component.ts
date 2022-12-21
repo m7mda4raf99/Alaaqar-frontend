@@ -11,6 +11,9 @@ import { environment } from 'src/environments/environment'
 import { FormBuilder } from '@angular/forms'
 import { Title, Meta } from '@angular/platform-browser'
 import { json } from 'stream/consumers'
+import { zoomOut } from 'ng-animate'
+
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -56,7 +59,7 @@ export class HomeComponent implements OnInit {
   selectedValue = 'Country'
   defaultCountry: any
   selectedCountry: any
-  // selectedCity: any
+  selectedCity: any
   selectedArea: any
   isFocussed: any
   unitDescription: string = ''
@@ -94,8 +97,10 @@ export class HomeComponent implements OnInit {
   maxPriceValue: any = []
   blogs: any = []
   aboutUs: any = {}
-
+  isLoggedIn: boolean = false
   constructor(
+    //header:HeaderComponent,
+    private cookieService: CookieService,
     private appServiceService: AppServiceService,
     private _activatedRoute: ActivatedRoute,
     private router: Router,
@@ -135,6 +140,10 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
+
+    const box=document.getElementById('home')
+    
+    
      this.appServiceService.selected_country$.subscribe((res:any) =>{
       this.selected_country = res
     })
@@ -434,23 +443,41 @@ export class HomeComponent implements OnInit {
     this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = false
   }
   submit(data: any) {
-    console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
+    // console.log(this.SelectedRealEstateType)
+    // console.log(this.defaultSelectedRealEstateType)
+    // console.log(data.selectedNeighborhood)
+    const user = this.cookieService.get('user')
+
+    console.log("user" + " "+user)
+    if (user) {
+      this.isLoggedIn = true
+      
+    }
     if (!data.SelectedRealEstateType || data.SelectedRealEstateType === this.defaultSelectedRealEstateType) { this.SelectedRealEstateTypeNotValid = true }
-    // if (!data.selectedNeighborhood || data.selectedNeighborhood === this.defaultSelectedNeighborhood) { this.SelectedNeighborhoodNotValid = true }
+    if (!data.selectedNeighborhood || data.selectedNeighborhood === this.defaultSelectedNeighborhood) { this.SelectedNeighborhoodNotValid = true }
+    // if(data.selectedNeighborhood==null){this.SelectedNeighborhoodNotValid = true }else{this.SelectedNeighborhoodNotValid=false}
+     
     if ((this.activeTab === 'sell' || this.activeTab === 'rental') && data.unitDescription == '') { this.unitDescriptionNotValid = true }
     if (!data.selectedArea || data.selectedArea === this.defaultSelectedArea) { this.selectedAreaNotValid = true }
+    
     if (!this.SelectedRealEstateTypeNotValid &&
-      // !this.SelectedNeighborhoodNotValid &&
+       !this.SelectedNeighborhoodNotValid &&
       !this.selectedAreaNotValid &&
       !this.unitDescriptionNotValid) {
       let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
       data['selectedCountryId'] = selectedCountryId[0].id
       let selectedArea = this.cites.filter((c: any) => c.id === data.selectedArea[0])
+      
+      
       data['selectedAreaObj'] = selectedArea
       data['selectedCountry'] = selectedCountryId[0]
-      if (this.activeTab === 'sell' || this.activeTab === 'rental') {
+      if ((this.activeTab === 'sell' || this.activeTab === 'rental')&& this.isLoggedIn) {
+        
         this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
-      } else {
+      }else if((this.activeTab === 'sell' || this.activeTab === 'rental') && !this.isLoggedIn){
+        this.router.navigate(['/login'])
+      } 
+      else {
         this.router.navigate(['/set-priorities'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rent' ? 1 : 2 } })
       }
       if (data.priceMaxRange === null || data.priceMaxRange === '') { data.priceMaxRange = 0 }
