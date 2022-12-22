@@ -65,7 +65,7 @@
         "Your message has been sent successfully!":"Your message has been sent successfully!"
     },
     "validation": {
-        "This Filed Is Required!": "This Filed Is Required!"
+        "This Filed Is Required!": "This field is required!"
     },
     "home": {
         "Find Your Perfect": "Buy, Sell, or Rent  ",

@@ -74,9 +74,11 @@ export class HomeComponent implements OnInit {
   SelectedNeighborhoodNotValid: boolean = false
   selectedCityNotValid: boolean = false
   selectedAreaNotValid: boolean = false
+  PriceNotValid: boolean = false
   unitDescriptionNotValid: boolean = false
   priceMaxRange: any
   priceMinRange: any
+  price: any
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
 
@@ -178,6 +180,10 @@ export class HomeComponent implements OnInit {
     this.setMultiSelection()
     this.spinner.hide()
     this.resetFormData()
+  }
+
+  onChangePrice(){
+    this.PriceNotValid = false
   }
 
   onItemSelect(selected: any, defaultVal: any, label: string): boolean {
@@ -555,27 +561,46 @@ export class HomeComponent implements OnInit {
       this.SelectedRealEstateTypeNotValid = true 
     }
 
-    if ((this.activeTab === 'sell' || this.activeTab === 'rental') && data.unitDescription == '') { 
-      this.unitDescriptionNotValid = true 
+
+    if ((this.activeTab === 'sell' || this.activeTab === 'rental')) { 
+      if(data.unitDescription == ''){
+        this.unitDescriptionNotValid = true 
+      }
+
+      if(data.price == undefined || data.price == "" || data.price == "0"){
+        this.PriceNotValid = true;
+      }
+      
     }
   
-    
+
     if (!this.SelectedRealEstateTypeNotValid &&
       !this.SelectedNeighborhoodNotValid &&
       !this.selectedAreaNotValid &&
-      !this.unitDescriptionNotValid) {
-      let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
-      data['selectedCountryId'] = selectedCountryId[0].id
-      let selectedArea = this.cites.filter((c: any) => c.id === data.selectedArea[0])
-      data['selectedAreaObj'] = selectedArea
-      data['selectedCountry'] = selectedCountryId[0]
-      if (this.activeTab === 'sell' || this.activeTab === 'rental') {
-        this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
-      } else {
-        this.router.navigate(['/set-priorities'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rent' ? 1 : 2 } })
-      }
-      if (data.priceMaxRange === null || data.priceMaxRange === '') { data.priceMaxRange = 0 }
-      this.appServiceService.propertyDetails$.next(data)
+      !this.unitDescriptionNotValid && 
+      !this.PriceNotValid) {
+      
+        let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
+        
+        data['selectedCountryId'] = selectedCountryId[0].id
+        
+        let selectedArea = this.cites.filter((c: any) => c.id === data.selectedArea[0])
+        
+        data['selectedAreaObj'] = selectedArea
+        
+        data['selectedCountry'] = selectedCountryId[0]
+        
+        if (this.activeTab === 'sell' || this.activeTab === 'rental') {
+          this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
+        } else {
+          this.router.navigate(['/set-priorities'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rent' ? 1 : 2 } })
+        }
+        
+        if (data.priceMaxRange === null || data.priceMaxRange === '') { 
+          data.priceMaxRange = 0 
+        }
+        
+        this.appServiceService.propertyDetails$.next(data)
     }
   }
   validateInputs(selected: any, defaultVal: any, label: string): boolean {
@@ -602,6 +627,7 @@ export class HomeComponent implements OnInit {
         this.search_model.neighborhood = selected
       }
     }
+    
     if (label === 'Area') {
       let activeCity: any
       let neighborhoodArr: any = []
@@ -696,7 +722,11 @@ export class HomeComponent implements OnInit {
       this.search_model.areas = selected
     }
     if (label === 'Real estate type') {
-      this.SelectedRealEstateTypeNotValid = !this.selectedNeighborhood && this.selectedNeighborhood?.id ? true : false
+      //this.SelectedRealEstateTypeNotValid = !this.selectedNeighborhood && this.selectedNeighborhood?.id ? true : false
+      
+      if(this.SelectedRealEstateType != this.defaultSelectedRealEstateType)
+        this.SelectedRealEstateTypeNotValid = false
+      
       this.search_model.type = [selected]
     }
     if (label === 'unitDescription') {

@@ -498,8 +498,7 @@
                     translate}}</span>
             </div>
 
-            
-
+    
             <div class="col-xs-12 col-lg-2 ngSelect realState">
                 <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
                 <ng-select [multiple]="false" [addTag]="addTagFn" [hideSelected]="true" bindLabel="name"
@@ -597,21 +596,23 @@
                 <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
                 <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
                     bindLabel="name" placeholder="Select Area"
-                    (change)="validateInputs(selectedArea, defaultSelectedArea, 'Area')">
+                    (change)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')">
                     <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
                     </ng-option>
                 </ng-select>
                 <span *ngIf="selectedAreaNotValid"> {{'validation.This Filed Is Required!' | translate}}</span>
             </div>
+            
+            
             <div class="col-xs-12 col-lg-3 ngSelect">
                 <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
                 <ng-select [items]="neighborhood" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
                     bindLabel="name"
-                    (change)="validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                    (change)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
                     placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
                 </ng-select>
-                <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span> -->
+                <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                    translate}}</span>
             </div>
 
             <div class="col-xs-12 col-lg-3 ngSelect">
@@ -630,21 +631,26 @@
                 <div>
                     <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
                         translate}}</label>
-                    <input class="ngSelect-input" [(ngModel)]="priceMinRange" placeholder="{{'home.Price' | translate}}"
+                    <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
                         [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
                 </div>
+
+                <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |
+                    translate}}</span>
+                    
             </div>
             <div class="col-xs-12 description">
                 <p class="lable d-none d-lg-block">{{'home.Write a unique description of your unit' | translate}} </p>
                 <textarea (ngModelChange)="validateInputs(unitDescription, '', 'unitDescription')" cols="ngSelect-input"
                     placeholder="{{'home.description' | translate}}" [(ngModel)]="unitDescription"
                     class="col-xs-12"></textarea>
-                <span style="font-size: 10px;color: red;" *ngIf="unitDescriptionNotValid">{{'validation.This Filed Is
+                
+                    <span style="font-size: 10px;color: red;" *ngIf="unitDescriptionNotValid">{{'validation.This Filed Is
                     Required!' | translate}}</span>
             </div>
             <div class="col-xs-12 ngSelect mt-1">
                 <button #apply
-                    (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,unitDescription})"
+                    (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,price,priceMaxRange,unitDescription})"
                     class="btn button-success applyBtn float-end mb-3">{{'button.actions.Apply & Continue' |
                     translate}}</button>
             </div>
