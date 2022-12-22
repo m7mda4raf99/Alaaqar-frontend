@@ -65,8 +65,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { SearchResultComponent } from './shared/components/search-result/search-result.component';
 import { ItemCardComponent } from './shared/components/item-card/item-card.component';
 
-
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
@@ -104,7 +103,7 @@ import { ItemCardComponent } from './shared/components/item-card/item-card.compo
     PrivacyPolicyComponent,
     FavouritesComponent,
     SearchResultComponent,
-    ItemCardComponent
+    ItemCardComponent  
   ],
   imports: [
     FormsModule,
@@ -140,7 +139,8 @@ import { ItemCardComponent } from './shared/components/item-card/item-card.compo
     CdkStepperModule,
     NgStepperModule,
     NgxNumberFormatModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [PostService, AppServiceService,CookieService, {
     provide : HTTP_INTERCEPTORS,
