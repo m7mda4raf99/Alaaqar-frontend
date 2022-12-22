@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { of, Subscription } from 'rxjs'
 import { AppServiceService } from '../../../services/app-service.service'
 import { NotificationsService } from '../../../services/notifications.service'
 import { PrioritiesService } from 'src/app/services/priorities.service'
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
 
   defaultSelectedArea = 'Select Area'
   defaultSelectedCity = 'Select City'
-  defaultSelectedNeighborhood = 'Neighborhood'
+  defaultSelectedNeighborhood = 'Select Neighborhood'
   defaultSelectedRealEstateType = 'Select Type'
 
   selectedNeighborhood: any
@@ -142,7 +142,7 @@ export class HomeComponent implements OnInit {
         this.defaultSelectedRealEstateType = 'اختار نوع العقار'
       } else {
         this.defaultSelectedArea = 'Select Area'
-        this.defaultSelectedNeighborhood = 'Neighborhood'
+        this.defaultSelectedNeighborhood = 'Select Neighborhood'
         this.defaultSelectedRealEstateType = 'Select Type'
       }
       await this.getGeographical(this.activeCity)
@@ -170,19 +170,47 @@ export class HomeComponent implements OnInit {
       await this.getRecentlyAdded()
     }
     await this.getGeographical(this.activeCity)
-    // this.getHomeAboutSectionData()
-    // this.getFooterContact()
-    // this.getAboutUsHome()
-    // this.getHomeBlogs()
-    // this.getUnitTypes()
+    this.getHomeAboutSectionData()
+    this.getFooterContact()
+    this.getAboutUsHome()
+    this.getHomeBlogs()
+    this.getUnitTypes()
     this.setMultiSelection()
     this.spinner.hide()
     this.resetFormData()
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
+  onItemSelect(selected: any, defaultVal: any, label: string): boolean {
+    if (label === 'Area'){
+      this.selectedAreaNotValid = false
+    }
+
+    if (label === 'Neighborhood'){
+      this.SelectedNeighborhoodNotValid = false
+    }
+
+
+    return this.validateInputs(selected, defaultVal, label)
   }
+
+  onItemDeSelect(selected: any, defaultVal: any, label: string): boolean {
+    // if (label === 'Area'){
+    //   if (Array.isArray(selected)) {
+    //     if(selected.length === 0)
+    //       this.selectedAreaNotValid = true
+    //   }
+    // }
+
+    // if (label === 'Neighborhood'){
+    //   if (Array.isArray(selected) && selected.length === 0) {
+    //       this.SelectedNeighborhoodNotValid = true
+    //   }
+    // }
+
+
+    return this.validateInputs(selected, defaultVal, label)
+  }
+
   onSelectAll(items: any) {
     console.log(items);
   }
@@ -512,12 +540,28 @@ export class HomeComponent implements OnInit {
   }
   submit(data: any) {
     console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
-    if (!data.SelectedRealEstateType || data.SelectedRealEstateType === this.defaultSelectedRealEstateType) { this.SelectedRealEstateTypeNotValid = true }
-    if (!data.selectedNeighborhood || data.selectedNeighborhood === this.defaultSelectedNeighborhood) { this.SelectedNeighborhoodNotValid = true }
-    if ((this.activeTab === 'sell' || this.activeTab === 'rental') && data.unitDescription == '') { this.unitDescriptionNotValid = true }
-    if (!data.selectedArea || data.selectedArea === this.defaultSelectedArea) { this.selectedAreaNotValid = true }
+
+    if (!data.selectedArea || data.selectedArea === this.defaultSelectedArea ||
+      (Array.isArray(data.selectedArea) && data.selectedArea.length === 0) ) { 
+      this.selectedAreaNotValid = true 
+    }
+    
+    if (!data.selectedNeighborhood || data.selectedNeighborhood === this.defaultSelectedNeighborhood ||
+      (Array.isArray(data.selectedNeighborhood) && data.selectedNeighborhood.length === 0)) { 
+      this.SelectedNeighborhoodNotValid = true 
+    }
+
+    if (!data.SelectedRealEstateType || data.SelectedRealEstateType === this.defaultSelectedRealEstateType) { 
+      this.SelectedRealEstateTypeNotValid = true 
+    }
+
+    if ((this.activeTab === 'sell' || this.activeTab === 'rental') && data.unitDescription == '') { 
+      this.unitDescriptionNotValid = true 
+    }
+  
+    
     if (!this.SelectedRealEstateTypeNotValid &&
-      // !this.SelectedNeighborhoodNotValid &&
+      !this.SelectedNeighborhoodNotValid &&
       !this.selectedAreaNotValid &&
       !this.unitDescriptionNotValid) {
       let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
@@ -647,7 +691,7 @@ export class HomeComponent implements OnInit {
         console.log("neighbrhood 2")
         console.log(this.neighborhood)
       }
-      this.selectedAreaNotValid = !this.selectedArea && !this.selectedArea?.id ? true : false
+      //this.selectedAreaNotValid = !this.selectedArea && !this.selectedArea?.id ? true : false
       // set selected value to search model
       this.search_model.areas = selected
     }

@@ -461,8 +461,8 @@
                 </ng-select> -->
 
                 <ng-multiselect-dropdown
-                    (onSelect)="validateInputs(selectedArea, defaultSelectedArea, 'Area')"
-                    (onDeSelect) = "validateInputs(selectedArea, defaultSelectedArea, 'Area')"
+                    (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
+                    (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
                     placeholder="{{'home.Select Area'| translate}}" 
                     [(ngModel)]="selectedArea"
                     [settings]="dropdownSettingsArea"
@@ -486,8 +486,8 @@
 
              
                 <ng-multiselect-dropdown
-                    (onSelect)="validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                    (onDeSelect) = "validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                    (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                    (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
                     placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
                     [settings]="dropdownSettings"
                     [data]="neighborhood"
