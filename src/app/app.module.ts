@@ -66,6 +66,7 @@ import { SearchResultComponent } from './shared/components/search-result/search-
 import { ItemCardComponent } from './shared/components/item-card/item-card.component';
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { filter } from 'rxjs';
 
 
 
@@ -155,10 +156,16 @@ export class AppModule {
     // library.addIconPacks(fas)
     library.addIcons()
     router.events.subscribe((val) => {
+
       if (val instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
+
+        let url = (val as NavigationEnd).url
+
+        if(url != '/home?q=rent' && url != '/home?q=sell' && url != '/home?q=rental')
+          window.scrollTo(0, 0);
       }
     });
+
   }
 }
 // AOT compilation support
