@@ -67,6 +67,8 @@ import { ItemCardComponent } from './shared/components/item-card/item-card.compo
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { filter } from 'rxjs';
+import { PriceRangeSliderComponent } from './shared/components/price-range-slider/price-range-slider.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 
 
@@ -104,7 +106,8 @@ import { filter } from 'rxjs';
     PrivacyPolicyComponent,
     FavouritesComponent,
     SearchResultComponent,
-    ItemCardComponent  
+    ItemCardComponent,
+    PriceRangeSliderComponent  
   ],
   imports: [
     FormsModule,
@@ -141,7 +144,8 @@ import { filter } from 'rxjs';
     NgStepperModule,
     NgxNumberFormatModule,
     NgxSpinnerModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxSliderModule
   ],
   providers: [PostService, AppServiceService,CookieService, {
     provide : HTTP_INTERCEPTORS,

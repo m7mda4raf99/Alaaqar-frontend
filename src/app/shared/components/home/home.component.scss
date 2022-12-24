@@ -429,12 +429,9 @@
                         // display: block;
                         padding: 10px;
                         border-top: none;
-                        width: 375px;
-                        height: fit-content;
-                        border-bottom-left-radius: 20px;
-                        border-bottom-right-radius: 20px;
-                        border-top-right-radius: 0;
-                        border-top-left-radius: 0;
+                        width: 326px ;
+                        height: 202px !important;
+                        border-radius: 10px;
                         @media (max-width: 425px) {
                             width: 340px;
                         }
@@ -817,4 +814,5 @@
 //         }
 //     }
 // }
+
 

@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
 
   selected_country:any
 
+  parentName: string = "ashraf is here guys"
+
   lang: string = ''
   BaseURL = environment.baseUrl
   sub1 = new Subscription()
@@ -159,18 +161,30 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  receiver(receivedFromChild : any){
+    this.priceMinRange = receivedFromChild[0]
+    this.priceMaxRange = receivedFromChild[1]
+  }
+  
+
   async ngOnInit() {
-     this.appServiceService.selected_country$.subscribe((res:any) =>{
+    
+    this.appServiceService.selected_country$.subscribe((res:any) =>{
       this.selected_country = res
     })
+    
     this.titleService.setTitle('Alaaqar | Property Finder Online  | Buy And Sell Property In Egypt');
+    
     this.metaService.addTags([
       { name: 'description', content: "Alaaqar is a property finder platform online .It's the easiest way to buy, sell, or rent residential or commercial properties. Buy, Sell, or Rent without hassle Online." },
     ]);
+    
     this.spinner.show()
+    
     if (!this.recentlyAdded.length) {
       await this.getRecentlyAdded()
     }
+    
     await this.getGeographical(this.activeCity)
     this.getHomeAboutSectionData()
     this.getFooterContact()
@@ -218,7 +232,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSelectAll(items: any) {
-    console.log(items);
+    //console.log(items);
   }
 
   setMultiSelection(){
@@ -414,12 +428,12 @@ export class HomeComponent implements OnInit {
     this.cites = areaArr
     this.neighborhood = neighborhoodArr
 
-    console.log("countries")
-    console.log(this.countries)
-    console.log("cities")
-    console.log(this.cites)
-    console.log("negibhorhoods 1")
-    console.log(this.neighborhood)
+    // console.log("countries")
+    // console.log(this.countries)
+    // console.log("cities")
+    // console.log(this.cites)
+    // console.log("negibhorhoods 1")
+    // console.log(this.neighborhood)
   }
 
 
@@ -520,7 +534,7 @@ export class HomeComponent implements OnInit {
   }
 
   setActiveTab(tab: string) {
-    console.log(tab)
+    //console.log(tab)
     this.resetSelection()
     const queryParams: Params = { q: tab }
     if(tab == 'buy'){
@@ -545,7 +559,7 @@ export class HomeComponent implements OnInit {
     this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = false
   }
   submit(data: any) {
-    console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
+    //console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
 
     if (!data.selectedArea || data.selectedArea === this.defaultSelectedArea ||
       (Array.isArray(data.selectedArea) && data.selectedArea.length === 0) ) { 
@@ -606,7 +620,7 @@ export class HomeComponent implements OnInit {
   validateInputs(selected: any, defaultVal: any, label: string): boolean {
 
     if (label === 'Neighborhood') {
-      console.log("henaaaa")
+      //console.log("henaaaa")
 
       if (Array.isArray(this.selectedNeighborhood)) {
         if (this.selectedNeighborhood.length > 4) {
@@ -630,9 +644,12 @@ export class HomeComponent implements OnInit {
     
     if (label === 'Area') {
       let activeCity: any
+      
       let neighborhoodArr: any = []
+      
       this.selectedNeighborhood = null
-      console.log("selectedArea: ", this.selectedArea)
+      //console.log("selectedArea: ", this.selectedArea)
+      
       if (Array.isArray(this.selectedArea)) {
         if (this.selectedArea.length < 3) {
           this.cites.map((val: any) => val.disabled = false)
@@ -649,24 +666,24 @@ export class HomeComponent implements OnInit {
             }
           })
         }
-        console.log("ashraf 3, ")
+        // console.log("ashraf 3, ")
 
         selected.forEach((areaId: any) => {
           this.geographical.data.forEach((city: any) => {
             if (city.name_en === this.defaultCountry || city.name_ar === this.defaultCountry) { activeCity = city }
           });
-          console.log("ashraf 2, ", activeCity)
-          console.log("ashraf 4, ", Object.keys(activeCity))
+          // console.log("ashraf 2, ", activeCity)
+          // console.log("ashraf 4, ", Object.keys(activeCity))
 
           if (Object.keys(activeCity).length > 0) {
-            console.log("ashraf 5, ", activeCity.areas)
+            // console.log("ashraf 5, ", activeCity.areas)
             activeCity.areas.forEach((area: any) => {
-              console.log("ashraf 6, ", area.id)
-              console.log("ashraf 7, ", areaId)
+              // console.log("ashraf 6, ", area.id)
+              // console.log("ashraf 7, ", areaId)
 
               if (area.id === areaId || area.id === areaId.item_id) {
                 let neighborhoods = area.neighborhoods
-                console.log("ashraf, ", neighborhoods.length)
+                // console.log("ashraf, ", neighborhoods.length)
                 if (Array.isArray(neighborhoods) && neighborhoods.length > 0) {
                   neighborhoods.forEach((neighborhood: any) => {
                     const areaObj = {
@@ -686,17 +703,26 @@ export class HomeComponent implements OnInit {
         });
         this.neighborhood = neighborhoodArr
 
-        console.log("neighbrhood 2")
-        console.log(this.neighborhood)
+        // console.log("neighbrhood 2")
+        // console.log(this.neighborhood)
       } else {
         neighborhoodArr = []
+        
         this.geographical.data.forEach((city: any) => {
-          if (city.name_en === this.defaultCountry || city.name_ar === this.defaultCountry) { activeCity = city }
+          
+          if (city.name_en === this.defaultCountry || city.name_ar === this.defaultCountry) { 
+            activeCity = city 
+          }
         });
+        
         if (Object.keys(activeCity).length > 0) {
+          
           activeCity.areas.forEach((area: any) => {
+            
             if (area.id === this.selectedArea || area.id === this.selectedArea.item_id) {
+              
               let neighborhoods = area.neighborhoods
+              
               if (Array.isArray(neighborhoods) && neighborhoods.length > 0) {
                 neighborhoods.forEach((neighborhood: any) => {
                   const areaObj = {
@@ -714,8 +740,8 @@ export class HomeComponent implements OnInit {
           });
         }
         this.neighborhood = neighborhoodArr
-        console.log("neighbrhood 2")
-        console.log(this.neighborhood)
+        // console.log("neighbrhood 2")
+        // console.log(this.neighborhood)
       }
       //this.selectedAreaNotValid = !this.selectedArea && !this.selectedArea?.id ? true : false
       // set selected value to search model

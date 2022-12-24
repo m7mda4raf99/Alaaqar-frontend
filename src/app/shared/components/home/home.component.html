@@ -520,10 +520,15 @@
                         {{setPricePlaceHolder()}}
                     </button>
                     <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                        (click)="$event.stopPropagation()" style="overflow: hidden;">
+                        (click)="$event.stopPropagation()" style="overflow: visible;">
                         
-                        
-                        <div class="row">
+                        <app-price-range-slider (sender)="receiver($event)">
+
+
+                        </app-price-range-slider>
+
+
+                        <!-- <div class="row">
                             <div class="col-6">
                                 <input (focus)="hideMaxRange=true;hideMinRange=false"
                                     (blur)="setMaxSelections(priceMinRange, 'buy')" #minPrice [(ngModel)]="priceMinRange"
@@ -563,7 +568,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </ul>
                 </div>
             </div>

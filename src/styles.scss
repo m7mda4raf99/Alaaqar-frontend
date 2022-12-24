@@ -974,5 +974,23 @@ a{
 }
 
 .dropdown-toggle:after {
-    margin-left: 4.255em !important;
+    margin-left: 2.255em !important;
+}
+
+.ngx-slider {
+    .ngx-slider-pointer{
+            background-color: #14423b !important;
+    }
+
+    .ngx-slider-pointer:after{
+            background-color: #14423b !important;
+    }
+
+    .ngx-slider-selection{
+            background-color: #154352 !important;
+    }
+
+    .ngx-slider-bar{
+            height: 2px !important;
+    }
 }
