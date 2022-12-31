@@ -13,11 +13,8 @@
                             <div class="head">
 
                                 <b>
-                                    <span class="arrow" (click)="haveOTP = false" style="cursor: pointer;">
-                                        <img src="../../../../assets/images/arrow.png" alt="..."/>
-                                    </span>
                                     <label *ngIf="!haveOTP && !registrationRequest">
-                                        {{'signIn.Sign In' | translate}}
+                                        {{'signIn.Sign Up' | translate}}
                                     </label>
                                     <label *ngIf="haveOTP">{{'signIn.OTP Verification' | translate}}</label>
                                     <label *ngIf="registrationRequest">{{'signIn.Your name and image' | translate}}</label>
@@ -33,8 +30,11 @@
                                         [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Egypt"
                                         [maxLength]="'11'" [phoneValidation]="true"
                                         [separateDialCode]="separateDialCode"
-                                        [numberFormat]="PhoneNumberFormat.National" name="phone"
-                                        formControlName="phone">
+                                        name="phone"
+                                        formControlName="phone"
+                                        customPlaceholder = "123 456 7891"
+                                        >
+                                        
                                     </ngx-intl-tel-input>
                                     <div *ngIf="(phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"
                                         class="text-invalid">

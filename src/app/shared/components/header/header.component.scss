@@ -172,6 +172,16 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
                 width: 20px;
                 height: 20px;
                 fill: #184D47;
+
+                q{
+                    &.active{
+                        background: $active_background;
+                        border-bottom: 0;
+                        a{
+                            color: white;
+                        }
+                    }
+                }
             }
         }
     }

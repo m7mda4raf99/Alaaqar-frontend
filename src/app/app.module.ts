@@ -65,8 +65,10 @@ import { NavigationEnd, Router } from '@angular/router';
 import { SearchResultComponent } from './shared/components/search-result/search-result.component';
 import { ItemCardComponent } from './shared/components/item-card/item-card.component';
 
-
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { filter } from 'rxjs';
+import { PriceRangeSliderComponent } from './shared/components/price-range-slider/price-range-slider.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 
 
@@ -104,7 +106,8 @@ import { ItemCardComponent } from './shared/components/item-card/item-card.compo
     PrivacyPolicyComponent,
     FavouritesComponent,
     SearchResultComponent,
-    ItemCardComponent
+    ItemCardComponent,
+    PriceRangeSliderComponent  
   ],
   imports: [
     FormsModule,
@@ -140,7 +143,9 @@ import { ItemCardComponent } from './shared/components/item-card/item-card.compo
     CdkStepperModule,
     NgStepperModule,
     NgxNumberFormatModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxSliderModule
   ],
   providers: [PostService, AppServiceService,CookieService, {
     provide : HTTP_INTERCEPTORS,
@@ -155,10 +160,16 @@ export class AppModule {
     // library.addIconPacks(fas)
     library.addIcons()
     router.events.subscribe((val) => {
+
       if (val instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
+
+        let url = (val as NavigationEnd).url
+
+        if(url != '/home?q=rent' && url != '/home?q=sell' && url != '/home?q=rental')
+          window.scrollTo(0, 0);
       }
     });
+
   }
 }
 // AOT compilation support

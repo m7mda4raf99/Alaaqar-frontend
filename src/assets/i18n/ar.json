@@ -84,7 +84,7 @@
         "Select Area":"اختار المنطقة",
         "Select Neighborhood":"اختار الحي",
         "Select type":"اختار نوع العقار",
-        "Select price range":"اختار متوسط السعر",
+        "Select price range":"اي سعر",
         "All Prices":"كل الاسعار",
         "Max Price":"اقصي سعر",
         "Min Price":"اقل سعر",
@@ -302,7 +302,7 @@
         "remove from favorite":"تمت ازالة الوحدة من المفضلة بنجاح !"
     },
     "signIn":{
-        "Sign In":"تسجيل الدخول",
+        "Sign Up":"تسجيل الدخول",
         "OTP Verification":"التحقق من رمز ال OTP",
         "Your name and image":"الاسم والصوره ",
         "Please Enter a valid phone number":"من فضلك ادخل رقم هاتف صحيح",

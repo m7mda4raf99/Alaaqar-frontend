@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  preferredCountries: CountryISO[] = [CountryISO.Egypt,CountryISO.UnitedStates];
+  preferredCountries: CountryISO[] = [CountryISO.Egypt, CountryISO.SaudiArabia];
   haveOTP: boolean = false
   registrationRequest: boolean = false
   invalidPTO: boolean = false
@@ -50,8 +50,9 @@ export class LoginComponent implements OnInit {
       this.firstLogin = true
     }
   }
+
   changePreferredCountries() {
-    this.preferredCountries = [CountryISO.Egypt, CountryISO.Canada];
+    this.preferredCountries = [CountryISO.Egypt];
   }
   onOtpChange(e: any) {
     this.otpValue = e

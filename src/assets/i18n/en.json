@@ -20,7 +20,7 @@
         "Home":"Home",
         "success": "Your profile has been updated successfully!",
         "Name":"Name",
-        "Please Enter a valid phone number":"Please Enter a valid phone number",
+        "Please Enter a valid phone number":"Please enter a valid phone number.",
         "Save Changes":"Save Changes"
     },
     "button": {
@@ -65,7 +65,7 @@
         "Your message has been sent successfully!":"Your message has been sent successfully!"
     },
     "validation": {
-        "This Filed Is Required!": "This Filed Is Required!"
+        "This Filed Is Required!": "This field is required!"
     },
     "home": {
         "Find Your Perfect": "Buy, Sell, or Rent  ",
@@ -84,8 +84,8 @@
         "Select Area": "Select Area",
         "Select Neighborhood": "Select Neighborhood",
         "Select type": "Select type",
+        "Select price range": "Any price",
         "Select city": "Select City",
-        "Select price range": "Select price range",
         "All Prices":"All Prices",
         "Max Price": "Max Price",
         "Min Price": "Min Price",
@@ -303,10 +303,10 @@
         "remove from favorite":"Unit removed from your favorite Successfully"
     },
     "signIn":{
-        "Sign In":"Sign In",
+        "Sign Up":"Sign Up",
         "OTP Verification":"OTP Verification",
         "Your name and image":"Your name and image",
-        "Please Enter a valid phone number":" Please Enter a valid phone number",
+        "Please Enter a valid phone number":" Please enter a valid phone number.",
         "Request OTP":"Request OTP",
         "Enter the OTP sent to":"Enter the OTP sent to",
         "Invalid OTP, Please try again":"Invalid OTP, Please try again",
