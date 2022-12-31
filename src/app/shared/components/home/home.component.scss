@@ -1,5 +1,12 @@
 .home {
 
+    
+    @media screen and (max-width: 1440px) {
+        body {
+           zoom: 200%;
+        }
+      }
+
     @import "../blog/blog.component.scss";
     .first-sec {
         color: #2c2c2c;

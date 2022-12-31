@@ -12,6 +12,8 @@ import { FormBuilder } from '@angular/forms'
 import { Title, Meta } from '@angular/platform-browser'
 import { json } from 'stream/consumers'
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { zoomOut } from 'ng-animate'
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -60,7 +62,7 @@ export class HomeComponent implements OnInit {
   selectedValue = 'Country'
   defaultCountry: any
   selectedCountry: any
-  // selectedCity: any
+  selectedCity: any
   selectedArea: any
   isFocussed: any
   unitDescription: string = ''
@@ -121,8 +123,11 @@ export class HomeComponent implements OnInit {
   dropdownSettings: IDropdownSettings = {};
   dropdownSettingsArea: IDropdownSettings = {};
 
+  isLoggedIn: boolean = false
 
   constructor(
+    //header:HeaderComponent,
+    private cookieService: CookieService,
     private appServiceService: AppServiceService,
     private _activatedRoute: ActivatedRoute,
     private router: Router,
@@ -168,8 +173,12 @@ export class HomeComponent implements OnInit {
   
 
   async ngOnInit() {
+
+
+    const box=document.getElementById('home')
     
-    this.appServiceService.selected_country$.subscribe((res:any) =>{
+    
+     this.appServiceService.selected_country$.subscribe((res:any) =>{
       this.selected_country = res
     })
     
@@ -560,6 +569,13 @@ export class HomeComponent implements OnInit {
   }
   submit(data: any) {
     //console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
+    
+    const user = this.cookieService.get('user')
+
+    if (user) {
+      this.isLoggedIn = true
+      
+    }
 
     if (!data.selectedArea || data.selectedArea === this.defaultSelectedArea ||
       (Array.isArray(data.selectedArea) && data.selectedArea.length === 0) ) { 
@@ -604,9 +620,15 @@ export class HomeComponent implements OnInit {
         
         data['selectedCountry'] = selectedCountryId[0]
         
-        if (this.activeTab === 'sell' || this.activeTab === 'rental') {
+	      if ((this.activeTab === 'sell' || this.activeTab === 'rental')&& this.isLoggedIn) {
           this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
-        } else {
+        
+        }
+        
+        else if((this.activeTab === 'sell' || this.activeTab === 'rental') && !this.isLoggedIn){
+           this.router.navigate(['/login'])
+        }
+        else{
           this.router.navigate(['/set-priorities'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rent' ? 1 : 2 } })
         }
         
@@ -615,6 +637,7 @@ export class HomeComponent implements OnInit {
         }
         
         this.appServiceService.propertyDetails$.next(data)
+
     }
   }
   validateInputs(selected: any, defaultVal: any, label: string): boolean {
