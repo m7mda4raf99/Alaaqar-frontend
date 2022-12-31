@@ -28,7 +28,25 @@ export class HeaderComponent implements OnInit {
   BaseUrl = environment.baseUrl
   haveNotifications: boolean = false
   avatarUrl: any
+  selectedCityName = 'Egypt';
+  
+  cities3 = [
+    {
+      id: 1,
+      name: 'Egypt',
+      avatar:
+        '../../assets/images/egypt.png',
+    },
+    {
+      id: 2,
+      name: 'Saudi',
+      avatar:
+        '../../assets/images/saudi.png',
+    },
+    
+  ];
   constructor(
+  
     private appServiceService: AppServiceService,
     private router: Router,
     private cookieService: CookieService,
@@ -190,7 +208,7 @@ export class HeaderComponent implements OnInit {
   // selected_country = 'egypt'
   transform_country(event:any){
     console.log(event)
-    // this.selected_country = event
+    //this.selected_country = event.name
     this.appServiceService.selected_country$.next(event)
     console.log(this.appServiceService.selected_country$)
   }
