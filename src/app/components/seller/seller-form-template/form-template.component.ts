@@ -159,7 +159,6 @@ export class SellFormTemplateComponent implements OnInit {
   getFormValue(key: any) {
     let val = this.stepForm.get(key)?.value
     if (Array.isArray(val) && val.length > 0) {
-      console.log(val[0].value)
       return val[0].value
     }
     return '';
@@ -170,11 +169,6 @@ export class SellFormTemplateComponent implements OnInit {
         return this.activeLang === 'en' ? element.measuring_unit_en : element.measuring_unit_ar
       }
     }
-    // this.formData.forEach((element: any) => {
-    //   console.log(element)
-    //   console.log('key',key)
-     
-    // });
   }
   checkSelected(key: any, val: any) {
     if (val && val.selected !== undefined) {
