@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/scss/bootstrap";
 @import "~@ng-select/ng-select/themes/default.theme.css";
+// @import "~@ng-multiselect-dropdown/ng-multiselect-dropdown/themes/default.theme.css";
 
 @import "./styles.rtl.scss";
 @import "./unit-details.scss";
@@ -52,7 +53,7 @@ h2 {
 
 .ng-dropdown-panel {
     @media (min-width: 375px) {
-        min-width: 300px;
+        min-width: fit-content;
     }
 }
 
@@ -916,5 +917,80 @@ a{
     img{
         width: 200px;
         margin-bottom: 25px;
+    }
+}
+
+// multiselect dropdown
+.multiselect-dropdown .dropdown-btn {
+    color: #999 !important;
+    border: 0px !important;
+
+    .selected-item-container .selected-item{
+        background: #c2c2c2 !important;
+        border: 1px solid #fd4965 !important;
+        border-radius: 20px !important;
+
+        span{
+            font-size: x-small !important;
+        }
+
+        a{
+            color: black !important;
+        }
+    }
+
+    .dropdown-multiselect__caret{
+        width: 0px !important;
+    }
+
+    .dropdown-multiselect__caret:before{
+        border-width: 6px 5px 0 !important;
+    }
+}
+
+.multiselect-item-checkbox input[type=checkbox] + div:before{
+    border: 2px solid #fd4965 !important;
+}
+
+.multiselect-item-checkbox input[type=checkbox]:checked + div:before{
+    background: #fd4965 !important;
+}
+
+.dropdown-list{
+    width: max-content !important;
+}
+
+// buy, rent, sell, rental components
+.home .first-sec .search-sec .ngSelect.priceRange{
+        min-width: 18% !important;
+}
+
+.home .first-sec .search-sec .ngSelect.main{
+    min-width: 12% !important;
+}
+
+.home .first-sec .search-sec .ngSelect.realState{
+    min-width: 12% !important;
+}
+
+.dropdown-toggle:after {
+    margin-left: 2.255em !important;
+}
+
+.ngx-slider {
+    .ngx-slider-pointer{
+            background-color: #14423b !important;
+    }
+
+    .ngx-slider-pointer:after{
+            background-color: #14423b !important;
+    }
+
+    .ngx-slider-selection{
+            background-color: #154352 !important;
+    }
+
+    .ngx-slider-bar{
+            height: 2px !important;
     }
 }

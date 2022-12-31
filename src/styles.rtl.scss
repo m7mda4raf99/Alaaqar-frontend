@@ -291,8 +291,9 @@
             @media (max-width:768px) {
                 position:absolute;
                 right: unset !important;
-                left: 10px;
+                left: 10px !important;
                 top: 15px;
+
             }
         }
     }

@@ -1,5 +1,5 @@
 <div class="app-header" [ngClass]="{'rtl' : activeLang.title === 'AR' || activeLang === 'AR'}">
-    <div class="app-header__up">
+    <!-- <div class="app-header__up">
         <div class="app-header__language">
             <span (click)="transform_language('en')" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" class="current">ع</span>
             <span (click)="transform_language('ar')" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'" class="current">E</span>
@@ -18,7 +18,7 @@
                 </ng-select>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="app-header__bottom">
         <div class="app-header__collapse" (click)="expand_collapse($event)">
             <span></span>
@@ -55,72 +55,12 @@
             </a>
         </div>
         <div class="app-header__user">
-            <div class="app-header__activity">
-                <a (click)="navigateToVisits()">
-                    <span class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19.5" height="21.5" viewBox="0 0 19.5 21.5">
-                            <g id="Iconly_Light_Calendar" data-name="Iconly/Light/Calendar"
-                                transform="translate(-2.25 -1.25)">
-                                <g id="Calendar" transform="translate(3 2)">
-                                    <line id="Line_200" x2="17.824" transform="translate(0.093 7.404)" fill="none"
-                                        stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_201" x2="0.009" transform="translate(13.442 11.31)" fill="none"
-                                        stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_202" x2="0.009" transform="translate(9.005 11.31)" fill="none"
-                                        stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_203" x2="0.009" transform="translate(4.558 11.31)" fill="none"
-                                        stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_204" x2="0.009" transform="translate(13.442 15.196)" fill="none"
-                                        stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_205" x2="0.009" transform="translate(9.005 15.196)" fill="none"
-                                        stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_206" x2="0.009" transform="translate(4.558 15.196)" fill="none"
-                                        stroke="#a9a9a9" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_207" y2="3.291" transform="translate(13.044)" fill="none"
-                                        stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <line id="Line_208" y2="3.291" transform="translate(4.966)" fill="none"
-                                        stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                    <path id="Path"
-                                        d="M13.238,1.579H4.771C1.834,1.579,0,3.215,0,6.222v9.05C0,18.326,1.834,20,4.771,20h8.458C16.175,20,18,18.355,18,15.347V6.222C18.009,3.215,16.184,1.579,13.238,1.579Z"
-                                        fill="none" stroke="#99b2af" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5" />
-                                </g>
-                            </g>
-                        </svg>
-
-                    </span>
-                    <p>{{'header.my_visits' | translate}}</p>
-                </a>
-            </div>
-            <div class="app-header__activity">
-                <a (click)="navigateToUnits()">
-                    <span class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18">
-                            <g id="ic_domain_24px" transform="translate(-2 -3)">
-                                <path id="Path_508" data-name="Path 508"
-                                    d="M12,7V3H2V21H22V7ZM6,19H4V17H6Zm0-4H4V13H6Zm0-4H4V9H6ZM6,7H4V5H6Zm4,12H8V17h2Zm0-4H8V13h2Zm0-4H8V9h2Zm0-4H8V5h2ZM20,19H12V17h2V15H12V13h2V11H12V9h8Zm-2-8H16v2h2Zm0,4H16v2h2Z"
-                                    fill="#99b2af" />
-                            </g>
-                        </svg>
-                    </span>
-                    <p>{{'header.my_units' | translate}}</p>
-                </a>
-
-            </div>
-            <div class="app-header__mini" (click)="navigateToNotifications();isMenuCollapsed = true">
+            
+            <div class="app-header__mini" (click)="navigateToNotifications();isMenuCollapsed = true" style="position: relative;">
                 <span class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18.5" height="21.503" viewBox="0 0 18.5 21.503">
                         <g id="Iconly_Light_Notification" data-name="Iconly/Light/Notification"
-                            transform="translate(0.75 0.75)">
+                            transform="translate(0.75 0.75)" >
                             <g id="Notification">
                                 <path id="Path_425"
                                     d="M0,11.787v-.219A3.6,3.6,0,0,1,.6,9.75,4.87,4.87,0,0,0,1.8,7.436c0-.666,0-1.342.058-2.009C2.155,2.218,5.327,0,8.461,0h.078c3.134,0,6.306,2.218,6.617,5.427.058.666,0,1.342.049,2.009A4.955,4.955,0,0,0,16.4,9.759a3.506,3.506,0,0,1,.6,1.809v.209a3.566,3.566,0,0,1-.844,2.39A4.505,4.505,0,0,1,13.3,15.538a45.078,45.078,0,0,1-9.615,0A4.554,4.554,0,0,1,.835,14.167,3.6,3.6,0,0,1,0,11.787Z"
@@ -136,7 +76,7 @@
 
                 </span>
             </div>
-            <div class="app-header__mini" (click)="navigateToFavorites();isMenuCollapsed = true">
+            <!-- <div class="app-header__mini" (click)="navigateToFavorites();isMenuCollapsed = true">
                 <span class="icon">
                     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -157,8 +97,8 @@
                         </g>
                     </svg>
                 </span>
-            </div>
-            <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()">
+            </div> -->
+            <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" style="transform: translate3d(-16px,2px,1px);">
                 <span class="icon">
                     <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -168,7 +108,7 @@
                 </span>
                 {{'sign_up' | translate}}
             </div>
-            <div *ngIf="isLoggedIn" class="app-header__profile">
+            <div *ngIf="isLoggedIn" class="app-header__profile" >
 
                 <div ngbDropdown class="dropdown loggedin">
                     <button ngbDropdownToggle class="btn-avatar" type="button" id="dropdownMenu2"
@@ -178,7 +118,22 @@
                         <fa-icon [icon]="faEllipsisV"></fa-icon>
                       </span> -->
                     </button>
-                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  style="transform: translate(140px,44px) !important;">
+                        <li>
+                            <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
+                                type="button">
+                                <fa-icon [icon]="faEdit" class="user-icon"></fa-icon> {{'header.Profile.edit' |
+                                translate}}
+                            </button>
+                        </li>
+                        <!-- <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item" type="button"><fa-icon [icon]="faHeart" class="user-icon"></fa-icon> {{'header.Profile.Favorites' | translate}}</button></li> -->
+                        <li><button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
+                                type="button">
+                                <fa-icon [icon]="faSignOutAlt" class="user-icon"></fa-icon> {{'header.Profile.logout' |
+                                translate}}
+                            </button></li>
+                    </ul>
+                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'"   >
                         <li>
                             <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
                                 type="button">
@@ -211,6 +166,45 @@
 
                     </div>
                 </ng-template>
+            </div>
+            <div class="app-header__language">
+                <small *ngIf="activeLang.title === 'AR' || activeLang === 'AR'">ENGLISH</small>
+                <span (click)="transform_language('en')" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" class="current">E</span>
+                <small *ngIf="activeLang.title === 'EN' || activeLang === 'EN' ">عربي</small>
+                <span (click)="transform_language('ar')" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'" class="current">ع</span>
+                <!-- <div class="ng-select">
+                    <ng-select [placeholder]="selectedCityName"
+                    
+                        (change)="transform_country($event)">
+                        <ng-option  value="egypt"><span
+                                style="display: inline-flex;flex-basis: 0;flex-grow: 1;">{{'egypt' | translate}}</span><img class="lang-flag"
+                                style="width: 25px;height:20px;" src="../../assets/images/egypt.png" />
+                        </ng-option>
+                        <ng-option value="saudi"><span
+                                style="display: inline-flex;flex-basis: 0;flex-grow: 1;">{{'saudi' | translate}}</span><img class="lang-flag"
+                                style="width: 25px;height:20px;" src="../../assets/images/saudi.png" />
+                        </ng-option>
+    
+                    </ng-select>
+                </div> -->
+                    <ng-select [items]="cities3"
+                   bindLabel="name"
+                   bindValue="name"
+                   [(ngModel)]="selectedCityName"
+                   (change)="
+                   ($event)">
+                   
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" width="15" [src]="item.avatar"/>
+                                <b>{{item.name|translate}}</b>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                    <img height="15" width="15" [src]="item.avatar"/>
+                    <b>{{item.name|translate}}</b>
+                    </ng-template>
+            
+                    </ng-select>
+                
             </div>
 
         </div>

@@ -1,0 +1,58 @@
+<div id="price_range">
+
+    <div id="Price_range_q">
+      <span>Price range</span>
+
+      <!-- <div id="btn">
+        <button type="button"  id="btn-done">{{'button.actions.Done' | translate}}
+        </button>
+  
+      </div> -->
+
+    </div>
+    
+    <div id="slider">
+      <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+      (mouseup)="onSliderChange()"></ngx-slider>
+    </div>
+  
+    <div id="Group_2628_rbg">
+      
+      <div id="Group_2627_rbh">
+          <span style="margin-left: 10%;">From</span>
+        
+          <div id="Group_2626_rbj">
+    
+          <input class="Rectangle_1314_rbk" [(ngModel)]="minValue" 
+          placeholder="Min value" ngxNumberFormat="#,###,###,###"
+          [allowNegative]="false" type="text"
+          (keyup)="onSliderChange()"/>
+    
+          <div id="EGP_rbm">
+            <span>EGP</span>
+          </div>
+        </div>
+      </div>
+      
+      <div id="Group_2625_rbn">
+        <div id="Group_2624_rbo">
+          
+          <input class="Rectangle_1315_rbp" [(ngModel)]="maxValue" 
+          placeholder="Max value" ngxNumberFormat="#,###,###,###"
+          [allowNegative]="false" type="text" 
+          (keydown)="onSliderChange()"/>
+    
+          <div id="EGP_rbm">
+            <span>EGP</span>
+          </div>
+        </div>
+        <div id="To_rbs">
+          <span>To</span>
+        </div>
+      </div>
+  
+    </div>
+  
+  </div>
+
+  <!-- (click)="toggleDropdown()" -->

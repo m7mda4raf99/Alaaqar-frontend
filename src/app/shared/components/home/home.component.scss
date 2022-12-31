@@ -1,4 +1,12 @@
 .home {
+
+    
+    @media screen and (max-width: 1440px) {
+        body {
+           zoom: 200%;
+        }
+      }
+
     @import "../blog/blog.component.scss";
     .first-sec {
         color: #2c2c2c;
@@ -251,6 +259,7 @@
                 margin-left: 2.7%;
             }
             .sell-row,
+            
             .rental-row {
                 .ngSelect {
                     @media (min-width: 1024px) {
@@ -360,11 +369,11 @@
                         }
                     }
                     span {
-                        display: inline-block;
-                        width: 4%;
-                        margin: unset;
-                        padding: unset;
-                        color: inherit;
+                        font-size: 10px;
+                        padding: 0 10px;
+                        color: red;
+                        margin-top: 6px;
+                        display: inherit;
                     }
                 }
                 &.priceRange {
@@ -427,14 +436,42 @@
                         // display: block;
                         padding: 10px;
                         border-top: none;
-                        width: 375px;
-                        border-bottom-left-radius: 20px;
-                        border-bottom-right-radius: 20px;
-                        border-top-right-radius: 0;
-                        border-top-left-radius: 0;
+                        width: 326px ;
+                        height: 202px !important;
+                        border-radius: 10px;
                         @media (max-width: 425px) {
                             width: 340px;
                         }
+                        #Group_2629_qx {
+                            position: absolute;
+                            width: 520px;
+                            height: 304px;
+                            left: 115px;
+                            top: 148px;
+                            overflow: visible;
+                        }
+                        #Rectangle_1306_qy {
+                            fill: rgba(255,255,255,1);
+                        }
+                        .Rectangle_1306_qy {
+                            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.161));
+                            position: absolute;
+                            overflow: visible;
+                            width: 538px;
+                            height: 322px;
+                            left: 0px;
+                            top: 0px;
+                        }
+                        #Group_2628_rbg {
+                            position: absolute;
+                            width: 460px;
+                            height: 86px;
+                            left: 30px;
+                            top: 188px;
+                            overflow: visible;
+                        }
+
+
                     }
                     .foot {
                         background: #fa5a64;
@@ -785,3 +822,4 @@
 //         }
 //     }
 // }
+
