@@ -80,7 +80,6 @@ export class SearchResultComponent implements OnInit {
     })
     this.params = JSON.parse(this.params.search_query)
     this.params.propose == 'rent' ? this.params.propose = 'rental' : ''
-    console.log(this.params)
     this.params.limit = this.limit
     this.params.sort = 'orderByDesc'
     this.params.offset = 0
@@ -120,7 +119,10 @@ export class SearchResultComponent implements OnInit {
       }
       this.spinner.hide()
       this.params.offset++
-      console.log(this.results)
+      console.log(this.results[1]['price'])
+      console.log(this.results[1])
+      console.log(this.results[1]['unit_id'])
+
     })
 
   }
@@ -289,11 +291,9 @@ export class SearchResultComponent implements OnInit {
     this.apiService.getGeographical().then((res: any) => {
       this.cities = res.data
       this.activated_city = this.params['cities']
-      // console.log('active city',this.activated_city)
       this.activated_areas = this.params['areas']
       this.get_areas(this.activated_city)
       this.get_neighborhoods(this.activated_areas)
-      console.log(this.cities)
     })
   }
 

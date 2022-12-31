@@ -36,7 +36,6 @@
                         </label>
                     </div>
                 </ng-template>
-
                 <ng-template #radioButton let-key="key">
                     <div class="col-6 mb-2 btn-group"
                         *ngFor="let sValue of util.getFilteredValues(ctrl.key,formData);let i = index;">
@@ -60,13 +59,14 @@
                     </div>
                 </ng-template>
                 <ng-template #inputNumber let-key="key">
-                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                     <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
                         <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
                             class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(ctrl.key)}}</span>
                         <input [value]="getFormValue(ctrl.key)" placeholder="{{'sell.Enter value' | translate}}"
                             (keyup)="onInputNumberChange(ctrl.key,$event)" style="height:48px" class="form-control mt-3"
+                            (change)="onInputNumberChange(ctrl.key,$event)"
                             type="number" min="0" />
-                    </div>
+                    </div> -->
                 </ng-template>
             </div>
         </div>

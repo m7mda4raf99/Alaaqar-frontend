@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
+
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, HostListener } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { of, Subscription } from 'rxjs'
 import { AppServiceService } from '../../../services/app-service.service'
@@ -11,10 +12,10 @@ import { environment } from 'src/environments/environment'
 import { FormBuilder } from '@angular/forms'
 import { Title, Meta } from '@angular/platform-browser'
 import { json } from 'stream/consumers'
+import { HttpClient } from '@angular/common/http'
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { zoomOut } from 'ng-animate'
 import { CookieService } from 'ngx-cookie-service';
-
 
 
 @Component({
@@ -86,6 +87,8 @@ export class HomeComponent implements OnInit {
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
 
+
+
   minPriceValue = [
     { val: 0, view: '0 EGP' },
     { val: 100000, view: this.abbreviateNumber(100000) },
@@ -138,7 +141,9 @@ export class HomeComponent implements OnInit {
     public formBuilder: FormBuilder,
     private translateService: TranslateService,
     private metaService: Meta,
-    private titleService: Title) {
+    private titleService: Title,
+    private http:HttpClient
+    ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
       this.selectedArea = null
@@ -203,6 +208,42 @@ export class HomeComponent implements OnInit {
     this.setMultiSelection()
     this.spinner.hide()
     this.resetFormData()
+    // this.getLocation()
+    this.getIPAddress();
+  
+  }
+  getIPAddress()
+  {
+    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
+      this.ipAddress = res.ip;
+      console.log(this.ipAddress)
+    });
+  }
+  watchPosition(){
+    let desLat = 0 ;
+    let desLon = 0 ;
+    let id = navigator.geolocation.watchPosition((position) =>{
+      console.log(position.coords.latitude + position.coords.longitude);
+
+    },(err) =>{
+      console.log("error is " +err);
+    }, {
+      enableHighAccuracy :false,
+      timeout:5000,
+      maximumAge :0,
+    }
+    )
+  }
+  getLocation(): void{
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position)=>{
+          const longitude = position.coords.longitude;
+          const latitude = position.coords.latitude;
+                    
+        });
+    } else {
+       console.log("No support for geolocation")
+    }
   }
 
   onChangePrice(){
@@ -543,7 +584,7 @@ export class HomeComponent implements OnInit {
   }
 
   setActiveTab(tab: string) {
-    //console.log(tab)
+
     this.resetSelection()
     const queryParams: Params = { q: tab }
     if(tab == 'buy'){
@@ -857,4 +898,9 @@ export class HomeComponent implements OnInit {
   //   this.videoplayer.nativeElement.play();
   // }
 
+  
+
+}
+function reverseGeocodingWithGoogle(latitude: number, longitude: number) {
+  throw new Error('Function not implemented.')
 }
