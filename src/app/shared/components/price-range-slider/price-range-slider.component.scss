@@ -22,16 +22,21 @@
 .Rectangle_1314_rbk {
     width: 140px;
     height: 24px;
-    border-radius: 13px;
+    border-radius: 10px;
     border-color: rgba(153,178,175,1);
     color: rgba(153,178,175,1);
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 5%;
+
 }
 
 #EGP_rbm {
-    left: 106px;
-    top: 0px;
+    left: 101px;
+    top: 5px;
     position: absolute;
     color: rgba(144,144,144,1);
+    font-size: 15px;
 }
 
 #Group_2625_rbn {
@@ -54,9 +59,12 @@
 .Rectangle_1315_rbp {
     width: 140px;
     height: 24px;
-    border-radius: 13px;
+    border-radius: 10px;
     border-color: rgb(153, 178, 175);
     color: rgb(153, 178, 175);
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 5%;
 }
 
 #Price_range_q {
@@ -75,7 +83,7 @@
 
 input{
     padding: 5%;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 #btn{

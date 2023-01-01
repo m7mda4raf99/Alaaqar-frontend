@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit {
 
   video_src = 'alaqaar-solution.mp4'
 
+  video_variable: any
+
   selected_country:any
 
   parentName: string = "ashraf is here guys"
@@ -125,6 +127,8 @@ export class HomeComponent implements OnInit {
   selectedItems: any = [];
   dropdownSettings: IDropdownSettings = {};
   dropdownSettingsArea: IDropdownSettings = {};
+  dropdownSettingsAreaSell: IDropdownSettings = {};
+
 
   isLoggedIn: boolean = false
 
@@ -209,14 +213,14 @@ export class HomeComponent implements OnInit {
     this.spinner.hide()
     this.resetFormData()
     // this.getLocation()
-    this.getIPAddress();
+    // this.getIPAddress();
   
   }
   getIPAddress()
   {
     this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
-      this.ipAddress = res.ip;
-      console.log(this.ipAddress)
+      // this.ipAddress = res.ip;
+      // console.log(this.ipAddress)
     });
   }
   watchPosition(){
@@ -291,18 +295,27 @@ export class HomeComponent implements OnInit {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
-      itemsShowLimit: 5,
+      itemsShowLimit: 1,
       allowSearchFilter: true,
-      limitSelection: 5
+      limitSelection: 5,
     };
 
     this.dropdownSettingsArea = {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
-      itemsShowLimit: 3,
+      itemsShowLimit: 1,
       allowSearchFilter: true,
       limitSelection: 3
+    }
+
+    this.dropdownSettingsAreaSell = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'item_text',
+      itemsShowLimit: 1,
+      allowSearchFilter: true,
+      limitSelection: 2,
     }
   }
 
@@ -601,12 +614,12 @@ export class HomeComponent implements OnInit {
       })
   }
   resetSelection() {
-    this.selectedArea = this.defaultSelectedArea
-    this.selectedNeighborhood = this.defaultSelectedNeighborhood
+    this.selectedArea = []
+    this.selectedNeighborhood = [] 
     this.SelectedRealEstateType = this.defaultSelectedRealEstateType
     this.priceMinRange = ''
     this.priceMaxRange = ''
-    this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = false
+    this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = this.PriceNotValid = this.selectedCityNotValid = false
   }
   submit(data: any) {
     //console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)

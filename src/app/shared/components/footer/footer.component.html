@@ -5,6 +5,19 @@
             <div class="row">
                 <div class="col-sm-12 col-sm-3 col-lg-3">
                     <span class="logo"></span>
+                    
+                    <div class="the-first-platform-that-offer1">
+                        {{ 'footer.description' | translate }}
+                      </div>
+                    
+                    <div class="social-links col">
+                        <a (click)="openNewTab(contacts.social_facebook)" routerLink='' > <span class="fb"></span></a>
+                        <a (click)="openNewTab(contacts.social_instagram)"  routerLink=''> <span class="ig"></span></a>
+                        <a (click)="openNewTab(contacts.social_twitter)"  routerLink=''> <span class="tw"></span></a>
+                        <a (click)="openNewTab(contacts.social_youtube)" routerLink=''> <span class="you"></span></a>
+                        <a (click)="openNewTab(contacts.social_linkedin)" routerLink=''> <span class="ln"></span></a>
+                       
+                    </div>
                 </div>
                 <div class="col-sm-12 col-sm-3 col-lg-3">
                     <h3> {{'footer.Important Links' | translate}}</h3>
@@ -22,16 +35,17 @@
                 </div>
                 <div class="col-sm-12 col-sm-3 col-lg-3">
                     <h3> {{'footer.Contact' | translate}}</h3>
-                    <p>{{contacts.contact_phone}}</p>
-                    <p>{{contacts.contact_email}}</p>
-                    <div class="social-links col">
-                        <a (click)="openNewTab(contacts.social_facebook)" routerLink='' > <span class="fb"></span></a>
-                        <a (click)="openNewTab(contacts.social_instagram)"  routerLink=''> <span class="ig"></span></a>
-                        <a (click)="openNewTab(contacts.social_twitter)"  routerLink=''> <span class="tw"></span></a>
-                        <a (click)="openNewTab(contacts.social_youtube)" routerLink=''> <span class="you"></span></a>
-                        <a (click)="openNewTab(contacts.social_linkedin)" routerLink=''> <span class="ln"></span></a>
-                       
-                    </div>
+                    <!-- <p>{{contacts.contact_phone}}</p>
+                    <p>{{contacts.contact_email}}</p> -->
+                    <p> +20 155 3490803</p>
+                    <p> mohzashraf@gmail.com </p>
+                </div>
+
+                <div class="col-sm-12 col-sm-3 col-lg-3">
+                    
+                    <h3> {{'home.Download app.title' | translate}} </h3>
+             
+       
                 </div>
 
             </div>

@@ -27,7 +27,7 @@
         "actions": {
             "cancel": "Cancel",
             "Done": "Done",
-            "Apply & Continue": "Apply",
+            "Apply & Continue": "Continue",
             "More": "More",
             "Submit": "Submit",
             "Back":"Back",
@@ -50,7 +50,8 @@
         "Rent": "Rent",
         "Sell": "Sell",
         "Rental": "Rental",
-        "Contact": "Contact"
+        "Contact": "Contacts",
+        "description": "The first platform that offers the best-matched dream house"
     },
     "Oops": {
         "Page Not Found!": "Page Not Found!",
@@ -70,12 +71,20 @@
     "home": {
         "Find Your Perfect": "Buy, Sell, or Rent  ",
         "Future Home": "without hassle!",
-        "Hassle Free . Save Time . No Hidden Fees": "Highly Efficient. Saves Time . Saves Money",
+        "Hassle Free . Save Time . No Hidden Fees": "Highly Efficient. Saves Time. Saves Money",
         "500 Developers":"(+30,000 Property , +500 Developers , 12 Areas, +100 Consultants)",
+        "Property count": "+30,000",
+        "Property": "Properties",
+        "Developers count": "+500",
+        "Developers": "Developers",
+        "Areas count": "+12",
+        "Areas": "Areas",
+        "Consultants count": "+100",
+        "Consultants": "Consultants",
         "Buy": "Buy",
         "Rent": "Rent",
         "Sell": "Sell",
-        "Rental": "Rental",
+        "Rental": "Rent Out",
         "City": "City",
         "Area": "Area",
         "Neighborhood": "Neighborhood",

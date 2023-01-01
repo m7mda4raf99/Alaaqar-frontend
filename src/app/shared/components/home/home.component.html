@@ -10,9 +10,33 @@
         <div class="col-md-12 col-lg-6 image-sec d-block d-lg-none sm-bg">
         </div>
         <div class="col-md-12 col-lg-6 custom-padding home-controls">
-            <h1 style="font-size: calc(1.175rem + 2.8vw);;">{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
+            <h1 style="font-size: calc(1.075rem + 2.5vw);">{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
             <p>{{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
-            <p>{{'home.500 Developers' | translate }}</p>
+
+            <div class="row">
+
+                <div class="col-6 col-lg-1 stats">
+                    <p class="count"> {{ 'home.Property count' | translate }} </p>
+                    <p class="title"> {{ 'home.Property' | translate }} </p>
+                </div>
+
+                <div class="col-6 col-lg-1 stats">
+                    <p class="count"> {{ 'home.Developers count' | translate }} </p>
+                    <p class="title"> {{ 'home.Developers' | translate }} </p>
+                </div>
+
+                <div class="col-6 col-lg-1 stats">
+                    <p class="count"> {{ 'home.Areas count' | translate }} </p>
+                    <p class="title"> {{ 'home.Areas' | translate }} </p>
+                </div>
+
+                <div class="col-6 col-lg-1 stats">
+                    <p class="count"> {{ 'home.Consultants count' | translate }} </p>
+                    <p class="title"> {{ 'home.Consultants' | translate }} </p>
+                </div>
+
+            </div>
+
             <div class="actions col-lg-10 col-md-11 col-sm-12">
                 <div class="tab">
                     <a class="buy" (click)="setActiveTab('buy')" [ngClass]="[lang === 'en' ? 'ltr' : 'rtl']"
@@ -453,6 +477,11 @@
                 </ng-select>
                 <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
             </div>
+
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
+
             <div class="col-6 col-lg-1 ngSelect city">
                 <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
                 <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="true"
@@ -476,6 +505,9 @@
                 <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
             </div>
            
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
            
             <div class="col-xs-12 col-lg-2 ngSelect">
                 <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
@@ -502,6 +534,9 @@
 
             </div>
 
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
     
             <div class="col-xs-12 col-lg-2 ngSelect realState">
                 <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
@@ -515,6 +550,11 @@
                 <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
                     translate}}</span>
             </div>
+
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
+
             <div class="col-xs-12 col-lg-1 ngSelect priceRange">
                 <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
                 <div class="dropdown" ngbDropdown>
@@ -526,8 +566,7 @@
                     <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
                         (click)="$event.stopPropagation()" style="overflow: visible;">
                         
-                        <app-price-range-slider (sender)="receiver($event)">
-
+                        <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
 
                         </app-price-range-slider>
 
@@ -597,38 +636,75 @@
         
         
         <ng-template #sellRental let-type="type">
-            <div class="col-6 col-lg-1 ngSelect">
+            <div class="col-6 col-lg-1 ngSelect main">
                 <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
                 <ng-select bindLabel="name" [(ngModel)]="defaultCountry" (change)="onChangeCity(defaultCountry)">
                     <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}}
                     </ng-option>
                 </ng-select>
             </div>
-            <div class="col-6 col-lg-2 ngSelect city">
+
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
+
+            <div class="col-6 col-lg-1 ngSelect city">
                 <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
-                <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
+                <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
                     bindLabel="name" placeholder="Select Area"
                     (change)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')">
                     <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
                     </ng-option>
                 </ng-select>
-                <span *ngIf="selectedAreaNotValid"> {{'validation.This Filed Is Required!' | translate}}</span>
+                <span *ngIf="selectedAreaNotValid"> {{'validation.This Filed Is Required!' | translate}}</span> -->
+
+                <ng-multiselect-dropdown
+                (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
+                (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
+                placeholder="{{'home.Select Area'| translate}}" 
+                [(ngModel)]="selectedArea"
+                [settings]="dropdownSettingsAreaSell"
+                [data]="cites"
+            >
+                </ng-multiselect-dropdown>
+
+                <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+
             </div>
             
-            
-            <div class="col-xs-12 col-lg-3 ngSelect">
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
+
+
+            <div class="col-xs-12 col-lg-2 ngSelect">
                 <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                <ng-select [items]="neighborhood"  [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
+                <!-- <ng-select [items]="neighborhood"  [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
                     bindLabel="name"
                     (change)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
                     placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
                 </ng-select>
                 <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                    translate}}</span> -->
+
+                <ng-multiselect-dropdown
+                (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
+                [settings]="dropdownSettingsAreaSell"
+                [data]="neighborhood" >
+                </ng-multiselect-dropdown>
+
+                <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
                     translate}}</span>
 
             </div>
 
-            <div class="col-xs-12 col-lg-3 ngSelect">
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
+
+            <div class="col-xs-12 col-lg-2 ngSelect realState">
                 <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
                 <ng-select placeholder="{{'home.Select type' | translate}}" [multiple]="false" [addTag]="addTagFn"
                     [hideSelected]="true" bindLabel="name" [(ngModel)]="SelectedRealEstateType"
@@ -639,6 +715,11 @@
                 <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
                     translate}}</span>
             </div>
+
+            <div class="col-6 col-lg-1 ngSelect separator">
+
+            </div>
+
             <div class="col-xs-12 col-lg-2 ngSelect price">
                 <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
                 <div>
@@ -652,7 +733,8 @@
                     translate}}</span>
                     
             </div>
-            <div class="col-xs-12 description">
+            
+            <!-- <div class="col-xs-12 description">
                 <p class="lable d-none d-lg-block">{{'home.Write a unique description of your unit' | translate}} </p>
                 <textarea (ngModelChange)="validateInputs(unitDescription, '', 'unitDescription')" cols="ngSelect-input"
                     placeholder="{{'home.description' | translate}}" [(ngModel)]="unitDescription"
@@ -660,11 +742,13 @@
                 
                     <span style="font-size: 10px;color: red;" *ngIf="unitDescriptionNotValid">{{'validation.This Filed Is
                     Required!' | translate}}</span>
-            </div>
-            <div class="col-xs-12 ngSelect mt-1">
+            </div> -->
+
+
+            <div class="col-xs-12 col-lg-3 ngSelect submit_buttons">
                 <button #apply
                     (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,price,priceMaxRange,unitDescription})"
-                    class="btn button-success applyBtn float-end mb-3">{{'button.actions.Apply & Continue' |
+                    class="btn button-success applyBtn continueBtn float-end mb-3">{{'button.actions.Apply & Continue' |
                     translate}}</button>
             </div>
         </ng-template>

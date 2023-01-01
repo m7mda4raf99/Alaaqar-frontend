@@ -925,10 +925,15 @@ a{
     color: #999 !important;
     border: 0px !important;
 
-    .selected-item-container .selected-item{
+    .selected-item-container
+        {
+            max-width: 85% !important;
+        }
+    
+        .selected-item{
         background: #c2c2c2 !important;
-        border: 1px solid #fd4965 !important;
-        border-radius: 20px !important;
+        border: 1px solid #c2c2c2 !important;
+        border-radius: 6px !important;
 
         span{
             font-size: x-small !important;
@@ -946,32 +951,74 @@ a{
     .dropdown-multiselect__caret:before{
         border-width: 6px 5px 0 !important;
     }
+
+    .dropdown-multiselect--active .dropdown-multiselect__caret{
+        padding-left: 0px !important;
+    } 
 }
 
 .multiselect-item-checkbox input[type=checkbox] + div:before{
-    border: 2px solid #fd4965 !important;
+    border: 2px solid #c2c2c2 !important;
 }
 
 .multiselect-item-checkbox input[type=checkbox]:checked + div:before{
-    background: #fd4965 !important;
+    background: #c2c2c2 !important;
 }
 
 .dropdown-list{
     width: max-content !important;
 }
 
+
+
+
+.home .first-sec .home-controls{
+    .stats{
+        width: 22% !important;
+    
+        .count{
+            color: #fd4965 !important;
+            margin-bottom: 0% !important;
+        }
+        .title{
+            font-size: calc(1rem + 0.05vw) !important;
+            margin-top: 0% !important;
+        }
+    }
+
+    p{
+        font-size: calc(1.25rem + 0.25vw) !important;
+        margin-top: 20px !important;
+    }
+}
+
 // buy, rent, sell, rental components
 .home .first-sec .search-sec .ngSelect.priceRange{
-        min-width: 18% !important;
+        min-width: 14% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.main{
-    min-width: 12% !important;
+    min-width: 11% !important;
+}
+
+.home .first-sec .search-sec .ngSelect.city{
+    min-width: 14% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.realState{
     min-width: 12% !important;
 }
+
+.home .first-sec .search-sec .ngSelect.separator{
+    min-width: 0%!important;
+    padding-right: 0%!important;
+    padding-left: 0% !important;
+    margin-top: 3% !important;
+    width: 2px;
+    height: 45px;
+    background: rgba(103, 96, 96, 0.164);
+}
+
 
 .dropdown-toggle:after {
     margin-left: 2.255em !important;
@@ -993,4 +1040,16 @@ a{
     .ngx-slider-bar{
             height: 2px !important;
     }
+}
+
+span.ng-star-inserted{
+    padding-right: 0% !important;
+}
+
+span.dropdown-multiselect--active{
+    // padding-right: 10px !important;
+}
+
+.col-lg-3{
+    height: fit-content !important;
 }

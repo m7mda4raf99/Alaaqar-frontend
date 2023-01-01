@@ -41,6 +41,7 @@
 
     },
     "footer": {
+        "Services": "خدمات",
         "Important Links":"روابط هامة",
         "How it works?":"كيف تعمل؟",
         "About us":"عنا",
@@ -50,7 +51,8 @@
         "Rent": "إيجار",
         "Sell": "بيع",
         "Rental": "تأجير",
-        "Contact": "للتواصل معنا"
+        "Contact": "للتواصل معنا",
+        "description": "المنصة الأولى التي تقدم أفضل منزل الأحلام"
     },
     "Oops": {
         "Page Not Found!": "لم يتم العثور على الصفحة!",
@@ -72,6 +74,14 @@
         "Future Home" :"بدون متاعب!",
         "Hassle Free . Save Time . No Hidden Fees":"بكفاءة عالية. وفر الوقت . وفر المال",
         "500 Developers":"( +٣٠,٠٠٠ وحدة , + ٥٠٠ مطور عقاري , ١٢ منطقة , + ١٠٠ مستشار عقاري)",
+        "Property count": "+٣٠,٠٠٠",
+        "Property": "وحدة",
+        "Developers count": "+٥٠٠",
+        "Developers": "مطور عقاري",
+        "Areas count": "+١٢",
+        "Areas": "منطقة",
+        "Consultants count": "+١٠٠",
+        "Consultants": "مستشار عقاري",
         "Buy":"شراء",
         "Rent":"ايجار",
         "Sell":"بيع",

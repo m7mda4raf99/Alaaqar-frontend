@@ -3,11 +3,23 @@
     .logo {
         display: block;
         width: 250px;
-        height: 200px;
+        height: 80px;
         background: transparent url('../../assets/images/logo.svg') 0% 0% no-repeat padding-box;
     }
+
+    .the-first-platform-that-offer1 {
+        position: relative;
+        display: inline-block;
+        width: 240px;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
     h3 {
         color: #2C2C2C;
+        font-size: 1.15rem;
+        margin-bottom: 5%;
+        font-weight: bold;
     }
     p {
         color: #A9A9A9;
@@ -46,6 +58,6 @@
     .line-break {
         border: 1px solid #FD7363;
         background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%) 0% 0% no-repeat padding-box;
-    
+        margin-top: 0px;
     }
 }
