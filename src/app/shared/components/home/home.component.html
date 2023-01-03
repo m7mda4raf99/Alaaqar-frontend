@@ -202,71 +202,113 @@
         </div>
 
         <!-- Second section (Recently Added)-->
-        <div *ngIf="recentlyAdded && recentlyAdded.length > 0" class="col-12">
-            <div class="row recently-added">
-                <div class="section-head-center">
-                    <h2>
-                        <span class="top"></span>
-                        {{ 'home.Recently Added.title' | translate}}
-                        <span></span>
-                    </h2>
-                    <!-- <p class="description">
-                        VIt is a long established fact that a reader will be distracted by the<br> readable content of a
-                        page
-                        when looking at its layout
-                    </p> -->
-                </div>
-                <div class="row justify-content-center" style="margin: 0;">
-                    <div *ngFor="let item of recentlyAdded" class="col-xs-3 col-xl-5">
-                        <div class="card mb-3" style="width: 80%;" >
-                            <div class="row g-0">
-                                    <div style="position: relative;">
-                                        <span class="bage">{{getPropose(item)}}</span>
-                                        <span (click)="navigateToSingleItem(item)" class="overlay"
-                                            style="border-radius: 20px;"></span>
-                                        <img src="{{item['image'] ? item['image']  : '../../../../assets/images/empty.jpeg'}}"
-                                            class="img-fluid back-img" alt="...">
-                                    
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <div style="display: inline;" (click)="navigateToSingleItem(item)">
-                                                {{numberWithCommas(item['price'])}} {{'propertyDetails.EGP' |
-                                                translate}} </div>
-                                            <!-- <span>/Month</span> -->
+        <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
+            <div class="recently-added">
+                <div class="row justify-content-center">
+
+                    <div class="col-xs-12 col-sm-10">
+
+                        <div class="section-head-center">
+                            <h2>
+                                <span class="top"></span>
+                                {{ 'home.Recently Added.title' | translate}}
+                                <span></span>
+                            </h2>
+                            <p class="description">
+                                VIt is a long established fact that a reader will be distracted by the<br> readable content of a
+                                page
+                                when looking at its layout
+                            </p>
+                        </div>
+                        
+                        <div class="row mt-3 results" >
+                            <div *ngFor="let item of recentlyAdded" class="col-xs-12 col-sm-6 col-xl-4">
+                                <div class="card mb-3">
+                                    <div class="row g-0 card-content">
+                                        <div class="col-12" style="position: relative;">
+                                            <!-- <span class="bage">{{getPropose(item)}}</span>
+                                            <span (click)="navigateToSingleItem(item)" class="overlay"
+                                                style="border-radius: 20px;"></span>
+                                            <img src="{{item['image'] ? item['image']  : '../../../../assets/images/empty.jpeg'}}"
+                                                class="img-fluid back-img" alt="..."> -->
+        
+                                            <span (click)="navigateToSingleItem(item)" class="overlay"></span>
+                                            
+                                            <span style="cursor: pointer;" (click)="navigateToSingleItem(item)"
+                                                class="bage">{{getPropose(item)}}</span>
                                             <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
-                                                src="../../../../assets//images/Path 165 copy.png" alt="..." />
+                                                src="../../../../assets/images/Path 165 copy.png" alt="..." />
                                             <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
-                                                src="../../../../assets//images/Path 165.png" alt="..." />
-                                        </h5>
-                                        <span class="location" (click)="navigateToSingleItem(item)">
-                                            <img src="../../../../assets/images/noun_Location_1911856@2x.png"
-                                                alt="..." />
-                                            {{lang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
-                                        </span>
-                                        <div class="card-text" (click)="navigateToSingleItem(item)">
-                                            <div class="row">
-                                                <div class="col-6 desc"
-                                                    *ngFor="let option of item['criteria'] | slice:0:4">
-                                                    <img style="display: inline-block;" class="img-icon"
-                                                        src="{{getOptionIcon(option)}}" alt=".." />
-                                                    <div style="display: inline-block; width: 81%;
-                                                   vertical-align: top;">
-                                                        {{getOptionValue(option)}}
+                                                src="../../../../assets/images/Path 165.png" alt="..." />
+                                            <img style="cursor: pointer;height: 230px;" (click)="navigateToSingleItem(item)"
+                                                src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                                        
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="card-body" style="cursor: pointer;" (click)="navigateToSingleItem(item)">
+                                                
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6>
+                                                            {{ item['title'] }}
+                                                        </h6>
+                                                        
+                                                        <h5 class="card-title">
+                                                            {{'propertyDetails.EGP' | translate}}
+                                                            <!-- <br> -->
+                                                            {{ numberWithCommas(item['price'])}}
+                                                        </h5>
+                                                        
+                                                        <span class="location" >
+                                                            <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                                                alt="..." />
+                                                            {{lang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                                        </span>
+
+                                                        <span class="sep-width"> </span>
+
+                                                        <span class="date">
+                                                            <img src="../../../../assets/images/date.png"
+                                                                alt="..." />
+                                                                {{ 'home.Recently Added.listed_on' | translate }}   
+
+                                                                {{ setDate(item['created_at']) }}
+                                                        </span>
+
+                                                      
+                                                    </div>
+                                                    <!-- <div class="col-4 float-end" style="position: relative;">
+                                                        <nz-progress class="float-end" nzType="circle"
+                                                            [nzPercent]="getScore(item['score'])"
+                                                            [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                                        </nz-progress>
+                                                        <span class="score">{{getScore(item['score'])}}%</span>
+                                                    </div> -->
+            
+                                                </div>
+                                                <div class="card-text">
+                                                    <div class="row">
+                                                        <div class="col-3 desc" *ngFor="let c of item['criteria'] | slice:0:4">
+                                                            <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
+                                                            {{getCriteriaOptions(c)}}
+                                                        </div>
                                                     </div>
                                                 </div>
-
+        
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+        
                             </div>
+        
                         </div>
-
                     </div>
 
+
                 </div>
+
             </div>
 
         </div>
@@ -395,19 +437,23 @@
                         <div class="col-1 .d-none .d-sm-block"> </div>
                         <div class="col-lg-6 col-xs-12 mt-3 images-sec">
                             <img style="width: 100%;"
-                                src="../../../../assets/images/r-architecture-KQgrVfR3r74-unsplash.png" alt="..." />
+                                src="../../../../assets/images/{{ aboutUs.about_us_image }}" alt="..." />
                         </div>
                         <div class="col-lg-5 col-xs-12 mt-3">
                             <div class="section-head-left">
+                                <div style="background: #ff725f; height: 5px; width: 5px; margin-bottom: 10px;">
+                                </div>
                                 <h2>
                                     <span class="top"></span>
                                     <!-- {{'home.About Alaaqar.title' | translate}} -->
-                                    {{ lang === 'en' ? aboutUs.about_us_title_en : aboutUs.about_us_title_ar}}
+                                    {{ lang === 'en' ? aboutUs.about_us_title_en : aboutUs.about_us_title_ar }}
                                     <span></span>
                                 </h2>
+                                <div style="background: #ff725f; height: 5px; width: 100px; margin-top: 10px; margin-bottom: 20px;">
+                                </div>
                                 <p class="description col-xs-12 col-lg-10 desc">
-                                    {{ lang === 'en' ? aboutUs.about_us_description_en :
-                                    aboutUs.about_us_description_ar}}
+                                    {{ lang === 'en' ? aboutUs.about_us_description_en : aboutUs.about_us_description_ar }}
+
                                 </p>
                             </div>
                         </div>
@@ -437,22 +483,47 @@
                             <div class="card" (click)="navigateToSingleBlog(card)">
                                 <div style="position: relative;">
                                     <span class="overlay"></span>
-                                    <img src="{{ BaseURL + card.image }}" class="main-img" alt="...">
+                                    <!-- <img src="{{ BaseURL + card.image }}" class="main-img" alt="..."> -->
+                                    
+                                    <img src="../../../../assets/images/empty.jpeg" class="main-img" alt="...">
+
                                 </div>
+                                
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        {{subString(card.title)}}
+                                        {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}}
+
+                                        <!-- {{subString(card.title)}} -->
                                     </h5>
-                                    <div class="row card-foot">
+                                    
+                                    <span class="location">
+                                        <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                            alt="..." />
+                                        {{lang === 'en' ? card.tag.name_en : card.tag.name_ar}}
+                                        <!-- New Alamien -->
+                                    </span>
+
+                                    <span class="sep-width"> </span>
+
+                                    <span class="date">
+                                        <img src="../../../../assets/images/date.png"
+                                            alt="..." />
+
+                                         {{ 'blog.start_date' | translate }}   
+                                         {{card.created_at}}
+                                    </span>
+
+                                    
+                                    <!-- <div class="row card-foot">
                                         <div class="col">
                                             <img src="../../../../assets/images/Calendar copy.png" alt="..." />
-                                            {{card.created_at}}
+                                            Start Date: {{card.created_at}}
                                         </div>
-                                        <!-- <div class="col">
+                                        <div class="col">
                                             <img src="../../../../assets/images/Show.png" alt="..."/>
                                             {{card.views}} View
-                                        </div> -->
-                                    </div>
+                                        </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -468,6 +539,8 @@
             </div>
         </div>
         
+
+
         <ng-template #buyRent let-type="type">
             <div class="col-6 col-lg-1 ngSelect main">
                 <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
@@ -529,8 +602,8 @@
                 >
                 </ng-multiselect-dropdown>
 
-                <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span>
+                <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                    translate}}</span> -->
 
             </div>
 
@@ -538,7 +611,7 @@
 
             </div>
     
-            <div class="col-xs-12 col-lg-2 ngSelect realState">
+            <div class="col-6 col-lg-1 ngSelect realState">
                 <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
                 <ng-select [multiple]="false" [addTag]="addTagFn" [hideSelected]="true" bindLabel="name"
                     placeholder="{{'home.Select type' | translate}}"
@@ -555,7 +628,7 @@
 
             </div>
 
-            <div class="col-xs-12 col-lg-1 ngSelect priceRange">
+            <div class="col-xs-12 col-lg-2 ngSelect priceRange">
                 <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
                 <div class="dropdown" ngbDropdown>
                     <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
@@ -704,7 +777,7 @@
 
             </div>
 
-            <div class="col-xs-12 col-lg-2 ngSelect realState">
+            <div class="col-6 col-lg-1 ngSelect realState">
                 <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
                 <ng-select placeholder="{{'home.Select type' | translate}}" [multiple]="false" [addTag]="addTagFn"
                     [hideSelected]="true" bindLabel="name" [(ngModel)]="SelectedRealEstateType"
@@ -722,7 +795,7 @@
 
             <div class="col-xs-12 col-lg-2 ngSelect price">
                 <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
-                <div>
+                <div style="margin-left: 10px;">
                     <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
                         translate}}</label>
                     <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"

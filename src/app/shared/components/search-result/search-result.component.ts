@@ -183,6 +183,8 @@ export class SearchResultComponent implements OnInit {
     this.sub2.unsubscribe()
   }
   setImagesSrc(item: any) {
+    console.log(item)
+    console.log(item.data)
     return item.image ? item.image : '../../../../assets/images/empty.jpeg'
   }
   getCriteriaImageSrc(criteria: any) {
@@ -390,6 +392,10 @@ export class SearchResultComponent implements OnInit {
     this.apiService.getUnitOptions(id).subscribe((res:any)=>{
       this.space_arr = res.data
     })
+  }
+
+  setDate(date: any){
+    return "Listed on " + date.substring(0, 10)
   }
 
 

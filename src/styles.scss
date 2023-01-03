@@ -99,7 +99,7 @@ h2 {
 
 .section-head-center {
     text-align: center;
-    padding-top: 100px;
+    // padding-top: 100px;
     padding-bottom: 40px;
 
     span {
@@ -746,6 +746,8 @@ nz-progress {
 .alaqaar-blogs{
     padding: 50px 0;
     background-color: #f7f7f7;
+
+    
 }
 .main-title {
     font-family: 'Rubik-Bold';
@@ -1006,7 +1008,7 @@ a{
 }
 
 .home .first-sec .search-sec .ngSelect.realState{
-    min-width: 12% !important;
+    min-width: 14% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.separator{
@@ -1020,9 +1022,9 @@ a{
 }
 
 
-.dropdown-toggle:after {
-    margin-left: 2.255em !important;
-}
+// .dropdown-toggle:after {
+//     margin-left: 2.255em !important;
+// }
 
 .ngx-slider {
     .ngx-slider-pointer{
@@ -1053,3 +1055,4 @@ span.dropdown-multiselect--active{
 .col-lg-3{
     height: fit-content !important;
 }
+

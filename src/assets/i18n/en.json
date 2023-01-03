@@ -51,7 +51,15 @@
         "Sell": "Sell",
         "Rental": "Rental",
         "Contact": "Contacts",
-        "description": "The first platform that offers the best-matched dream house"
+        "description": "The first platform that offers the best-matched dream house",
+        "app store": "https://apps.apple.com/eg/app/alaaqar/id1586357837",
+        "play store": "https://apps.apple.com/eg/app/alaaqar/id1586357837",
+        "facebook": "https://www.facebook.com/alaaqarapp/?mibextid=ZbWKwL",
+        "instagram": "https://instagram.com/alaaqarapp?igshid=YmMyMTA2M2Y=",
+        "twitter": "https://twitter.com/alaaqarapp",
+        "youtube": "https://youtube.com/@alaaqar91",
+        "linkedin": "https://www.linkedin.com/mwlite/company/alaaqarapp"
+
     },
     "Oops": {
         "Page Not Found!": "Page Not Found!",
@@ -104,7 +112,8 @@
         "Write a unique description of your unit": "Describe Your Property",
         "Optional": "Optional",
         "Recently Added": {
-            "title": "Recently Added"
+            "title": "Recently Added",
+            "listed_on": "Listed on: "
         },
         "Download app": {
             "title": "Download alaaqar App",
@@ -143,7 +152,8 @@
             "Blog": "Blog",
             "View":"View"
         },
-        "no blogs":"No blogs yet."
+        "no blogs":"No blogs yet.",
+        "start_date": "Start Date: "
     },
     "aboutus": {
         "title": "About us",

@@ -82,14 +82,12 @@ export class HomeComponent implements OnInit {
   selectedCityNotValid: boolean = false
   selectedAreaNotValid: boolean = false
   PriceNotValid: boolean = false
-  unitDescriptionNotValid: boolean = false
+  // unitDescriptionNotValid: boolean = false
   priceMaxRange: any
   priceMinRange: any
   price: any
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
-
-
 
   minPriceValue = [
     { val: 0, view: '0 EGP' },
@@ -163,7 +161,7 @@ export class HomeComponent implements OnInit {
         this.defaultSelectedNeighborhood = 'Select Neighborhood'
         this.defaultSelectedRealEstateType = 'Select Type'
       }
-      await this.getGeographical(this.activeCity)
+      await this.getGeographical(this.activeCity, false)
     }
     )
     this.sub2 = this._activatedRoute.queryParams.subscribe(params => {
@@ -203,7 +201,7 @@ export class HomeComponent implements OnInit {
       await this.getRecentlyAdded()
     }
     
-    await this.getGeographical(this.activeCity)
+    await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
     this.getAboutUsHome()
@@ -212,6 +210,7 @@ export class HomeComponent implements OnInit {
     this.setMultiSelection()
     this.spinner.hide()
     this.resetFormData()
+
     // this.getLocation()
     // this.getIPAddress();
   
@@ -267,13 +266,17 @@ export class HomeComponent implements OnInit {
     return this.validateInputs(selected, defaultVal, label)
   }
 
-  onItemDeSelect(selected: any, defaultVal: any, label: string): boolean {
-    // if (label === 'Area'){
-    //   if (Array.isArray(selected)) {
-    //     if(selected.length === 0)
-    //       this.selectedAreaNotValid = true
-    //   }
-    // }
+  async onItemDeSelect(selected: any, defaultVal: any, label: string): Promise<boolean> {
+    if (label === 'Area'){
+      if (Array.isArray(selected)) {
+        if(selected.length === 0){
+          this.spinner.show()
+         await this.getGeographical(this.activeCity, true)
+         this.spinner.hide()
+         return true
+        }
+      }
+    }
 
     // if (label === 'Neighborhood'){
     //   if (Array.isArray(selected) && selected.length === 0) {
@@ -377,6 +380,7 @@ export class HomeComponent implements OnInit {
       'offset': 0
     }
     this.apiService.getBlogs(params).subscribe(data => {
+      console.log(data.data)
       return this.blogs = data.data
     })
   }
@@ -392,10 +396,11 @@ export class HomeComponent implements OnInit {
   async getRecentlyAdded() {
     let headers = {
       'offset': '0',
-      'limit': '4',
+      'limit': '6',
     }
     let recentlyAdded = await this.apiService.getRecentlyAdded(headers)
     this.recentlyAdded = recentlyAdded.data
+
     return true
   }
   numberWithCommas(x: any) {
@@ -431,8 +436,8 @@ export class HomeComponent implements OnInit {
       })
     }
   }
-  async getGeographical(activeCity: number = 1) {
-    if (!this.geographical?.data) {
+  async getGeographical(activeCity: number = 1, force: boolean) {
+    if (!this.geographical?.data || force) {
       this.geographical = await this.apiService.getGeographical()
       if (this.geographical === false) { Promise.resolve(false) }
     }
@@ -495,7 +500,7 @@ export class HomeComponent implements OnInit {
     // console.log(this.countries)
     // console.log("cities")
     // console.log(this.cites)
-    // console.log("negibhorhoods 1")
+    // console.log("negibhorhoods")
     // console.log(this.neighborhood)
   }
 
@@ -648,7 +653,7 @@ export class HomeComponent implements OnInit {
 
     if ((this.activeTab === 'sell' || this.activeTab === 'rental')) { 
       if(data.unitDescription == ''){
-        this.unitDescriptionNotValid = true 
+        // this.unitDescriptionNotValid = true 
       }
 
       if(data.price == undefined || data.price == "" || data.price == "0"){
@@ -656,12 +661,11 @@ export class HomeComponent implements OnInit {
       }
       
     }
-  
 
     if (!this.SelectedRealEstateTypeNotValid &&
-      !this.SelectedNeighborhoodNotValid &&
+      (!this.SelectedNeighborhoodNotValid  || this.activeTab === "buy" || this.activeTab === "rent") &&
       !this.selectedAreaNotValid &&
-      !this.unitDescriptionNotValid && 
+      // !this.unitDescriptionNotValid && 
       !this.PriceNotValid) {
       
         let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
@@ -832,9 +836,9 @@ export class HomeComponent implements OnInit {
       
       this.search_model.type = [selected]
     }
-    if (label === 'unitDescription') {
-      this.unitDescriptionNotValid = (selected !== null && selected !== undefined) ? false : true
-    }
+    // if (label === 'unitDescription') {
+    //   this.unitDescriptionNotValid = (selected !== null && selected !== undefined) ? false : true
+    // }
 
 
 
@@ -907,13 +911,34 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  setImagesSrc(item: any) {
+    return item.image ? item.image : '../../../../assets/images/empty.jpeg'
+  }
+
   // toggleVideo(event: any) {
   //   this.videoplayer.nativeElement.play();
   // }
 
+  getCriteriaImageSrc(criteria: any) {
+    return this.BaseURL + criteria.icon
+  }
+
+  getCriteriaOptions(criteria: any) {
+    if (Array.isArray(criteria.options) && criteria.options.length > 0) {
+      return this.lang === 'en' ? criteria.options[0].name_en : criteria.options[0].name_ar
+    }
+    return '--'
+  }
+
+  setDate(date: any){
+    return date.substring(0, 10)
+  }
+
   
 
 }
+
+
 function reverseGeocodingWithGoogle(latitude: number, longitude: number) {
   throw new Error('Function not implemented.')
 }

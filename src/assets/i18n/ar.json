@@ -104,7 +104,8 @@
         "Write a unique description of your unit":"اكتب وصفًا فريدًا للوحدة الخاصة بك",
         "Optional":"اختياري",
         "Recently Added":{
-            "title":"أضيف حديثا"
+            "title":"أضيف حديثا",
+            "listed_on": "علي قائمة: "
         },
         "Download app": {
             "title":"تحميل تطبيق العقار",
@@ -143,7 +144,8 @@
             "Blog":"المدونة",
             "View":"زيارة"
         },
-        "no blogs":"لايوجد مدونات."
+        "no blogs":"لايوجد مدونات.",
+        "start_date": "تاريخ البدء: "
     },
     "aboutus":{
         "title":"عنا",
