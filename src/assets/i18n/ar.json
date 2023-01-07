@@ -257,11 +257,13 @@
             "Home": "الرئيسية",
             "sell": "بيع"
         },
-        "Go to the best buyer":"الوصول الي احسن بائع",
+        "Go to the best buyer":"ابحث عن أفضل مشتر",
         "Step":"خطوة",
         "unit Photos":"صور الوحدة",
         "Select your option":"حدد خيارك",
         "Enter value":"ادخل قيمة رقمية",
+        "Unit Title":"اكتب عنوانًا فريدًا لوحدتك لجذب المشترين",
+        "Unit Description":"اكتب وصفًا دقيقًا لوحدتك لا يقل عن 150 حرفًا ...",
         "photoUpload": {
             "Select category":"حدد الفئة التي تريد تحميل الصور لها.",
             "Add photo for the":"اضف صورة واحده علي الاقل ل ",

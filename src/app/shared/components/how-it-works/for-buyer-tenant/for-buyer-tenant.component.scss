@@ -1,11 +1,8 @@
 .buyer-tenant {
     .main-title {
         display: inline;
-        padding: 5px;
         color: #2c2c2c;
-        width: 92%;
         vertical-align: top;
-        float: right;
     }
     .text-col {
         margin-top: 90px;
@@ -36,5 +33,9 @@
             line-height: 2;
             font-size: 15px;
         }
+    }
+
+    .body-container{
+        padding: 0 130px 0px 130px;
     }
 }

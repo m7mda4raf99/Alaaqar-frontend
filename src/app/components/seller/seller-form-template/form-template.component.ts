@@ -19,6 +19,7 @@ export class SellFormTemplateComponent implements OnInit {
   @ViewChild('file') file!: ElementRef
   faTimes = faTimes
   public stepForm!: FormGroup;
+  public ashraf: any;
   public imagesForm: FormGroup = new FormGroup({
   });;
   baseUrl = environment.baseUrl
@@ -96,6 +97,13 @@ export class SellFormTemplateComponent implements OnInit {
 
   async ngOnInit() {
     await this.setupFormCriteria()
+    console.log("ehab")
+    console.log(this.ashraf)
+    console.log(this.stepForm)
+    console.log(this.stepForm.controls)
+    console.log(this.sub1)
+    console.log(this.sub)
+
   }
 
   async getCriteria(data: any) {
@@ -103,6 +111,7 @@ export class SellFormTemplateComponent implements OnInit {
   }
   async setupFormCriteria() {
     this.sub1 = this.appService.activeTab$.subscribe(value => {
+      this.ashraf = this.prioritiesService?.sellerForm.get(value)
       this.stepForm = this.prioritiesService?.sellerForm.get(value) as FormGroup
       switch (value) {
         case '2':
@@ -117,6 +126,10 @@ export class SellFormTemplateComponent implements OnInit {
         default:
           // 1
           this.sub = this.appService.tabOne$.subscribe(val => { this.formData = val })
+
+          
+          // console.log(this.sub)
+
       }
     })
     return true
@@ -166,9 +179,15 @@ export class SellFormTemplateComponent implements OnInit {
   getHelperText(key: any){
     for (const element of this.formData) {
       if (element.name_en === key || element.name_ar === key){
+        // console.log(element)
         return this.activeLang === 'en' ? element.measuring_unit_en : element.measuring_unit_ar
       }
     }
+    // this.formData.forEach((element: any) => {
+    //   console.log(element)
+    //   console.log('key',key)
+     
+    // });
   }
   checkSelected(key: any, val: any) {
     if (val && val.selected !== undefined) {
@@ -185,7 +204,11 @@ export class SellFormTemplateComponent implements OnInit {
   }
   setupFormControlValue(e: any, key: any, value: any, filled: any) {
     let currentValue = this.stepForm.get(key)?.value
-    if (filled !== -1 && e.target.checked) { e.target.checked = !e.target.checked }
+    
+    if (filled !== -1 && e.target.checked) { 
+      e.target.checked = !e.target.checked 
+    }
+    
     if (e.target.checked) {
       if (!currentValue) {
         this.stepForm.get(key)?.setValue([value])
@@ -203,6 +226,11 @@ export class SellFormTemplateComponent implements OnInit {
       this.stepForm.get(key)?.setValue(currentValue)
     }
   }
+
+  setSingleSelect(e: any, key: any, value: any, filled: any) {    
+    this.stepForm.get(key)?.setValue([value])
+  }
+
   checkIsSelected(key: any, value: any) {
     let currentValue = this.stepForm.get(key)?.value
     if (value && value.selected !== undefined) {
@@ -237,11 +265,36 @@ export class SellFormTemplateComponent implements OnInit {
       return data && data[0]?.name_ar ? data[0]?.name_ar : ''
     }
   }
+
   getType(data: any, key: any) {
     const value = data.filter((val: any) => val?.name_en === key || val?.name_en.includes(key))
-    if (value[0].type === 'select' && value[0].multiple === '2') { return 'multiSelectCheckbox' }
-    if (value[0].type === 'select' && value[0].multiple === '1') { return 'dropdownSelect' }
-    else if (value[0].type === 'number') { return 'inputNumber' }
+    
+    console.log("halim")
+    console.log(data)
+
+    // console.log("bassel")
+    // console.log(value)
+    // console.log(key)
+
+    if (value[0].type === 'select' && value[0].multiple === 2) { 
+      return 'multiSelectCheckbox' 
+    }
+    
+    else if (value[0].type === 'select' && value[0].multiple === 1) { 
+      // console.log("zanaty")
+      // console.log(value)
+
+      return 'dropdownSelect' 
+    }
+    else if (value[0].type === 'number') { 
+      return 'inputNumber' 
+    }
+    else if (value[0].type === 'text') { 
+      return 'text' 
+    }
+    else if (value[0].type === 'large_text') { 
+      return 'large_text'
+    }
     else { return 'upload' }
   }
   fileEvent(e: any, key: any) {
@@ -363,4 +416,18 @@ export class SellFormTemplateComponent implements OnInit {
 
     return new File([u8arr], filename, { type: mime });
   }
+
+  print(data: any, key: any) {
+    // console.log("ashraf")
+    // console.log(data)
+  }
+
+  filterTitleDescription(data: any[]){
+    return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
+  }
+
+  filterOther(data: any[]){
+    return data.filter(x => x.name_en != 'Unit Title' && x.name_en != 'Write a unique description');
+  }
+
 }

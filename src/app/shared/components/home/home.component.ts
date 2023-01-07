@@ -684,7 +684,9 @@ export class HomeComponent implements OnInit {
         }
         
         else if((this.activeTab === 'sell' || this.activeTab === 'rental') && !this.isLoggedIn){
-           this.router.navigate(['/login'])
+          //  this.router.navigate(['/login'])
+          this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
+
         }
         else{
           this.router.navigate(['/set-priorities'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rent' ? 1 : 2 } })

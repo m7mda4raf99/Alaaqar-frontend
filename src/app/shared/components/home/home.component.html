@@ -175,16 +175,30 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <div class="video-preview">
-                            <video  [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
+                           
+                            <!-- <div *ngIf="lang === 'ar'">
+                                <video  style="width: 590px;" [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
+                                    <source src="../../assets/images/{{video_src}}" type="video/mp4" />
+                                </video>
+                            </div>
+
+                            <div *ngIf="lang !== 'ar'">
+                                <video  style="width: 660px;" [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
+                                    <source src="../../assets/images/{{video_src}}" type="video/mp4" />
+                                </video>
+                            </div> -->
+
+                            <video  class= "video" [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
                                 <source src="../../assets/images/{{video_src}}" type="video/mp4" />
                             </video>
+                         
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12 alaqaar-solution-text">
                         <div class="section-head-center normal">
                             <h2>
                                 <span class="top"></span>
-                                <!-- {{'alaqaar_solution' | translate}} -->
+                                {{'alaqaar_solution' | translate}}
                                 <span></span>
                             </h2>
                         </div>

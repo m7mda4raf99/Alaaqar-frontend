@@ -1,78 +1,143 @@
 <div [hidden]="uploadingPhotos" class="container form-stepper">
     <form [formGroup]="stepForm" autocomplete="off" novalidate #formRef="ngForm">
         <div class="row">
-            <div class="col-lg-6 col-sm-12" *ngFor="let ctrl of stepForm.controls | keyvalue;let index = index;">
-                <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
-                    <span> <img [src]="getImageSrc(ctrl.key,formData)"  alt="..."/></span>
-                    {{getKeyName(ctrl.key, formData)}}
-                </p>
-                <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
-                    <ng-container
-                        [ngTemplateOutlet]="getType(formData, ctrl.key) === 'dropdownSelect' ? dropdownSelect : getType(formData, ctrl.key) === 'upload' ? imagesUpload : getType(formData, ctrl.key) === 'inputNumber' ?  inputNumber : multiSelectCheckbox"
+
+                <!-- Title/Description -->
+                <div class="col-lg-12 col-sm-12" 
+                *ngFor="let criteria of filterTitleDescription(formData); let index = index;">
+                    
+                    {{ print(criteria, criteria) }}
+
+                    <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
+                        <span *ngIf="criteria.name_en !== 'Unit Title' &&
+                                    criteria.name_en !== 'Write a unique description'"> 
+                            
+                            <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
+                            {{getKeyName(criteria.name_en, formData)}}
+                    </p>
+                    
+                    <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
+                        <ng-container
+                        [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'text' ?  text : large_text"                        
                         [ngTemplateOutletContext]="{key: index}">
-                    </ng-container>
-                </div>
-                <ng-template #imagesUpload let-key="key">
-                    <div class="imagesUpload">
-                        <button *ngIf="!uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0"
-                            style="background-color: #184D471A;">
-                            {{'sell.unit Photos' | translate}} <img
-                                src="../../../../assets/images/add-box-line.svg" alt="..."/></button>
-                        <div class="row" *ngIf="imagesPreview() && !uploadingPhotos" style="position: relative;">
-                            <img *ngFor="let item of imagesPreview();let index = index;" src="{{item}}"
-                                style="width: 70px; height: auto;height:70px; border-radius: 10px;margin-bottom: 10px;padding: 5px;" alt="..."/>
+                        </ng-container>
+                    </div>
+    
+
+                    <ng-template #text let-key="key">
+                        <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                            <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
+                                class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
+                            <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Title' | translate}}"
+                                (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:48px; border-radius: 15px;" class="form-control mt-3"
+                                type="text" min="0" />
                         </div>
+                    </ng-template>
+
+                    <ng-template #large_text let-key="key">
+                        <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                            <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
+                                class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
+                            <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Description' | translate}}"
+                                (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:96px; border-radius: 15px;" class="form-control mt-3"
+                                type="text" min="0" />
+                        </div>
+                    </ng-template>
+                </div>
+
+                <!-- Others -->
+                <div class="col-lg-6 col-sm-12" 
+                *ngFor="let criteria of filterOther(formData); let index = index;">
+
+                    
+                    {{ print(criteria, criteria) }}
+
+                    <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
+                        <span *ngIf="criteria.name_en !== 'Unit Title' &&
+                                    criteria.name_en !== 'Write a unique description'"> 
+                            
+                            <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
+                            {{getKeyName(criteria.name_en, formData)}}
+                    </p>
+                    
+                    <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
+                        <ng-container
+                        [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'dropdownSelect' ? dropdownSelect : 
+                        getType(formData, criteria.name_en) === 'upload' ? imagesUpload : 
+                        getType(formData, criteria.name_en) === 'inputNumber' ?  inputNumber : 
+                        multiSelectCheckbox"                        
+                        
+                        [ngTemplateOutletContext]="{key: index}">
+                        </ng-container>
                     </div>
-                </ng-template>
-                <ng-template #multiSelectCheckbox let-key="key">
-                    <div class="col-6 mb-2"
-                        *ngFor="let sValue of util.getFilteredValues(ctrl.key,formData);let i = index;">
-                        <input ng-change="false"
-                            (change)="setupFormControlValue($event,ctrl.key, sValue, checkIsSelected(ctrl.key, sValue))"
-                            mdbCheckbox type="checkbox" class="btn-check" [id]="ctrl.key + i" autocomplete="off" />
-                        <label [class.filled]="checkIsSelected(ctrl.key, sValue) !== -1" class="btn btn-primary"
-                            [for]="ctrl.key + i">
-                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
-                        </label>
-                    </div>
-                </ng-template>
-                <ng-template #radioButton let-key="key">
-                    <div class="col-6 mb-2 btn-group"
-                        *ngFor="let sValue of util.getFilteredValues(ctrl.key,formData);let i = index;">
-                        <input mdbRadio type="radio" class="btn-check-" [id]="ctrl.key + i" autocomplete="off"
-                            [checked]="checkIsSelected(ctrl.key, sValue.id) !== -1" [value]="sValue.id" />
-                        <label [class.filled]="checkIsSelected(ctrl.key, sValue.id) !== -1" class="btn btn-primary"
-                            [for]="ctrl.key + i">
-                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
-                        </label>
-                    </div>
-                </ng-template>
-                <ng-template #dropdownSelect let-key="key">
-                    <div [formGroup]="stepForm" class="col-12 mb-3">
-                        <select #dropdwnSelect (change)="onDropdownSelectChanged(ctrl.key, dropdwnSelect.value)"
-                            class="mt-3 form-select form-select-lg mb-3" aria-label="form-select-lg">
-                            <option value="" hidden>{{'sell.Select your option' | translate}}</option>
-                            <option [value]="option.id" *ngFor="let option of util.getFilteredValues(ctrl.key,formData)"
-                                [selected]="checkSelected(ctrl.key,option)"> {{activeLang === 'en' ? option.name_en :
-                                option.name_ar}}</option>
-                        </select>
-                    </div>
-                </ng-template>
-                <ng-template #inputNumber let-key="key">
-                     <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
-                        <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
-                            class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(ctrl.key)}}</span>
-                        <input [value]="getFormValue(ctrl.key)" placeholder="{{'sell.Enter value' | translate}}"
-                            (keyup)="onInputNumberChange(ctrl.key,$event)" style="height:48px" class="form-control mt-3"
-                            (change)="onInputNumberChange(ctrl.key,$event)"
-                            type="number" min="0" />
-                    </div> -->
-                </ng-template>
+                    
+                    <ng-template #imagesUpload let-key="key">
+                        <div class="imagesUpload">
+                            <button *ngIf="!uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0"
+                                style="background-color: #184D471A;">
+                                {{'sell.unit Photos' | translate}} <img
+                                    src="../../../../assets/images/add-box-line.svg" alt="..."/></button>
+                            <div class="row" *ngIf="imagesPreview() && !uploadingPhotos" style="position: relative;">
+                                <img *ngFor="let item of imagesPreview();let index = index;" src="{{item}}"
+                                    style="width: 70px; height: auto;height:70px; border-radius: 10px;margin-bottom: 10px;padding: 5px;" alt="..."/>
+                            </div>
+                        </div>
+                    </ng-template>
+                    
+                    <ng-template #multiSelectCheckbox let-key="key">
+                        <div class="col-6 mb-2"
+                            *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+                            <input ng-change="false"
+                                (change)="setupFormControlValue($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
+                                mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i" autocomplete="off" />
+                            <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
+                                [for]="criteria.name_en + i">
+                                {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                            </label>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #radioButton let-key="key">
+                        <div class="col-6 mb-2 btn-group"
+                            *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+                            <input mdbRadio type="radio" class="btn-check-" [id]="criteria.name_en + i" autocomplete="off"
+                                [checked]="checkIsSelected(criteria.name_en, sValue.id) !== -1" [value]="sValue.id" />
+                            <label [class.filled]="checkIsSelected(criteria.name_en, sValue.id) !== -1" class="btn btn-primary"
+                                [for]="criteria.name_en + i">
+                                {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                            </label>
+                        </div>
+                    </ng-template>
+                    
+                    <ng-template #dropdownSelect let-key="key">
+                        <div class="col-6 mb-2"
+                            *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+                            <input ng-change="false"
+                                (change)="setSingleSelect($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
+                                mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i" autocomplete="off" />
+                            <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
+                                [for]="criteria.name_en + i">
+                                {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                            </label>
+                        </div>
+                    </ng-template>
+                    
+                    <ng-template #inputNumber let-key="key">
+                        <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                            <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
+                                class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
+                            <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Enter value' | translate}}"
+                                (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:48px" class="form-control mt-3"
+                                type="number" min="0" />
+                        </div>
+                    </ng-template>
+
+                </div>
             </div>
-        </div>
     </form>
 
 </div>
+
 
 <div [hidden]="!uploadingPhotos" class="photos-uploader">
     <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm">

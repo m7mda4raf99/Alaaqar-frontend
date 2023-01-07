@@ -6,6 +6,12 @@ export const environment = {
   production: false,
   baseUrl: 'http://localhost/Alaaqar-backend/',
 };
+
+// export const environment = {
+//   production: false,
+//   baseUrl: 'https://alaqaar-dashboard.egynozom.com/',
+// };
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
