@@ -68,6 +68,7 @@ export class SellFormTemplateComponent implements OnInit {
               });
             }
             let uploads = this.prioritiesService?.sellerForm.get('4') as FormGroup
+
             uploads.get('Unit photos')?.setValue([this.myFiles])
 
             for (const sTag in this.myFilesPreview) {
@@ -97,12 +98,13 @@ export class SellFormTemplateComponent implements OnInit {
 
   async ngOnInit() {
     await this.setupFormCriteria()
-    console.log("ehab")
-    console.log(this.ashraf)
-    console.log(this.stepForm)
-    console.log(this.stepForm.controls)
-    console.log(this.sub1)
-    console.log(this.sub)
+
+    // console.log("ehab")
+    // console.log(this.ashraf)
+    // console.log(this.stepForm)
+    // console.log(this.stepForm.controls)
+    // console.log(this.sub1)
+    // console.log(this.sub)
 
   }
 
@@ -257,6 +259,8 @@ export class SellFormTemplateComponent implements OnInit {
     }
   }
   getKeyName(key: any, array: any) {
+    // console.log("ashraf")
+    // console.log(array)
     if (Array.isArray(array)) {
       const data = array.filter((val: any) => (val.name_en == key))
       if (this.activeLang === 'en') {
@@ -269,8 +273,15 @@ export class SellFormTemplateComponent implements OnInit {
   getType(data: any, key: any) {
     const value = data.filter((val: any) => val?.name_en === key || val?.name_en.includes(key))
     
-    console.log("halim")
-    console.log(data)
+    // console.log("halim")
+    // console.log(data)
+
+    if(value[0].type !== 'select' && value[0].type !== 'number' && value[0].type !== 'text' &&
+    value[0].type !== 'large_text'){
+      // console.log("halim")
+      // console.log(value[0].type)
+    }
+      
 
     // console.log("bassel")
     // console.log(value)
@@ -395,9 +406,17 @@ export class SellFormTemplateComponent implements OnInit {
     let arr = []
     for (let [k, val] of Object.entries(this.myFilesPreview)) {
       for (const key in this.myFilesPreview[k]) {
-        if (arr.length < 5) {
-          arr.push(this.myFilesPreview[k][key])
-        }
+        console.log("ashraf")
+        console.log(k)
+        console.log(key)
+
+        //if (arr.length < 5) {
+        arr.push({
+          "img": this.myFilesPreview[k][key],
+          "index": key,
+          "key": k
+        })
+        //}
       }
     }
     return arr
@@ -418,8 +437,11 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   print(data: any, key: any) {
-    // console.log("ashraf")
+    // console.log("printing now")
     // console.log(data)
+  }
+
+  printO(data: any, key: any) {
   }
 
   filterTitleDescription(data: any[]){
@@ -427,7 +449,13 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   filterOther(data: any[]){
-    return data.filter(x => x.name_en != 'Unit Title' && x.name_en != 'Write a unique description');
+    return data.filter(x => x.name_en != 'Unit Title' 
+                         && x.name_en != 'Write a unique description'
+                         && x.icon != 'upload.svg');
+  }
+
+  filterImage(data: any[]){
+    return data.filter(x => x.icon === 'upload.svg');
   }
 
 }
