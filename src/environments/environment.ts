@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://alaqaar-dashboard.egynozom.com/',
+  baseUrl: 'http://localhost/alaqaarBackend/',
 };
 /*
  * For easier debugging in development mode, you can import the following file

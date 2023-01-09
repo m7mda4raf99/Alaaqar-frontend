@@ -1,7 +1,6 @@
 <div class="container--fluid priorities-form">
-  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
-    <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
-</ngx-spinner>  <div class="sub-head">
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+  <div class="sub-head" style="padding-top: 5%;" >
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-xs-12 col-md-10 ">
@@ -21,7 +20,7 @@
                 <div class="row head-section">
                   <p class="title-head col-6 float-start">{{'sell.Go to the best buyer' | translate}}</p>
                   <p class=" title-head col-6">
-                    <span class="float-end">{{'sell.Step' | translate}} {{currentStep}} /4</span>
+                    <span class="float-end">{{'sell.Step' | translate}} 1/4</span>
                   </p>
                   <div class="progress-bars col-12">
                     <div class="row">
@@ -70,22 +69,24 @@
                 </div>
               </div>
               <ng-stepper #cdkStepper [linear]="false">
-
-                <cdk-step  [optional]="false">
+                <cdk-step [stepControl]="stepOne.stepForm" [optional]="false">
                   <ng-template cdkStepLabel>
                   </ng-template>
-                  <sell-form-template ></sell-form-template>
+                  <sell-form-template #stepOne></sell-form-template>
                 </cdk-step>
+
                 <cdk-step [stepControl]="stepTwo.stepForm" [optional]="false">
                   <ng-template cdkStepLabel>
                   </ng-template>
                   <sell-form-template #stepTwo></sell-form-template>
                 </cdk-step>
+
                 <cdk-step [stepControl]="stepThree.stepForm" [optional]="false">
                   <ng-template cdkStepLabel>
                   </ng-template>
                   <sell-form-template #stepThree></sell-form-template>
                 </cdk-step>
+
                 <cdk-step [stepControl]="stepFour.stepForm" [optional]="false">
                   <ng-template cdkStepLabel>
                   </ng-template>
@@ -95,6 +96,7 @@
             </div>
           </div>
           <div class="col-xs-12 col-xl-4 priorites-control d-none d-xl-block">
+
             <div class="col mt-3">
               <ngb-accordion #myaccordion="ngbAccordion" (panelChange)="beforeChange($event)" [closeOthers]="true"
                 activeIds="{{activeIds}}">
@@ -104,21 +106,21 @@
                      <fa-icon class="up" [icon]="faChevronUp"></fa-icon> 
                      <fa-icon class="down" [icon]="faChevronDown"></fa-icon> 
                 </ng-template>
-                  <ng-template ngbPanelContent>
+                  <ng-template ngbPanelContent >
                     <div class="row justify-content-center results">
                       <div class="content">
-                        <div class="row mt-4">
-                          <div [class.mb-4]="i < 3" class="col-4"
+                        <div class="row mt-4" style="display: block;">
+                          <div [class.mb-4]="i < 4" class="col-4"
                             *ngFor='let item of getCurrentActiveForm("1") | keyvalue;let i =index;'>
-                            <div class="regular">
-                              <span class="before">
+                            <div class="regular" style="width: max-content;">
+                              <span class="before" style="background-color: #ffffff;">
                                 <img src="{{getIconUrl('1', item.key)}}" alt="...">
                               </span>
-                              <div class="list">
+                              
                                 <span *ngFor="let val of getPriorityFormValue(item.value)">
                                   {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}
                                 </span><br>
-                              </div>
+                              
                             </div>
 
                           </div>
@@ -137,18 +139,18 @@
                     <div class="row justify-content-center">
                       <div class="row justify-content-center results">
                         <div class="content">
-                          <div class="row mt-4">
-                            <div [class.mb-4]="i < 3" class="col-4"
+                          <div class="row mt-4" style="display: block;">
+                            <div [class.mb-4]="i < 5" class="col-4"
                               *ngFor='let item of getCurrentActiveForm("2") | keyvalue;let i =index;'>
-                              <div class="regular">
-                                <span class="before">
+                              <div class="regular" style="width: max-content;">
+                                <span class="before" style="background-color: #ffffff;">
                                   <img src="{{getIconUrl('2', item.key)}}" alt="...">
                                 </span>
-                                <div class="list">
+                                
                                   <span *ngFor="let val of getPriorityFormValue(item.value)">
                                     {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}
                                   </span><br>
-                                </div>
+                               
                               </div>
                             </div>
                           </div>
@@ -168,18 +170,18 @@
                       <div class="row justify-content-center">
                         <div class="row justify-content-center results">
                           <div class="content">
-                            <div class="row mt-4">
-                              <div [class.mb-4]="i < 3" class="col-4"
+                            <div class="row mt-4" style="display: block;">
+                              <div [class.mb-4]="i < 5" class="col-4"
                                 *ngFor='let item of getCurrentActiveForm("3") | keyvalue;let i =index;'>
-                                <div class="regular">
-                                  <span class="before">
+                                <div class="regular" style="width: max-content;">
+                                  <span class="before" style="background-color: #ffffff;">
                                     <img src="{{getIconUrl('3', item.key)}}" alt="...">
                                   </span>
-                                  <div class="list">
+                                  
                                     <span *ngFor="let val of getPriorityFormValue(item.value)">
                                       {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}
                                     </span><br>
-                                  </div>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -199,12 +201,12 @@
                     <div class="row justify-content-center">
                       <div class="row justify-content-center results">
                         <div class="content">
-                          <div class="row mt-4">
+                          <div class="row mt-4" style="display: block;">
                             <div [class.mb-4]="i < 3" class="col-4"
                               *ngFor='let item of getCurrentActiveForm("4") | keyvalue;let i =index;'>
                               <!-- {{item | json}} -->
-                              <div class="regular" *ngIf="item.key !== 'Unit photos'">
-                                <span class="before">
+                              <div class="regular"  style="width: max-content;" *ngIf="item.key !== 'Unit photos'">
+                                <span class="before"  style="background-color: #ffffff;">
                                   <img src="{{getIconUrl('4', item.key)}}" alt="...">
                                 </span>
                                 <div class="list">
@@ -221,16 +223,16 @@
                   </ng-template>
                 </ngb-panel>
               </ngb-accordion>
-              
+              <div class="button">
+                <button (click)="back()" [disabled]="currentStep === 1"
+                  class="button btn button-success next-back sub-action">{{'button.actions.Back' | translate}}</button>
+                <button *ngIf="validateSubmit()" (click)="next()" [disabled]="validateNext()"
+                  class="button btn button-success">{{'button.actions.Next' | translate}} </button>
+                <button *ngIf="!validateSubmit()" [disabled]='validateSubmit()' class="btn button-success"
+                  (click)="doSearchQuery()">{{'button.actions.Review' | translate}}</button>
+              </div>
             </div>
-            <div class="button">
-              <button (click)="back()" [disabled]="currentStep === 1"
-                class="button btn button-success next-back sub-action">{{'button.actions.Back' | translate}}</button>
-              <button *ngIf="validateSubmit()" (click)="next()" [disabled]="validateNext()"
-                class="button btn button-success">{{'button.actions.Next' | translate}} </button>
-              <button *ngIf="!validateSubmit()" [disabled]='validateSubmit()' class="btn button-success"
-                (click)="doSearchQuery()">{{'button.actions.Review' | translate}}</button>
-            </div>
+            
 
           </div>
           <div class="row d-block d-xl-none" style="min-height: 90px;">
@@ -244,7 +246,7 @@
                 (click)="doSearchQuery()">{{'button.actions.Review' | translate}}</button>
             </div>
           </div>
-        </div>
+        </div>  
 
       </div>
     </div>

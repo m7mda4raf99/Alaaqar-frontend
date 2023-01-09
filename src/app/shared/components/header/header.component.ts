@@ -28,18 +28,20 @@ export class HeaderComponent implements OnInit {
   BaseUrl = environment.baseUrl
   haveNotifications: boolean = false
   avatarUrl: any
-  selectedCityName = 'Egypt';
+  selectedCityName = 'egypt';
   
   cities3 = [
     {
       id: 1,
-      name: 'Egypt',
+      name: 'egypt',
+      value:'Egypt',
       avatar:
-        '../../assets/images/egypt.png',
+        '../../../../assets/images/egypt2.png',
     },
     {
       id: 2,
-      name: 'Saudi',
+      name: 'saudi',
+      value:'Saudi',
       avatar:
         '../../assets/images/saudi.png',
     },
@@ -79,12 +81,16 @@ export class HeaderComponent implements OnInit {
     }
     this.sub2 = this.appServiceService.isLoggedIn$.subscribe(val => {
       const user = this.cookieService.get('user')
+      console.log(user)
       if (user) {
         this.isLoggedIn = true
         this.getMyNotifications()
         this.userData = JSON.parse(user)
+
         this.avatarUrl = localStorage.getItem('avatarsPath')
       }
+      console.log(this.userData.name)
+
 
     })
   }
@@ -114,6 +120,9 @@ export class HeaderComponent implements OnInit {
   ngOnDestroy() {
     this.sub1.unsubscribe()
     this.sub2.unsubscribe()
+  }
+  getName(){
+    return(this.userData.name)
   }
 
   switchLang(val: string) {

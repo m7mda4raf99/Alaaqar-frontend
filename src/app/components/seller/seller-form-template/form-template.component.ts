@@ -166,9 +166,15 @@ export class SellFormTemplateComponent implements OnInit {
   getHelperText(key: any){
     for (const element of this.formData) {
       if (element.name_en === key || element.name_ar === key){
+        console.log(element)
         return this.activeLang === 'en' ? element.measuring_unit_en : element.measuring_unit_ar
       }
     }
+    // this.formData.forEach((element: any) => {
+    //   console.log(element)
+    //   console.log('key',key)
+     
+    // });
   }
   checkSelected(key: any, val: any) {
     if (val && val.selected !== undefined) {
@@ -239,8 +245,8 @@ export class SellFormTemplateComponent implements OnInit {
   }
   getType(data: any, key: any) {
     const value = data.filter((val: any) => val?.name_en === key || val?.name_en.includes(key))
-    if (value[0].type === 'select' && value[0].multiple === '2') { return 'multiSelectCheckbox' }
-    if (value[0].type === 'select' && value[0].multiple === '1') { return 'dropdownSelect' }
+    if (value[0].type === 'select' && value[0].multiple === 2) { return 'multiSelectCheckbox' }
+    if (value[0].type === 'select' && value[0].multiple === 1) { return 'dropdownSelect' }
     else if (value[0].type === 'number') { return 'inputNumber' }
     else { return 'upload' }
   }
