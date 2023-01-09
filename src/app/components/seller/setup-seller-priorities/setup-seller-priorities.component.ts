@@ -12,7 +12,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { TranslateService } from '@ngx-translate/core';
 import { faTimes, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-setup-seller-priorities',
@@ -94,12 +93,9 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       this.appService.imgTags$.next(getImagTags)
     }
     const activeRoute = this.activeRouter.snapshot
-    
     if (activeRoute.queryParams && activeRoute.queryParams.edit && activeRoute.queryParams.id) {
       await this.fetchEditData(activeRoute.queryParams.id)
-      console.log("edited");
     } else {
-      console.log("No edited");
       await this.setupFormCriteria()
       this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
     }
@@ -137,14 +133,11 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         type_id: this.params['type_id'],
         propose: this.params['propose']
       }
-      // type ObjectKey = keyof typeof data;
-      // const myVar = 'propose' as ObjectKey;
-      // console.log("data is" +"  "+ data[myVar])
-
       if (!this.criteria) {
-        console.log("gwa if ")
         this.criteria = await this.getCriteria(data)
       }
+      console.log("ashraf ehab bassel")
+      console.log(this.criteria)
       this.setupCriteria()
 
     } else {
@@ -172,20 +165,13 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         "3": [],
         "4": [],
       }
-      console.log(this.criteria.data);
-      let data = this.criteria.data;
-
-      // type ObjectKey = keyof typeof data;
-      // const myVar = 'Interior' as ObjectKey;
-      // console.log(data[myVar]);
-
+      let data = this.criteria.data
       if (!Object.keys(this.data).length) {
         this.criteriaParent = []
         let index = 1
         for (let [key, val] of Object.entries(data)) {
           if (key !== 'icons_path' && key !== 'parentCount') {
             this.criteriaParent.push(key)
-            
             let obj: any = val
             for (let [k, values] of Object.entries(obj)) {
               let sValue: any = values

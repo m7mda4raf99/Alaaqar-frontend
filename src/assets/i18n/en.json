@@ -27,7 +27,7 @@
         "actions": {
             "cancel": "Cancel",
             "Done": "Done",
-            "Apply & Continue": "Apply",
+            "Apply & Continue": "Continue",
             "More": "More",
             "Submit": "Submit",
             "Back":"Back",
@@ -50,7 +50,16 @@
         "Rent": "Rent",
         "Sell": "Sell",
         "Rental": "Rental",
-        "Contact": "Contact"
+        "Contact": "Contacts",
+        "description": "The first platform that offers the best-matched dream house",
+        "app store": "https://apps.apple.com/eg/app/alaaqar/id1586357837",
+        "play store": "https://apps.apple.com/eg/app/alaaqar/id1586357837",
+        "facebook": "https://www.facebook.com/alaaqarapp/?mibextid=ZbWKwL",
+        "instagram": "https://instagram.com/alaaqarapp?igshid=YmMyMTA2M2Y=",
+        "twitter": "https://twitter.com/alaaqarapp",
+        "youtube": "https://youtube.com/@alaaqar91",
+        "linkedin": "https://www.linkedin.com/mwlite/company/alaaqarapp"
+
     },
     "Oops": {
         "Page Not Found!": "Page Not Found!",
@@ -70,12 +79,20 @@
     "home": {
         "Find Your Perfect": "Buy, Sell, or Rent  ",
         "Future Home": "without hassle!",
-        "Hassle Free . Save Time . No Hidden Fees": "Highly Efficient. Saves Time . Saves Money",
+        "Hassle Free . Save Time . No Hidden Fees": "Highly Efficient. Saves Time. Saves Money",
         "500 Developers":"(+30,000 Property , +500 Developers , 12 Areas, +100 Consultants)",
+        "Property count": "+30,000",
+        "Property": "Properties",
+        "Developers count": "+500",
+        "Developers": "Developers",
+        "Areas count": "+12",
+        "Areas": "Areas",
+        "Consultants count": "+100",
+        "Consultants": "Consultants",
         "Buy": "Buy",
         "Rent": "Rent",
         "Sell": "Sell",
-        "Rental": "Rental",
+        "Rental": "Rent Out",
         "City": "City",
         "Area": "Area",
         "Neighborhood": "Neighborhood",
@@ -95,7 +112,8 @@
         "Write a unique description of your unit": "Describe Your Property",
         "Optional": "Optional",
         "Recently Added": {
-            "title": "Recently Added"
+            "title": "Recently Added",
+            "listed_on": "Listed on: "
         },
         "Download app": {
             "title": "Download alaaqar App",
@@ -134,7 +152,8 @@
             "Blog": "Blog",
             "View":"View"
         },
-        "no blogs":"No blogs yet."
+        "no blogs":"No blogs yet.",
+        "start_date": "Start Date: "
     },
     "aboutus": {
         "title": "About us",
@@ -244,11 +263,16 @@
             "Home": "Home",
             "sell": "Sell"
         },
-        "Go to the best buyer":"Go to the best buyer",
+        "Go to the best buyer":"Find the best buyer",
         "Step":"Step",
         "unit Photos":"unit Photos",
+        "Real images": "Real images",
+        "Masterplan":"Masterplan",
+        "View photos": "View photos",
         "Select your option":"Select your option",
         "Enter value":"Enter a numeric value",
+        "Unit Title":"Write a unique title for your unit to attract buyers",
+        "Unit Description":"Write an accurate description of your unit of at least 150 characters ...",
         "photoUpload": {
             "Select category":"Select category to upload it's photos",
             "Add photo for the":"Add at least 1 photo for the",
@@ -335,7 +359,7 @@
     "no_properties":"You don't have any properties",
     "list_properties":"List your properties and add their specs to view them here",
     "add_property":"Add new property",
-    "alaqaar_solution":"Alaaqar Solution",
+    "alaqaar_solution":"Alaaqar Solutions",
     "solution_text":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
     "try_solution":"Try our solution",
     "search_button":"Quick search",

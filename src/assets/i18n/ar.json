@@ -41,6 +41,7 @@
 
     },
     "footer": {
+        "Services": "خدمات",
         "Important Links":"روابط هامة",
         "How it works?":"كيف تعمل؟",
         "About us":"عنا",
@@ -50,7 +51,8 @@
         "Rent": "إيجار",
         "Sell": "بيع",
         "Rental": "تأجير",
-        "Contact": "للتواصل معنا"
+        "Contact": "للتواصل معنا",
+        "description": "المنصة الأولى التي تقدم أفضل منزل الأحلام"
     },
     "Oops": {
         "Page Not Found!": "لم يتم العثور على الصفحة!",
@@ -72,6 +74,14 @@
         "Future Home" :"بدون متاعب!",
         "Hassle Free . Save Time . No Hidden Fees":"بكفاءة عالية. وفر الوقت . وفر المال",
         "500 Developers":"( +٣٠,٠٠٠ وحدة , + ٥٠٠ مطور عقاري , ١٢ منطقة , + ١٠٠ مستشار عقاري)",
+        "Property count": "+٣٠,٠٠٠",
+        "Property": "وحدة",
+        "Developers count": "+٥٠٠",
+        "Developers": "مطور عقاري",
+        "Areas count": "+١٢",
+        "Areas": "منطقة",
+        "Consultants count": "+١٠٠",
+        "Consultants": "مستشار عقاري",
         "Buy":"شراء",
         "Rent":"ايجار",
         "Sell":"بيع",
@@ -94,7 +104,8 @@
         "Write a unique description of your unit":"اكتب وصفًا فريدًا للوحدة الخاصة بك",
         "Optional":"اختياري",
         "Recently Added":{
-            "title":"أضيف حديثا"
+            "title":"أضيف حديثا",
+            "listed_on": "علي قائمة: "
         },
         "Download app": {
             "title":"تحميل تطبيق العقار",
@@ -133,7 +144,8 @@
             "Blog":"المدونة",
             "View":"زيارة"
         },
-        "no blogs":"لايوجد مدونات."
+        "no blogs":"لايوجد مدونات.",
+        "start_date": "تاريخ البدء: "
     },
     "aboutus":{
         "title":"عنا",
@@ -245,11 +257,16 @@
             "Home": "الرئيسية",
             "sell": "بيع"
         },
-        "Go to the best buyer":"الوصول الي احسن بائع",
+        "Go to the best buyer":"ابحث عن أفضل مشتر",
         "Step":"خطوة",
         "unit Photos":"صور الوحدة",
+        "Real images": "صور حقيقية",
+        "Masterplan":"المخطط الرئيسي",
+        "View photos": "عرض الصور",
         "Select your option":"حدد خيارك",
         "Enter value":"ادخل قيمة رقمية",
+        "Unit Title":"اكتب عنوانًا فريدًا لوحدتك لجذب المشترين",
+        "Unit Description":"اكتب وصفًا دقيقًا لوحدتك لا يقل عن 150 حرفًا ...",
         "photoUpload": {
             "Select category":"حدد الفئة التي تريد تحميل الصور لها.",
             "Add photo for the":"اضف صورة واحده علي الاقل ل ",
