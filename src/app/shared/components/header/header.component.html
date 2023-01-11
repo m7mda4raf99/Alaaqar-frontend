@@ -141,7 +141,7 @@ z-index: 10;">
                     </span> -->
                     {{getName()}}
                     </button>
-                    <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  style="transform: translate(140px,44px) !important;">
+                    <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  >
                         <li> <button (click)="navigateToVisits();isMenuCollapsed = true" class="dropdown-item" >
                             <img src="../../../../assets/images/my_visits.png" alt="image">
                             {{'header.my_visits' | translate}}

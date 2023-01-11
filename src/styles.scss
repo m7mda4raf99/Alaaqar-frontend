@@ -907,12 +907,12 @@ a{
     position: fixed;
     width: 100%;
     height: calc(100vh - 139px);
-    top: 139px;
+    // top: 139px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #fff;
-    z-index: 1200;
+    z-index: 1;
     flex-direction: column;
     img{
         width: 200px;

@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
       name: 'egypt',
       value:'Egypt',
       avatar:
-        '../../../../assets/images/egypt2.png',
+        '../../../../assets/images/egypt.png',
     },
     {
       id: 2,
