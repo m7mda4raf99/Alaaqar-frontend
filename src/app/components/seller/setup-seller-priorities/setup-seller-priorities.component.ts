@@ -74,6 +74,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
   activeTab: any = 1
   activeLang: any
+  activeForm: any
   activeIds = "tab-1"
   criteria: any
   criteriaParent: Array<any> = []
@@ -136,8 +137,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       if (!this.criteria) {
         this.criteria = await this.getCriteria(data)
       }
-      console.log("ashraf ehab bassel")
-      console.log(this.criteria)
+      // console.log("ashraf ehab bassel")
+      // console.log(this.criteria)
       this.setupCriteria()
 
     } else {
@@ -166,10 +167,15 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         "4": [],
       }
       let data = this.criteria.data
+
+      // console.log("data: ", data)
+
       if (!Object.keys(this.data).length) {
         this.criteriaParent = []
         let index = 1
         for (let [key, val] of Object.entries(data)) {
+          // console.log("key: ", key)
+          // console.log("val: ", val)
           if (key !== 'icons_path' && key !== 'parentCount') {
             this.criteriaParent.push(key)
             let obj: any = val
@@ -189,6 +195,9 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         } else {
           this.data = this.priorities
         }
+
+        // console.log("this.data1: ", this.data)
+
         for (let [k, val] of Object.entries(this.data)) {
           if (k === '1') { this.appService.tabOne$.next(this.data[k]) }
           if (k === '2') { this.appService.tabTwo$.next(this.data[k]) }
@@ -206,9 +215,15 @@ export class SetupSellerPrioritiesComponent implements OnInit {
             this.data[k].push(obj)
             this.appService.tabFour$.next(this.data[k])
           }
+          console.log("this.data2: ", this.data)
+
           let control = this.prioritiesService.sellerForm.get(k) as FormGroup
+
+          // console.log("control: ", control)
+
           if (Object.keys(control.controls).length === 0) {
             for (const c in this.data[k]) {
+              // console.log("criteria name: ", this.data[k][c].name_en)
               control.addControl(this.data[k][c].name_en, new FormControl('', Validators.required))
             }
           }
@@ -378,8 +393,32 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
 
   getCurrentActiveForm(formId: string) {
-    let form = this.prioritiesService.sellerForm.get(formId)?.value
-    return form
+    this.activeForm = this.prioritiesService.sellerForm.get(formId)?.value
+    
+    let criteria_data = this.data[formId] 
+
+    if(formId === '1'){
+      let array = []
+
+      for(let i = 0; i < criteria_data.length - 2; i++){
+        array.push(criteria_data[i])
+      }
+      criteria_data = array
+    } else if(formId === '4'){
+      let array = []
+
+      for(let i = 0; i < criteria_data.length - 1; i++){
+        array.push(criteria_data[i])
+      }
+      criteria_data = array
+    }
+
+    return criteria_data
+  }
+
+  print(data: any, key: any) {
+    console.log("printing now ashraf")
+    console.log(data)
   }
 
   getIconUrl(currentTab: string, key: any) {
@@ -388,7 +427,9 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       return item[0]?.iconUrl ? item[0]?.iconUrl : ''
     }
   }
-  getPriorityFormValue(array: any) {
+  getPriorityFormValue(name_en: any) {
+    let array = this.activeForm[name_en]
+
     return array && array.length > 0 ? array : []
   }
 
