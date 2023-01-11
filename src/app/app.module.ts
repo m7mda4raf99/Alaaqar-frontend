@@ -70,7 +70,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { filter } from 'rxjs';
 import { PriceRangeSliderComponent } from './shared/components/price-range-slider/price-range-slider.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-
+import { AvatarModule } from 'ngx-avatar';
 
 
 @NgModule({
@@ -111,6 +111,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     PriceRangeSliderComponent  
   ],
   imports: [
+    AvatarModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,

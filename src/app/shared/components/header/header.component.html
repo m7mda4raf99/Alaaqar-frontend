@@ -1,5 +1,4 @@
-<div class="app-header" [ngClass]="{'rtl' : activeLang.title === 'AR' || activeLang === 'AR'}" style="position: fixed;
-width: 100%;
+<div class="app-header" [ngClass]="{'rtl' : activeLang.title === 'AR' || activeLang === 'AR'}" style="width: 100%;
 z-index: 10;">
     <!-- <div class="app-header__up">
         <div class="app-header__language">
@@ -59,7 +58,7 @@ z-index: 10;">
         <div class="app-header__user" >
             
             <div class="app-header__mini" (click)="navigateToNotifications();isMenuCollapsed = true" style="position: relative;">
-                <span class="icon">
+                <span class="icon" style="margin: 0px 5px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18.5" height="21.503" viewBox="0 0 18.5 21.503">
                         <g id="Iconly_Light_Notification" data-name="Iconly/Light/Notification"
                             transform="translate(0.75 0.75)">
@@ -102,7 +101,7 @@ z-index: 10;">
             </div> -->
             
             <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'">
-                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()"   style="transform: translate3d(9px,2px,1px);">
+                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
                     <span class="icon">
                         <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -115,7 +114,7 @@ z-index: 10;">
             </div>
 
             <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN'">
-                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()"   style="transform: translate3d(-16px,2px,1px);">
+                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
                     <span class="icon">
                         <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -142,7 +141,7 @@ z-index: 10;">
                     </span> -->
                     {{getName()}}
                     </button>
-                    <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  style="transform: translate(140px,44px) !important;">
+                    <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  >
                         <li> <button (click)="navigateToVisits();isMenuCollapsed = true" class="dropdown-item" >
                             <img src="../../../../assets/images/my_visits.png" alt="image">
                             {{'header.my_visits' | translate}}
@@ -227,45 +226,33 @@ z-index: 10;">
                     </div>
                 </ng-template>
             </div>
-            <div class="app-header__language">
-                <small *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="margin-left: 7px;">ENGLISH</small>
-                <span (click)="transform_language('en')" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" class="current">E</span>
-                <small *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " style="margin-right: 7px;">عربي</small>
-                <span (click)="transform_language('ar')" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'" class="current">ع</span>
-                <!-- <div class="ng-select">
-                    <ng-select [placeholder]="selectedCityName"
-                    
-                        (change)="transform_country($event)">
-                        <ng-option  value="egypt"><span
-                                style="display: inline-flex;flex-basis: 0;flex-grow: 1;">{{'egypt' | translate}}</span><img class="lang-flag"
-                                style="width: 25px;height:20px;" src="../../assets/images/egypt.png" />
-                        </ng-option>
-                        <ng-option value="saudi"><span
-                                style="display: inline-flex;flex-basis: 0;flex-grow: 1;">{{'saudi' | translate}}</span><img class="lang-flag"
-                                style="width: 25px;height:20px;" src="../../assets/images/saudi.png" />
-                        </ng-option>
+            <!-- <div class="app-header__language">
+                
+                
+            </div> -->
+
+            <small *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="margin: 0px 2px;">ENGLISH</small>
+            <span (click)="transform_language('en')" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
+            <small *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " style="margin: 0px 2px;">عربي</small>
+            <span (click)="transform_language('ar')" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'" style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
+
+            <ng-select [items]="cities3"
+        bindLabel="name"
+        bindValue="name"
+        placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
+        [(ngModel)]="selectedCityName"
+        (change)="transform_country(selectedCityName)" style="border: none ! important;">
+        
+        <ng-template ng-label-tmp let-item="item">
+            <img height="20" width="20"  [src]="item.avatar"/>
+            <b>{{item.name|translate}}</b> 
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+            <img height="15" width="15" [src]="item.avatar"/>
+            <b>{{item.name|translate}}</b>
+            </ng-template>
     
-                    </ng-select>
-                </div> -->
-                    <ng-select [items]="cities3"
-                bindLabel="name"
-                bindValue="name"
-                placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
-                [(ngModel)]="selectedCityName"
-                (change)="transform_country(selectedCityName)" style="border: none ! important;">
-                
-                <ng-template ng-label-tmp let-item="item">
-                    <img height="20" width="20"  [src]="item.avatar"/>
-                    <b>{{item.name|translate}}</b> 
-                    </ng-template>
-                    <ng-template ng-option-tmp let-item="item" let-index="index">
-                    <img height="15" width="15" [src]="item.avatar"/>
-                    <b>{{item.name|translate}}</b>
-                    </ng-template>
-            
-                    </ng-select>
-                
-            </div>
+            </ng-select>
 
         <!-- </div> -->
 

@@ -18,14 +18,29 @@ export class PriceRangeSliderComponent implements OnInit {
     ceil: 10000000
   };
   
-  @Input() receivedValue: String = "";
-
+  @Input() activeTab: String = "";
+  
   constructor() { }
 
   ngOnInit(): void {
     //this.sender.emit([this.minValue, this.maxValue])
     // console.log("price range slider works!")
     // console.log(this.receivedValue, " sureee")
+    
+    if(this.activeTab == 'buy'){
+      this.options.floor = 300000
+      this.options.ceil = 40000000
+
+      this.minValue = 300000
+      this.maxValue = 40000000
+    } else{
+      this.options.floor = 3000
+      this.options.ceil = 400000
+
+      
+      this.minValue = 3000
+      this.maxValue = 400000
+    }
   }
 
   onSliderChange(){

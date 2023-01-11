@@ -99,7 +99,7 @@ h2 {
 
 .section-head-center {
     text-align: center;
-    padding-top: 100px;
+    // padding-top: 100px;
     padding-bottom: 40px;
 
     span {
@@ -336,7 +336,7 @@ ng-otp-input {
             background-color: #f7f7f7;
             // max-height: 260px;
             overflow-y: overlay;
-            padding: 0rem 1rem 1rem 1rem;
+            // padding: 0rem 1rem 1rem 1rem;
         }
     }
 
@@ -506,6 +506,7 @@ nz-progress {
         margin: 0;
         margin-top: 20px;
         padding-top: 15px;
+        display: inline-block;
     }
 
     .bordered-top {
@@ -563,23 +564,19 @@ nz-progress {
 
     .imagesUpload {
         button {
-            background-color: #184d471a !important;
-            border: none;
+            // background-color: #184d471a !important;
+            // border: none;
             padding: 10px;
             border-radius: 10px;
             margin: 23px 0px;
-            width: 100%;
+            width: 150px;
             cursor: pointer;
 
-            img {
-                width: 20px;
-                height: 20px;
-                vertical-align: middle;
+            &:hover {
+                // background-color: #fd7363 !important;
             }
 
-            &:hover {
-                background-color: #03201d1a !important;
-            }
+    
         }
     }
 }
@@ -620,14 +617,14 @@ nz-progress {
 
 .sub-head {
     width: 100%;
-    height: 400px;
+    height: 315px;
     background: linear-gradient(to bottom, rgba(24, 77, 71, 0.77), rgba(24, 77, 71, 0.03)),
         url("./assets/images/verne-ho-0LAJfSNa-xQ-unsplash\ \(1\).png");
 
     .title {
         color: #ffffff;
         font-size: 30px;
-        padding: 30px 0px;
+        padding: 30px 0px 0px 0px;
         font-family: "Rubik-bold";
     }
 
@@ -747,6 +744,8 @@ nz-progress {
 .alaqaar-blogs{
     padding: 50px 0;
     background-color: #f7f7f7;
+
+    
 }
 .main-title {
     font-family: 'Rubik-Bold';
@@ -908,12 +907,12 @@ a{
     position: fixed;
     width: 100%;
     height: calc(100vh - 139px);
-    top: 139px;
+    // top: 139px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #fff;
-    z-index: 1200;
+    z-index: 1;
     flex-direction: column;
     img{
         width: 200px;
@@ -926,10 +925,15 @@ a{
     color: #999 !important;
     border: 0px !important;
 
-    .selected-item-container .selected-item{
+    .selected-item-container
+        {
+            max-width: 85% !important;
+        }
+    
+        .selected-item{
         background: #c2c2c2 !important;
-        border: 1px solid #fd4965 !important;
-        border-radius: 20px !important;
+        border: 1px solid #c2c2c2 !important;
+        border-radius: 6px !important;
 
         span{
             font-size: x-small !important;
@@ -947,36 +951,78 @@ a{
     .dropdown-multiselect__caret:before{
         border-width: 6px 5px 0 !important;
     }
+
+    .dropdown-multiselect--active .dropdown-multiselect__caret{
+        padding-left: 0px !important;
+    } 
 }
 
 .multiselect-item-checkbox input[type=checkbox] + div:before{
-    border: 2px solid #fd4965 !important;
+    border: 2px solid #c2c2c2 !important;
 }
 
 .multiselect-item-checkbox input[type=checkbox]:checked + div:before{
-    background: #fd4965 !important;
+    background: #c2c2c2 !important;
 }
 
 .dropdown-list{
     width: max-content !important;
 }
 
+
+
+
+.home .first-sec .home-controls{
+    .stats{
+        width: 22% !important;
+    
+        .count{
+            color: #fd4965 !important;
+            margin-bottom: 0% !important;
+        }
+        .title{
+            font-size: calc(1rem + 0.05vw) !important;
+            margin-top: 0% !important;
+        }
+    }
+
+    p{
+        font-size: calc(1.25rem + 0.25vw) !important;
+        margin-top: 20px !important;
+    }
+}
+
 // buy, rent, sell, rental components
 .home .first-sec .search-sec .ngSelect.priceRange{
-        min-width: 18% !important;
+        min-width: 14% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.main{
-    min-width: 12% !important;
+    min-width: 11% !important;
+}
+
+.home .first-sec .search-sec .ngSelect.city{
+    min-width: 14% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.realState{
-    min-width: 12% !important;
+    min-width: 14% !important;
 }
 
-.dropdown-toggle:after {
-    margin-left: 2.255em !important;
+.home .first-sec .search-sec .ngSelect.separator{
+    min-width: 0%!important;
+    padding-right: 0%!important;
+    padding-left: 0% !important;
+    margin-top: 3% !important;
+    width: 2px;
+    height: 45px;
+    background: rgba(103, 96, 96, 0.164);
 }
+
+
+// .dropdown-toggle:after {
+//     margin-left: 2.255em !important;
+// }
 
 .ngx-slider {
     .ngx-slider-pointer{
@@ -993,5 +1039,29 @@ a{
 
     .ngx-slider-bar{
             height: 2px !important;
+    }
+}
+
+span.ng-star-inserted{
+    padding-right: 0% !important;
+}
+
+span.dropdown-multiselect--active{
+    // padding-right: 10px !important;
+}
+
+.col-lg-3{
+    height: fit-content !important;
+}
+
+.stepper-body{
+    margin: 0 !important;
+    padding: 0rem 1rem 0rem 1rem !important; 
+}
+
+.inputPlaceholder{
+    size: 10px;
+    ::placeholder{
+        size: 10px;
     }
 }

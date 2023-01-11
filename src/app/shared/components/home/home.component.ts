@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit {
 
   video_src = 'alaqaar-solution.mp4'
 
+  video_variable: any
+
   selected_country:any
 
   parentName: string = "ashraf is here guys"
@@ -46,7 +48,6 @@ export class HomeComponent implements OnInit {
   countries: any = []
   geographical: any = {}
   activeCity: number = 1
- Current_unit_count_array: any =[]
   cites = [
     { id: 1, name: "Cairo", disabled: false,units_count:0}
   ]
@@ -57,7 +58,7 @@ export class HomeComponent implements OnInit {
     { id: 1, name: "New Cairo", disabled: false,units_count:0 },
   ]
   RealEstateType = [
-    { id: 1, name: "First", disabled: false ,units_count:0 },
+    { id: 1, name: "First", disabled: false },
   ]
   recentlyAdded = []
   UnitTypes: any = []
@@ -81,14 +82,12 @@ export class HomeComponent implements OnInit {
   selectedCityNotValid: boolean = false
   selectedAreaNotValid: boolean = false
   PriceNotValid: boolean = false
-  unitDescriptionNotValid: boolean = false
+  // unitDescriptionNotValid: boolean = false
   priceMaxRange: any
   priceMinRange: any
   price: any
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
-
-
 
   minPriceValue = [
     { val: 0, view: '0 EGP' },
@@ -118,7 +117,7 @@ export class HomeComponent implements OnInit {
     { val: 1000000, view: this.abbreviateNumber(1000000) },
   ]
 
-  video_variable: any
+
   maxPriceValue: any = []
   blogs: any = []
   aboutUs: any = {}
@@ -126,17 +125,13 @@ export class HomeComponent implements OnInit {
   selectedItems: any = [];
   dropdownSettings: IDropdownSettings = {};
   dropdownSettingsArea: IDropdownSettings = {};
+  dropdownSettingsAreaSell: IDropdownSettings = {};
+
 
   isLoggedIn: boolean = false
 
- 
-
-  
-  //halim
-  unit_count_array: any = [];
   constructor(
     //header:HeaderComponent,
-
     private cookieService: CookieService,
     private appServiceService: AppServiceService,
     private _activatedRoute: ActivatedRoute,
@@ -166,7 +161,7 @@ export class HomeComponent implements OnInit {
         this.defaultSelectedNeighborhood = 'Select Neighborhood'
         this.defaultSelectedRealEstateType = 'Select Type'
       }
-      await this.getGeographical(this.activeCity)
+      await this.getGeographical(this.activeCity, false)
     }
     )
     this.sub2 = this._activatedRoute.queryParams.subscribe(params => {
@@ -206,7 +201,7 @@ export class HomeComponent implements OnInit {
       await this.getRecentlyAdded()
     }
     
-    await this.getGeographical(this.activeCity)
+    await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
     this.getAboutUsHome()
@@ -215,119 +210,11 @@ export class HomeComponent implements OnInit {
     this.setMultiSelection()
     this.spinner.hide()
     this.resetFormData()
+
     // this.getLocation()
-    this.getIPAddress();
-
-   await this.setupUnitTypesCount()
-   
+    // this.getIPAddress();
+  
   }
-
-  async setupUnitTypesCount() {
-    // let data = {
-    //   id: this.selectedNeighborhood[this.selectedNeighborhood.length-1].item_id
-    // }
-    // this.unit_count_array = await this.apiService.getUnit_types_count(data);
-
-    this.Current_unit_count_array = [
-      {id: 1, name_en: 'Apartment', name_ar: 'شقة', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 2, name_en: 'Villa', name_ar: 'فيلا', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 3, name_en: 'Townhouse', name_ar: 'شقة', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 4, name_en: 'Penthouse', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 5, name_en: 'Chalet', name_ar: 'شاليه', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 6, name_en: 'Twin House', name_ar: 'توين هاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 7, name_en: 'Duplex', name_ar: 'دوبليكس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 8, name_en: 'Full Floor', name_ar: 'دور كامل', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 9, name_en: 'Half Floor', name_ar: 'نصف دور', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 10, name_en: 'Whole Building', name_ar: 'مبنى', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 11, name_en: 'Bungalow', name_ar: 'بيت من طابق واحد', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 12, name_en: 'Hotel apartment', name_ar: 'شقة فندقية', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 13, name_en: 'ivilla', name_ar: 'ايفيلا', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 14, name_en: 'Office Space', name_ar: 'مكتب', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
-      {id: 15, name_en: 'Commercial', name_ar: 'تجاري', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
-      {id: 16, name_en: 'Warehouse', name_ar: 'مخزن', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
-      {id: 17, name_en: 'Adminstrative', name_ar: 'إداري', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
-      {id: 18, name_en: 'Labor housing', name_ar: 'سكن عمال', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
-      {id: 19, name_en: 'Medical', name_ar: 'طبي', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
-      {id: 20, name_en: 'Land', name_ar: 'أرض', category_id: 3, category_name_en: 'Other',category_name_ar:'اخرى',units_count: 0},
-      
-  
-      
-    ]
-
-   
-    if (this.selectedNeighborhood && this.selectedNeighborhood.length > 0)
-    {
-      for (let i = 0; i < this.selectedNeighborhood.length; i++) {
-        let data = {
-          id: this.selectedNeighborhood[i].item_id
-        }
-  
-        let array = await this.apiService.unit_types_count_neighborhood(data);
-        let x =0
-        for (const key in array.data) {
-        
-          this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
-          x++
-        }
-        x=0
-  
-      }
-    } 
-    else if (this.selectedArea && this.selectedArea.length > 0)
-    {
-      console.log("gwa area");
-      console.log(this.selectedArea);
-      for (let i = 0; i < this.selectedArea.length; i++) {
-        let data = {
-          id: this.selectedArea[i].item_id
-        }
-  
-        let array = await this.apiService.unit_types_count_area(data);
-        let x =0
-        for (const key in array.data) {
-        
-          this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
-          x++
-        }
-        x=0
-  
-      }
-    } else{
-              let data = {
-          id: this.activeCity
-        }
-            let array = await this.apiService.unit_types_count_city(data);
-             let x =0
-        for (const key in array.data) {
-          this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
-          x++
-        }
-        x=0
-    }
-    // else {
-    //   // console.log("gwa City");
-    //   // console.log(this.selectedCity);
-    //   for (let i = 0; i < this.selectedCity.length; i++) {
-    //     let data = {
-    //       id: this.selectedCity[i].item_id
-    //     }
-    //     let array = await this.apiService.unit_types_count_city(data);
-    //     let x =0
-    //     for (const key in array.data) {
-        
-    //       this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
-    //       x++
-    //     }
-    //     x=0
-  
-    //   }
-    // }
-
-    console.log("gwa City");
-    console.log(this.activeCity);
-    
-  }
-
   getIPAddress()
   {
     this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
@@ -339,9 +226,10 @@ export class HomeComponent implements OnInit {
     let desLat = 0 ;
     let desLon = 0 ;
     let id = navigator.geolocation.watchPosition((position) =>{
-
+      console.log(position.coords.latitude + position.coords.longitude);
 
     },(err) =>{
+      console.log("error is " +err);
     }, {
       enableHighAccuracy :false,
       timeout:5000,
@@ -372,24 +260,27 @@ export class HomeComponent implements OnInit {
 
     if (label === 'Neighborhood'){
       this.SelectedNeighborhoodNotValid = false
-      
     }
 
 
     return this.validateInputs(selected, defaultVal, label)
   }
 
-  onItemDeSelect(selected: any, defaultVal: any, label: string): boolean {
-    // if (label === 'Area'){
-    //   if (Array.isArray(selected)) {
-    //     if(selected.length === 0)
-    //       this.selectedAreaNotValid = true
-    //   }
-    // }
+  async onItemDeSelect(selected: any, defaultVal: any, label: string): Promise<boolean> {
+    if (label === 'Area'){
+      if (Array.isArray(selected)) {
+        if(selected.length === 0){
+          this.spinner.show()
+         await this.getGeographical(this.activeCity, true)
+         this.spinner.hide()
+         return true
+        }
+      }
+    }
 
     // if (label === 'Neighborhood'){
     //   if (Array.isArray(selected) && selected.length === 0) {
-    //       this.SelectedsNeighborhoodNotValid = true
+    //       this.SelectedNeighborhoodNotValid = true
     //   }
     // }
 
@@ -407,18 +298,27 @@ export class HomeComponent implements OnInit {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
-      itemsShowLimit: 5,
+      itemsShowLimit: 1,
       allowSearchFilter: true,
-      limitSelection: 5
+      limitSelection: 5,
     };
 
     this.dropdownSettingsArea = {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
-      itemsShowLimit: 3,
+      itemsShowLimit: 1,
       allowSearchFilter: true,
       limitSelection: 3
+    }
+
+    this.dropdownSettingsAreaSell = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'item_text',
+      itemsShowLimit: 1,
+      allowSearchFilter: true,
+      limitSelection: 2,
     }
   }
 
@@ -480,6 +380,7 @@ export class HomeComponent implements OnInit {
       'offset': 0
     }
     this.apiService.getBlogs(params).subscribe(data => {
+      console.log(data.data)
       return this.blogs = data.data
     })
   }
@@ -495,19 +396,17 @@ export class HomeComponent implements OnInit {
   async getRecentlyAdded() {
     let headers = {
       'offset': '0',
-      'limit': '4',
+      'limit': '6',
     }
     let recentlyAdded = await this.apiService.getRecentlyAdded(headers)
     this.recentlyAdded = recentlyAdded.data
+
     return true
   }
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
-  
   getUnitTypes() {
-    // console.log("henaaa");
-
     if (this.UnitTypes && this.UnitTypes.length > 0) {
       let types: any = []
       for (const key in this.UnitTypes) {
@@ -515,7 +414,6 @@ export class HomeComponent implements OnInit {
           const obj = {
             id: this.UnitTypes[key]?.id,
             name: this.lang === 'en' ? this.UnitTypes[key]?.name_en : this.UnitTypes[key]?.name_ar,
-            units_count:this.UnitTypes[key]?.units_count
           }
           types.push(obj)
         }
@@ -524,30 +422,22 @@ export class HomeComponent implements OnInit {
     } else {
       this.apiService.getUnitTypes().subscribe(data => {
         this.UnitTypes = data.data
-
         let types: any = []
         for (const key in data.data) {
           if (data.data[key]?.id) {
             const obj = {
               id: data.data[key]?.id,
               name: this.lang === 'en' ? data.data[key]?.name_en : data.data[key]?.name_ar,
-              units_count:data.data[key]?.units_count
             }
             types.push(obj)
           }
         }
         this.RealEstateType = types
-        //  console.log("henaaa1");
-        //  console.log(this.RealEstateType);
-        //  console.log("henaaa2");
-        //  console.log(this.apiService.getUnitTypes());
-        //  console.log("henaaa3");
       })
     }
-    
   }
-  async getGeographical(activeCity: number = 1) {
-    if (!this.geographical?.data) {
+  async getGeographical(activeCity: number = 1, force: boolean) {
+    if (!this.geographical?.data || force) {
       this.geographical = await this.apiService.getGeographical()
       if (this.geographical === false) { Promise.resolve(false) }
     }
@@ -561,11 +451,6 @@ export class HomeComponent implements OnInit {
     let neighborhoodArr: any = []
 
     dataArr.data.forEach((element: any, i: number) => {
-      // console.log("id " +element.id)
-      // console.log("name_en " +element.name_en)
-      // console.log("name_ar " +element.name_ar)
-      // console.log("units_count " +element.units_count)
-
       const obj = {
         id: element.id,
         name: this.lang === 'en' ? element.name_en : element.name_ar,
@@ -615,9 +500,10 @@ export class HomeComponent implements OnInit {
     // console.log(this.countries)
     // console.log("cities")
     // console.log(this.cites)
-    // console.log("negibhorhoods 1")
+    // console.log("negibhorhoods")
     // console.log(this.neighborhood)
   }
+
 
   search_model: any = {
     cities: [1],
@@ -634,7 +520,6 @@ export class HomeComponent implements OnInit {
     this.selectedNeighborhood = null
     this.activeCity = city
     this.search_model.cities = [this.activeCity]
-    this.setupUnitTypesCount()
     this.setupGeographicalData(this.geographical, city)
   }
   setMinValue(val: any, method: string) {
@@ -671,6 +556,8 @@ export class HomeComponent implements OnInit {
     this.apply.nativeElement.focus()
     this.search_model.max_price = val
   }
+
+
   
   focusMinPriceInput() {
     this.minPrice.nativeElement.focus()
@@ -732,12 +619,12 @@ export class HomeComponent implements OnInit {
       })
   }
   resetSelection() {
-    this.selectedArea = this.defaultSelectedArea
-    this.selectedNeighborhood = this.defaultSelectedNeighborhood
+    this.selectedArea = []
+    this.selectedNeighborhood = [] 
     this.SelectedRealEstateType = this.defaultSelectedRealEstateType
     this.priceMinRange = ''
     this.priceMaxRange = ''
-    this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = false
+    this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = this.PriceNotValid = this.selectedCityNotValid = false
   }
   submit(data: any) {
     //console.log('data.SelectedRealEstateType', data.SelectedRealEstateType)
@@ -766,7 +653,7 @@ export class HomeComponent implements OnInit {
 
     if ((this.activeTab === 'sell' || this.activeTab === 'rental')) { 
       if(data.unitDescription == ''){
-        this.unitDescriptionNotValid = true 
+        // this.unitDescriptionNotValid = true 
       }
 
       if(data.price == undefined || data.price == "" || data.price == "0"){
@@ -774,12 +661,11 @@ export class HomeComponent implements OnInit {
       }
       
     }
-  
 
     if (!this.SelectedRealEstateTypeNotValid &&
-      !this.SelectedNeighborhoodNotValid &&
+      (!this.SelectedNeighborhoodNotValid  || this.activeTab === "buy" || this.activeTab === "rent") &&
       !this.selectedAreaNotValid &&
-      !this.unitDescriptionNotValid && 
+      // !this.unitDescriptionNotValid && 
       !this.PriceNotValid) {
       
         let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
@@ -798,8 +684,8 @@ export class HomeComponent implements OnInit {
         }
         
         else if((this.activeTab === 'sell' || this.activeTab === 'rental') && !this.isLoggedIn){
-           //this.router.navigate(['/login'])
-           this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
+          //  this.router.navigate(['/login'])
+          this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
 
         }
         else{
@@ -816,8 +702,8 @@ export class HomeComponent implements OnInit {
   }
   validateInputs(selected: any, defaultVal: any, label: string): boolean {
 
-    
     if (label === 'Neighborhood') {
+      //console.log("henaaaa")
 
       if (Array.isArray(this.selectedNeighborhood)) {
         if (this.selectedNeighborhood.length > 4) {
@@ -837,7 +723,6 @@ export class HomeComponent implements OnInit {
         }
         this.search_model.neighborhood = selected
       }
-      this.setupUnitTypesCount()
     }
     
     if (label === 'Area') {
@@ -846,6 +731,7 @@ export class HomeComponent implements OnInit {
       let neighborhoodArr: any = []
       
       this.selectedNeighborhood = null
+      //console.log("selectedArea: ", this.selectedArea)
       
       if (Array.isArray(this.selectedArea)) {
         if (this.selectedArea.length < 3) {
@@ -937,32 +823,29 @@ export class HomeComponent implements OnInit {
           });
         }
         this.neighborhood = neighborhoodArr
+        // console.log("neighbrhood 2")
+        // console.log(this.neighborhood)
       }
-      this.setupUnitTypesCount()
+      //this.selectedAreaNotValid = !this.selectedArea && !this.selectedArea?.id ? true : false
+      // set selected value to search model
       this.search_model.areas = selected
-      
-
     }
     if (label === 'Real estate type') {
       //this.SelectedRealEstateTypeNotValid = !this.selectedNeighborhood && this.selectedNeighborhood?.id ? true : false
+      
       if(this.SelectedRealEstateType != this.defaultSelectedRealEstateType)
         this.SelectedRealEstateTypeNotValid = false
       
       this.search_model.type = [selected]
-
-
-
-
     }
-    if (label === 'unitDescription') {
-      this.unitDescriptionNotValid = (selected !== null && selected !== undefined) ? false : true
-    }
+    // if (label === 'unitDescription') {
+    //   this.unitDescriptionNotValid = (selected !== null && selected !== undefined) ? false : true
+    // }
 
 
-    
+
     return true
   }
-  
   async toggleFavorite(item: any) {
     let hasError: boolean = false
     if (item.isFavorite === true) {
@@ -1030,8 +913,34 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  setImagesSrc(item: any) {
+    return item.image ? item.image : '../../../../assets/images/empty.jpeg'
+  }
+
+  // toggleVideo(event: any) {
+  //   this.videoplayer.nativeElement.play();
+  // }
+
+  getCriteriaImageSrc(criteria: any) {
+    return this.BaseURL + criteria.icon
+  }
+
+  getCriteriaOptions(criteria: any) {
+    if (Array.isArray(criteria.options) && criteria.options.length > 0) {
+      return this.lang === 'en' ? criteria.options[0].name_en : criteria.options[0].name_ar
+    }
+    return '--'
+  }
+
+  setDate(date: any){
+    return date.substring(0, 10)
+  }
+
+  
 
 }
+
+
 function reverseGeocodingWithGoogle(latitude: number, longitude: number) {
   throw new Error('Function not implemented.')
 }

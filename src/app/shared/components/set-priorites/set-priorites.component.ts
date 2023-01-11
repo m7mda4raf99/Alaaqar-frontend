@@ -75,19 +75,18 @@ export class SetPrioritesComponent implements OnInit {
   }
 
   setInitialPriorities(){
-    // this.activeTab = 1
-    // this.setItem(this.criteria[0])
-    
-    // this.activeTab = 2
-    // this.setItem(this.criteria[1])
+    this.activeTab = 1
+    this.setItem(this.criteria[0])
+    this.activeTab = 2
+    this.setItem(this.criteria[1])
+    this.activeTab = 3
+    this.setItem(this.criteria[2])
+    this.activeTab = 4
+    this.setItem(this.criteria[3])
 
-    // this.activeTab = 3
-    // this.setItem(this.criteria[2])
-
-    // this.activeTab = 4
-    // this.setItem(this.criteria[3])
+    this.activeTab = 1
     
-    // this.activeTab = 1
+
   }
 
   ngOnDestroy() {
