@@ -117,6 +117,16 @@ export class ApiService {
   public async getCriteriaForSeller(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/criteria_parent_for_seller`, 'GET', data, null)
   }
+  public async unit_types_count_neighborhood(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_neighborhood`, 'GET', data, null)
+  }
+  public async unit_types_count_area(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_area`, 'GET', data, null)
+  }
+
+  public async unit_types_count_city(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_city`, 'GET', data, null)
+  }
 
   public async getCriteriaForBuyer(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/criteria_for_buyer`, 'GET', data, null)

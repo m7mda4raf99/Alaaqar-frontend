@@ -1,0 +1,53 @@
+<div class="row mt-3 results" *ngIf="results.length > 0">
+    <div *ngFor="let item of results" class="col-xs-12 col-sm-6 col-xl-4">
+        <div class="card mb-3">
+            <div class="row g-0 card-content">
+                <div class="col-12" style="position: relative;">
+                    <span (click)="navigateToItemDetails(item)" class="overlay"></span>
+                    <span style="cursor: pointer;" (click)="navigateToItemDetails(item)"
+                        class="bage">{{getPropose(item)}}</span>
+                    <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                        src="../../../../assets/images/Path 165 copy.png" alt="..."/>
+                    <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                        src="../../../../assets/images/Path 165.png" alt="..."/>
+                    <img style="cursor: pointer;height: 230px;" (click)="navigateToItemDetails(item)"
+                        src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                </div>
+                <div class="col-md-12">
+                    <div class="card-body" style="cursor: pointer;" (click)="navigateToItemDetails(item)">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title">
+                                    {{'propertyDetails.EGP' | translate}}
+                                    <br>{{ numberWithCommas(item['price'])}}
+                                </h5>
+                                <span class="location">
+                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                    {{activeLang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                </span>
+                            </div>
+                            <div class="col-4 float-end" style="position: relative;">
+                                <nz-progress class="float-end" nzType="circle"
+                                    [nzPercent]="getScore(item['score'])"
+                                    [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                </nz-progress>
+                                <span class="score">{{getScore(item['score'])}}%</span>
+                            </div>
+
+                        </div>
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-6 desc" *ngFor="let c of item['criteria'] | slice:0:4">
+                                    <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
+                                    {{getCriteriaOptions(c)}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

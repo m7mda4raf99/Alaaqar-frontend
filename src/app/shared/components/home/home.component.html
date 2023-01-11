@@ -1,0 +1,679 @@
+<div *ngIf="selected_country != 'saudi'" class="container-fluid home">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+        <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+
+
+    </ngx-spinner>
+    <!-- First section (Find Your Perfect Future Home)-->
+    <div class="row first-sec " style="padding-top: 5%;">
+        
+        <div class="col-md-12 col-lg-6 image-sec d-block d-lg-none sm-bg">
+        </div>
+        <div class="col-md-12 col-lg-6 custom-padding home-controls">
+            <h1 style="font-size: calc(1.175rem + 2.8vw);;">{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
+            <p>{{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
+            <p>{{'home.500 Developers' | translate }}</p>
+            <div class="actions col-lg-10 col-md-11 col-sm-12">
+                <div class="tab">
+                    <a class="buy" (click)="setActiveTab('buy')" [ngClass]="[lang === 'en' ? 'ltr' : 'rtl']"
+                        [ngClass]="[activeTab === 'buy' ? 'activeTab' : '']">
+                        <span class="buy">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="45.928" height="35.079"
+                                viewBox="0 0 45.928 42.079">
+                                <path id="Path_9823" data-name="Path 9823"
+                                    d="M45.237,18.683l-.046-.036L24.151,1.432a1.913,1.913,0,0,0-2.421,0L.69,18.646a1.913,1.913,0,1,0,2.422,2.961l2.615-2.139v21.7a1.913,1.913,0,0,0,1.913,1.913h30.6a1.913,1.913,0,0,0,1.913-1.913v-21.7l2.615,2.138a1.913,1.913,0,0,0,2.467-2.925ZM22.963,14.389a4.782,4.782,0,1,1-4.782,4.782,4.782,4.782,0,0,1,4.782-4.782ZM13.4,37.341a9.563,9.563,0,0,1,19.127,0Z"
+                                    transform="translate(0.012 -1)" fill="currentColor" />
+                            </svg>
+                        </span>
+                        {{'home.Buy' | translate}}
+                    </a>
+                </div>
+                <div class="tab">
+                    <a class="rent" (click)="setActiveTab('rent')" [ngClass]="[lang === 'en' ? 'ltr' : 'rtl']"
+                        [ngClass]="[activeTab === 'rent' ? 'activeTab' : '']">
+                        <span class="rent">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="40" height="20.637" viewBox="0 0 40 20.637">
+                                <defs>
+                                    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1"
+                                        gradientUnits="objectBoundingBox">
+                                        <stop offset="0" stop-color="#fd4965" />
+                                        <stop offset="1" stop-color="#fd7363" />
+                                    </linearGradient>
+                                </defs>
+                                <g id="Group_1956" data-name="Group 1956" transform="translate(-381.423 -682.001)">
+                                    <path id="Path_13" data-name="Path 13" d="M3353.852,4701.313v11.473h7.291v-11.473Z"
+                                        transform="translate(-2943.19 -4011.785)" fill="currentColor" />
+                                    <path id="Path_14" data-name="Path 14" d="M3272.844,4703.469h24.232v-7.291h-24.232Z"
+                                        transform="translate(-2875.653 -4007.504)" fill="currentColor" />
+                                    <path id="Path_15" data-name="Path 15"
+                                        d="M3188.342,4656.048a10.319,10.319,0,1,0,10.319,10.319A10.318,10.318,0,0,0,3188.342,4656.048Zm0,14.32a4,4,0,1,1,4-4A4,4,0,0,1,3188.342,4670.368Z"
+                                        transform="translate(-2796.6 -3974.047)" fill="currentColor" />
+                                </g>
+                            </svg>
+                        </span>
+                        {{'home.Rent' | translate}}</a>
+                </div>
+                <div class="tab">
+                    <a class="sell" (click)="setActiveTab('sell')"
+                        [ngClass]="[activeTab === 'sell' ? 'activeTab' : '']">
+                        <span class="sell">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="41" height="34.082" viewBox="0 0 41 34.082">
+                                <defs>
+                                    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1"
+                                        gradientUnits="objectBoundingBox">
+                                        <stop offset="0" stop-color="#fd4965" />
+                                        <stop offset="1" stop-color="#fd7363" />
+                                    </linearGradient>
+                                </defs>
+                                <g id="Group_1957" data-name="Group 1957" transform="translate(-539.971 -674)">
+                                    <g id="stay-home" transform="translate(539.971 674)">
+                                        <path id="Path_9582" data-name="Path 9582"
+                                            d="M36.637,15.322l-.037-.029L19.559,1.35a1.549,1.549,0,0,0-1.961,0L.557,15.293a1.549,1.549,0,1,0,1.961,2.4l2.118-1.732V33.533a1.549,1.549,0,0,0,1.549,1.549H30.972a1.549,1.549,0,0,0,1.549-1.549V15.959l2.118,1.732a1.55,1.55,0,0,0,2-2.369Z"
+                                            transform="translate(0.012 -1)" fill="currentColor" />
+                                    </g>
+                                    <g id="tag" transform="translate(554.964 678.435)">
+                                        <path id="Path_9583" data-name="Path 9583"
+                                            d="M25.008,12.033l-10.7-10.7A1.137,1.137,0,0,0,13.5,1H2.137A1.137,1.137,0,0,0,1,2.137V13.5a1.137,1.137,0,0,0,.333.8l10.7,10.7a3.41,3.41,0,0,0,4.823,0l8.152-8.152a3.41,3.41,0,0,0,0-4.823Z"
+                                            transform="translate(-1 -1)" fill="#fff" stroke="#fd5664"
+                                            stroke-width="2" />
+                                    </g>
+                                    <g id="Ellipse_1268" data-name="Ellipse 1268" transform="translate(558.971 682.041)"
+                                        fill="#fff" stroke="#ff725f" stroke-width="2">
+                                        <circle cx="4" cy="4" r="4" stroke="none" />
+                                        <circle cx="4" cy="4" r="3" fill="none" />
+                                    </g>
+                                </g>
+                            </svg>
+
+                        </span>
+                        {{'home.Sell' | translate}}</a>
+                </div>
+                <div class="tab">
+                    <a class="rental" (click)="setActiveTab('rental')" [ngClass]="[lang === 'en' ? 'ltr' : 'rtl']"
+                        [ngClass]="[activeTab === 'rental' ? 'activeTab' : '']">
+                        <span class="rental">
+                            <svg id="Group_1926" data-name="Group 1926" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="33.517"
+                                viewBox="0 0 40 33.517">
+                                <defs>
+                                    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1"
+                                        gradientUnits="objectBoundingBox">
+                                        <stop offset="0" stop-color="#fd4965" />
+                                        <stop offset="1" stop-color="#fd7363" />
+                                    </linearGradient>
+                                </defs>
+                                <rect id="Rectangle_391" data-name="Rectangle 391" width="9.334" height="4.195"
+                                    transform="translate(15.556 29.323)" fill="currentColor" />
+                                <rect id="Rectangle_510" data-name="Rectangle 510" width="40" height="28.49" rx="2"
+                                    fill="currentColor" />
+                                <text id="RENT" transform="translate(4 19)" fill="#fff" font-size="12"
+                                    font-family="SegoeUI-Bold, Segoe UI" font-weight="700">
+                                    <tspan x="0" y="0">RENT</tspan>
+                                </text>
+                            </svg>
+
+                        </span>
+                        {{'home.Rental' | translate}}</a>
+                </div>
+
+            </div>
+            <div class="col-2"></div>
+
+
+        </div>
+        <div class="col-md-12 col-lg-6 image-sec d-none d-lg-block">
+            <span class="overlay"></span>
+        </div>
+        <div class="col-md-11 col-sm-12 search-sec">
+            <div *ngIf="activeTab === 'buy'" class="row buy-row">
+                <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'buy'}">
+                </ng-container>
+
+            </div>
+            <div *ngIf="activeTab === 'rent'" class="row rent-row">
+                <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'rent'}">
+                </ng-container>
+            </div>
+            <div *ngIf="activeTab === 'sell'" class="row sell-row">
+                <ng-container [ngTemplateOutlet]="sellRental" [ngTemplateOutletContext]="{type: 'sell'}">
+                </ng-container>
+            </div>
+            <div *ngIf="activeTab === 'rental'" class="row rental-row">
+                <ng-container [ngTemplateOutlet]="sellRental" [ngTemplateOutletContext]="{type: 'rental'}">
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="col-12 alaqaar-solution">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="video-preview">
+                            <video  [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
+                                <source src="../../assets/images/{{video_src}}" type="video/mp4" />
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 alaqaar-solution-text">
+                        <div class="section-head-center normal">
+                            <h2>
+                                <span class="top"></span>
+                                <!-- {{'alaqaar_solution' | translate}} -->
+                                <span></span>
+                            </h2>
+                        </div>
+                        <p class="large-text">{{'solution_text' | translate}}</p>
+                  <button (click)="scroll_to_form()" class="btn button-success more">{{'try_solution' |
+                            translate}}</button> 
+                            
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                
+            </div> -->
+        </div>
+
+        <!-- Second section (Recently Added)-->
+        <div *ngIf="recentlyAdded && recentlyAdded.length > 0" class="col-12">
+            <div class="row recently-added">
+                <div class="section-head-center">
+                    <h2>
+                        <span class="top"></span>
+                        {{ 'home.Recently Added.title' | translate}}
+                        <span></span>
+                    </h2>
+                    <!-- <p class="description">
+                        VIt is a long established fact that a reader will be distracted by the<br> readable content of a
+                        page
+                        when looking at its layout
+                    </p> -->
+                </div>
+                <div class="row justify-content-center" style="margin: 0;">
+                    <div *ngFor="let item of recentlyAdded" class="col-xs-3 col-xl-5">
+                        <div class="card mb-3" style="width: 80%;" >
+                            <div class="row g-0">
+                                    <div style="position: relative;">
+                                        <span class="bage">{{getPropose(item)}}</span>
+                                        <span (click)="navigateToSingleItem(item)" class="overlay"
+                                            style="border-radius: 20px;"></span>
+                                        <img src="{{item['image'] ? item['image']  : '../../../../assets/images/empty.jpeg'}}"
+                                            class="img-fluid back-img" alt="...">
+                                    
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <div style="display: inline;" (click)="navigateToSingleItem(item)">
+                                                {{numberWithCommas(item['price'])}} {{'propertyDetails.EGP' |
+                                                translate}} </div>
+                                            <!-- <span>/Month</span> -->
+                                            <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                                src="../../../../assets//images/Path 165 copy.png" alt="..." />
+                                            <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                                src="../../../../assets//images/Path 165.png" alt="..." />
+                                        </h5>
+                                        <span class="location" (click)="navigateToSingleItem(item)">
+                                            <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                                alt="..." />
+                                            {{lang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                        </span>
+                                        <div class="card-text" (click)="navigateToSingleItem(item)">
+                                            <div class="row">
+                                                <div class="col-6 desc"
+                                                    *ngFor="let option of item['criteria'] | slice:0:4">
+                                                    <img style="display: inline-block;" class="img-icon"
+                                                        src="{{getOptionIcon(option)}}" alt=".." />
+                                                    <div style="display: inline-block; width: 81%;
+                                                   vertical-align: top;">
+                                                        {{getOptionValue(option)}}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- How it works-->
+        <div class="row how-it-works">
+            <div class="section-head-center">
+                <h2>
+                    <span class="top"></span>
+                    {{'header.how it works' | translate}}
+                    <span></span>
+                </h2>
+                <p class="description">
+                    {{'home.howItWorks.Its the easiest way to buy sell' | translate}} <br>
+                    {{'home.howItWorks.properties' | translate}}
+                </p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xs-12 col-md-10">
+                    <div class="row justify-content-center">
+                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/search (1)@2x.png" class="card-img-top"
+                                        alt="...">
+
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Find your perfectly' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/Profile.png" class="card-img-top" alt="...">
+
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Reach ready buyers' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.looking for exactly' | translate}} <br>
+                                        {{'home.howItWorks.your property' | translate}} </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/Calendar.png" class="card-img-top" alt="...">
+
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Automatically book' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.visits attended by' | translate}}<br>
+                                        {{'home.howItWorks.your consultants' | translate}} </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
+
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Complete your deal' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.with the lowest' | translate}}
+                                        <br> {{'home.howItWorks.cost & effort' | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-app row">
+
+            <div class="row justify-content-center">
+                <div class="col-xs-12 custom-padding">
+                    <div class="row justify-content-center">
+                        <div class="col-xs-12 col-md-12 col-lg-6 order-1 order-lg-0">
+                            <div class="section-head-left">
+                                <h2>
+                                    <span class="top"></span>
+                                    {{'home.Download app.title' | translate}}
+                                    <span></span>
+                                </h2>
+                                <p class="description" style="margin-bottom: 120px;">
+                                    {{'home.Download app.description' | translate}}
+                                </p>
+                            </div>
+                            <div class="row left-sec justify-content-center">
+                                <div class="col downlaod">
+                                    <img (click)="navigateToAppStore()" src="../../../../assets/images/ios.png"
+                                        alt="..." />
+                                    <img (click)="navigateToGooglePlay()" src="../../../../assets/images/googleplay.png"
+                                        alt="..." />
+                                </div>
+                                <!-- <div class="col downlaod">
+                            </div> -->
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 order-0 order-lg-1" style="margin:0;">
+                            <div class="holder">
+                                <img class="iphone" src="../../../../assets/images/iphone-13-pro-max-mockup_freebie.png"
+                                    alt="..." />
+                                <img class="iphone-sm" src="../../../../assets/images/Single mockup.png" alt="..." />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row about-alaqaar">
+            <div class="row">
+                <div class="col-xs-12 col-md-11">
+                    <div class="row main-row">
+                        <div class="col-1 .d-none .d-sm-block"> </div>
+                        <div class="col-lg-6 col-xs-12 mt-3 images-sec">
+                            <img style="width: 100%;"
+                                src="../../../../assets/images/r-architecture-KQgrVfR3r74-unsplash.png" alt="..." />
+                        </div>
+                        <div class="col-lg-5 col-xs-12 mt-3">
+                            <div class="section-head-left">
+                                <h2>
+                                    <span class="top"></span>
+                                    <!-- {{'home.About Alaaqar.title' | translate}} -->
+                                    {{ lang === 'en' ? aboutUs.about_us_title_en : aboutUs.about_us_title_ar}}
+                                    <span></span>
+                                </h2>
+                                <p class="description col-xs-12 col-lg-10 desc">
+                                    {{ lang === 'en' ? aboutUs.about_us_description_en :
+                                    aboutUs.about_us_description_ar}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="row alaqaar-blogs" *ngIf="blogs && blogs.length > 0">
+            <div class="section-head-center">
+                <h2>
+                    <span class="top"></span>
+                    {{'home.Our Blog.title' | translate}}
+                    <span></span>
+                </h2>
+                <p class="description">
+                    {{'home.Our Blog.description1' | translate}},<br>{{'home.Our Blog.description2' |
+                    translate}},<br>{{'home.Our Blog.description3' | translate}}
+                </p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-xs-12 col-sm-10">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of blogs">
+                            <div class="card" (click)="navigateToSingleBlog(card)">
+                                <div style="position: relative;">
+                                    <span class="overlay"></span>
+                                    <img src="{{ BaseURL + card.image }}" class="main-img" alt="...">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{subString(card.title)}}
+                                    </h5>
+                                    <div class="row card-foot">
+                                        <div class="col">
+                                            <img src="../../../../assets/images/Calendar copy.png" alt="..." />
+                                            {{card.created_at}}
+                                        </div>
+                                        <!-- <div class="col">
+                                            <img src="../../../../assets/images/Show.png" alt="..."/>
+                                            {{card.views}} View
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <button (click)="navigateToBlogs()"
+                                    class="btn button-success more">{{'button.actions.More' | translate}}</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <ng-template #buyRent let-type="type">
+            <div class="col-6 col-lg-1 ngSelect main">
+                <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
+                <ng-select bindLabel="name" [(ngModel)]="defaultCountry"  placeholder="{{'home.Select city'| translate}}"(change)="onChangeCity(defaultCountry)">
+                    <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}} ({{c.units_count}})
+                    </ng-option>
+                </ng-select>
+                <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+            </div>
+            <div class="col-6 col-lg-1 ngSelect city">
+                <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+                <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="true"
+                    bindLabel="name" placeholder="{{'home.Select Area'| translate}}"
+                    (change)="validateInputs(selectedArea, defaultSelectedArea, 'Area')">
+                    <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                        ({{c.units_count}})
+                    </ng-option>
+                </ng-select> -->
+
+                <ng-multiselect-dropdown
+                    (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
+                    (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
+                    placeholder="{{'home.Select Area'| translate}}" 
+                    [(ngModel)]="selectedArea"
+                    [settings]="dropdownSettingsArea"
+                    [data]="cites"
+                >
+                </ng-multiselect-dropdown>
+
+                <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+            </div>
+           
+           
+            <div class="col-xs-12 col-lg-2 ngSelect">
+                <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                <!-- <ng-select [addTag]="addTagFn" [hideSelected]="true" [multiple]="true" bindLabel="name"
+                    (change)="validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
+                    <ng-option *ngFor="let c of neighborhood" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                        ({{c.units_count}})
+                    </ng-option>
+                </ng-select> -->
+
+             
+                <ng-multiselect-dropdown
+                    (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                    (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
+                    [settings]="dropdownSettings"
+                    [data]="neighborhood"
+                >
+                </ng-multiselect-dropdown>
+
+                <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                    translate}}</span>
+
+            </div>
+
+    
+            <div class="col-xs-12 col-lg-2 ngSelect realState">
+                <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+                <ng-select [multiple]="false" [addTag]="addTagFn" [hideSelected]="true" bindLabel="name"
+                    placeholder="{{'home.Select type' | translate}}"
+                    (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')"
+                    [(ngModel)]="SelectedRealEstateType">
+                    <ng-option *ngFor="let c of Current_unit_count_array" [value]="c.id">{{c.name_en}} ({{c.units_count}})
+                    </ng-option>
+                </ng-select>
+                <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
+                    translate}}</span>
+            </div>
+            <div class="col-xs-12 col-lg-1 ngSelect priceRange">
+                <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
+                <div class="dropdown" ngbDropdown>
+                    <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
+                        (click)="focusMinPriceInput()" class="btn dropdown-toggle setPriceBtn ngSelect-input"
+                        type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{setPricePlaceHolder()}}
+                    </button>
+                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                        (click)="$event.stopPropagation()" style="overflow: visible;">
+                        
+                        <app-price-range-slider (sender)="receiver($event)">
+
+
+                        </app-price-range-slider>
+
+
+                        <!-- <div class="row">
+                            <div class="col-6">
+                                <input (focus)="hideMaxRange=true;hideMinRange=false"
+                                    (blur)="setMaxSelections(priceMinRange, 'buy')" #minPrice [(ngModel)]="priceMinRange"
+                                    placeholder="{{'home.Min Price' | translate}}" [allowNegative]="false" type="text"
+                                    ngxNumberFormat="#,###,###,###" />
+                            </div>
+                            <div class="col-6">
+                                <input (focus)="hideMinRange=true;hideMaxRange=false" #maxPrice
+                                    [(ngModel)]="priceMaxRange" placeholder="{{'home.Max Price' | translate}}"
+                                    [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-6" *ngIf="activeTab == 'rent'">
+                                <button [hidden]="hideMinRange" (click)="setMinValue(v.val, activeTab)" class="select-price"
+                                    *ngFor="let v of minPriceValueRent">{{v.view}}</button>
+                            </div>
+
+                            <div class="col-6" *ngIf="activeTab == 'buy'">
+                                <button [hidden]="hideMinRange" (click)="setMinValue(v.val, activeTab)" class="select-price"
+                                    *ngFor="let v of minPriceValue">{{v.view}}</button>
+                            </div>
+
+                            <div class="col-6">
+                                <button [hidden]="hideMaxRange" class="select-price" *ngFor="let v of maxPriceValue"
+                                    (click)="setMaxValue(v.val)">{{v.view}}</button>
+                            </div>
+                            
+                            <div class=" col-12">
+                                <div class="row">
+                                    <div class="col foot">
+
+                                        <button type="button" (click)="toggleDropdown()"
+                                            class="btn btn-done float-end">{{'button.actions.Done' |
+                                            translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </ul>
+
+                </div>
+                <!-- <span *ngIf="priceMinRange==''||priceMaxRange==''">{{'validation.This Filed Is Required!' | translate}}</span> -->
+                
+            </div>
+
+            <div class="col-xs-12 col-lg-3 ngSelect submit_buttons">
+                <button #apply
+                    (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'})"
+                    class="btn button-success applyBtn float-end firstbtn"> {{'electronic_consultant' |
+                    translate}}</button>
+                <button (click)="search()"
+                    class="btn button-success applyBtn float-end button-bordered">{{'search_button' |
+                    translate}}</button>
+
+
+
+            </div>
+
+            
+
+        </ng-template>
+        
+        
+        <ng-template #sellRental let-type="type">
+            <div class="col-6 col-lg-1 ngSelect">
+                <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
+                <ng-select bindLabel="name" [(ngModel)]="defaultCountry" (change)="onChangeCity(defaultCountry)">
+                    <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}}
+                    </ng-option>
+                </ng-select>
+            </div>
+            <div class="col-6 col-lg-2 ngSelect city">
+                <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+                <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
+                    bindLabel="name" placeholder="Select Area"
+                    (change)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')">
+                    <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                    </ng-option>
+                </ng-select>
+                <span *ngIf="selectedAreaNotValid"> {{'validation.This Filed Is Required!' | translate}}</span>
+            </div>
+            
+            
+            <div class="col-xs-12 col-lg-3 ngSelect">
+                <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                <ng-select [items]="neighborhood"  [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
+                    bindLabel="name"
+                    (change)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
+                </ng-select>
+                <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                    translate}}</span>
+
+            </div>
+
+            <div class="col-xs-12 col-lg-3 ngSelect">
+                <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+                <ng-select placeholder="{{'home.Select type' | translate}}" [multiple]="false" [addTag]="addTagFn"
+                    [hideSelected]="true" bindLabel="name" [(ngModel)]="SelectedRealEstateType"
+                    (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')">
+                    <ng-option *ngFor="let c of RealEstateType" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                    </ng-option>
+                </ng-select>
+                <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
+                    translate}}</span>
+            </div>
+            <div class="col-xs-12 col-lg-2 ngSelect price">
+                <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
+                <div>
+                    <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
+                        translate}}</label>
+                    <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
+                        [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                </div>
+
+                <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |
+                    translate}}</span>
+                    
+            </div>
+            <div class="col-xs-12 description">
+                <p class="lable d-none d-lg-block">{{'home.Write a unique description of your unit' | translate}} </p>
+                <textarea (ngModelChange)="validateInputs(unitDescription, '', 'unitDescription')" cols="ngSelect-input"
+                    placeholder="{{'home.description' | translate}}" [(ngModel)]="unitDescription"
+                    class="col-xs-12"></textarea>
+                
+                    <span style="font-size: 10px;color: red;" *ngIf="unitDescriptionNotValid">{{'validation.This Filed Is
+                    Required!' | translate}}</span>
+            </div>
+            <div class="col-xs-12 ngSelect mt-1">
+                <button #apply
+                    (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,price,priceMaxRange,unitDescription})"
+                    class="btn button-success applyBtn float-end mb-3">{{'button.actions.Apply & Continue' |
+                    translate}}</button>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<div *ngIf="selected_country == 'saudi'" class="coming-soon">
+    <img src="../../assets/images/logo-header.svg"/>
+    <h1>{{'coming_soon' | translate}}</h1>
+</div>
