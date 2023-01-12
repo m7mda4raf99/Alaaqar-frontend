@@ -110,7 +110,14 @@ export class SetPrioritesComponent implements OnInit {
       }
       let data = await this.apiService.getCriteriaForBuyer(params)
       data.data.map((val: any) => val.selected = false)
-      return this.criteria = data.data
+
+      this.criteria = []
+
+      for(let i = 0; i < data.data.length - 2; i++){
+        this.criteria.push(data.data[i])
+      }
+
+      return this.criteria
     } else {
       this.router.navigate(['/home'])
     }
