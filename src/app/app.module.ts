@@ -71,6 +71,7 @@ import { PriceRangeSliderComponent } from './shared/components/price-range-slide
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AvatarModule } from 'ngx-avatar';
 
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { AvatarModule } from 'ngx-avatar';
     PriceRangeSliderComponent  
   ],
   imports: [
+    AngularMultiSelectModule,
     AvatarModule,
     FormsModule,
     ReactiveFormsModule,

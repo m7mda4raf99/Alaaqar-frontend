@@ -119,9 +119,17 @@
                                 <img src="{{getIconUrl('1', item.name_en)}}" alt="...">
                               </span>
                               
-                                <span *ngFor="let val of getPriorityFormValue(item.name_en)">
-                                  {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}
-                                </span><br>
+                              <span *ngFor="let val of getPriorityFormValue(item.name_en); let m = index; let n = count">
+                                  
+                                <span *ngIf="n > 1 && m < (n - 1)"> 
+                                {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }} /  
+                                </span>
+                            
+                                <span *ngIf="n <= 1 || m >= (n - 1)"> 
+                                {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}  
+                                </span>
+                            
+                            </span><br>
                               
                             </div>
 
@@ -149,9 +157,17 @@
                                   <img src="{{getIconUrl('2', item.name_en)}}" alt="...">
                                 </span>
                                 
-                                  <span *ngFor="let val of getPriorityFormValue(item.name_en)">
-                                    {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}
-                                  </span><br>
+                                <span *ngFor="let val of getPriorityFormValue(item.name_en); let m = index; let n = count">
+                                  
+                                  <span *ngIf="n > 1 && m < (n - 1)"> 
+                                  {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }} /  
+                                  </span>
+                              
+                                  <span *ngIf="n <= 1 || m >= (n - 1)"> 
+                                  {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}  
+                                  </span>
+                              
+                              </span><br>
                                
                               </div>
                             </div>
@@ -180,9 +196,17 @@
                                     <img src="{{getIconUrl('3', item.name_en)}}" alt="...">
                                   </span>
                                   
-                                    <span *ngFor="let val of getPriorityFormValue(item.name_en)">
-                                      {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}
-                                    </span><br>
+                                  <span *ngFor="let val of getPriorityFormValue(item.name_en); let m = index; let n = count">
+                                  
+                                    <span *ngIf="n > 1 && m < (n - 1)"> 
+                                    {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }} /  
+                                    </span>
+                                
+                                    <span *ngIf="n <= 1 || m >= (n - 1)"> 
+                                    {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}  
+                                    </span>
+                                
+                                </span><br>
                                   
                                 </div>
                               </div>
@@ -212,9 +236,17 @@
                                   <img src="{{getIconUrl('4', item.name_en)}}" alt="...">
                                 </span>
                                 
-                                  <span *ngFor="let val of getPriorityFormValue(item.name_en)">
-                                    {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}
+                                <span *ngFor="let val of getPriorityFormValue(item.name_en); let m = index; let n = count">
+                                  
+                                  <span *ngIf="n > 1 && m < (n - 1)"> 
+                                  {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }} /  
                                   </span>
+                              
+                                  <span *ngIf="n <= 1 || m >= (n - 1)"> 
+                                  {{ val.value ? val.value : activeLang === 'en' ? val.name_en:val.name_ar }}  
+                                  </span>
+                              
+                              </span><br>
                                 
                               </div>
                             </div>
