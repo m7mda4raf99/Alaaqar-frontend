@@ -6,7 +6,7 @@
     </ngx-spinner>
 
     <!-- First section (Find Your Perfect Future Home)-->
-    <div class="row first-sec " style="padding-top: 5%;">
+    <div class="row first-sec ">
         
         <div class="col-md-12 col-lg-6 image-sec d-block d-lg-none sm-bg">
         </div>
@@ -617,6 +617,10 @@
                 >
                 </ng-multiselect-dropdown>
 
+                <!-- <angular2-multiselect [data]="dropdownList2" [(ngModel)]="selectedItems2" 
+                [settings]="dropdownSettings2" >
+              </angular2-multiselect> -->
+
                 <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
                     translate}}</span> -->
 
@@ -632,7 +636,7 @@
                     placeholder="{{'home.Select type' | translate}}"
                     (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')"
                     [(ngModel)]="SelectedRealEstateType">
-                    <ng-option *ngFor="let c of Current_unit_count_array" [value]="c.id">{{c.name_en}} ({{c.units_count}})
+                    <ng-option *ngFor="let c of Current_unit_count_array" [value]="c.id" >{{c.name_en}} ({{c.units_count}})
                     </ng-option>
                 </ng-select>
                 <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
@@ -643,7 +647,7 @@
 
             </div>
 
-            <div class="col-xs-12 col-lg-2 ngSelect priceRange">
+            <div class="col-6 col-lg-1 ngSelect priceRange">
                 <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
                 <div class="dropdown" ngbDropdown>
                     <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
@@ -719,8 +723,6 @@
 
 
             </div>
-
-            
 
         </ng-template>
         
