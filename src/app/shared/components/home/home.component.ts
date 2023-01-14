@@ -32,6 +32,10 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
 
+  dropdownList2: any = [];
+  selectedItems2: any = [];
+  dropdownSettings2 = {};
+  
   video_src = 'alaqaar-solution.mp4'
 
   video_variable: any
@@ -129,7 +133,8 @@ export class HomeComponent implements OnInit {
 
 
   isLoggedIn: boolean = false
-
+  unit_count_array: any = [];
+  Current_unit_count_array: any =[]
   constructor(
     //header:HeaderComponent,
     private cookieService: CookieService,
@@ -210,10 +215,113 @@ export class HomeComponent implements OnInit {
     this.setMultiSelection()
     this.spinner.hide()
     this.resetFormData()
+    await this.setupUnitTypesCount()
+  }
 
-    // this.getLocation()
-    // this.getIPAddress();
+  async setupUnitTypesCount() {
+    // let data = {
+    //   id: this.selectedNeighborhood[this.selectedNeighborhood.length-1].item_id
+    // }
+    // this.unit_count_array = await this.apiService.getUnit_types_count(data);
+
+    this.Current_unit_count_array = [
+      {id: 1, name_en: 'Apartment', name_ar: 'شقة', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 2, name_en: 'Villa', name_ar: 'فيلا', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 3, name_en: 'Townhouse', name_ar: 'شقة', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 4, name_en: 'Penthouse', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 5, name_en: 'Chalet', name_ar: 'شاليه', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 6, name_en: 'Twin House', name_ar: 'توين هاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 7, name_en: 'Duplex', name_ar: 'دوبليكس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 8, name_en: 'Full Floor', name_ar: 'دور كامل', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 9, name_en: 'Half Floor', name_ar: 'نصف دور', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 10, name_en: 'Whole Building', name_ar: 'مبنى', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 11, name_en: 'Bungalow', name_ar: 'بيت من طابق واحد', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 12, name_en: 'Hotel apartment', name_ar: 'شقة فندقية', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 13, name_en: 'ivilla', name_ar: 'ايفيلا', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 14, name_en: 'Office Space', name_ar: 'مكتب', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+      {id: 15, name_en: 'Commercial', name_ar: 'تجاري', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+      {id: 16, name_en: 'Warehouse', name_ar: 'مخزن', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+      {id: 17, name_en: 'Adminstrative', name_ar: 'إداري', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+      {id: 18, name_en: 'Labor housing', name_ar: 'سكن عمال', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+      {id: 19, name_en: 'Medical', name_ar: 'طبي', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+      {id: 20, name_en: 'Land', name_ar: 'أرض', category_id: 3, category_name_en: 'Other',category_name_ar:'اخرى',units_count: 0},
+      
   
+      
+    ]
+
+   
+    if (this.selectedNeighborhood && this.selectedNeighborhood.length > 0)
+    {
+      for (let i = 0; i < this.selectedNeighborhood.length; i++) {
+        let data = {
+          id: this.selectedNeighborhood[i].item_id
+        }
+  
+        let array = await this.apiService.unit_types_count_neighborhood(data);
+        let x =0
+        for (const key in array.data) {
+        
+          this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
+          x++
+        }
+        x=0
+  
+      }
+    } 
+    else if (this.selectedArea && this.selectedArea.length > 0)
+    {
+      console.log("gwa area");
+      console.log(this.selectedArea);
+      for (let i = 0; i < this.selectedArea.length; i++) {
+        let data = {
+          id: this.selectedArea[i].item_id
+        }
+  
+        let array = await this.apiService.unit_types_count_area(data);
+        let x =0
+        for (const key in array.data) {
+        
+          this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
+          x++
+        }
+        x=0
+  
+      }
+    } else{
+              let data = {
+          id: this.activeCity
+        }
+            let array = await this.apiService.unit_types_count_city(data);
+             let x =0
+        for (const key in array.data) {
+          this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
+          x++
+        }
+        x=0
+    }
+    // else {
+    //   // console.log("gwa City");
+    //   // console.log(this.selectedCity);
+    //   for (let i = 0; i < this.selectedCity.length; i++) {
+    //     let data = {
+    //       id: this.selectedCity[i].item_id
+    //     }
+    //     let array = await this.apiService.unit_types_count_city(data);
+    //     let x =0
+    //     for (const key in array.data) {
+        
+    //       this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
+    //       x++
+    //     }
+    //     x=0
+  
+    //   }
+    // }
+
+    console.log("gwa City");
+    console.log(this.activeCity);
+    
   }
   getIPAddress()
   {
@@ -320,6 +428,35 @@ export class HomeComponent implements OnInit {
       allowSearchFilter: true,
       limitSelection: 2,
     }
+	
+	    this.dropdownList2 = [
+      { "id": 1, "itemName": "India", "category": "asia" },
+      { "id": 2, "itemName": "Singapore", "category": "asia pacific" },
+      { "id": 3, "itemName": "Germany", "category": "Europe" },
+      { "id": 4, "itemName": "France", "category": "Europe" },
+      { "id": 5, "itemName": "South Korea", "category": "asia" },
+      { "id": 6, "itemName": "Sweden", "category": "Europe" },
+      { "id": 7, "itemName": "Maadi", "category": "Maadi" }
+    ];
+    
+    this.selectedItems2 = [
+    ];
+        
+    this.dropdownSettings2 = { 
+          singleSelection: false, 
+          text:"Select Countries",
+          selectAllText:'Select All',
+          unSelectAllText:'UnSelect All',
+          enableSearchFilter: true,
+          groupBy: "category",
+          badgeShowLimit: 1,
+          allowSearchFilter: false,
+          limitSelection: 2,
+          // classes:"myclass custom-class",
+          // showCheckbox: true,
+          // lazyLoading: true
+    };  
+	
   }
 
   resetFormData() {
@@ -520,6 +657,7 @@ export class HomeComponent implements OnInit {
     this.selectedNeighborhood = null
     this.activeCity = city
     this.search_model.cities = [this.activeCity]
+    this.setupUnitTypesCount()
     this.setupGeographicalData(this.geographical, city)
   }
   setMinValue(val: any, method: string) {
@@ -703,7 +841,6 @@ export class HomeComponent implements OnInit {
   validateInputs(selected: any, defaultVal: any, label: string): boolean {
 
     if (label === 'Neighborhood') {
-      //console.log("henaaaa")
 
       if (Array.isArray(this.selectedNeighborhood)) {
         if (this.selectedNeighborhood.length > 4) {
@@ -723,6 +860,7 @@ export class HomeComponent implements OnInit {
         }
         this.search_model.neighborhood = selected
       }
+      this.setupUnitTypesCount()
     }
     
     if (label === 'Area') {
@@ -826,8 +964,7 @@ export class HomeComponent implements OnInit {
         // console.log("neighbrhood 2")
         // console.log(this.neighborhood)
       }
-      //this.selectedAreaNotValid = !this.selectedArea && !this.selectedArea?.id ? true : false
-      // set selected value to search model
+      this.setupUnitTypesCount()
       this.search_model.areas = selected
     }
     if (label === 'Real estate type') {
@@ -935,11 +1072,7 @@ export class HomeComponent implements OnInit {
   setDate(date: any){
     return date.substring(0, 10)
   }
-
-  
-
 }
-
 
 function reverseGeocodingWithGoogle(latitude: number, longitude: number) {
   throw new Error('Function not implemented.')

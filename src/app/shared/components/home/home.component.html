@@ -617,6 +617,10 @@
                 >
                 </ng-multiselect-dropdown>
 
+                <!-- <angular2-multiselect [data]="dropdownList2" [(ngModel)]="selectedItems2" 
+                [settings]="dropdownSettings2" >
+              </angular2-multiselect> -->
+
                 <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
                     translate}}</span> -->
 
@@ -632,7 +636,7 @@
                     placeholder="{{'home.Select type' | translate}}"
                     (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')"
                     [(ngModel)]="SelectedRealEstateType">
-                    <ng-option *ngFor="let c of RealEstateType" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                    <ng-option *ngFor="let c of Current_unit_count_array" [value]="c.id" >{{c.name_en}} ({{c.units_count}})
                     </ng-option>
                 </ng-select>
                 <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
@@ -808,7 +812,7 @@
 
             </div>
 
-            <div class="col-6 col-lg-1 ngSelect price">
+            <div class="col-xs-12 col-lg-2 ngSelect price">
                 <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
                 <div style="margin-left: 10px;">
                     <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
