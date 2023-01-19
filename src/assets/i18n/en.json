@@ -266,15 +266,20 @@
         "Go to the best buyer":"Find the best buyer",
         "Step":"Step",
         "unit Photos":"unit Photos",
+        "upload photos":"Upload Photos",
         "Real images": "Real images",
+        "Image Category": "Image Category", 
+        "required real images": "Please make sure to upload at least 5 images and select their categories",
         "Masterplan":"Masterplan",
         "View photos": "View photos",
+        "Click upload": "Click to Upload Unit Photos",
         "Select your option":"Select your option",
         "Enter value":"Enter a numeric value",
         "Unit Title":"Write a unique title for your unit to attract buyers",
         "Unit Description":"Write an accurate description of your unit of at least 150 characters ...",
         "photoUpload": {
-            "Select category":"Select category to upload it's photos",
+            "Select category":"Upload the unit photos and select their category",
+            "Select category masterplan": "Upload the master plan and unit photos if it available",
             "Add photo for the":"Add at least 1 photo for the",
             "add images":"add images"
         }
