@@ -215,7 +215,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
             this.data[k].push(obj)
             this.appService.tabFour$.next(this.data[k])
           }
-          console.log("this.data2: ", this.data)
+          // console.log("this.data2: ", this.data)
 
           let control = this.prioritiesService.sellerForm.get(k) as FormGroup
 
@@ -417,8 +417,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
 
   print(data: any, key: any) {
-    console.log("printing now ashraf")
-    console.log(data)
+    // console.log("printing now ashraf")
+    // console.log(data)
   }
 
   getIconUrl(currentTab: string, key: any) {

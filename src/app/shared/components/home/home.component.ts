@@ -209,13 +209,21 @@ export class HomeComponent implements OnInit {
     await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
+    console.log('before')
+    console.log(this.aboutUs)
     this.getAboutUsHome()
+    console.log('after')
+    console.log(this.aboutUs)
     this.getHomeBlogs()
     this.getUnitTypes()
     this.setMultiSelection()
     this.spinner.hide()
     this.resetFormData()
     await this.setupUnitTypesCount()
+  }
+
+  print(data:any){
+    // console.log(data)
   }
 
   async setupUnitTypesCount() {
@@ -271,8 +279,8 @@ export class HomeComponent implements OnInit {
     } 
     else if (this.selectedArea && this.selectedArea.length > 0)
     {
-      console.log("gwa area");
-      console.log(this.selectedArea);
+      // console.log("gwa area");
+      // console.log(this.selectedArea);
       for (let i = 0; i < this.selectedArea.length; i++) {
         let data = {
           id: this.selectedArea[i].item_id
@@ -319,8 +327,8 @@ export class HomeComponent implements OnInit {
     //   }
     // }
 
-    console.log("gwa City");
-    console.log(this.activeCity);
+    // console.log("gwa City");
+    // console.log(this.activeCity);
     
   }
   getIPAddress()
@@ -334,10 +342,10 @@ export class HomeComponent implements OnInit {
     let desLat = 0 ;
     let desLon = 0 ;
     let id = navigator.geolocation.watchPosition((position) =>{
-      console.log(position.coords.latitude + position.coords.longitude);
+      // console.log(position.coords.latitude + position.coords.longitude);
 
     },(err) =>{
-      console.log("error is " +err);
+      // console.log("error is " +err);
     }, {
       enableHighAccuracy :false,
       timeout:5000,
@@ -517,7 +525,7 @@ export class HomeComponent implements OnInit {
       'offset': 0
     }
     this.apiService.getBlogs(params).subscribe(data => {
-      console.log(data.data)
+      // console.log(data.data)
       return this.blogs = data.data
     })
   }
@@ -525,10 +533,11 @@ export class HomeComponent implements OnInit {
     this.apiService.getFooterContact().subscribe(data => {
     })
   }
-  getAboutUsHome() {
-    this.apiService.getFooterAboutUsHome().subscribe(data => {
+   getAboutUsHome() {
+     this.apiService.getFooterAboutUsHome().subscribe(data => {
       this.aboutUs = data.data
     })
+
   }
   async getRecentlyAdded() {
     let headers = {

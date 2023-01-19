@@ -260,15 +260,20 @@
         "Go to the best buyer":"ابحث عن أفضل مشتر",
         "Step":"خطوة",
         "unit Photos":"صور الوحدة",
+        "upload photos":"رفع الصور",
         "Real images": "صور حقيقية",
         "Masterplan":"المخطط الرئيسي",
+        "Image Category": "تصنيف الصورة", 
+        "required real images": "يرجى التأكد من رفع 5 صور على الأقل واختيار فئاتها",
         "View photos": "عرض الصور",
+        "Click upload": "انقر لرفع صور الوحدة",
         "Select your option":"حدد خيارك",
         "Enter value":"ادخل قيمة رقمية",
         "Unit Title":"اكتب عنوانًا فريدًا لوحدتك لجذب المشترين",
         "Unit Description":"اكتب وصفًا دقيقًا لوحدتك لا يقل عن 150 حرفًا ...",
         "photoUpload": {
-            "Select category":"حدد الفئة التي تريد تحميل الصور لها.",
+            "Select category":"قم بتحميل صور الوحدة وحدد فئتها",
+            "Select category masterplan": "قم بتحميل المخطط الرئيسي وصور الوحدة إذا كانت متوفرة",
             "Add photo for the":"اضف صورة واحده علي الاقل ل ",
             "add images":"اضافة صور"
         }
