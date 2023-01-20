@@ -7,7 +7,7 @@ import { ApiService } from '../../services/api.service';
 import { environment } from 'src/environments/environment';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Observable, Subscription } from 'rxjs';
-import { faTimes, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faChevronUp, faChevronDown, faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -21,6 +21,8 @@ export class SetPrioritesComponent implements OnInit {
   faTimes = faTimes
   faChevronUp = faChevronUp
   faChevronDown = faChevronDown
+  faCheckSquare = faCheckSquare
+  faSquare = faSquare
   constructor(
     config: NgbAccordionConfig,
     private prioritiesService: PrioritiesService,
@@ -75,18 +77,16 @@ export class SetPrioritesComponent implements OnInit {
   }
 
   setInitialPriorities(){
-    this.activeTab = 1
-    this.setItem(this.criteria[0])
-    this.activeTab = 2
-    this.setItem(this.criteria[1])
-    this.activeTab = 3
-    this.setItem(this.criteria[2])
-    this.activeTab = 4
-    this.setItem(this.criteria[3])
+    // this.activeTab = 1
+    // this.setItem(this.criteria[0])
+    // this.activeTab = 2
+    // this.setItem(this.criteria[1])
+    // this.activeTab = 3
+    // this.setItem(this.criteria[2])
+    // this.activeTab = 4
+    // this.setItem(this.criteria[3])
 
     this.activeTab = 1
-    
-
   }
 
   ngOnDestroy() {
@@ -109,13 +109,18 @@ export class SetPrioritesComponent implements OnInit {
         propose: activeRoute.queryParams.propose
       }
       let data = await this.apiService.getCriteriaForBuyer(params)
-      data.data.map((val: any) => val.selected = false)
+      data.data.map((val: any) => {
+        val.selected = false
+        val.selectedPriority = 4
+      })
 
       this.criteria = []
 
       for(let i = 0; i < data.data.length - 2; i++){
         this.criteria.push(data.data[i])
       }
+
+      console.log("this.criteria: ", this.criteria)
 
       return this.criteria
     } else {
@@ -125,6 +130,51 @@ export class SetPrioritesComponent implements OnInit {
   togglePanel(id: any) {
     this.accordion.toggle(id);
   }
+
+  selectItem(item: any){
+    this.activeTab > 4 ? this.activeTab = 4 : this.activeTab
+    if (this.activeTab && this.activeTab <= 4) {
+        item.selectedPriority = this.activeTab
+    } else {
+      this.activeTab = 4
+    }
+  }
+
+  deSelectItem(item: any){
+    item.selectedPriority = 4
+  }
+
+  onClickDone(tab: any){    
+    for(let i = tab; i <= 3; i++){
+      let tabString = i + ""
+      this.prioritiesList[tabString] = []
+    }
+
+    for(let criteria of this.criteria){
+      if(criteria['selectedPriority'] === tab){
+        this.setItem(criteria)
+      }
+    }
+    this.activeTab = tab + 1
+
+    console.log("this.prioritiesList: ", this.prioritiesList)
+    console.log("this.activeTab: ", this.activeTab)
+
+  }
+
+  onClickEdit(tab: any){
+    this.activeTab = tab
+  }
+
+  isEmpty(tab: any){
+    let tabString = tab + ""
+    if(this.prioritiesList[tabString].length === 0){
+      return true
+    }else{
+      return false
+    }
+  }
+
   setItem(item: any) {
     this.activeTab > 4 ? this.activeTab = 4 : this.activeTab
     if (this.activeTab && this.activeTab <= 4) {
@@ -132,19 +182,45 @@ export class SetPrioritesComponent implements OnInit {
         if (this.checkIfItemSelectedBefore(item) === false) {
           this.prioritiesList[this.activeTab].push(item)
           item.selected = true
-          // if (this.prioritiesList[this.activeTab].length === 5) {
-          // }
         }
       }
-      // if (this.prioritiesList[this.activeTab] && this.prioritiesList[this.activeTab].length === 5) {
-      //   this.activeTab++
-      //   this.enableNextTab(this.activeTab)
-      //   setTimeout(() => { this.togglePanel('tab-' + this.activeTab) }, 20);
-      // }
     } else {
       this.activeTab = 4
     }
+
+    console.log("this.criteria after click: ", this.criteria)
   }
+
+  getCriterias(tab: any){
+    if(tab === 1){
+      return this.criteria
+    }else{
+      let result: any[] = []
+
+      for(let criteria of this.criteria){
+        result.push(criteria)
+      }
+
+      tab = tab - 1
+
+      for(let i = tab; i > 0; i--){
+        let tabString = i + ""
+        
+        for(let selectedCriteria of this.prioritiesList[tabString]){
+          let indexCriteria = result.indexOf(selectedCriteria, 0)
+
+          if (indexCriteria > -1) {
+            result.splice(indexCriteria, 1);
+          }
+
+        }
+      }
+
+      return result
+    }
+  }
+
+  
   checkIfItemSelectedBefore(item: any): boolean {
     for (const tab in this.prioritiesList) {
       if (this.prioritiesList[tab].includes(item)) {
@@ -153,6 +229,7 @@ export class SetPrioritesComponent implements OnInit {
     }
     return false
   }
+  
   deleteItem(item: any) {
     this.items.map(singleItem => {
       if (singleItem.id === item.id) {
@@ -165,7 +242,9 @@ export class SetPrioritesComponent implements OnInit {
       }
     }
     item.selected = false
+    // item.selectedPriority = 0
   }
+  
   enableNextTab(tabId: Number) {
     switch (tabId) {
       case 2:
@@ -179,6 +258,7 @@ export class SetPrioritesComponent implements OnInit {
         break;
     }
   }
+  
   public beforeChange($event: NgbPanelChangeEvent) {
     switch ($event.panelId) {
       case 'tab-1':
@@ -195,6 +275,7 @@ export class SetPrioritesComponent implements OnInit {
         break;
     }
   }
+  
   validateNext(): boolean {
     for (const tab in this.prioritiesList) {
       if (this.prioritiesList[tab].length === 0) {
@@ -208,6 +289,15 @@ export class SetPrioritesComponent implements OnInit {
     this.prioritiesService.BuyerPriority$.next(this.prioritiesList)
     this.router.navigate(['/priorities-form'])
 
+  }
+
+  isDoneDimmed(tab: any){
+    for(let criteria of this.criteria){
+      if(criteria['selectedPriority'] === tab){
+        return false
+      }
+    }
+    return true
   }
 
 }
