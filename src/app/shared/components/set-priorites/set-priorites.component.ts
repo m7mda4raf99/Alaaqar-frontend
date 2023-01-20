@@ -59,13 +59,13 @@ export class SetPrioritesComponent implements OnInit {
     '1': [],
     '2': [],
     '3': [],
-    '4': [],
+    // '4': [],
   }
   sub = new Subscription()
   sub1 = new Subscription()
   disableTab2: boolean = false
   disableTab3: boolean = false
-  disableTab4: boolean = false
+  // disableTab4: boolean = false
   baseUrl = environment.baseUrl
   activeLang: any = ''
   async ngOnInit() {
@@ -132,11 +132,11 @@ export class SetPrioritesComponent implements OnInit {
   }
 
   selectItem(item: any){
-    this.activeTab > 4 ? this.activeTab = 4 : this.activeTab
-    if (this.activeTab && this.activeTab <= 4) {
+    this.activeTab > 3 ? this.activeTab = 3 : this.activeTab
+    if (this.activeTab && this.activeTab <= 3) {
         item.selectedPriority = this.activeTab
     } else {
-      this.activeTab = 4
+      this.activeTab = 3
     }
   }
 
@@ -176,8 +176,8 @@ export class SetPrioritesComponent implements OnInit {
   }
 
   setItem(item: any) {
-    this.activeTab > 4 ? this.activeTab = 4 : this.activeTab
-    if (this.activeTab && this.activeTab <= 4) {
+    this.activeTab > 3 ? this.activeTab = 3 : this.activeTab
+    if (this.activeTab && this.activeTab <= 3) {
       if (this.prioritiesList[this.activeTab]) {
         if (this.checkIfItemSelectedBefore(item) === false) {
           this.prioritiesList[this.activeTab].push(item)
@@ -185,7 +185,7 @@ export class SetPrioritesComponent implements OnInit {
         }
       }
     } else {
-      this.activeTab = 4
+      this.activeTab = 3
     }
 
     console.log("this.criteria after click: ", this.criteria)
@@ -253,9 +253,9 @@ export class SetPrioritesComponent implements OnInit {
       case 3:
         this.disableTab3 = false
         break;
-      case 4:
-        this.disableTab4 = false
-        break;
+      // case 4:
+      //   this.disableTab4 = false
+      //   break;
     }
   }
   
@@ -270,9 +270,9 @@ export class SetPrioritesComponent implements OnInit {
       case 'tab-3':
         this.activeTab = 3
         break;
-      case 'tab-4':
-        this.activeTab = 4
-        break;
+      // case 'tab-4':
+      //   this.activeTab = 4
+      //   break;
     }
   }
   

@@ -51,9 +51,13 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
           if (priority === '1') {
             this.appService.priorityOne$.next(this.priorities[priority])
           }
+          
           if (priority === '2') { this.appService.priorityTwo$.next(this.priorities[priority]) }
+          
           if (priority === '3') { this.appService.priorityThree$.next(this.priorities[priority]) }
-          if (priority === '4') { this.appService.priorityFour$.next(this.priorities[priority]) }
+          
+          // if (priority === '4') { this.appService.priorityFour$.next(this.priorities[priority]) }
+          
           let control = this.prioritiesService.prioriesForm.get(priority) as FormGroup
           for (const c in this.priorities[priority]) {
             control.addControl(this.priorities[priority][c].name_en, new FormControl('', Validators.required))
@@ -86,7 +90,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
   bgColors = ['#147AD6', '#C175E8', '#79D2DE', '#FF725F', '#F9C669']
   disableTab2: boolean = true
   disableTab3: boolean = true
-  disableTab4: boolean = true
+  // disableTab4: boolean = true
   sub2 = new Subscription()
   sub3 = new Subscription()
   ngOnInit(): void {
@@ -126,14 +130,14 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
       case 'tab-3':
         this.activeTab = 3
         break;
-      case 'tab-4':
-        this.activeTab = 4
-        break;
+      // case 'tab-4':
+      //   this.activeTab = 4
+      //   break;
     }
   }
   validateNext(): boolean {
     const currentStep = String(this.currentStep)
-    if (this.prioritiesService.prioriesForm.get(currentStep)?.valid && currentStep !== '4') {
+    if (this.prioritiesService.prioriesForm.get(currentStep)?.valid && currentStep !== '3') {
       return false
     }
     return true
@@ -163,13 +167,13 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
       case 3:
         this.disableTab3 = false
         break;
-      case 4:
-        this.disableTab4 = false
-        break;
+      // case 4:
+      //   this.disableTab4 = false
+      //   break;
     }
   }
   validateSubmit(): boolean {
-    if (this.prioritiesService.prioriesForm.valid && this.currentStep === 4) {
+    if (this.prioritiesService.prioriesForm.valid && this.currentStep === 3) {
       return false
     }
     return true
@@ -227,6 +231,8 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
 
       }
     }
+
+    console.log("obj: ", obj)
 
     let addInquiry = await this.addInquiry(obj)
     if (addInquiry === false) {
