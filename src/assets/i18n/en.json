@@ -200,10 +200,18 @@
         "Home":"Home",
         "Buy a home":"Buy a home",
         "Set your priorities and drag and drop them from left to right":"Set your priorities and drag and drop them from left to right",
+        "High priority":"High Priority",
+        "Select High priority":"Select your High priority options and click on the Done button to move to the following priority",
+        "Medium priority":"Medium Priority",
+        "Select Medium priority":"Select your Medium priority options and click on the Done button to move to the following priority",
+        "Low priority":"Low Priority",
+        "Select Low priority":"Select your Low priority options and click on the Done button to set your priorities",
         "Priority 1":"Priority 1",
         "Priority 2":"Priority 2",
         "Priority 3":"Priority 3",
-        "Priority 4":"Priority 4"
+        "Priority 4":"Priority 4",
+        "Done": "Done",
+        "Edit": "Edit"
     },
     "setupBuyerPriorities": {
         "Priority":"Priority",
