@@ -92,6 +92,7 @@ export class HomeComponent implements OnInit {
   price: any
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
+  MinPrice:any
 
   minPriceValue = [
     { val: 0, view: '0 EGP' },
@@ -135,6 +136,20 @@ export class HomeComponent implements OnInit {
   isLoggedIn: boolean = false
   unit_count_array: any = [];
   Current_unit_count_array: any =[]
+  proposeID: number = 2
+
+  searchQuery: any;
+  response: any; 
+  search_bar_model: any = {
+    cities: [1],
+    areas: [],
+    neighborhood: [],
+    type: [],
+    min_price: null,
+    max_price: null,
+    // propose:'buy'
+  }
+
   constructor(
     //header:HeaderComponent,
     private cookieService: CookieService,
@@ -220,6 +235,56 @@ export class HomeComponent implements OnInit {
     this.spinner.hide()
     this.resetFormData()
     await this.setupUnitTypesCount()
+    await this.setupMinPrice()
+  }
+  async GetHintSearch() {
+
+    if(this.searchQuery !== ""){
+      let data={
+        query : this.searchQuery  
+      }  
+    
+       this.response=  await this.apiService.getsearch(data)
+       console.log(this.response)
+      }
+      else{
+        this.response = {data: "no results found"}
+      }
+    }
+   
+
+
+async Getsearch() {
+    
+
+  let data={
+  query : this.searchQuery  
+}  
+
+ this.response=  await this.apiService.getsearch(data)
+console.log('response')
+console.log(this.response)
+
+if(this.response.message === 'city'){
+  console.log('city')
+  this.search_bar_model.cities= this.response.data[0].id
+  
+}
+if(this.response.message === 'area'){
+  console.log('area')
+  this.search_bar_model.areas= this.response.data
+}
+if(this.response.message === 'neighborhood'){
+  console.log('neighborhood')
+  this.search_bar_model.neighborhood= this.response.data
+}
+
+this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+
+
+}
+  search() {
+    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }
 
   print(data:any){
@@ -279,8 +344,7 @@ export class HomeComponent implements OnInit {
     } 
     else if (this.selectedArea && this.selectedArea.length > 0)
     {
-      // console.log("gwa area");
-      // console.log(this.selectedArea);
+
       for (let i = 0; i < this.selectedArea.length; i++) {
         let data = {
           id: this.selectedArea[i].item_id
@@ -298,7 +362,8 @@ export class HomeComponent implements OnInit {
       }
     } else{
               let data = {
-          id: this.activeCity
+          id: this.activeCity,
+          xd:this.proposeID
         }
             let array = await this.apiService.unit_types_count_city(data);
              let x =0
@@ -326,9 +391,58 @@ export class HomeComponent implements OnInit {
   
     //   }
     // }
+    
+  }
+  async setupMinPrice() {
 
-    // console.log("gwa City");
-    // console.log(this.activeCity);
+
+    if (this.SelectedRealEstateType && this.SelectedRealEstateType.length > 0)
+    {
+      // for (let i = 0; i < this.selectedNeighborhood.length; i++) {
+        let data = {
+          id: this.SelectedRealEstateType[0].item_id
+        }
+  
+         this.MinPrice = await this.apiService.GetMinUnitPriceNei(data);
+        
+  
+      // }
+    } 
+    if (this.selectedNeighborhood && this.selectedNeighborhood.length > 0)
+    {
+      // for (let i = 0; i < this.selectedNeighborhood.length; i++) {
+        let data = {
+          id: this.selectedNeighborhood[0].item_id
+        }
+  
+         this.MinPrice = await this.apiService.GetMinUnitPriceNei(data);
+        
+  
+      // }
+    } 
+    else if (this.selectedArea && this.selectedArea.length > 0)
+    {
+      // for (let i = 0; i < this.selectedArea.length; i++) {
+        let data = {
+          id: this.selectedArea[0].item_id
+         }
+  
+         this.MinPrice = await this.apiService.GetMinUnitPriceArea(data);
+        
+  
+      // }
+    } else{
+              let data = {
+          id: this.activeCity,
+          xd:this.proposeID
+        }
+        this.MinPrice = await this.apiService.GetMinUnitPriceCtiy(data);
+             let x =0
+        
+    }
+    
+
+   
     
   }
   getIPAddress()
@@ -525,7 +639,7 @@ export class HomeComponent implements OnInit {
       'offset': 0
     }
     this.apiService.getBlogs(params).subscribe(data => {
-      // console.log(data.data)
+
       return this.blogs = data.data
     })
   }
@@ -584,7 +698,10 @@ export class HomeComponent implements OnInit {
   }
   async getGeographical(activeCity: number = 1, force: boolean) {
     if (!this.geographical?.data || force) {
-      this.geographical = await this.apiService.getGeographical()
+      let data ={
+        Id:this.proposeID
+      }
+      this.geographical = await this.apiService.getGeographical(data)
       if (this.geographical === false) { Promise.resolve(false) }
     }
     if (this.geographical.message === 200) {
@@ -642,12 +759,6 @@ export class HomeComponent implements OnInit {
     this.cites = areaArr
     this.neighborhood = neighborhoodArr
 
-    // console.log("countries")
-    // console.log(this.countries)
-    // console.log("cities")
-    // console.log(this.cites)
-    // console.log("negibhorhoods")
-    // console.log(this.neighborhood)
   }
 
 
@@ -665,8 +776,11 @@ export class HomeComponent implements OnInit {
     this.selectedArea = null
     this.selectedNeighborhood = null
     this.activeCity = city
+    console.log('city')
+    console.log(city)
     this.search_model.cities = [this.activeCity]
     this.setupUnitTypesCount()
+    this.setupMinPrice()
     this.setupGeographicalData(this.geographical, city)
   }
   setMinValue(val: any, method: string) {
@@ -748,15 +862,24 @@ export class HomeComponent implements OnInit {
     return { name: name, tag: true }
   }
 
-  setActiveTab(tab: string) {
-
+  async setActiveTab(tab: string) {
+    
     this.resetSelection()
     const queryParams: Params = { q: tab }
     if(tab == 'buy'){
+      
       this.search_model.propose = 'sell'
     } else {
       this.search_model.propose = tab
     }
+
+    if(tab== 'buy'){
+      this.proposeID=2
+    }
+    if(tab== 'rent'){
+      this.proposeID=1
+    }
+    await this.getGeographical(this.activeCity, true)
     this.router.navigate(
       [],
       {
@@ -870,6 +993,7 @@ export class HomeComponent implements OnInit {
         this.search_model.neighborhood = selected
       }
       this.setupUnitTypesCount()
+      this.setupMinPrice()
     }
     
     if (label === 'Area') {
@@ -974,6 +1098,9 @@ export class HomeComponent implements OnInit {
         // console.log(this.neighborhood)
       }
       this.setupUnitTypesCount()
+      this.setupMinPrice()
+      console.log("selected halimo")
+      console.log(selected)
       this.search_model.areas = selected
     }
     if (label === 'Real estate type') {
@@ -983,6 +1110,7 @@ export class HomeComponent implements OnInit {
         this.SelectedRealEstateTypeNotValid = false
       
       this.search_model.type = [selected]
+      this.setupMinPrice()
     }
     // if (label === 'unitDescription') {
     //   this.unitDescriptionNotValid = (selected !== null && selected !== undefined) ? false : true
@@ -1045,10 +1173,6 @@ export class HomeComponent implements OnInit {
   }
   getOptionIcon(item: any) {
     return this.BaseURL + item.icon
-  }
-
-  search() {
-    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }
 
   scroll_to_form() {

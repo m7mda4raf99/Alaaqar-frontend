@@ -290,7 +290,7 @@ export class SearchResultComponent implements OnInit {
   activated_city: any
   activated_areas: any
   get_cities() { // cet all (cities / areas / neighborhoods)
-    this.apiService.getGeographical().then((res: any) => {
+    this.apiService.getGeographical(2).then((res: any) => {
       this.cities = res.data
       this.activated_city = this.params['cities']
       this.activated_areas = this.params['areas']

@@ -125,6 +125,7 @@ import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    AvatarModule,
     EffectsModule.forRoot([PostEffect]),
     StoreModule.forRoot(reducers, {
       metaReducers, 
