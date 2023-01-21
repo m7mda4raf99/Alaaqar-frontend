@@ -28,7 +28,7 @@
                     <div class="row">
                       <div class="col-5 d-none d-lg-block" [class.active-sm]="currentStep === 1">
                         <span class="man-icon" [class.active]="currentStep === 1">
-                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 40%
+                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 0%
                         </span>
                         <div class="progress" [class.done]="currentStep > 1">
                           <div class="progress-bar one" role="progressbar" style="width: 100%" aria-valuenow="100"
@@ -37,7 +37,7 @@
                       </div>
                       <div class="col-3 d-none d-lg-block" [class.active-sm]="currentStep === 2">
                         <span class="man-icon" [class.active]="currentStep === 2">
-                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 70%
+                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 45%
                         </span>
                         <div class="progress" [class.done]="currentStep > 2">
                           <div class="progress-bar two" role="progressbar" style="width: 100%" aria-valuenow="100"
@@ -47,14 +47,14 @@
                       </div>
                       <div class="col-2 d-none d-lg-block" [class.active-sm]="currentStep === 3">
                         <span class="man-icon" [class.active]="currentStep === 3">
-                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 90%
+                          <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 80%
                         </span>
                         <div class="progress" [class.done]="currentStep > 3">
                           <div class="progress-bar three" role="progressbar" style="width: 100%" aria-valuenow="100"
                             aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                       </div>
-                      <div class="col-1 d-none d-lg-block" [class.active-sm]="currentStep === 4">
+                      <!-- <div class="col-1 d-none d-lg-block" [class.active-sm]="currentStep === 4">
                         <span class="man-icon" [class.active]="currentStep === 4">
                           <img src="../../../../assets/images/one-man-walking-svgrepo-com.svg" alt="..."/> 100%
                         </span>
@@ -62,7 +62,8 @@
                           <div class="progress-bar four" role="progressbar" style="width: 100%" aria-valuenow="100"
                             aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                      </div>
+                      </div> -->
+                      
                       <div class="col-1 col-image d-none d-lg-block">
                         <img src="../../../../assets/images/Path 508.svg" alt="...">
                       </div>
@@ -89,11 +90,11 @@
                   <app-form-template #stepThree></app-form-template>
                 </cdk-step>
 
-                <cdk-step [stepControl]="stepFour.stepForm" [optional]="false">
+                <!-- <cdk-step [stepControl]="stepFour.stepForm" [optional]="false">
                   <ng-template cdkStepLabel>
                   </ng-template>
                   <app-form-template #stepFour></app-form-template>
-                </cdk-step>
+                </cdk-step> -->
               </ng-stepper>
 
             </div>
@@ -101,9 +102,9 @@
               <div class="col-6 d-none d-lg-block"></div>
               <div class="button col-12 col-lg-6">
 
-                <button *ngIf="currentStep < 4" (click)="next()" [disabled]="validateNext()"
+                <button *ngIf="currentStep < 3" (click)="next()" [disabled]="validateNext()"
                   class="button btn button-success float-end">{{setUpButtonPlaceHolder() }}  ></button>
-                <button *ngIf="currentStep >= 4" [disabled]='validateSubmit()' class="btn button-success float-end"
+                <button *ngIf="currentStep >= 3" [disabled]='validateSubmit()' class="btn button-success float-end"
                   (click)="doSearchQuery()">{{'setupBuyerPriorities.Show Results' | translate}}</button>
                 <button (click)="back()" [disabled]="currentStep === 1"
                   class="button btn button-success sub-action next-back float-end">{{'setupBuyerPriorities.Back' | translate}}</button>
@@ -258,7 +259,7 @@
                 </div>
               </ng-template>
             </ngb-panel>
-            <ngb-panel [disabled]="disableTab4" id="tab-4" title="Priority 4">
+            <!-- <ngb-panel [disabled]="disableTab4" id="tab-4" title="Priority 4">
               <ng-template ngbPanelContent>
                 <div class="row justify-content-center">
                   <div class="row justify-content-center results">
@@ -297,7 +298,7 @@
                   </div>
                 </div>
               </ng-template>
-            </ngb-panel>
+            </ngb-panel> -->
           </ngb-accordion>
           <!-- <div class="button">
             <button (click)="back()" [disabled]="currentStep === 1"

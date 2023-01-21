@@ -142,20 +142,22 @@
                         
                         <div style="display: flex;"> 
                             <div class="imagesUpload masterplan" >
-                                <button *ngIf="imagesPreview().length === 0 && !uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0"
-                                    style="background-color: white;
-                                    color: #fd4965;
-                                        border-color: #fd4965;">
+                                <button *ngIf="imagesPreview().length === 0 && !uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0; uploadmaster = true;"
+                                    style="background: #fff;
+                                    border: 1px solid #FF725F;
+                                    color: #ff725f;">
                                     {{'sell.Masterplan' | translate}} </button>
                             </div> 
 
                             <div style="width: 10px;"> </div> 
 
                             <div class="imagesUpload real">
-                                <button *ngIf="imagesPreview().length === 0 && !uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0"
+
+                                <button *ngIf="imagesPreview().length === 0 && !uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0; uploadmaster = false;"
                                     style="background-color: #fd4965;
+                                    background: transparent linear-gradient(180deg,#fd4965 0%,#fd7363 100%) 0% 0% no-repeat padding-box;
                                         color: white;
-                                        border-color: #fd4965;">
+                                        border: 0px">
                                     {{'sell.Real images' | translate}} </button>
                             </div>    
                             
@@ -172,13 +174,21 @@
                     <div *ngIf="imagesPreview() && !uploadingPhotos" style="display: flex">
                         
                         <span *ngFor="let item of imagesPreview();let index = index;" >
-                            {{ print(item, item) }}
-
 
                             <img src="{{item['img']}}"
-                            style="width: 70px; height: auto;height:70px; border-radius: 10px;margin-bottom: 10px;padding: 5px;" alt="..."/>
-                            <fa-icon style="font-size:13px; cursor: pointer; vertical-align: top; position: absolute; transform: translateX(-10px);"  [icon]="faTimes" class="user-faTimes"
-                            (click)="deleteImg(item['key'], item['index'])"></fa-icon>
+                            style="width: 85px; height: auto;height:70px; border-radius: 10px;margin-bottom: 10px;padding: 5px;" alt="..."/>
+                            
+                            <span style="
+                                background-color: #FFFFFF;
+                                width: 30px;
+                                text-align: center;
+                                border-radius: 10%;
+                                height: 30px;
+                                cursor: pointer;" (click)="deleteImg(item['key'], item['index'])">
+                                <fa-icon style="font-size:13px; cursor: pointer; vertical-align: top; position: absolute; transform: translateX(-10px);" [icon]="faTimes" [styles]="{'stroke': 'red', 'color': 'red'}" class="user-faTimes"
+                                        (click)="deleteImg(item['key'], item['index'])">
+                                </fa-icon>                       
+                            </span>	
                             
                         </span>
                             
@@ -186,69 +196,194 @@
                     </div>
     
                 </div>
+
             </div>
     </form>
 
 </div>
 
-
 <div [hidden]="!uploadingPhotos" class="photos-uploader">
-    <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm">
-        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-pills">
-            <p style="width: 100%;padding: 15px;">{{'sell.photoUpload.Select category' | translate}}</p>
-            <li ngbNavItem *ngFor="let ctrl of imagesForm.controls | keyvalue;let index = index;" [ngbNavItem]="index"
-                class="mb-2">
+    
+    <!-- masterplan -->
+    <div *ngIf="uploadmaster">
+        <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm">
+            <div style="display: flex; justify-content: space-between">
+                <p style="padding: 15px 0px 0px 15px; margin-bottom: 0px; font-weight: bolder;">{{'sell.upload photos' | translate}}</p>
+                
+                <a *ngIf="myFilesPreview['Master Plan'] && myFilesPreview['Master Plan']?.length != 0"
+                (click)="file.click()"
+                    style=" color: #f55441; text-decoration: underline !important;
+                    cursor: pointer; padding: 15px 15px 0px 0px;">
+                    {{'sell.upload photos' | translate}}    
+                </a>
+            
+            </div>
 
-                <!-- {{ print(ctrl, ctrl) }} -->
+            <p style="width: 100%;padding: 5px 0px 0px 15px;">{{'sell.photoUpload.Select category masterplan' | translate}}</p>
+    
+            <div class="row content">
+                
+                <div class="col-lg-12" *ngIf="!myFilesPreview['Master Plan'] || myFilesPreview['Master Plan']?.length === 0">
+                    <img (click)="file.click()" class="mb-2"
+                                    style="width: 154px;margin: auto;display: block;cursor: pointer; margin-top: 15%;"
+                src="../../../../assets/images/photo__.svg" alt="..."/>
 
-                <a class="tab-head" #index ngbNavLink>{{keyTranslate(ctrl.key, imgTags)}}</a>
-                <ng-template ngbNavContent>
-                    <div class="row content">
-                        <p class="pt-5" style="text-align: center;">{{'sell.photoUpload.Add photo for the' | translate}}
-                            {{keyTranslate(ctrl.key,
-                            imgTags)}}</p>
-                        <img (click)="file.click()" *ngIf="!myFilesPreview[ctrl.key]?.length" class="mb-2"
-                            style="width: 154px;margin: auto;display: block;cursor: pointer;"
-                            src="../../../../assets/images/photo__.svg" alt="..."/>
-                        <div class="row" *ngIf="myFilesPreview[ctrl.key]?.length">
-                            <div class="col-sm-12 col-md-6 mb-3"
-                                *ngFor="let item of myFilesPreview[ctrl.key];let index = index;"
-                                style="position: relative;">
-                                <img src="{{item}}" style="width: 100%; height: auto;height:250px;" alt="..."/>
-                                <span style="position: absolute;
-                            right: 20px;
-                            top: 8px;
-                            background-color: #FFFFFF;
-                            width: 25px;
-                            text-align: center;
-                            border-radius: 50%;
-                            height: 25px;
-                            cursor: pointer;" (click)="deleteImg(ctrl.key, index)">
-                                    <fa-icon style="font-size: 13px;" [icon]="faTimes" class="user-faTimes"></fa-icon>
-                                </span>
-                            </div>
-                        </div>
-                        <input hidden #file type="file" name="myFile" accept="image/png,image/jpeg"
-                            (change)="fileEvent($event,ctrl.key)" value="" multiple />
-                        <div class="row justify-content-center button-row">
-                            <button (click)="file.click()">
-                                <img src="../../../../assets/images/photo_.svg" width="20px" alt="..."/> {{'sell.photoUpload.add
-                                images' | translate}}</button>
-                            <button (click)="next()" class="done">
-                                {{'button.actions.Done' | translate}}</button>
-                        </div>
+                    <a 
+                (click)="file.click()"
+                    style="position:relative; color: #f55441; text-decoration: underline !important;
+                    cursor: pointer; left:37%">
+                    {{'sell.Click upload' | translate}}    
+                </a>
+                </div>
+
+                <input hidden #file type="file" name="myFile" accept="image/png,image/jpeg"
+                (change)="fileEvent($event,'Master Plan')" value="" multiple />
+            
+                <div class="row" *ngIf="myFilesPreview['Master Plan']?.length">
+                    <div class="col-sm-12 col-md-6 mb-3"
+                        *ngFor="let item of myFilesPreview['Master Plan'];let index = index;"
+                        style="position: relative;">
+                        <img src="{{item}}" style="width: 100%; height:250px;" alt="..."/>
+                        <span style="position: absolute;
+                    right: 20px;
+                    top: 8px;
+                    background-color: #F7F7F7;
+                    width: 30px;
+                    text-align: center;
+                    border-radius: 10%;
+                    height: 30px;
+                    cursor: pointer;" (click)="deleteImg('Master Plan', index)">
+                            <fa-icon style="font-size: 15px; position:relative; top:2px" [icon]="faTrash" [styles]="{'stroke': 'red', 'color': 'red'}" class="user-faTimes"></fa-icon>
+                        </span>
                     </div>
-                </ng-template>
-            </li>
-            <!-- <li ngbNavItem>
-              <a ngbNavLink>Second</a>
-              <ng-template ngbNavContent>Second content</ng-template>
-            </li> -->
-        </ul>
-        <div [ngbNavOutlet]="nav"></div>
-        <!-- <div class="col-lg-6 col-sm-12" *ngFor="let ctrl of imagesForm.controls | keyvalue;let index = index;">
-            dd
-        </div> -->
-    </form>
-    <!-- <app-photos-uploader></app-photos-uploader> -->
+                </div>
+
+
+                <div class="row button-row" style="position: absolute;
+                bottom: 0px; justify-content: end">
+                
+                    <button style="width: 150px;" (click)="next()" class="done">
+                        {{'button.actions.Done' | translate}}</button>
+                </div>
+
+            </div>
+            
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-pills">
+                
+                
+                <!-- <a 
+                (click)="file.click()"
+                    style="padding-top:5%; color: #f55441; text-decoration: underline !important;
+                    cursor: pointer;">
+                    {{'sell.View photos' | translate}}    
+                </a> -->
+              
+                
+                
+              
+               
+                <!-- <li ngbNavItem>
+                  <a ngbNavLink>Second</a>
+                  <ng-template ngbNavContent>Second content</ng-template>
+                </li> -->
+            </ul>
+            
+            <div [ngbNavOutlet]="nav"></div>
+            <!-- <div class="col-lg-6 col-sm-12" *ngFor="let ctrl of imagesForm.controls | keyvalue;let index = index;">
+                dd
+            </div> -->
+        </form>    
+    </div>
+
+    <!-- real images -->
+    <div *ngIf="!uploadmaster">
+        <!-- <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm"> -->
+            <div style="display: flex; justify-content: space-between">
+                <p style="padding: 15px 0px 0px 15px; margin-bottom: 0px; font-weight: bolder;">{{'sell.upload photos' | translate}}</p>
+
+                <a *ngIf="myFilesPreview['Initial'] && myFilesPreview['Initial'].length != 0"
+                (click)="file.click()"
+                    style=" color: #f55441; text-decoration: underline !important;
+                    cursor: pointer; padding: 15px 15px 0px 0px;">
+                    {{'sell.upload photos' | translate}}    
+                </a>
+            
+            </div>
+
+            <p style="width: 100%;padding: 5px 0px 0px 15px;">{{'sell.photoUpload.Select category' | translate}}</p>
+    
+            <p *ngIf="!requiredRealImages" style="color: #f55441; padding: 0px 0px 10px 15px; margin-bottom: 0px;"> *{{'sell.required real images' | translate}}</p>
+
+            <div class="row content">
+                
+                <!-- *ngIf="!myFilesPreview['Master Plan'] || myFilesPreview['Master Plan']?.length === 0" -->
+                
+                <div class="col-lg-12" *ngIf="!myFilesPreview['Initial'] || myFilesPreview['Initial'].length === 0">
+                    <img (click)="file.click()" class="mb-2"
+                                    style="width: 154px;margin: auto;display: block;cursor: pointer; margin-top: 15%;"
+                src="../../../../assets/images/photo__.svg" alt="..."/>
+
+                    <a 
+                (click)="file.click()"
+                    style="position:relative; color: #f55441; text-decoration: underline !important;
+                    cursor: pointer; left:37%">
+                    {{'sell.Click upload' | translate}}    
+                </a>
+                </div>
+
+                
+                <input hidden #file type="file" name="myFile" accept="image/png,image/jpeg"
+                (change)="fileEventInitial($event)" value="" multiple />
+            
+
+                <div class="row" *ngIf="myFilesPreview['Initial']?.length">
+
+
+                    <div class="col-sm-12 col-md-4 mb-3"
+                        *ngFor="let item of myFilesPreview['Initial'];let index = index;"
+                        style="position: relative;">
+                          
+                        <img src="{{item['img']}}" style="width: 100%; height:175px;" alt="..."/>
+                                                        
+                        <span style="left: 25px; right: 25px; position: absolute; top: 15px;">
+                           
+                             <select (change)="onChangeImageTag($event, index)" style="background-color: #F7F7F7;height: 30px;border-radius: 8px; border: 0px; padding: 0px 5px 0px 5px;">
+                                <option selected> {{ activeLang === 'en' ? 'Image Category' :'تصنيف الصورة' }} </option>
+                                <option *ngFor="let item of imageTags" [ngValue]="item.name_en"> {{ activeLang === 'en' ? item.name_en : item.name_ar }} </option>
+                            
+                            </select>
+                            
+                            <span style="position: absolute;
+                                    right: 0px;
+                                    background-color: #F7F7F7;
+                                    width: 30px;
+                                    text-align: center;
+                                    border-radius: 10%;
+                                    height: 30px;
+                                    cursor: pointer;" (click)="deleteImgInitial(index)">
+                                <fa-icon style="font-size: 15px; position:relative; top:2px;" [icon]="faTrash" [styles]="{'stroke': 'red', 'color': 'red'}" class="user-faTimes"></fa-icon>
+                            </span>
+                        </span>
+                        
+                    </div>
+                </div>
+
+
+                <div class="row button-row" style="position: absolute;
+                bottom: 0px; justify-content: end">
+                
+                    <button style="width: 150px;" (click)="next()" class="done">
+                        {{'button.actions.Done' | translate}}</button>
+                </div>
+
+            </div>
+            
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-pills">
+                
+            </ul>
+            
+            <div [ngbNavOutlet]="nav"></div>
+        
+    </div>
 </div>
+

@@ -224,7 +224,11 @@ export class HomeComponent implements OnInit {
     await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
+    console.log('before')
+    console.log(this.aboutUs)
     this.getAboutUsHome()
+    console.log('after')
+    console.log(this.aboutUs)
     this.getHomeBlogs()
     this.getUnitTypes()
     this.setMultiSelection()
@@ -281,6 +285,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 }
   search() {
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
+  }
+
+  print(data:any){
+    // console.log(data)
   }
 
   async setupUnitTypesCount() {
@@ -383,7 +391,6 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   
     //   }
     // }
-
     
   }
   async setupMinPrice() {
@@ -449,8 +456,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     let desLat = 0 ;
     let desLon = 0 ;
     let id = navigator.geolocation.watchPosition((position) =>{
+      // console.log(position.coords.latitude + position.coords.longitude);
 
     },(err) =>{
+      // console.log("error is " +err);
     }, {
       enableHighAccuracy :false,
       timeout:5000,
@@ -630,6 +639,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       'offset': 0
     }
     this.apiService.getBlogs(params).subscribe(data => {
+
       return this.blogs = data.data
     })
   }
@@ -637,10 +647,11 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.apiService.getFooterContact().subscribe(data => {
     })
   }
-  getAboutUsHome() {
-    this.apiService.getFooterAboutUsHome().subscribe(data => {
+   getAboutUsHome() {
+     this.apiService.getFooterAboutUsHome().subscribe(data => {
       this.aboutUs = data.data
     })
+
   }
   async getRecentlyAdded() {
     let headers = {

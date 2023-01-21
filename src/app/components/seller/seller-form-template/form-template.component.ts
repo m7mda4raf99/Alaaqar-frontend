@@ -8,6 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { environment } from 'src/environments/environment';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { KeyValuePipe } from '@angular/common';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 
 @Component({
@@ -18,6 +21,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 export class SellFormTemplateComponent implements OnInit {
   @ViewChild('file') file!: ElementRef
   faTimes = faTimes
+  faTrash = faTrash
   public stepForm!: FormGroup;
   public ashraf: any;
   public imagesForm: FormGroup = new FormGroup({
@@ -34,6 +38,7 @@ export class SellFormTemplateComponent implements OnInit {
   data: any = {}
   criteria: any = {}
   uploadingPhotos: boolean = false
+  uploadmaster: boolean = false;
   activeLang: any
   formBuilder: any;
   deletedImages: Array<any> = []
@@ -41,6 +46,12 @@ export class SellFormTemplateComponent implements OnInit {
   imgTags: any = []
   myFilesPreview: any = {}
   imagesToUpload: any = {}
+  imageTags: any = []
+  allTags: any = []
+  selectedImageTag: any
+  allImages: any = []
+
+  requiredRealImages: boolean = true
 
   active = 0;
   constructor(
@@ -56,7 +67,24 @@ export class SellFormTemplateComponent implements OnInit {
 
         val.data.forEach((element: any) => {
           this.imagesForm.addControl(this.activeLang === 'en' ? element.name_en : element.name_ar, new FormControl('', Validators.required))
+          
+          if(element.name_en != 'Master Plan'){          
+              this.imageTags.push({'name_en': element.name_en, 'name_ar': element.name_ar})
+              this.allTags.push({'name_en': element.name_en, 'name_ar': element.name_ar})
+          }
+
         });
+
+        this.allTags.push({'name_en': 'Initial', 'name_ar': 'أولي'})
+
+
+        if(this.activeLang === 'AR'){
+          this.selectedImageTag = 'تصنيف الصورة'
+        }else{
+          this.selectedImageTag = 'Image Category'
+        }
+  
+
         this.sub4 = this.appService.propertyImagesPreviewEditMode$.subscribe(val => {
           if (Object.keys(val).length > 0) {
             let images: any = []
@@ -98,6 +126,8 @@ export class SellFormTemplateComponent implements OnInit {
 
   async ngOnInit() {
     await this.setupFormCriteria()
+
+    //await this.getImageTags()
 
     // console.log("ehab")
     // console.log(this.ashraf)
@@ -308,26 +338,93 @@ export class SellFormTemplateComponent implements OnInit {
     }
     else { return 'upload' }
   }
+
+  fileEventInitial(e: any){
+    this.requiredRealImages = true
+
+    let key = 'Initial'
+
+    if (!this.myFilesPreview[key] && !this.myFilesPreview[key]?.length) {
+      this.myFilesPreview[key] = []
+    }
+
+    for (var i = 0; i < e.target.files.length; i++) {
+      let reader = new FileReader();
+      let file = e.target.files[0]
+
+      reader.onload = (e: any) => {
+        // console.log("reader result: ", reader.result)
+        this.myFilesPreview[key].push(
+          {
+            'img': reader.result,
+            'tag': 'Initial',
+            'file': file
+          }
+        )
+        
+      }
+      reader.readAsDataURL(e.target.files[i]);
+      
+    }
+    this.file.nativeElement.value = ''
+    console.log("myFilesPreview: ", this.myFilesPreview)
+  }
+
   fileEvent(e: any, key: any) {
     if (!this.myFiles[key] && !this.myFiles[key]?.length) {
       this.myFiles[key] = []
       this.myFilesPreview[key] = []
     }
-    this.imagesToUpload[key] = []
+
+    if(!this.imagesToUpload[key] && !this.imagesToUpload[key]?.length){
+      this.imagesToUpload[key] = []
+    }
+    
     for (var i = 0; i < e.target.files.length; i++) {
       let fileIsExist = this.myFiles[key].filter((val: any) => val.name === e.target.files[i].name)
       if (fileIsExist.length === 0) {
         this.myFiles[key].push(e.target.files[i]);
         let reader = new FileReader();
         reader.onload = (e: any) => {
+          // console.log("reader result: ", reader.result)
           this.myFilesPreview[key].push(reader.result)
           this.imagesToUpload[key].push(reader.result)
+          this.allImages.push({
+            'img': reader.result,
+            'key': key,
+            'index': this.imagesToUpload[key].length - 1
+          })
         }
         reader.readAsDataURL(e.target.files[i]);
       }
     }
     this.file.nativeElement.value = ''
   }
+
+  deleteImgInitial(index: any) {
+    let key = 'Initial'
+    let oldImages = this.appService.OldPropertyImagesPreviewEditMode$.value
+    if (oldImages && oldImages !== '') {
+      let imagesId;
+      if (oldImages[key] && oldImages[key][index]) {
+        imagesId = Number(oldImages[key][index]['image_id'])
+        if (!this.deletedImages.includes(Number(imagesId))) {
+          this.deletedImages.push(imagesId)
+          oldImages[key].splice(index, 1)
+        }
+      }
+    }
+
+    // this.myFiles[key].splice(index, 1)
+    this.myFilesPreview[key].splice(index, 1)
+    
+    this.appService.deletedImages$.next(this.deletedImages)
+    
+    // if (this.imagesToUpload && this.imagesToUpload[key]) {
+    //   this.imagesToUpload[key].splice(index, 1)
+    // }
+  }
+
   deleteImg(key: any, index: any) {
     let oldImages = this.appService.OldPropertyImagesPreviewEditMode$.value
     if (oldImages && oldImages !== '') {
@@ -340,14 +437,82 @@ export class SellFormTemplateComponent implements OnInit {
         }
       }
     }
+
     this.myFiles[key].splice(index, 1)
     this.myFilesPreview[key].splice(index, 1)
     this.appService.deletedImages$.next(this.deletedImages)
     if (this.imagesToUpload && this.imagesToUpload[key]) {
       this.imagesToUpload[key].splice(index, 1)
     }
+
+    if(key != 'Master Plan'){
+      this.deleteFromInitial(key, index)
+    }
+
   }
+
+  deleteFromInitial(key: any, index: any){
+    let x = this.myFilesPreview['Initial'][0]
+    console.log("x is here: ", x)
+
+    let i = this.myFilesPreview['Initial'].indexOf(x, 0);
+    console.log("x index is here: ", i)
+
+    let tagArray = this.myFilesPreview['Initial'].filter((img: any) => img['tag'] === key)
+    let deletedImage = tagArray[index]
+    let indexDeletedImage = this.myFilesPreview['Initial'].indexOf(deletedImage, 0)
+
+    if (indexDeletedImage > -1) {
+      this.myFilesPreview['Initial'].splice(indexDeletedImage, 1);
+    }
+  }
+
   next() {
+    if(!this.uploadmaster){
+
+      if(this.myFilesPreview['Initial']){
+
+        for(let tag in this.myFilesPreview){
+          if(tag != 'Initial'){
+            delete this.myFilesPreview[tag]
+          }
+        }
+
+        if(this.myFilesPreview['Initial'].length > 0){
+          if(this.checkRealImages()){
+            this.requiredRealImages = false
+            return this.uploadingPhotos = true
+          }
+        }
+      }
+
+      this.imagesToUpload = {}
+      this.myFiles = {}
+
+      if(this.myFilesPreview['Initial']){
+        for(let image of this.myFilesPreview['Initial']){
+
+          if(!this.myFiles[image['tag']]){
+            this.myFiles[image['tag']] = [] 
+          }
+          this.myFiles[image['tag']].push(image['file'])
+
+          if(!this.imagesToUpload[image['tag']]){
+            this.imagesToUpload[image['tag']] = []
+          }
+          this.imagesToUpload[image['tag']].push(image['img'])
+
+          if(!this.myFilesPreview[image['tag']]){
+            this.myFilesPreview[image['tag']] = []
+          }
+          this.myFilesPreview[image['tag']].push(image['img'])
+        }
+      }
+      
+      
+
+    }
+
     // if (this.active <= Number(Object.keys(this.imagesForm.controls).length) - 1) {
     //   this.active += 1
     // }
@@ -390,6 +555,17 @@ export class SellFormTemplateComponent implements OnInit {
 
 
     }
+
+    console.log("images")
+    console.log(images)
+    console.log("imagesToUpload")
+    console.log(imagesToUpload)
+    console.log("myFiles")
+    console.log(this.myFiles)
+    console.log("my images")
+    console.log(this.allImages)
+    
+
     this.appService.uploads$.next(images)
     this.appService.imagesToUpload$.next(imagesToUpload)
     this.stepForm.get('Unit photos')?.setValue([this.myFiles])
@@ -402,25 +578,47 @@ export class SellFormTemplateComponent implements OnInit {
     return row[0] ? this.activeLang === 'en' ? row[0].name_en : row[0].name_ar : 'undefined'
   }
 
+  previewImages(){
+    return this.myFilesPreview['Initial']
+  }
   imagesPreview() {
     let arr = []
-    for (let [k, val] of Object.entries(this.myFilesPreview)) {
-      for (const key in this.myFilesPreview[k]) {
-        console.log("ashraf")
-        console.log(k)
-        console.log(key)
 
-        //if (arr.length < 5) {
-        arr.push({
-          "img": this.myFilesPreview[k][key],
-          "index": key,
-          "key": k
-        })
-        //}
+    console.log("this.myFilesPreview: ", this.myFilesPreview) 
+
+    for (let [k, val] of Object.entries(this.myFilesPreview)) {
+      if(k != 'Initial'){
+        for (const key in this.myFilesPreview[k]) {
+          
+          console.log("key: ", k, ", index: ", key) 
+
+          arr.push({
+            "img": this.myFilesPreview[k][key],
+            "index": key,
+            "key": k
+          })
+        }
       }
+      
     }
+    console.log(arr)
     return arr
   }
+
+  isRealImagesEmpty(){
+    if(this.myFilesPreview['Initial']){
+      if(this.myFilesPreview['Initial'].length > 0){
+        return false
+      }
+      else{
+        return true
+      }
+    }else{
+      return true
+    }
+
+  }
+
   dataURLtoFile(dataurl: any, filename: string) {
 
     var arr = dataurl.split(','),
@@ -437,25 +635,99 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   print(data: any, key: any) {
-    // console.log("printing now")
-    // console.log(data)
+    console.log(data)
   }
+
 
   printO(data: any, key: any) {
   }
 
   filterTitleDescription(data: any[]){
-    return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
+      return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
+    // if(data.length > 0){
+    //   return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
+    // }else {
+    //   return []
+    // }
   }
 
   filterOther(data: any[]){
     return data.filter(x => x.name_en != 'Unit Title' 
-                         && x.name_en != 'Write a unique description'
-                         && x.icon != 'upload.svg');
+      && x.name_en != 'Write a unique description'
+      && x.icon != 'upload.svg');
+    // if(data.length){
+    //   return data.filter(x => x.name_en != 'Unit Title' 
+    //   && x.name_en != 'Write a unique description'
+    //   && x.icon != 'upload.svg');
+    // }else{
+    //   return []
+    // }
+    
   }
 
   filterImage(data: any[]){
-    return data.filter(x => x.icon === 'upload.svg');
+      return data.filter(x => x.icon === 'upload.svg');
+
+    // if(data.length){
+    //   return data.filter(x => x.icon === 'upload.svg');
+    // }else{
+    //   return []
+    // }
+  }
+
+  onChangeImageTag(event: any, index: any){
+    this.requiredRealImages = true
+
+    let selectedTag = event.target.options[event.target.selectedIndex].value
+
+    this.myFilesPreview['Initial'][index]['tag'] = selectedTag
+
+    console.log(this.myFilesPreview)
+
+
+    // if (!this.myFiles[this.selectedImageTag] && !this.myFiles[this.selectedImageTag]?.length) {
+    //   this.myFiles[this.selectedImageTag] = []
+    //   this.myFilesPreview[this.selectedImageTag] = []
+    // }
+
+    // if(!this.imagesToUpload[this.selectedImageTag] && !this.imagesToUpload[this.selectedImageTag]?.length){
+    //   this.imagesToUpload[this.selectedImageTag] = []
+    // }
+    
+    // this.myFiles[this.selectedImageTag].push(this.myFiles[old_tag].splice(index, 1))
+    // this.imagesToUpload[this.selectedImageTag].push(this.myFilesPreview[old_tag].splice(index, 1))
+    // this.myFilesPreview[this.selectedImageTag].push(this.imagesToUpload[old_tag].splice(index, 1))
+
+  }
+  
+  initFiles(){
+    this.imagesToUpload = {}
+    
+    if(this.myFilesPreview['Initial']){
+      for (var key of Object.keys(this.myFilesPreview)) {
+        if(key != 'Initial'){
+          delete this.myFilesPreview[key]
+        }
+      }
+      console.log("here: ", this.myFilesPreview)
+    }else{
+      this.myFilesPreview = {}
+    }
+
+  }
+
+  checkRealImages(){
+    if(this.myFilesPreview['Initial'].length < 5){
+      return true
+    }
+    else{
+      for(let image of this.myFilesPreview['Initial']){
+        if(image['tag'] === 'Initial' || image['tag'] === 'Image Category'){
+          return true
+        }
+      }
+    }
+    return false
   }
 
 }
