@@ -19,13 +19,15 @@
                                 aria-label=".form-select-lg example">
                                 <option value="property">{{'myunits.My Property' | translate}}</option>
                                 <option value="inquery">{{'myunits.My inquiry' | translate}}</option>
+                                <option value="Unpublished">{{'myunits.My Unpublished' | translate}}</option>
                             </select>
                         </div>
                         <div class="col-6" style="position: relative;">
                             <select [(ngModel)]="view" class="form-select list form-select-lg mb-3 float-end"
                                 aria-label=".form-select-lg example">
+
                                 <option value="grid"> {{'myunits.Grid View' | translate}} </option>
-                                <option value="list">{{'myunits.List View' | translate}}</option>
+                                <option *ngIf="activeSection === 'property' || activeSection === 'inquery'" value="list">{{'myunits.List View' | translate}}</option>
                             </select>
                             <fa-icon *ngIf="view === 'list'" [icon]="faListAlt"></fa-icon>
                             <fa-icon *ngIf="view === 'grid'" [icon]="faTh"></fa-icon>
@@ -94,7 +96,6 @@
                                     </button>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="noResult" *ngIf="!checkUnits() && activeSection === 'property'">
                             <div class="alert alert-light" role="alert" *ngIf="!checkUnits()">
@@ -172,6 +173,48 @@
                                  </div>
                             </div>
 
+                        </div>
+                        <div class="row" *ngIf="activeSection === 'Unpublished' ">
+                            <div class="row" >
+                                <div *ngFor="let item of Uncompleteditems | keyvalue;let in =index;" class="col-xs-12 col-sm-6" [class.col-lg-12]="view === 'list'" [class.col-lg-6]="view === 'grid'">
+                                     <div class="card mb-3" >
+                                        <div [class.col-md-12]="view === 'grid'">
+                                            <div class="card-body" style="cursor: pointer;">
+                                                <h5 class="card-title">
+                                                    {{'myunits.My Unpublished' | translate}}
+                                                </h5>
+                                                <div class="card-text">
+                                                    <div class="row">
+                                                        <div [class.col-6]="view === 'list'" [class.col-3]="view === 'grid'"  class="desc">
+                                                            <p>{{numberWithCommas(returnPrice(item.value))}} EGP</p>
+                                                             <p>{{returnLocation(item)}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <button class="btn button-success applyBtn float-end firstbtn"
+                                                    (click)="editUnit()"
+                                                    >
+                                                        {{'button.actions.Apply & Continue' | translate}}
+                                                    </button>
+                                                    <button>
+                                                        {{'button.actions.cancel' | translate}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     </div>
+                                </div>
+                                <div class="row" *ngIf="items && items.length > 3">
+                                    <button (click)="getMoreUnits()" *ngIf="checkUnits()" [disabled]="loadMore" class="btn button-success more">
+                                        <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
+                                        <span *ngIf="loadMore">
+                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
+                                            Loading...
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

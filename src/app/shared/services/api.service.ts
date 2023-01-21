@@ -117,6 +117,30 @@ export class ApiService {
   public async getCriteriaForSeller(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/criteria_parent_for_seller`, 'GET', data, null)
   }
+  public async unit_types_count_neighborhood(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_neighborhood`, 'GET', data, null)
+  }
+  public async unit_types_count_area(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_area`, 'GET', data, null)
+  }
+
+  public async unit_types_count_city(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_city`, 'GET', data, null)
+  }
+  public async GetMinUnitPriceReal(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/GetMinUnitPriceReal`, 'GET', data, null)
+  }
+
+  public async GetMinUnitPriceNei(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/GetMinUnitPriceNei`, 'GET', data, null)
+  }
+
+  public async GetMinUnitPriceCtiy(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/GetMinUnitPriceCtiy`, 'GET', data, null)
+  }
+  public async GetMinUnitPriceArea(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/GetMinUnitPriceArea`, 'GET', data, null)
+  }
 
   public async getCriteriaForBuyer(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/criteria_for_buyer`, 'GET', data, null)
@@ -131,6 +155,9 @@ export class ApiService {
 
   public async addUnit(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/addunit`, 'POST', null, data)
+  }
+  public async addNotCompletedUnit(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/addNotCompletedUnit`, 'POST', null, data)
   }
   public async getMyUnits(body:any = {}): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/my-units`, 'POST', null, body)
@@ -203,8 +230,11 @@ export class ApiService {
   public getPriorities(): Promise<any> {
     return this.SyncClient(`${this.BaseURL}api/periorities`, 'GET', null, null)
   }
-  public getGeographical() {
-    return this.SyncClient(`${this.BaseURL}api/geographical`, 'GET')
+  public getGeographical(data: any) {
+    return this.SyncClient(`${this.BaseURL}api/geographical`, 'GET', data, null)
+  }
+  public getsearch(data: any) {
+    return this.SyncClient(`${this.BaseURL}api/search`, 'GET', data, null)
   }
   public getContacts() {
     return this.SyncClient(`${this.BaseURL}api/content/contact`, 'GET')
@@ -255,6 +285,10 @@ export class ApiService {
     return this.AsyncClient(`${this.BaseURL}api/unit_options/${id}`, 'GET')
   }
 
+  // public login() {
+  //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
+  // }
+
 
   public async unit_types_count_neighborhood(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/unit_types_count_neighborhood`, 'GET', data, null)
@@ -265,11 +299,5 @@ export class ApiService {
 
   public async unit_types_count_city(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/unit_types_count_city`, 'GET', data, null)
-  }
-  
-
-
-  // public login() {
-  //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
-  // }
+  }  
 }

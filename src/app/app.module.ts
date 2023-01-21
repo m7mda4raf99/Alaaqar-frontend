@@ -72,6 +72,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AvatarModule } from 'ngx-avatar';
 
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/can-deactivate.guard';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    AvatarModule,
     EffectsModule.forRoot([PostEffect]),
     StoreModule.forRoot(reducers, {
       metaReducers, 
@@ -150,7 +152,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     NgMultiSelectDropDownModule.forRoot(),
     NgxSliderModule
   ],
-  providers: [PostService, AppServiceService,CookieService, {
+  providers: [PostService, CanDeactivateGuard,AppServiceService,CookieService, {
     provide : HTTP_INTERCEPTORS,
     useClass: HttpInterceptorInterceptor,
     multi   : true,

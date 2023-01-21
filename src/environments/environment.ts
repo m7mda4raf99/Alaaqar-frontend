@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost/Alaaqar-backend/',
+  baseUrl: 'http://dashboard-testing.alaaqar.com/',
 };
 
 // export const environment = {
 //   production: false,
-//   baseUrl: 'https://alaqaar-dashboard.egynozom.com/',
+//   baseUrl: 'https://dashboard-testing.alaaqar.com/',
 // };
 
 // export const environment = {
