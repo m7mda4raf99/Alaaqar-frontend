@@ -132,6 +132,9 @@ export class ApiService {
   public async addUnit(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/addunit`, 'POST', null, data)
   }
+  public async addNotCompletedUnit(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/addNotCompletedUnit`, 'POST', null, data)
+  }
   public async getMyUnits(body:any = {}): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/my-units`, 'POST', null, body)
   }
@@ -267,9 +270,4 @@ export class ApiService {
     return await this.SyncClient(`${this.BaseURL}api/unit_types_count_city`, 'GET', data, null)
   }
   
-
-
-  // public login() {
-  //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
-  // }
 }

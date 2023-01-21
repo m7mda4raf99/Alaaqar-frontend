@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./my-units.component.scss']
 })
 export class MyUnitsComponent implements OnInit {
-  view: string = 'list' //grid / list
+  view: string = 'grid' //grid / list
   activeSection: string = 'property'
   faCalendar = faCalendarAlt
   faClock = faClock
@@ -32,6 +32,11 @@ export class MyUnitsComponent implements OnInit {
   limit: number = 0
   inquiryLimit: number = 0
   faTh = faTh
+  sub = new Subscription()
+  sub2 = new Subscription()
+  propertyData: any
+  propertyDetails: any = {}
+  propertyImages: any
   constructor(
     private modalService: NgbModal,
     private apiService: ApiService,
@@ -41,13 +46,19 @@ export class MyUnitsComponent implements OnInit {
     private router: Router,
     private notificationsService: NotificationsService,
     private translateService: TranslateService
-  ) {
+  ) 
+  {
     this.sub1 = this.appService.lang$.subscribe(val => this.activeLang = val)
+    this.sub2 = this.appService.propertyDetails$.subscribe(val => this.propertyData = val)
+     this.sub = this.appService.propertyImagesPreview$.subscribe(val => { if (val && Object.keys(val).length > 0) { this.propertyImages = val } })
+
   }
   items: any = {}
   visits: any = {}
+  Uncompleteditems: any = {}
   async ngOnInit() {
     this.spinner.show()
+    await this.getUncompletedUnits()
     await this.getUnits()
     this.spinner.hide()
     this.isLoading = false
@@ -57,6 +68,24 @@ export class MyUnitsComponent implements OnInit {
     this.sub1.unsubscribe()
   }
   reschedule(item: any) {
+  }
+  async getUncompletedUnits(body: any = {}) {
+    let bodyData = {
+      sort: body.sort ? body.sort : 'orderByDesc',
+      offset: body.offset ? body.offset : 0,
+      limit: body.limit ? body.limit : 4
+    }
+    let units = await this.apiService.getMyUnits(bodyData)
+    if (units !== false) {
+      this.Uncompleteditems = this.Uncompleteditems && this.Uncompleteditems && this.Uncompleteditems.length > 0 ? this.Uncompleteditems.concat(units.data) : units.data
+    } else {
+      this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))
+    }
+    return true
+  }
+  editUnit() {
+    this.appService.propertyImagesPreviewEditMode$.next(this.propertyImages)
+    this.router.navigate(['/sell'], { queryParams: { type_id: this.propertyDetails?.type_id, propose: this.propertyDetails?.propose } })
   }
   async getUnits(body: any = {}) {
     let bodyData = {

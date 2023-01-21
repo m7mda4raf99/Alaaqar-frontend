@@ -24,6 +24,7 @@ import { TermsAndConditionsComponent } from './shared/components/terms-and-condi
 import { PrivacyPolicyComponent } from './shared/components/privacy-policy/privacy-policy.component';
 import { FavouritesComponent } from './shared/components/favourites/favourites.component'
 import { SearchResultComponent } from './shared/components/search-result/search-result.component';
+import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/can-deactivate.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, },
@@ -43,7 +44,7 @@ const routes: Routes = [
   { path: 'set-priorities', component: SetPrioritesComponent },
   { path: 'priorities-form', component: SetupBuyerPrioritiesComponent },
   { path: 'single-blog', component: SingleBlogComponent },
-  { path: 'sell', component: SetupSellerPrioritiesComponent },
+  { path: 'sell', component: SetupSellerPrioritiesComponent,canDeactivate: [CanDeactivateGuard] },
   { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]  },
   { path: 'favorites', component: FavouritesComponent, canActivate: [AuthGuard]  },
