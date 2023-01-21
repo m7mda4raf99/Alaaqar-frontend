@@ -88,6 +88,9 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   params = this.activatedRoute.snapshot.queryParams
   data: any = {}
   editObj: any = {}
+
+  propertyDetailsNotCompleted : any = {}
+  unitData: any
   async ngOnInit() {
     const getImagTags = await this.getImageTags()
     if (getImagTags !== false) {
@@ -100,8 +103,80 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       await this.setupFormCriteria()
       this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
     }
+    this.setupNotCompletedSell()
     this.spinner.hide();
   }
+  public hasUnsavedChanges(): boolean {
+    if(!this.validateSubmit()){
+      return false
+    }
+    
+    return true
+  }
+
+  setupNotCompletedSell(){
+    let propertyValue = this.propertyDetailsData
+    let sellerFormValue = this.sellerForm.value
+    if (Object.keys(propertyValue).length > 0) {
+      this.searchObj.images = this.attachments
+      for (const key in propertyValue) {
+        this.searchObj['price'] = this.propertyDetailsNotCompleted['price'] = propertyValue['price']
+       // this.searchObj['description'] = this.propertyDetailsNotCompleted['description'] = propertyValue['unitDescription']
+        this.searchObj['city_id'] = this.propertyDetailsNotCompleted['city_id'] = propertyValue['selectedCountryId']
+        this.searchObj['area_id'] = this.propertyDetailsNotCompleted['area_id'] = Array.isArray(propertyValue['selectedArea']) ? propertyValue['selectedArea'][0] : propertyValue['selectedArea']
+        this.searchObj['type_id'] = this.propertyDetailsNotCompleted['type_id'] = propertyValue['SelectedRealEstateType']
+       // this.searchObj['neighborhood_id'] = this.propertyDetailsNotCompleted['neighborhood_id'] = Array.isArray(propertyValue['selectedNeighborhood']) ? propertyValue['selectedNeighborhood'][0] : propertyValue['selectedNeighborhood']
+        this.propertyDetailsNotCompleted['selectedAreaObj'] = propertyValue['selectedAreaObj']
+        this.propertyDetailsNotCompleted[key] = propertyValue[key]
+
+      }
+
+    }
+    for (const key in sellerFormValue) {
+      this.propertyDetailsNotCompleted[key] = sellerFormValue[key]
+      for (const k in sellerFormValue[key]) {
+        if (Array.isArray(sellerFormValue[key][k])) {
+          sellerFormValue[key][k].forEach((element: any) => {
+            console.log('element')
+            console.log(element.value)
+            if (element?.id) {
+              let criteriaID = this.getOptionCriteriaId(k)
+              this.searchObj.options.push({
+                option: element.id,
+                criteria: criteriaID
+              })
+            } else {
+              if (element && element.value !== undefined && element.value !== null) { 
+                let criteriaID = this.getOptionCriteriaId(k)
+                if(criteriaID==29)
+                {
+                  console.log('description khado')
+                  this.searchObj['description'] = this.propertyDetailsNotCompleted['description'] = element.value
+                }
+                if(criteriaID==28)
+                {
+                  console.log('title khado')
+                  this.searchObj['title'] = this.propertyDetailsNotCompleted['title'] = element.value
+                }
+                this.searchObj.options.push({
+                  option: Number(element.value),
+                  criteria: criteriaID
+                })
+              }
+              
+            }
+          });
+        }
+      }
+    }
+
+    this.searchObj['propose'] = this.propertyDetailsNotCompleted['propose'] = Number(this.params?.propose)
+
+    console.log("searchObj");
+    console.log(this.searchObj)
+   this.appService.addUnitData$.next(this.searchObj)
+  }
+
   async getCriteria(data: any) {
     return await this.apiService.getCriteriaForSeller(data)
   }
