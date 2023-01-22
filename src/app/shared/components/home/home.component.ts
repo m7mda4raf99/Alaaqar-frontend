@@ -150,6 +150,9 @@ export class HomeComponent implements OnInit {
     // propose:'buy'
   }
 
+  isListVisible: boolean = true;
+  previousValue: any;
+
   constructor(
     //header:HeaderComponent,
     private cookieService: CookieService,
@@ -252,9 +255,7 @@ export class HomeComponent implements OnInit {
       }
     }
    
-
-
-async Getsearch() {
+  async Getsearch() {
     
 
   let data={
@@ -276,13 +277,19 @@ if(this.response.message === 'area'){
 }
 if(this.response.message === 'neighborhood'){
   console.log('neighborhood')
-  this.search_bar_model.neighborhood= this.response.data
+  this.search_bar_model.neighborhoods= this.response.data
 }
-
+console.log('search_bar_model')
+console.log(this.search_bar_model)
 this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
 
 
-}
+   }
+
+   selectItem(name: string) {
+    this.searchQuery = name;
+    this.isListVisible = false;
+  }
   search() {
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }

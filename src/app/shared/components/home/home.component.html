@@ -220,15 +220,15 @@
             <button type="submit">Search</button>
             </form> -->
 
-            <form (ngSubmit)="Getsearch()">
-            <div class="search-container">
-                <input type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="Search...">
-                <button type="submit">Search</button>
-                <ul *ngIf="response.data.length > 0 && response.data !=='no results found'">
-                  <li *ngFor="let result of response.data">{{ result.name_en }}</li>
-                </ul>
-              </div>
-            </form>
+             <form (ngSubmit)="Getsearch()">
+                <div class="search-container">
+                    <input type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="Search...">
+                    <button type="submit">Search</button>
+                    <ul *ngIf="response && response.data.length > 0 && response.data !=='no results found' && isListVisible">
+                        <li (click)="selectItem(result.name_en)" *ngFor="let result of response.data.slice(0,10)">{{ result.name_en }}</li>
+                    </ul>
+                  </div>
+                </form>
         <!-- Second section (Recently Added)-->
         <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
             <div class="recently-added">
