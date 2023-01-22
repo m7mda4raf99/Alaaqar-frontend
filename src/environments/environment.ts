@@ -2,15 +2,15 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false,
-  baseUrl: 'http://dashboard-testing.alaaqar.com/',
-};
-
 // export const environment = {
 //   production: false,
-//   baseUrl: 'https://dashboard-testing.alaaqar.com/',
+//   baseUrl: 'http://localhost/Alaaqar-backend',
 // };
+
+export const environment = {
+  production: false,
+  baseUrl: 'https://dashboard-testing.alaaqar.com/',
+};
 
 // export const environment = {
 //   production: false,

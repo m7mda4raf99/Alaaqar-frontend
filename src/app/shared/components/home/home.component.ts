@@ -16,6 +16,8 @@ import { HttpClient } from '@angular/common/http'
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { zoomOut } from 'ng-animate'
 import { CookieService } from 'ngx-cookie-service';
+import { Options } from '@angular-slider/ngx-slider'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -31,6 +33,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('dropdownMenuButton1') dropdownMenuButton1!: ElementRef
 
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
+
+  faExclamationCircle = faExclamationCircle
 
   dropdownList2: any = [];
   selectedItems2: any = [];
@@ -87,8 +91,8 @@ export class HomeComponent implements OnInit {
   selectedAreaNotValid: boolean = false
   PriceNotValid: boolean = false
   // unitDescriptionNotValid: boolean = false
-  priceMaxRange: any
-  priceMinRange: any
+  priceMaxRange: any;
+  priceMinRange: any;
   price: any
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
@@ -122,6 +126,13 @@ export class HomeComponent implements OnInit {
     { val: 1000000, view: this.abbreviateNumber(1000000) },
   ]
 
+  minValue: number = 0;
+  minValueText: number = 0;
+  maxValue: number = 40000000;
+  options: Options = {
+    floor: 0,
+    ceil: 40000000,
+  };
 
   maxPriceValue: any = []
   blogs: any = []
@@ -187,17 +198,23 @@ export class HomeComponent implements OnInit {
     this.sub2 = this._activatedRoute.queryParams.subscribe(params => {
       if (params['q'] && params['q'] !== null) {
         this.activeTab = params['q']
+        this.setPrice()
       } else {
         this.setActiveTab('buy')
       }
     })
   }
 
-  receiver(receivedFromChild : any){
-    this.priceMinRange = receivedFromChild[0]
-    this.priceMaxRange = receivedFromChild[1]
-  }
+  // receiver(receivedFromChild : any){
+  //   this.priceMinRange = receivedFromChild[0]
+  //   this.priceMaxRange = receivedFromChild[1]
+  // }
   
+  // changeOptions() {
+  //   const newOptions: Options = Object.assign({}, this.options);
+  //   console.log("newOptions: ",newOptions)
+  //   this.options = newOptions;
+  // }
 
   async ngOnInit() {
 
@@ -217,6 +234,8 @@ export class HomeComponent implements OnInit {
     
     this.spinner.show()
     
+    await this.setPrice()
+
     if (!this.recentlyAdded.length) {
       await this.getRecentlyAdded()
     }
@@ -224,11 +243,7 @@ export class HomeComponent implements OnInit {
     await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
-    console.log('before')
-    console.log(this.aboutUs)
     this.getAboutUsHome()
-    console.log('after')
-    console.log(this.aboutUs)
     this.getHomeBlogs()
     this.getUnitTypes()
     this.setMultiSelection()
@@ -237,52 +252,80 @@ export class HomeComponent implements OnInit {
     await this.setupUnitTypesCount()
     await this.setupMinPrice()
   }
-  async GetHintSearch() {
-
-    if(this.searchQuery !== ""){
-      let data={
-        query : this.searchQuery  
-      }  
-    
-       this.response=  await this.apiService.getsearch(data)
-       console.log(this.response)
+  
+  async setPrice(){
+    if(this.activeTab == 'buy'){
+      this.options= {
+        ceil: 40000000,
+        floor: this.options.floor
       }
-      else{
-        this.response = {data: "no results found"}
+      this.maxValue = 40000000
+    } else{
+      this.options= {
+        ceil: 400000,
+        floor: this.options.floor
       }
+      this.maxValue = 400000
     }
+
+    let data = {
+      id: this.activeCity,
+      xd:this.proposeID
+    }
+    this.MinPrice  = await this.apiService.GetMinUnitPriceCtiy(data);
+    if(this.MinPrice.data){
+      this.minValue = +this.MinPrice.data
+      this.minValueText = this.minValue
+    }
+  }
+
+  // async GetHintSearch() {
+
+  //   if(this.searchQuery !== ""){
+  //     let data={
+  //       query : this.searchQuery  
+  //     }  
+    
+  //      this.response=  await this.apiService.getsearch(data)
+  //      console.log(this.response)
+  //     }
+  //     else{
+  //       this.response = {data: "no results found"}
+  //     }
+  // }
    
 
 
-async Getsearch() {
+  // async Getsearch() {
     
 
-  let data={
-  query : this.searchQuery  
-}  
+  // let data={
+  // query : this.searchQuery  
+  // }  
 
- this.response=  await this.apiService.getsearch(data)
-console.log('response')
-console.log(this.response)
+  // this.response=  await this.apiService.getsearch(data)
+  // console.log('response')
+  // console.log(this.response)
 
-if(this.response.message === 'city'){
-  console.log('city')
-  this.search_bar_model.cities= this.response.data[0].id
+  // if(this.response.message === 'city'){
+  // console.log('city')
+  // this.search_bar_model.cities= this.response.data[0].id
+
+  // }
+  // if(this.response.message === 'area'){
+  // console.log('area')
+  // this.search_bar_model.areas= this.response.data
+  // }
+  // if(this.response.message === 'neighborhood'){
+  // console.log('neighborhood')
+  // this.search_bar_model.neighborhood= this.response.data
+  // }
+
+  // this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+
+
+  // }
   
-}
-if(this.response.message === 'area'){
-  console.log('area')
-  this.search_bar_model.areas= this.response.data
-}
-if(this.response.message === 'neighborhood'){
-  console.log('neighborhood')
-  this.search_bar_model.neighborhood= this.response.data
-}
-
-this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
-
-
-}
   search() {
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }
@@ -403,9 +446,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           id: this.SelectedRealEstateType[0].item_id
         }
   
-         this.MinPrice = await this.apiService.GetMinUnitPriceNei(data);
-        
-  
+        this.MinPrice = await this.apiService.GetMinUnitPriceReal(data);
+        if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
+
+        // this.changeOptions()
+
       // }
     } 
     if (this.selectedNeighborhood && this.selectedNeighborhood.length > 0)
@@ -416,7 +464,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         }
   
          this.MinPrice = await this.apiService.GetMinUnitPriceNei(data);
-        
+         if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
   
       // }
     } 
@@ -428,21 +479,30 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
          }
   
          this.MinPrice = await this.apiService.GetMinUnitPriceArea(data);
-        
-  
+         if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
       // }
-    } else{
+    } 
+    else{
               let data = {
           id: this.activeCity,
           xd:this.proposeID
         }
-        this.MinPrice = await this.apiService.GetMinUnitPriceCtiy(data);
-             let x =0
-        
+        this.MinPrice  = await this.apiService.GetMinUnitPriceCtiy(data);
+        if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
+
     }
     
 
-   
+    console.log(this.MinPrice)
+    console.log(this.minValue)
+    console.log(this.options)
+
     
   }
   getIPAddress()
@@ -725,7 +785,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           element.areas.forEach((area: any) => {
             const areaObj = {
               item_id: area.id,
-              item_text: this.lang === 'en' ? area.name_en : area.name_ar,
+              item_text: this.lang === 'en' ? area.name_en +" (" + area.units_count + ")" : area.name_ar + " ( " + area.units_count + " )" ,
               id: area.id,
               name: this.lang === 'en' ? area.name_en : area.name_ar,
               disabled: false,
@@ -863,8 +923,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
 
   async setActiveTab(tab: string) {
-    
+    this.spinner.show()
+
     this.resetSelection()
+    
     const queryParams: Params = { q: tab }
     if(tab == 'buy'){
       
@@ -887,6 +949,9 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         queryParams: queryParams,
         queryParamsHandling: 'merge',
       })
+
+      this.spinner.hide()
+
   }
   resetSelection() {
     this.selectedArea = []
@@ -1204,6 +1269,11 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   setDate(date: any){
     return date.substring(0, 10)
+  }
+
+  onSliderChange(){
+    this.priceMinRange = this.minValue
+    this.priceMaxRange = this.maxValue
   }
 }
 

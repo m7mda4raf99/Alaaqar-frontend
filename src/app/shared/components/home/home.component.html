@@ -220,7 +220,7 @@
             <button type="submit">Search</button>
             </form> -->
 
-            <form (ngSubmit)="Getsearch()">
+            <!-- <form (ngSubmit)="Getsearch()">
             <div class="search-container">
                 <input type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="Search...">
                 <button type="submit">Search</button>
@@ -228,7 +228,8 @@
                   <li *ngFor="let result of response.data">{{ result.name_en }}</li>
                 </ul>
               </div>
-            </form>
+            </form> -->
+            
         <!-- Second section (Recently Added)-->
         <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
             <div class="recently-added">
@@ -673,54 +674,60 @@
                         {{setPricePlaceHolder()}}
                     </button>
                     <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                        (click)="$event.stopPropagation()" style="overflow: visible;">
+                        (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
                         
-                        <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
+                        <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
 
-                        </app-price-range-slider>
+                        </app-price-range-slider> -->
 
-
-                        <!-- <div class="row">
-                            <div class="col-6">
-                                <input (focus)="hideMaxRange=true;hideMinRange=false"
-                                    (blur)="setMaxSelections(priceMinRange, 'buy')" #minPrice [(ngModel)]="priceMinRange"
-                                    placeholder="{{'home.Min Price' | translate}}" [allowNegative]="false" type="text"
-                                    ngxNumberFormat="#,###,###,###" />
-                            </div>
-                            <div class="col-6">
-                                <input (focus)="hideMinRange=true;hideMaxRange=false" #maxPrice
-                                    [(ngModel)]="priceMaxRange" placeholder="{{'home.Max Price' | translate}}"
-                                    [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-6" *ngIf="activeTab == 'rent'">
-                                <button [hidden]="hideMinRange" (click)="setMinValue(v.val, activeTab)" class="select-price"
-                                    *ngFor="let v of minPriceValueRent">{{v.view}}</button>
+                        <div id="price_range">
+                            <div id="Price_range_q">
+                                {{'home.Price range' | translate}}
                             </div>
 
-                            <div class="col-6" *ngIf="activeTab == 'buy'">
-                                <button [hidden]="hideMinRange" (click)="setMinValue(v.val, activeTab)" class="select-price"
-                                    *ngFor="let v of minPriceValue">{{v.view}}</button>
-                            </div>
+                            <div style="display: flex;">
+                                <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
 
-                            <div class="col-6">
-                                <button [hidden]="hideMaxRange" class="select-price" *ngFor="let v of maxPriceValue"
-                                    (click)="setMaxValue(v.val)">{{v.view}}</button>
-                            </div>
-                            
-                            <div class=" col-12">
-                                <div class="row">
-                                    <div class="col foot">
-
-                                        <button type="button" (click)="toggleDropdown()"
-                                            class="btn btn-done float-end">{{'button.actions.Done' |
-                                            translate}}</button>
-                                    </div>
+                                <div id="Price_range_hint">
+                                    {{'home.Price range hint' | translate}} {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
                                 </div>
                             </div>
-                        </div> -->
+
+                            <div id="slider">
+                                <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                                (mouseup)="onSliderChange()"></ngx-slider>
+                            </div>
+
+                            <div id="textboxes">
+      
+                                <div id="from">
+                                    {{lang === 'en' ? 'From' : 'من'}}
+        
+                                    <div id="fromTextbox">
+                              
+                                        <input id="Rectangle_1314_rbk" [(ngModel)]="minValue" 
+                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                        [allowNegative]="false" type="text"
+                                        (keyup)="onSliderChange()"/>
+                                    </div>
+                                </div>
+                                
+                                <div id="to">
+                                    {{lang === 'en' ? 'To' : 'إلى'}}
+                                  
+                                    <div id="fromTextbox">
+                              
+                                        <input id="Rectangle_1314_rbk" [(ngModel)]="maxValue" 
+                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                        [allowNegative]="false" type="text"
+                                        (keyup)="onSliderChange()"/>
+                                    </div>
+                                </div>
+                            
+                              </div>
+
+                        </div>
+                      
                     </ul>
 
                 </div>

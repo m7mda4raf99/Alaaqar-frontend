@@ -299,7 +299,13 @@
     <div *ngIf="!uploadmaster">
         <!-- <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm"> -->
             <div style="display: flex; justify-content: space-between">
-                <p style="padding: 15px 0px 0px 15px; margin-bottom: 0px; font-weight: bolder;">{{'sell.upload photos' | translate}}</p>
+                
+                <div style="display: flex;">
+                    <p style="padding: 15px 0px 0px 15px; margin-bottom: 0px; font-weight: bolder;">{{'sell.upload photos' | translate}}</p>
+
+                    <p *ngIf="!requiredRealImages" style="color: #f55441; padding: 20px 15px 0px 15px; margin-bottom: 0px; font-size: 12px"> *{{'sell.required real images' | translate}}</p>
+
+                </div>
 
                 <a *ngIf="myFilesPreview['Initial'] && myFilesPreview['Initial'].length != 0"
                 (click)="file.click()"
@@ -312,7 +318,6 @@
 
             <p style="width: 100%;padding: 5px 0px 0px 15px;">{{'sell.photoUpload.Select category' | translate}}</p>
     
-            <p *ngIf="!requiredRealImages" style="color: #f55441; padding: 0px 0px 10px 15px; margin-bottom: 0px;"> *{{'sell.required real images' | translate}}</p>
 
             <div class="row content">
                 
@@ -345,7 +350,8 @@
                           
                         <img src="{{item['img']}}" style="width: 100%; height:175px;" alt="..."/>
                                                         
-                        <span style="left: 25px; right: 25px; position: absolute; top: 15px;">
+                        <span style="left: 25px; right: 25px; position: absolute; top: 15px; display: flex;
+                        justify-content: space-between;">
                            
                              <select (change)="onChangeImageTag($event, index)" style="background-color: #F7F7F7;height: 30px;border-radius: 8px; border: 0px; padding: 0px 5px 0px 5px;">
                                 <option selected> {{ activeLang === 'en' ? 'Image Category' :'تصنيف الصورة' }} </option>
@@ -353,9 +359,9 @@
                             
                             </select>
                             
-                            <span style="position: absolute;
-                                    right: 0px;
-                                    background-color: #F7F7F7;
+                            <span 
+                            
+                            style=" background-color: #F7F7F7;
                                     width: 30px;
                                     text-align: center;
                                     border-radius: 10%;
