@@ -143,7 +143,7 @@ export class HomeComponent implements OnInit {
   search_bar_model: any = {
     cities: [1],
     areas: [],
-    neighborhood: [],
+    neighborhoods: [],
     type: [],
     min_price: null,
     max_price: null,
