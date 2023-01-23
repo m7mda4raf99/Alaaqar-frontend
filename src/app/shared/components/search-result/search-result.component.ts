@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Item } from 'angular2-multiselect-dropdown';
 
 
 
@@ -58,8 +59,9 @@ export class SearchResultComponent implements OnInit {
     { val: 1000000, view: this.abbreviateNumber(1000000) },
   ]
   maxPriceValue: any = []
-
-
+  selectedAreas = []
+  defaultValuesAreas : string[] = [];
+  defaultValuesNeighborhood : string[] = [];
   constructor(
     private router: Router,
     private notificationsService: NotificationsService,
@@ -90,6 +92,7 @@ export class SearchResultComponent implements OnInit {
 
     this.get_bedrooms_options(5)
     this.get_space_options(4)
+   
   }
 
 
@@ -112,6 +115,8 @@ export class SearchResultComponent implements OnInit {
       } else {
         if(res.data.units && res.data.units.length > 0){
           this.results = res.data.units
+          console.log('results')
+          console.log(this.results)
         } else {
           this.results = []
         }  
@@ -119,11 +124,8 @@ export class SearchResultComponent implements OnInit {
       }
       this.spinner.hide()
       this.params.offset++
-      console.log(this.results[1]['price'])
-      console.log(this.results[1])
-      console.log(this.results[1]['unit_id'])
-
     })
+ 
 
   }
   async showMore() {
@@ -183,8 +185,6 @@ export class SearchResultComponent implements OnInit {
     this.sub2.unsubscribe()
   }
   setImagesSrc(item: any) {
-    console.log(item)
-    console.log(item.data)
     return item.image ? item.image : '../../../../assets/images/empty.jpeg'
   }
   getCriteriaImageSrc(criteria: any) {
@@ -258,11 +258,12 @@ export class SearchResultComponent implements OnInit {
   setDefaultFormValue() {
     this.params['cities'] = this.params['cities'][0]
     this.params['type'] = this.params['type'][0]
-    let formControls = Object.keys(this.searchForm.controls);
-    let paramsControls = Object.keys(this.params);
+    let formControls = Object.keys(this.searchForm.controls); // ely filters name kolha
+    let paramsControls = Object.keys(this.params); // feha fliter name kolha bardo
     for (let i = 0; i < formControls.length; i++) {
       for (let x = 0; x < paramsControls.length; x++) {
         if (formControls[i] == paramsControls[x]) {
+          
           this.searchForm.controls[`${formControls[i]}`].setValue(this.params[`${formControls[i]}`])
         }
       }
@@ -270,6 +271,21 @@ export class SearchResultComponent implements OnInit {
     this.priceMinRange = this.params['min_price']
     this.priceMaxRange = this.params['max_price']
     this.setPricePlaceHolder()
+
+    let paramsControlsAreas = this.params['areas']
+    for (let i =0 ; i< paramsControlsAreas.length ; i++)
+    {
+      this.defaultValuesAreas.push(paramsControlsAreas[i]['item_id'])
+    }
+    this.searchForm.controls['areas'].patchValue(this.defaultValuesAreas);
+
+
+    let paramsControlsNeighborhoods = this.params['neighborhoods']
+    for (let i =0 ; i< paramsControlsNeighborhoods.length ; i++)
+    {
+      this.defaultValuesNeighborhood.push(paramsControlsNeighborhoods[i]['item_id'])
+    }
+    this.searchForm.controls['neighborhood'].patchValue(this.defaultValuesNeighborhood);
   }
 
   searchForm = new FormGroup({
@@ -397,7 +413,5 @@ export class SearchResultComponent implements OnInit {
   setDate(date: any){
     return "Listed on " + date.substring(0, 10)
   }
-
-
 
 }

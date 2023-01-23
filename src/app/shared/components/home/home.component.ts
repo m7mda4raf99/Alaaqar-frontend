@@ -227,11 +227,7 @@ export class HomeComponent implements OnInit {
     await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
-    console.log('before')
-    console.log(this.aboutUs)
     this.getAboutUsHome()
-    console.log('after')
-    console.log(this.aboutUs)
     this.getHomeBlogs()
     this.getUnitTypes()
     this.setMultiSelection()
@@ -291,6 +287,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.isListVisible = false;
   }
   search() {
+    console.log('search_model')
+    console.log(this.search_model)
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }
 
@@ -772,7 +770,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   search_model: any = {
     cities: [1],
     areas: [],
-    neighborhood: [],
+    neighborhoods: [],
     type: [],
     min_price: null,
     max_price: null,
@@ -793,6 +791,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   setMinValue(val: any, method: string) {
     this.priceMinRange = val
     this.setMaxSelections(val, method)
+    console.log("set min price")
+    console.log(val)
     this.search_model.min_price = val
   }
   setMaxSelections(val: any, method: string) {
@@ -822,6 +822,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.priceMaxRange = val
     this.toggleDropdown()
     this.apply.nativeElement.focus()
+    console.log("set max price")
+    console.log(val)
     this.search_model.max_price = val
   }
 
@@ -834,6 +836,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.dropdownMenuButton1.nativeElement.click()
   }
   setPricePlaceHolder() {
+    this.search_model.max_price = this.priceMaxRange
+    this.search_model.min_price = this.priceMinRange
     if (this.priceMinRange === 0 && this.priceMaxRange === '' || this.priceMaxRange === null || this.priceMaxRange === 0) {
       return this.translateService.instant('home.All Prices')
     }
@@ -841,6 +845,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
     if (!this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
     return this.translateService.instant('home.Select price range')
+
+    
   }
 
   abbreviateNumber(number: number) {
@@ -997,7 +1003,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         } else {
           this.neighborhood.map((val: any) => val.disabled = false)
         }
-        this.search_model.neighborhood = selected
+        this.search_model.neighborhoods = selected
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
@@ -1106,8 +1112,6 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
-      console.log("selected halimo")
-      console.log(selected)
       this.search_model.areas = selected
     }
     if (label === 'Real estate type') {
