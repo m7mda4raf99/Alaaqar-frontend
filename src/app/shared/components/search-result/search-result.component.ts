@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Item } from 'angular2-multiselect-dropdown';
 
 
 
@@ -32,7 +33,7 @@ export class SearchResultComponent implements OnInit {
   loadMore: boolean = false
   params: any = this.activatedRoute.snapshot.queryParams
   activeLang: any = ''
-  results = []
+  results : any[] = []
 
   selected_country:any
 
@@ -58,8 +59,9 @@ export class SearchResultComponent implements OnInit {
     { val: 1000000, view: this.abbreviateNumber(1000000) },
   ]
   maxPriceValue: any = []
-
-
+  selectedAreas = []
+  defaultValuesAreas : string[] = [];
+  defaultValuesNeighborhood : string[] = [];
   constructor(
     private router: Router,
     private notificationsService: NotificationsService,
@@ -87,9 +89,9 @@ export class SearchResultComponent implements OnInit {
     this.get_cities()
     this.get_units_types()
     this.setDefaultFormValue()
-
     this.get_bedrooms_options(5)
     this.get_space_options(4)
+   
   }
 
 
@@ -109,21 +111,27 @@ export class SearchResultComponent implements OnInit {
     this.apiService.search(this.params).then((res: any) => {
       if (isloadMore) {
         this.results = this.results.concat(res.data.units)
-      } else {
+        console.log(this.results.length)
+        console.log(res.data.units.length)
+      } 
+      else {
         if(res.data.units && res.data.units.length > 0){
           this.results = res.data.units
+          console.log('results')
+          console.log(this.results)
         } else {
           this.results = []
         }  
         this.total_search_count = res.data.units_count
+        console.log('total_search_count')
+        console.log(this.total_search_count)
       }
       this.spinner.hide()
-      this.params.offset++
-      console.log(this.results[1]['price'])
-      console.log(this.results[1])
-      console.log(this.results[1]['unit_id'])
-
+      this.params.offset +=18
+      console.log('offset')
+      console.log(this.params.offset)
     })
+ 
 
   }
   async showMore() {
@@ -139,6 +147,7 @@ export class SearchResultComponent implements OnInit {
     this.priceMinRange = val
     this.setMaxSelections(val)
   }
+  
   setMaxSelections(val: any) {
     if (val !== undefined || val !== null) {
       const values = []
@@ -176,15 +185,11 @@ export class SearchResultComponent implements OnInit {
     return this.translateService.instant('home.Select price range')
   }
 
-
-
   ngOnDestroy() {
     this.sub.unsubscribe()
     this.sub2.unsubscribe()
   }
   setImagesSrc(item: any) {
-    console.log(item)
-    console.log(item.data)
     return item.image ? item.image : '../../../../assets/images/empty.jpeg'
   }
   getCriteriaImageSrc(criteria: any) {
@@ -258,8 +263,8 @@ export class SearchResultComponent implements OnInit {
   setDefaultFormValue() {
     this.params['cities'] = this.params['cities'][0]
     this.params['type'] = this.params['type'][0]
-    let formControls = Object.keys(this.searchForm.controls);
-    let paramsControls = Object.keys(this.params);
+    let formControls = Object.keys(this.searchForm.controls); // ely filters name kolha
+    let paramsControls = Object.keys(this.params); // feha fliter name kolha bardo
     for (let i = 0; i < formControls.length; i++) {
       for (let x = 0; x < paramsControls.length; x++) {
         if (formControls[i] == paramsControls[x]) {
@@ -270,6 +275,7 @@ export class SearchResultComponent implements OnInit {
     this.priceMinRange = this.params['min_price']
     this.priceMaxRange = this.params['max_price']
     this.setPricePlaceHolder()
+    this.searchForm.controls['neighborhood'].patchValue(this.params['neighborhoods']);
   }
 
   searchForm = new FormGroup({
@@ -362,6 +368,7 @@ export class SearchResultComponent implements OnInit {
     for (let i = 0; i < formControls.length; i++) {
       this.params[formControls[i]] = this.searchForm.controls[`${formControls[i]}`].value
     }
+    this.params['neighborhoods'] = this.searchForm.controls['neighborhood'].value
     this.search(false)
   }
 
@@ -397,7 +404,5 @@ export class SearchResultComponent implements OnInit {
   setDate(date: any){
     return "Listed on " + date.substring(0, 10)
   }
-
-
 
 }

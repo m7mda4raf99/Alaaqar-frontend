@@ -91,6 +91,12 @@ export class SetupSellerPrioritiesComponent implements OnInit {
 
   propertyDetailsNotCompleted : any = {}
   unitData: any
+  title : any = ''
+  description :any = ''
+  NotCompsearchObj: any = {
+    images: [],
+    options: []
+  }
   async ngOnInit() {
     const getImagTags = await this.getImageTags()
     if (getImagTags !== false) {
@@ -113,19 +119,17 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     
     return true
   }
-
   setupNotCompletedSell(){
     let propertyValue = this.propertyDetailsData
     let sellerFormValue = this.sellerForm.value
     if (Object.keys(propertyValue).length > 0) {
-      this.searchObj.images = this.attachments
+      this.NotCompsearchObj.images = this.attachments
       for (const key in propertyValue) {
-        this.searchObj['price'] = this.propertyDetailsNotCompleted['price'] = propertyValue['price']
-       // this.searchObj['description'] = this.propertyDetailsNotCompleted['description'] = propertyValue['unitDescription']
-        this.searchObj['city_id'] = this.propertyDetailsNotCompleted['city_id'] = propertyValue['selectedCountryId']
-        this.searchObj['area_id'] = this.propertyDetailsNotCompleted['area_id'] = Array.isArray(propertyValue['selectedArea']) ? propertyValue['selectedArea'][0] : propertyValue['selectedArea']
-        this.searchObj['type_id'] = this.propertyDetailsNotCompleted['type_id'] = propertyValue['SelectedRealEstateType']
-       // this.searchObj['neighborhood_id'] = this.propertyDetailsNotCompleted['neighborhood_id'] = Array.isArray(propertyValue['selectedNeighborhood']) ? propertyValue['selectedNeighborhood'][0] : propertyValue['selectedNeighborhood']
+        this.NotCompsearchObj['price'] = this.propertyDetailsNotCompleted['price'] = propertyValue['price']
+        this.NotCompsearchObj['city_id'] = this.propertyDetailsNotCompleted['city_id'] = propertyValue['selectedCountryId']
+        this.NotCompsearchObj['area_id'] = this.propertyDetailsNotCompleted['area_id'] = Array.isArray(propertyValue['selectedArea']) ? propertyValue['selectedArea'][0] : propertyValue['selectedArea']
+        this.NotCompsearchObj['type_id'] = this.propertyDetailsNotCompleted['type_id'] = propertyValue['SelectedRealEstateType']
+        this.NotCompsearchObj['neighborhood_id'] = this.propertyDetailsNotCompleted['neighborhood_id'] = Array.isArray(propertyValue['selectedNeighborhood']) ? propertyValue['selectedNeighborhood'][0] : propertyValue['selectedNeighborhood']
         this.propertyDetailsNotCompleted['selectedAreaObj'] = propertyValue['selectedAreaObj']
         this.propertyDetailsNotCompleted[key] = propertyValue[key]
 
@@ -141,7 +145,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
             console.log(element.value)
             if (element?.id) {
               let criteriaID = this.getOptionCriteriaId(k)
-              this.searchObj.options.push({
+              this.NotCompsearchObj.options.push({
                 option: element.id,
                 criteria: criteriaID
               })
@@ -151,14 +155,15 @@ export class SetupSellerPrioritiesComponent implements OnInit {
                 if(criteriaID==29)
                 {
                   console.log('description khado')
-                  this.searchObj['description'] = this.propertyDetailsNotCompleted['description'] = element.value
+                  this.description = element.value
                 }
                 if(criteriaID==28)
                 {
                   console.log('title khado')
-                  this.searchObj['title'] = this.propertyDetailsNotCompleted['title'] = element.value
+                  this.title = element.value
+                  this.NotCompsearchObj['title'] = this.propertyDetailsNotCompleted['title'] = element.value
                 }
-                this.searchObj.options.push({
+                this.NotCompsearchObj.options.push({
                   option: Number(element.value),
                   criteria: criteriaID
                 })
@@ -170,13 +175,14 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       }
     }
 
-    this.searchObj['propose'] = this.propertyDetailsNotCompleted['propose'] = Number(this.params?.propose)
+    this.NotCompsearchObj['propose'] = this.propertyDetailsNotCompleted['propose'] = Number(this.params?.propose)
+    this.NotCompsearchObj['description'] = this.propertyDetailsNotCompleted['description'] = this.description
+    this.NotCompsearchObj['title'] = this.propertyDetailsNotCompleted['title'] = this.title
 
-    console.log("searchObj");
-    console.log(this.searchObj)
-   this.appService.addUnitData$.next(this.searchObj)
+    console.log("NotCompsearchObj");
+    console.log(this.NotCompsearchObj)
+   this.appService.addUnitData$.next(this.NotCompsearchObj)
   }
-
   async getCriteria(data: any) {
     return await this.apiService.getCriteriaForSeller(data)
   }
@@ -431,6 +437,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     return true
   }
   next() {
+    this.setupNotCompletedSell()
     this.currentStep++
     let next = String(this.currentStep)
     this.activeTab = this.currentStep

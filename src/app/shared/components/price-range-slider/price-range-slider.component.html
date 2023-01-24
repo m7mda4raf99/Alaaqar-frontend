@@ -22,7 +22,7 @@
           <span >From</span>        
           <div id="Group_2626_rbj">
     
-          <input class="Rectangle_1314_rbk" [(ngModel)]="minValue" 
+          <input id="Rectangle_1314_rbk" [(ngModel)]="minValue" 
           placeholder="Min value" ngxNumberFormat="#,###,###,###"
           [allowNegative]="false" type="text"
           (keyup)="onSliderChange()"/>
@@ -36,7 +36,7 @@
       <div id="Group_2625_rbn">
         <div id="Group_2624_rbo">
           
-          <input class="Rectangle_1315_rbp" [(ngModel)]="maxValue" 
+          <input id="Rectangle_1315_rbp" [(ngModel)]="maxValue" 
           placeholder="Max value" ngxNumberFormat="#,###,###,###"
           [allowNegative]="false" type="text" 
           (keydown)="onSliderChange()"/>
@@ -52,6 +52,6 @@
   
     </div>
   
-  </div>
+</div>
 
   <!-- (click)="toggleDropdown()" -->

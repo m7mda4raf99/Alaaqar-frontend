@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   phoneForm = new FormGroup({
     phone: new FormControl('', [Validators.required]),
     name: new FormControl(''),
+    email:  new FormControl(''),
     avatar: new FormControl(''),
   });
   agreeTermsAndConditions: boolean = false
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
         this.registrationRequest = true
         this.phoneForm.get('name')?.setValidators(Validators.required)
         this.phoneForm.get('avatar')?.setValidators(Validators.required)
+        this.phoneForm.get('email')?.setValidators(Validators.required)
       } else if (doLogin?.data.otp) {
         if (doLogin?.data?.OTP && doLogin?.data?.OTP === 'resend otp') {
           let resendOtp = await this.apiService.resendOtp({ "phone": this.phoneForm.get('phone')?.value.e164Number.substring(1) })
@@ -141,6 +143,7 @@ export class LoginComponent implements OnInit {
       let obj = {
         'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
         'name': this.phoneForm.get('name')?.value,
+        'email': this.phoneForm.get('name')?.value,
         'avatar': this.avatarUrl
       }
       const register = await this.apiService.register(obj)
@@ -154,7 +157,7 @@ export class LoginComponent implements OnInit {
       }
 
     } else {
-      this.notificationService.showError('UserName and Avatar are required!')
+      this.notificationService.showError('UserName, Email and Avatar are required!')
     }
     this.isLoading = false
   }

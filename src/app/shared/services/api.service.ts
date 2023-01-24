@@ -299,15 +299,3 @@ export class ApiService {
   //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
   // }
 
-
-  // public async unit_types_count_neighborhood(data: any): Promise<any> {
-  //   return await this.SyncClient(`${this.BaseURL}api/unit_types_count_neighborhood`, 'GET', data, null)
-  // }
-  // public async unit_types_count_area(data: any): Promise<any> {
-  //   return await this.SyncClient(`${this.BaseURL}api/unit_types_count_area`, 'GET', data, null)
-  // }
-
-  // public async unit_types_count_city(data: any): Promise<any> {
-  //   return await this.SyncClient(`${this.BaseURL}api/unit_types_count_city`, 'GET', data, null)
-  // }  
-}

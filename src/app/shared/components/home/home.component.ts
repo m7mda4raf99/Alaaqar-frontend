@@ -17,6 +17,8 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { zoomOut } from 'ng-animate'
 import { CookieService } from 'ngx-cookie-service';
 import { Console } from 'console'
+import { Options } from '@angular-slider/ngx-slider'
+import { faExclamationCircle, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -33,6 +35,10 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
 
+  faExclamationCircle = faExclamationCircle
+  faChevronDown = faChevronDown
+  faSearch = faSearch
+  
   dropdownList2: any = [];
   dropdownList3: any = [];
   dropdownList4: any = [];
@@ -90,8 +96,8 @@ export class HomeComponent implements OnInit {
   selectedAreaNotValid: boolean = false
   PriceNotValid: boolean = false
   // unitDescriptionNotValid: boolean = false
-  priceMaxRange: any
-  priceMinRange: any
+  priceMaxRange: any;
+  priceMinRange: any;
   price: any
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
@@ -128,6 +134,13 @@ export class HomeComponent implements OnInit {
     { val: 1000000, view: this.abbreviateNumber(1000000) },
   ]
 
+  minValue: number = 0;
+  minValueText: number = 0;
+  maxValue: number = 40000000;
+  options: Options = {
+    floor: 0,
+    ceil: 40000000,
+  };
 
   maxPriceValue: any = []
   blogs: any = []
@@ -149,7 +162,7 @@ export class HomeComponent implements OnInit {
   search_bar_model: any = {
     cities: [2],
     areas: [],
-    neighborhood: [],
+    neighborhoods: [],
     type: [],
     min_price: null,
     max_price: null,
@@ -157,6 +170,14 @@ export class HomeComponent implements OnInit {
   }
   Comp: any = []
   Neigh: any = []
+
+  isListVisible: boolean = true;
+  previousValue: any;
+
+  buyRentSearchFlag: boolean = false;
+
+  checkboxVar: boolean = false;
+
 
   constructor(
     //header:HeaderComponent,
@@ -195,17 +216,24 @@ export class HomeComponent implements OnInit {
     this.sub2 = this._activatedRoute.queryParams.subscribe(params => {
       if (params['q'] && params['q'] !== null) {
         this.activeTab = params['q']
+        this.setPrice()
       } else {
         this.setActiveTab('buy')
       }
     })
   }
 
-  receiver(receivedFromChild : any){
-    this.priceMinRange = receivedFromChild[0]
-    this.priceMaxRange = receivedFromChild[1]
-  }
+  // receiver(receivedFromChild : any){
+  //   this.priceMinRange = receivedFromChild[0]
+  //   this.priceMaxRange = receivedFromChild[1]
+  // }
   
+  // changeOptions() {
+  //   const newOptions: Options = Object.assign({}, this.options);
+  //   console.log("newOptions: ",newOptions)
+  //   this.options = newOptions;
+  // }
+
 
   async ngOnInit() {
 
@@ -225,6 +253,8 @@ export class HomeComponent implements OnInit {
     
     this.spinner.show()
     
+    await this.setPrice()
+
     if (!this.recentlyAdded.length) {
       await this.getRecentlyAdded()
     }
@@ -232,11 +262,7 @@ export class HomeComponent implements OnInit {
     await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
-    console.log('before')
-    console.log(this.aboutUs)
     this.getAboutUsHome()
-    console.log('after')
-    console.log(this.aboutUs)
     this.getHomeBlogs()
     this.getUnitTypes()
     this.setMultiSelection()
@@ -246,6 +272,38 @@ export class HomeComponent implements OnInit {
     await this.setupMinPrice()
     //await this.getLoc()
   }
+  
+  async setPrice(){
+    if(this.activeTab == 'buy'){
+      this.options= {
+        ceil: 40000000,
+        floor: this.options.floor
+      }
+      this.maxValue = 40000000
+    } else{
+      this.options= {
+        ceil: 400000,
+        floor: this.options.floor
+      }
+      this.maxValue = 400000
+    }
+
+    let data = {
+      id: this.activeCity,
+      xd:this.proposeID
+    }
+    this.MinPrice  = await this.apiService.GetMinUnitPriceCtiy(data);
+    if(this.MinPrice.data){
+      this.minValue = +this.MinPrice.data
+      this.minValueText = this.minValue
+    }
+  }
+
+  selectItem(name: string) {
+    this.searchQuery = name;
+    this.isListVisible = false;
+  }
+
   async GetHintSearch() {
 
     if(this.searchQuery !== ""){
@@ -259,21 +317,18 @@ export class HomeComponent implements OnInit {
       else{
         this.response = {data: "no results found"}
       }
-    }
+  }
    
-
-
-async Getsearch() {
+  async Getsearch() {
     
+    let data={
+      query : this.searchQuery  
+    }  
 
-  let data={
-  query : this.searchQuery  
-}  
-
- this.response=  await this.apiService.getsearch(data)
-console.log('response')
-console.log(this.response)
-
+    this.response=  await this.apiService.getsearch(data)
+    console.log('response')
+    console.log(this.response)
+    
 if(this.response.message === 'city'){
   console.log('city')
   this.search_bar_model.cities= this.response.data[0].id
@@ -285,14 +340,22 @@ if(this.response.message === 'area'){
 }
 if(this.response.message === 'neighborhood'){
   console.log('neighborhood')
-  this.search_bar_model.neighborhood= this.response.data
+  this.search_bar_model.neighborhoods= this.response.data
 }
-
+console.log('search_bar_model')
+console.log(this.search_bar_model)
 this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
 
 
-}
+   }
+
+   selectItem(name: string) {
+    this.searchQuery = name;
+    this.isListVisible = false;
+  }
   search() {
+    console.log('search_model')
+    console.log(this.search_model)
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }
 
@@ -412,9 +475,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           id: this.SelectedRealEstateType[0].item_id
         }
   
-         this.MinPrice = await this.apiService.GetMinUnitPriceNei(data);
-        
-  
+        this.MinPrice = await this.apiService.GetMinUnitPriceReal(data);
+        if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
+
+        // this.changeOptions()
+
       // }
     } 
     if (this.selectedNeighborhood && this.selectedNeighborhood.length > 0)
@@ -425,7 +493,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         }
   
          this.MinPrice = await this.apiService.GetMinUnitPriceNei(data);
-        
+         if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
   
       // }
     } 
@@ -437,21 +508,30 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
          }
   
          this.MinPrice = await this.apiService.GetMinUnitPriceArea(data);
-        
-  
+         if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
       // }
-    } else{
+    } 
+    else{
               let data = {
           id: this.activeCity,
           xd:this.proposeID
         }
-        this.MinPrice = await this.apiService.GetMinUnitPriceCtiy(data);
-             let x =0
-        
+        this.MinPrice  = await this.apiService.GetMinUnitPriceCtiy(data);
+        if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
+
     }
     
    console.log("minPrice")
    console.log(this.MinPrice)
+    console.log(this.MinPrice)
+    console.log(this.minValue)
+    console.log(this.options)
     
   }
   getIPAddress()
@@ -611,7 +691,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       textField: 'item_text',
       itemsShowLimit: 1,
       allowSearchFilter: true,
-      limitSelection: 3
+      limitSelection: 3,
     }
 
     this.dropdownSettingsAreaSell = {
@@ -639,7 +719,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           badgeShowLimit: 1,
           allowSearchFilter: false,
           limitSelection: 2,
-          enableCheckAll:false,
+          enableFilterSelectAll: false
           // classes:"myclass custom-class",
            showCheckbox: true,
           // lazyLoading: true
@@ -837,7 +917,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           element.areas.forEach((area: any) => {
             const areaObj = {
               item_id: area.id,
-              item_text: this.lang === 'en' ? area.name_en : area.name_ar,
+              item_text: this.lang === 'en' ? area.name_en +" (" + area.units_count + ")" : area.name_ar + " ( " + area.units_count + " )" ,
               id: area.id,
               name: this.lang === 'en' ? area.name_en : area.name_ar,
               disabled: false,
@@ -877,7 +957,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   search_model: any = {
     cities: [1],
     areas: [],
-    neighborhood: [],
+    neighborhoods: [],
     type: [],
     min_price: null,
     max_price: null,
@@ -900,6 +980,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   setMinValue(val: any, method: string) {
     this.priceMinRange = val
     this.setMaxSelections(val, method)
+    console.log("set min price")
+    console.log(val)
     this.search_model.min_price = val
   }
   setMaxSelections(val: any, method: string) {
@@ -929,11 +1011,12 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.priceMaxRange = val
     this.toggleDropdown()
     this.apply.nativeElement.focus()
+    console.log("set max price")
+    console.log(val)
     this.search_model.max_price = val
   }
 
 
-  
   focusMinPriceInput() {
     this.minPrice.nativeElement.focus()
   }
@@ -941,6 +1024,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.dropdownMenuButton1.nativeElement.click()
   }
   setPricePlaceHolder() {
+    this.search_model.max_price = this.priceMaxRange
+    this.search_model.min_price = this.priceMinRange
     if (this.priceMinRange === 0 && this.priceMaxRange === '' || this.priceMaxRange === null || this.priceMaxRange === 0) {
       return this.translateService.instant('home.All Prices')
     }
@@ -948,6 +1033,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
     if (!this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
     return this.translateService.instant('home.Select price range')
+
+    
   }
 
   abbreviateNumber(number: number) {
@@ -977,8 +1064,12 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
 
   async setActiveTab(tab: string) {
-    
+    this.buyRentSearchFlag = false
+
+    this.spinner.show()
+
     this.resetSelection()
+    
     const queryParams: Params = { q: tab }
     if(tab == 'buy'){
       
@@ -1001,6 +1092,9 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         queryParams: queryParams,
         queryParamsHandling: 'merge',
       })
+
+      this.spinner.hide()
+
   }
   resetSelection() {
     this.selectedArea = []
@@ -1104,7 +1198,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         } else {
           this.neighborhood.map((val: any) => val.disabled = false)
         }
-        this.search_model.neighborhood = selected
+
+        //this.search_model.neighborhoods = selected
+
+        let uniqueNeighborhoods = new Set(this.search_model.neighborhoods);
+        for (let i = 0; i < selected.length; i++) {
+          uniqueNeighborhoods.add(selected[i]['item_id']);
+        }
+        this.search_model.neighborhoods = Array.from(uniqueNeighborhoods); 
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
@@ -1208,14 +1309,15 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           });
         }
         this.neighborhood = neighborhoodArr
-        // console.log("neighbrhood 2")
-        // console.log(this.neighborhood)
+
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
-      console.log("selected halimo")
-      console.log(selected)
-      this.search_model.areas = selected
+      let uniqueAreas = new Set(this.search_model.areas);
+      for (let i = 0; i < selected.length; i++) {
+          uniqueAreas.add(selected[i]['item_id']);
+      }
+      this.search_model.areas = Array.from(uniqueAreas);      
     }
     if (label === 'Real estate type') {
       //this.SelectedRealEstateTypeNotValid = !this.selectedNeighborhood && this.selectedNeighborhood?.id ? true : false
@@ -1318,6 +1420,11 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   setDate(date: any){
     return date.substring(0, 10)
+  }
+
+  onSliderChange(){
+    this.priceMinRange = this.minValue
+    this.priceMaxRange = this.maxValue
   }
 }
 
