@@ -79,6 +79,11 @@
                                         <input formControlName="name" type="text" class="form-control" id="name"
                                             aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Name' | translate}}">
                                     </div>
+                                    <div>
+                                        <label for="validationCustom01" class="form-label">{{'signIn.Email' | translate}}</label>
+                                        <input formControlName="email" type="email" class="form-control" id="email"
+                                            aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Email' | translate}}">
+                                    </div>
                                     <div class="form-check mt-2">
                                         <input mdbCheckbox class="form-check-input" type="checkbox" value=""
                                             id="flexCheckDefault" (change)="acceptTermsConditions($event)" />

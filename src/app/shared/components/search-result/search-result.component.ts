@@ -33,7 +33,7 @@ export class SearchResultComponent implements OnInit {
   loadMore: boolean = false
   params: any = this.activatedRoute.snapshot.queryParams
   activeLang: any = ''
-  results = []
+  results : any[] = []
 
   selected_country:any
 
@@ -89,7 +89,6 @@ export class SearchResultComponent implements OnInit {
     this.get_cities()
     this.get_units_types()
     this.setDefaultFormValue()
-
     this.get_bedrooms_options(5)
     this.get_space_options(4)
    
@@ -112,7 +111,10 @@ export class SearchResultComponent implements OnInit {
     this.apiService.search(this.params).then((res: any) => {
       if (isloadMore) {
         this.results = this.results.concat(res.data.units)
-      } else {
+        console.log(this.results.length)
+        console.log(res.data.units.length)
+      } 
+      else {
         if(res.data.units && res.data.units.length > 0){
           this.results = res.data.units
           console.log('results')
@@ -121,9 +123,13 @@ export class SearchResultComponent implements OnInit {
           this.results = []
         }  
         this.total_search_count = res.data.units_count
+        console.log('total_search_count')
+        console.log(this.total_search_count)
       }
       this.spinner.hide()
-      this.params.offset++
+      this.params.offset +=18
+      console.log('offset')
+      console.log(this.params.offset)
     })
  
 
@@ -141,6 +147,7 @@ export class SearchResultComponent implements OnInit {
     this.priceMinRange = val
     this.setMaxSelections(val)
   }
+  
   setMaxSelections(val: any) {
     if (val !== undefined || val !== null) {
       const values = []
@@ -177,8 +184,6 @@ export class SearchResultComponent implements OnInit {
     if (!this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
     return this.translateService.instant('home.Select price range')
   }
-
-
 
   ngOnDestroy() {
     this.sub.unsubscribe()
@@ -263,7 +268,6 @@ export class SearchResultComponent implements OnInit {
     for (let i = 0; i < formControls.length; i++) {
       for (let x = 0; x < paramsControls.length; x++) {
         if (formControls[i] == paramsControls[x]) {
-          
           this.searchForm.controls[`${formControls[i]}`].setValue(this.params[`${formControls[i]}`])
         }
       }
@@ -271,21 +275,7 @@ export class SearchResultComponent implements OnInit {
     this.priceMinRange = this.params['min_price']
     this.priceMaxRange = this.params['max_price']
     this.setPricePlaceHolder()
-
-    let paramsControlsAreas = this.params['areas']
-    for (let i =0 ; i< paramsControlsAreas.length ; i++)
-    {
-      this.defaultValuesAreas.push(paramsControlsAreas[i]['item_id'])
-    }
-    this.searchForm.controls['areas'].patchValue(this.defaultValuesAreas);
-
-
-    let paramsControlsNeighborhoods = this.params['neighborhoods']
-    for (let i =0 ; i< paramsControlsNeighborhoods.length ; i++)
-    {
-      this.defaultValuesNeighborhood.push(paramsControlsNeighborhoods[i]['item_id'])
-    }
-    this.searchForm.controls['neighborhood'].patchValue(this.defaultValuesNeighborhood);
+    this.searchForm.controls['neighborhood'].patchValue(this.params['neighborhoods']);
   }
 
   searchForm = new FormGroup({
@@ -378,6 +368,7 @@ export class SearchResultComponent implements OnInit {
     for (let i = 0; i < formControls.length; i++) {
       this.params[formControls[i]] = this.searchForm.controls[`${formControls[i]}`].value
     }
+    this.params['neighborhoods'] = this.searchForm.controls['neighborhood'].value
     this.search(false)
   }
 

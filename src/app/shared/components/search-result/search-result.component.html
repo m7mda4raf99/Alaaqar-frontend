@@ -246,7 +246,7 @@
                 </div>
             </div>
             
-            <div class="row justify-content-center" *ngIf="results.length && results.length > 5">
+            <div class="row justify-content-center" *ngIf="results.length && results.length < total_search_count">
                 <button class="btn button-success more" (click)="showMore()">
                     <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
                     <span *ngIf="loadMore">

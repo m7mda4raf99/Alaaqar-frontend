@@ -119,7 +119,6 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     
     return true
   }
-
   setupNotCompletedSell(){
     let propertyValue = this.propertyDetailsData
     let sellerFormValue = this.sellerForm.value
@@ -184,7 +183,6 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     console.log(this.NotCompsearchObj)
    this.appService.addUnitData$.next(this.NotCompsearchObj)
   }
-
   async getCriteria(data: any) {
     return await this.apiService.getCriteriaForSeller(data)
   }

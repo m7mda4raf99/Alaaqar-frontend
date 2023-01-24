@@ -828,7 +828,6 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
 
 
-  
   focusMinPriceInput() {
     this.minPrice.nativeElement.focus()
   }
@@ -1003,7 +1002,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         } else {
           this.neighborhood.map((val: any) => val.disabled = false)
         }
-        this.search_model.neighborhoods = selected
+
+        //this.search_model.neighborhoods = selected
+
+        let uniqueNeighborhoods = new Set(this.search_model.neighborhoods);
+        for (let i = 0; i < selected.length; i++) {
+          uniqueNeighborhoods.add(selected[i]['item_id']);
+        }
+        this.search_model.neighborhoods = Array.from(uniqueNeighborhoods); 
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
@@ -1107,12 +1113,15 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           });
         }
         this.neighborhood = neighborhoodArr
-        // console.log("neighbrhood 2")
-        // console.log(this.neighborhood)
+
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
-      this.search_model.areas = selected
+      let uniqueAreas = new Set(this.search_model.areas);
+      for (let i = 0; i < selected.length; i++) {
+          uniqueAreas.add(selected[i]['item_id']);
+      }
+      this.search_model.areas = Array.from(uniqueAreas);      
     }
     if (label === 'Real estate type') {
       //this.SelectedRealEstateTypeNotValid = !this.selectedNeighborhood && this.selectedNeighborhood?.id ? true : false
