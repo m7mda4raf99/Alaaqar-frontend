@@ -91,6 +91,7 @@
         "Neighborhood":"الحي",
         "Real estate type":"نوع العقار",
         "Price range":"متوسط السعر",
+        "Price range hint": "السعر الأدنى في هذه المنطقة: ",
         "Select Area":"اختار المنطقة",
         "Select Neighborhood":"اختار الحي",
         "Select type":"اختار نوع العقار",
@@ -192,10 +193,18 @@
         "Home":"الرئيسية",
         "Buy a home":"شراء منزل",
         "Set your priorities and drag and drop them from left to right":"حدد أولوياتك واختارها من اليسار إلى اليمين",
+        "High priority":"أولوية عالية",
+        "Select High priority":"حدد خيارات الأولوية العالية الخاصة بك وانقر فوق الزر تم للانتقال إلى الأولوية التالية",
+        "Medium priority":"أولوية متوسطة",
+        "Select Medium priority":"حدد خيارات الأولوية المتوسطة الخاصة بك وانقر فوق الزر تم للانتقال إلى الأولوية التالية",
+        "Low priority":"أولوية منخفضة",
+        "Select Low priority":"حدد خياراتك ذات الأولوية المنخفضة وانقر على زر تم لتعيين أولوياتك",
         "Priority 1":"الأولوية ١",
         "Priority 2":"الأولوية ٢",
         "Priority 3":"الأولوية ٣",
-        "Priority 4":"الأولوية ٤"
+        "Priority 4":"الأولوية ٤",
+        "Done": "تم",
+        "Edit": "تعديل"
     },
     "setupBuyerPriorities": {
         "Priority":"الاولوية",
@@ -212,7 +221,6 @@
         },
         "My Property":"عقاراتي",
         "My inquiry":"استعلاماتي",
-        "My Unpublished":"غير منشورة",
         "Grid View":"عرض الشبكة",
         "List View":"عرض القائمة",
         "No units yet":"لا يوجد لديك عقارات",
@@ -261,15 +269,20 @@
         "Go to the best buyer":"ابحث عن أفضل مشتر",
         "Step":"خطوة",
         "unit Photos":"صور الوحدة",
+        "upload photos":"رفع الصور",
         "Real images": "صور حقيقية",
         "Masterplan":"المخطط الرئيسي",
+        "Image Category": "تصنيف الصورة", 
+        "required real images": "يرجى التأكد من رفع 5 صور على الأقل واختيار فئاتها",
         "View photos": "عرض الصور",
+        "Click upload": "انقر لرفع صور الوحدة",
         "Select your option":"حدد خيارك",
         "Enter value":"ادخل قيمة رقمية",
         "Unit Title":"اكتب عنوانًا فريدًا لوحدتك لجذب المشترين",
         "Unit Description":"اكتب وصفًا دقيقًا لوحدتك لا يقل عن 150 حرفًا ...",
         "photoUpload": {
-            "Select category":"حدد الفئة التي تريد تحميل الصور لها.",
+            "Select category":"قم بتحميل صور الوحدة وحدد فئتها",
+            "Select category masterplan": "قم بتحميل المخطط الرئيسي وصور الوحدة إذا كانت متوفرة",
             "Add photo for the":"اضف صورة واحده علي الاقل ل ",
             "add images":"اضافة صور"
         }
@@ -279,7 +292,10 @@
         "Options":"خيارات",
         "Your chosen Items for Priority":"العناصر التي اخترتها للأولوية",
         "Option":"خيار",
-        "ar Priority":"حدد خيارات الاولولية "
+        "ar Priority":"حدد خيارات الاولولية ",
+        "Choose Options": "أو حدد الخيارات",
+        "Choose Keywords":"أو ابحث بكلمات مفتاحية",
+        "Placeholder": "المدينة أو الحي أو الكمبوندات"
     },
     "propertyDetails":{
         "All images":"كل الصور",

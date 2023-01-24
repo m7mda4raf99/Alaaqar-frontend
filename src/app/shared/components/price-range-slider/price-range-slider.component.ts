@@ -44,7 +44,6 @@ export class PriceRangeSliderComponent implements OnInit {
   }
 
   onSliderChange(){
-    // console.log("slider changes", this.minValue, this.maxValue)
     this.sender.emit([this.minValue, this.maxValue])
   }
 }
