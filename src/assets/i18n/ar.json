@@ -292,7 +292,10 @@
         "Options":"خيارات",
         "Your chosen Items for Priority":"العناصر التي اخترتها للأولوية",
         "Option":"خيار",
-        "ar Priority":"حدد خيارات الاولولية "
+        "ar Priority":"حدد خيارات الاولولية ",
+        "Choose Options": "أو حدد الخيارات",
+        "Choose Keywords":"أو ابحث بكلمات مفتاحية",
+        "Placeholder": "المدينة أو الحي أو الكمبوندات"
     },
     "propertyDetails":{
         "All images":"كل الصور",

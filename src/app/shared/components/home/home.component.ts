@@ -17,7 +17,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { zoomOut } from 'ng-animate'
 import { CookieService } from 'ngx-cookie-service';
 import { Options } from '@angular-slider/ngx-slider'
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -35,7 +35,9 @@ export class HomeComponent implements OnInit {
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
 
   faExclamationCircle = faExclamationCircle
-
+  faChevronDown = faChevronDown
+  faSearch = faSearch
+  
   dropdownList2: any = [];
   selectedItems2: any = [];
   dropdownSettings2 = {};
@@ -161,6 +163,13 @@ export class HomeComponent implements OnInit {
     // propose:'buy'
   }
 
+  isListVisible: boolean = true;
+  previousValue: any;
+
+  buyRentSearchFlag: boolean = false;
+
+  checkboxVar: boolean = false;
+
   constructor(
     //header:HeaderComponent,
     private cookieService: CookieService,
@@ -215,6 +224,7 @@ export class HomeComponent implements OnInit {
   //   console.log("newOptions: ",newOptions)
   //   this.options = newOptions;
   // }
+
 
   async ngOnInit() {
 
@@ -279,52 +289,57 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // async GetHintSearch() {
+  selectItem(name: string) {
+    this.searchQuery = name;
+    this.isListVisible = false;
+  }
 
-  //   if(this.searchQuery !== ""){
-  //     let data={
-  //       query : this.searchQuery  
-  //     }  
+  async GetHintSearch() {
+
+    if(this.searchQuery !== ""){
+      let data={
+        query : this.searchQuery  
+      }  
     
-  //      this.response=  await this.apiService.getsearch(data)
-  //      console.log(this.response)
-  //     }
-  //     else{
-  //       this.response = {data: "no results found"}
-  //     }
-  // }
+       this.response=  await this.apiService.getsearch(data)
+       console.log(this.response)
+      }
+      else{
+        this.response = {data: "no results found"}
+      }
+  }
    
 
 
-  // async Getsearch() {
+  async Getsearch() {
     
+    let data={
+      query : this.searchQuery  
+    }  
 
-  // let data={
-  // query : this.searchQuery  
-  // }  
+    this.response=  await this.apiService.getsearch(data)
+    console.log('response')
+    console.log(this.response)
 
-  // this.response=  await this.apiService.getsearch(data)
-  // console.log('response')
-  // console.log(this.response)
-
-  // if(this.response.message === 'city'){
-  // console.log('city')
-  // this.search_bar_model.cities= this.response.data[0].id
-
-  // }
-  // if(this.response.message === 'area'){
-  // console.log('area')
-  // this.search_bar_model.areas= this.response.data
-  // }
-  // if(this.response.message === 'neighborhood'){
-  // console.log('neighborhood')
-  // this.search_bar_model.neighborhood= this.response.data
-  // }
-
-  // this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+    if(this.response.message === 'city'){
+      console.log('city')
+      this.search_bar_model.cities= this.response.data[0].id
+      
+    }
+    if(this.response.message === 'area'){
+      console.log('area')
+      this.search_bar_model.areas= this.response.data
+    }
+    if(this.response.message === 'neighborhood'){
+      console.log('neighborhood')
+      this.search_bar_model.neighborhoods= this.response.data
+    }
+    console.log('search_bar_model')
+    console.log(this.search_bar_model)
+    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
 
 
-  // }
+  }
   
   search() {
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
@@ -599,7 +614,7 @@ export class HomeComponent implements OnInit {
       textField: 'item_text',
       itemsShowLimit: 1,
       allowSearchFilter: true,
-      limitSelection: 3
+      limitSelection: 3,
     }
 
     this.dropdownSettingsAreaSell = {
@@ -634,6 +649,7 @@ export class HomeComponent implements OnInit {
           badgeShowLimit: 1,
           allowSearchFilter: false,
           limitSelection: 2,
+          enableFilterSelectAll: false
           // classes:"myclass custom-class",
           // showCheckbox: true,
           // lazyLoading: true
@@ -923,6 +939,8 @@ export class HomeComponent implements OnInit {
   }
 
   async setActiveTab(tab: string) {
+    this.buyRentSearchFlag = false
+
     this.spinner.show()
 
     this.resetSelection()

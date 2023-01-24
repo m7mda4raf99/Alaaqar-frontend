@@ -1068,3 +1068,93 @@ span.dropdown-multiselect--active{
         size: 10px;
     }
 }
+
+.pure-checkbox{
+    .lazyContainer input[type=checkbox]+label:before{
+        box-sizing: initial;
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 15px;
+        height: 15px;
+        margin-top: -9px;
+        text-align: center;
+        transition: all .4s ease;
+        border-radius: 3px;
+        border: 1px solid !important;
+    }
+}
+
+// .pure-checkbox input[type=checkbox]+label:before {
+//     box-sizing: initial;
+//     content: "";
+//     position: absolute;
+//     top: 50%;
+//     left: 0;
+//     width: 15px;
+//     height: 15px;
+//     margin-top: -9px;
+//     text-align: center;
+//     transition: all .4s ease;
+//     border-radius: 3px;
+//     border: 1px solid !important;
+// }
+
+.pure-checkbox.grp-title{
+    pointer-events: none !important;
+    //background-color: #e1eceb; 
+    padding: 0px 0px;
+    
+}
+
+.pure-checkbox{
+    .lazyContainer{
+        pointer-events: initial !important;
+        //background-color: white;
+    }
+}
+
+// .pure-checkbox input[type=checkbox]:disabled+label {
+//     color: #ccc;
+//     margin: 0px 5% 0px 5% !important;
+// }
+
+// .pure-checkbox input[type=checkbox]+label {
+//     margin: 0px 5% 0px 5% !important;
+// }
+
+.pure-checkbox input[type=checkbox]:disabled:checked+label:before{
+    background-color: white !important;
+}
+
+.pure-checkbox input[type=checkbox]+label {
+    font-weight: 600 !important;
+}
+
+.pure-checkbox{
+    .lazyContainer input[type=checkbox]+label {
+        font-weight: 400 !important;
+    }
+}
+
+
+.pure-checkbox input[type=checkbox]:checked+label:after {
+    visibility: hidden;
+}
+
+.pure-checkbox {
+    .lazyContainer input[type=checkbox]:checked+label:after{
+        visibility: visible;
+    }
+}
+
+.pure-checkbox input[type=checkbox]:disabled+label:before {
+    visibility: hidden;
+}
+
+.pure-checkbox {
+    .lazyContainer input[type=checkbox]:disabled+label:before {
+        visibility: visible;
+    }
+}

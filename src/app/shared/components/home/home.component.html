@@ -5,6 +5,11 @@
 
     </ngx-spinner>
 
+
+    <!-- <angular2-multiselect [data]="dropdownList2" [(ngModel)]="selectedItems2" 
+                    [settings]="dropdownSettings2" > 
+                  </angular2-multiselect> -->
+
     <!-- First section (Find Your Perfect Future Home)-->
     <div class="row first-sec ">
         
@@ -152,20 +157,33 @@
             <span class="overlay"></span>
         </div>
         <div class="col-md-11 col-sm-12 search-sec">
-            <div *ngIf="activeTab === 'buy'" class="row buy-row">
+            <div *ngIf="activeTab === 'buy' && buyRentSearchFlag" class="buyRent-search">
+                <ng-container [ngTemplateOutlet]="buyRentSearch" [ngTemplateOutletContext]="{type: 'buy'}">
+                </ng-container>
+
+            </div>
+
+            <div *ngIf="activeTab === 'buy' && !buyRentSearchFlag" class="buyRent-row">
                 <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'buy'}">
                 </ng-container>
 
             </div>
-            <div *ngIf="activeTab === 'rent'" class="row rent-row">
+
+            <div *ngIf="activeTab === 'rent' && buyRentSearchFlag">
+                <ng-container [ngTemplateOutlet]="buyRentSearch" [ngTemplateOutletContext]="{type: 'rent'}">
+                </ng-container>
+            </div>
+
+            <div *ngIf="activeTab === 'rent' && !buyRentSearchFlag" class="buyRent-row">
                 <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'rent'}">
                 </ng-container>
             </div>
-            <div *ngIf="activeTab === 'sell'" class="row sell-row">
+
+            <div *ngIf="activeTab === 'sell'" class="sellRental-row">
                 <ng-container [ngTemplateOutlet]="sellRental" [ngTemplateOutletContext]="{type: 'sell'}">
                 </ng-container>
             </div>
-            <div *ngIf="activeTab === 'rental'" class="row rental-row">
+            <div *ngIf="activeTab === 'rental'" class="sellRental-row">
                 <ng-container [ngTemplateOutlet]="sellRental" [ngTemplateOutletContext]="{type: 'rental'}">
                 </ng-container>
             </div>
@@ -573,300 +591,425 @@
         </div>
         
 
+        <ng-template #buyRentSearch let-type="type">
+            <div class="ngSelect search_textbox">
+                    <!-- <div class="search-container"> -->
 
-        <ng-template #buyRent let-type="type">
-            <div class="col-6 col-lg-1 ngSelect main">
-                <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-                <ng-select bindLabel="name" [(ngModel)]="defaultCountry"  placeholder="{{'home.Select city'| translate}}"(change)="onChangeCity(defaultCountry)">
-                    <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}} ({{c.units_count}})
-                    </ng-option>
-                </ng-select>
-                <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect city">
-                <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
-                <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="true"
-                    bindLabel="name" placeholder="{{'home.Select Area'| translate}}"
-                    (change)="validateInputs(selectedArea, defaultSelectedArea, 'Area')">
-                    <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                        ({{c.units_count}})
-                    </ng-option>
-                </ng-select> -->
-
-                <ng-multiselect-dropdown
-                    (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
-                    (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
-                    placeholder="{{'home.Select Area'| translate}}" 
-                    [(ngModel)]="selectedArea"
-                    [settings]="dropdownSettingsArea"
-                    [data]="cites"
-                >
-                </ng-multiselect-dropdown>
-
-                <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-            </div>
-           
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-           
-            <div class="col-xs-12 col-lg-2 ngSelect">
-                <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                <!-- <ng-select [addTag]="addTagFn" [hideSelected]="true" [multiple]="true" bindLabel="name"
-                    (change)="validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
-                    <ng-option *ngFor="let c of neighborhood" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                        ({{c.units_count}})
-                    </ng-option>
-                </ng-select> -->
-
-             
-                <ng-multiselect-dropdown
-                    (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                    (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
-                    [settings]="dropdownSettings"
-                    [data]="neighborhood"
-                >
-                </ng-multiselect-dropdown>
-
-                <!-- <angular2-multiselect [data]="dropdownList2" [(ngModel)]="selectedItems2" 
-                [settings]="dropdownSettings2" >
-              </angular2-multiselect> -->
-
-                <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span> -->
-
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-    
-            <div class="col-6 col-lg-1 ngSelect realState">
-                <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
-                <ng-select [multiple]="false" [addTag]="addTagFn" [hideSelected]="true" bindLabel="name"
-                    placeholder="{{'home.Select type' | translate}}"
-                    (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')"
-                    [(ngModel)]="SelectedRealEstateType">
-                    <ng-option *ngFor="let c of Current_unit_count_array" [value]="c.id" >{{c.name_en}} ({{c.units_count}})
-                    </ng-option>
-                </ng-select>
-                <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span>
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect priceRange">
-                <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
-                <div class="dropdown" ngbDropdown>
-                    <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
-                        (click)="focusMinPriceInput()" class="btn dropdown-toggle setPriceBtn ngSelect-input"
-                        type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{setPricePlaceHolder()}}
-                    </button>
-                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                        (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
-                        
-                        <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
-
-                        </app-price-range-slider> -->
-
-                        <div id="price_range">
-                            <div id="Price_range_q">
-                                {{'home.Price range' | translate}}
-                            </div>
-
-                            <div style="display: flex;">
-                                <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
-
-                                <div id="Price_range_hint">
-                                    {{'home.Price range hint' | translate}} {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
-                                </div>
-                            </div>
-
-                            <div id="slider">
-                                <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                                (mouseup)="onSliderChange()"></ngx-slider>
-                            </div>
-
-                            <div id="textboxes">
-      
-                                <div id="from">
-                                    {{lang === 'en' ? 'From' : 'من'}}
-        
-                                    <div id="fromTextbox">
-                              
-                                        <input id="Rectangle_1314_rbk" [(ngModel)]="minValue" 
-                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                        [allowNegative]="false" type="text"
-                                        (keyup)="onSliderChange()"/>
-                                    </div>
-                                </div>
-                                
-                                <div id="to">
-                                    {{lang === 'en' ? 'To' : 'إلى'}}
-                                  
-                                    <div id="fromTextbox">
-                              
-                                        <input id="Rectangle_1314_rbk" [(ngModel)]="maxValue" 
-                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                        [allowNegative]="false" type="text"
-                                        (keyup)="onSliderChange()"/>
-                                    </div>
-                                </div>
-                            
-                              </div>
+                        <div style="width: -webkit-fill-available; position:relative">
+                            <input style="width: inherit; padding: 1% 5% 1% 5%; border-radius: 10px; border: 1px solid #cabcbc;" type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="{{'buy.Placeholder'| translate}}">
+                            <fa-icon style="position: absolute; left: 1.5%; right: 1.5%; top: 25%; width: fit-content;" [icon]="faSearch"></fa-icon>
 
                         </div>
-                      
-                    </ul>
+                        <!-- <button type="submit">Search</button> -->
+                        
+                        <div>
+                            <ul style="background-color: white; height: fit-content; padding: 1%;" *ngIf="response && response.data.length > 0 && response.data !=='no results found' && isListVisible">
+                                <li style="width: 100%; cursor: pointer;" (click)="selectItem(result.name_en)" *ngFor="let result of response.data.slice(0,10)">{{ result.name_en }}</li>
+                            </ul>
+                        </div>
+                        
+                    <!-- </div> -->
+
+
+
+            </div>
+
+            <div class="actions" >
+                <div class="ngSelect submit_buttons">
+                    <button (click)="Getsearch()"
+                        class="btn button-success applyBtn float-end button-bordered">{{'search_button' |
+                        translate}}</button>
+    
+                    <!-- <button #apply
+                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'})"
+                        class="btn button-success applyBtn float-end firstbtn"> {{'electronic_consultant' |
+                        translate}}</button> -->
+                    
+    
+    
+                </div>
+    
+                <div class="another-option">
+                    <!-- (click)="file.click()" -->
+                    <a  (click)="buyRentSearchFlag = !buyRentSearchFlag"
+                        style=" color: #f55441; ">
+                        {{'buy.Choose Options' | translate}}    
+                    </a>
+    
+                    <fa-icon style="padding: 0px 5px 0px 5px;" [icon]="faChevronDown" [styles]="{'color': 'red'}"></fa-icon>
+    
+    
+                </div>
+
+            </div>
+
+        </ng-template>
+
+        <ng-template #buyRent let-type="type">
+            <div class="options">
+                <div class="all-options">
+                    <div class="ngSelect main">
+                        <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
+                        <ng-select bindLabel="name" [(ngModel)]="defaultCountry"  placeholder="{{'home.Select city'| translate}}"(change)="onChangeCity(defaultCountry)">
+                            <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}} ({{c.units_count}})
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                    </div>
+        
+                    <div class="ngSelect separator">
+        
+                    </div>
+        
+                    <div class="ngSelect city">
+                        <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+                        <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="true"
+                            bindLabel="name" placeholder="{{'home.Select Area'| translate}}"
+                            (change)="validateInputs(selectedArea, defaultSelectedArea, 'Area')">
+                            <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                                ({{c.units_count}})
+                            </ng-option>
+                        </ng-select> -->
+        
+                        <ng-multiselect-dropdown
+                            (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
+                            (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
+                            placeholder="{{'home.Select Area'| translate}}" 
+                            [(ngModel)]="selectedArea"
+                            [settings]="dropdownSettingsArea"
+                            [data]="cites"
+                        >
+                        </ng-multiselect-dropdown>
+        
+                        <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                    </div>
+                   
+                    <div class="ngSelect separator">
+        
+                    </div>
+                   
+                    <div class="ngSelect">
+                        <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                        <!-- <ng-select [addTag]="addTagFn" [hideSelected]="true" [multiple]="true" bindLabel="name"
+                            (change)="validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                            placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
+                            <ng-option *ngFor="let c of neighborhood" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                                ({{c.units_count}})
+                            </ng-option>
+                        </ng-select> -->
+        
+                     
+                        <ng-multiselect-dropdown
+                            (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                            (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                            placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
+                            [settings]="dropdownSettings"
+                            [data]="neighborhood"
+                        >
+                        </ng-multiselect-dropdown>
+        
+                        <!-- <angular2-multiselect [data]="dropdownList2" [(ngModel)]="selectedItems2" 
+                        [settings]="dropdownSettings2" >
+                      </angular2-multiselect> -->
+        
+                        <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                            translate}}</span> -->
+        
+                    </div>
+        
+                    <div class="ngSelect separator">
+        
+                    </div>
+            
+                    <div class="ngSelect realState">
+                        <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+                        <ng-select [multiple]="false" [addTag]="addTagFn" [hideSelected]="true" bindLabel="name"
+                            placeholder="{{'home.Select type' | translate}}"
+                            (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')"
+                            [(ngModel)]="SelectedRealEstateType">
+                            <ng-option *ngFor="let c of Current_unit_count_array" [value]="c.id" >{{c.name_en}} ({{c.units_count}})
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
+                            translate}}</span>
+                    </div>
+        
+                    <div class="ngSelect separator">
+        
+                    </div>
+        
+                    <div class="ngSelect priceRange">
+                        <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
+                        <div class="dropdown" ngbDropdown>
+                            <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
+                                (click)="focusMinPriceInput()" class="btn dropdown-toggle setPriceBtn ngSelect-input"
+                                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{setPricePlaceHolder()}}
+                            </button>
+                            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                                (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
+                                
+                                <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
+        
+                                </app-price-range-slider> -->
+        
+                                <div id="price_range">
+                                    <div id="Price_range_q">
+                                        {{'home.Price range' | translate}}
+                                    </div>
+        
+                                    <div style="display: flex;">
+                                        <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
+        
+                                        <div id="Price_range_hint">
+                                            {{'home.Price range hint' | translate}} {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
+                                        </div>
+                                    </div>
+        
+                                    <div id="slider">
+                                        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                                        (mouseup)="onSliderChange()"></ngx-slider>
+                                    </div>
+        
+                                    <div id="textboxes">
+              
+                                        <div id="from">
+                                            {{lang === 'en' ? 'From' : 'من'}}
+                
+                                            <div id="fromTextbox">
+                                      
+                                                <input id="Rectangle_1314_rbk" [(ngModel)]="minValue" 
+                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                [allowNegative]="false" type="text"
+                                                (keyup)="onSliderChange()"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="to">
+                                            {{lang === 'en' ? 'To' : 'إلى'}}
+                                          
+                                            <div id="fromTextbox">
+                                      
+                                                <input id="Rectangle_1314_rbk" [(ngModel)]="maxValue" 
+                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                [allowNegative]="false" type="text"
+                                                (keyup)="onSliderChange()"/>
+                                            </div>
+                                        </div>
+                                    
+                                      </div>
+        
+                                </div>
+                              
+                            </ul>
+        
+                        </div>
+                        <!-- <span *ngIf="priceMinRange==''||priceMaxRange==''">{{'validation.This Filed Is Required!' | translate}}</span> -->
+                        
+                    </div>
+                </div>
+
+                <div class="compound">
+                    <input
+                        type="checkbox"
+                        [(ngModel)]="checkboxVar"
+                        [ngModelOptions]="{standalone: true}" 
+                        />
+
+                    <div [ngClass]="{'disabled':!checkboxVar}">
+                        <ng-multiselect-dropdown
+                                (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
+                                (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
+                                placeholder="{{'home.Select Area'| translate}}" 
+                                [(ngModel)]="selectedArea"
+                                [settings]="dropdownSettingsArea"
+                                [data]="cites">
+                        </ng-multiselect-dropdown>
+    
+                    </div>
+
 
                 </div>
-                <!-- <span *ngIf="priceMinRange==''||priceMaxRange==''">{{'validation.This Filed Is Required!' | translate}}</span> -->
-                
+    
             </div>
 
-            <div class="col-xs-12 col-lg-3 ngSelect submit_buttons">
-                <button #apply
-                    (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'})"
-                    class="btn button-success applyBtn float-end firstbtn"> {{'electronic_consultant' |
-                    translate}}</button>
-                <button (click)="search()"
-                    class="btn button-success applyBtn float-end button-bordered">{{'search_button' |
-                    translate}}</button>
+            <div class="ngSelect actions">
+                <div class="buttons">
+                    <button (click)="search()"
+                        class="btn button-success applyBtn button-bordered">{{'search_button' |
+                        translate}}
+                    </button>
+                    
+                    <button #apply
+                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'})"
+                        class="btn button-success applyBtn firstbtn"> {{'electronic_consultant' |
+                        translate}}
+                    </button>
 
+                </div>
 
+                <div class="another-option" >
+                    <!-- (click)="file.click()" -->
+    
+                    <div style="display: flex;">
+                        <a  (click)="buyRentSearchFlag = !buyRentSearchFlag"
+                            style=" color: #f55441; ">
+                            {{'buy.Choose Keywords' | translate}}    
+                        </a>
+    
+                        <fa-icon style="padding: 0px 5px 0px 5px;" [icon]="faChevronDown" [styles]="{'color': 'red'}"></fa-icon>
+    
+                    </div>
+    
+                </div>
 
             </div>
+
 
         </ng-template>
         
         
         <ng-template #sellRental let-type="type">
-            <div class="col-6 col-lg-1 ngSelect main">
-                <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-                <ng-select bindLabel="name" [(ngModel)]="defaultCountry" (change)="onChangeCity(defaultCountry)">
-                    <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}}
-                    </ng-option>
-                </ng-select>
-            </div>
+            <div class="options">
+                <div class="all-options">
+                    <div class="ngSelect main">
+                        <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
+                        <ng-select bindLabel="name" [(ngModel)]="defaultCountry" (change)="onChangeCity(defaultCountry)">
+                            <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+        
+                    <div class="ngSelect separator">
+        
+                    </div>
+        
+                    <div class="ngSelect city">
+                        <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+                        <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
+                            bindLabel="name" placeholder="Select Area"
+                            (change)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')">
+                            <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="selectedAreaNotValid"> {{'validation.This Filed Is Required!' | translate}}</span> -->
+        
+                        <ng-multiselect-dropdown
+                        (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
+                        (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
+                        placeholder="{{'home.Select Area'| translate}}" 
+                        [(ngModel)]="selectedArea"
+                        [settings]="dropdownSettingsAreaSell"
+                        [data]="cites"
+                    >
+                        </ng-multiselect-dropdown>
+        
+                        <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+        
+                    </div>
+                    
+                    <div class="ngSelect separator">
+        
+                    </div>
+        
+        
+                    <div class="ngSelect">
+                        <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                        <!-- <ng-select [items]="neighborhood"  [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
+                            bindLabel="name"
+                            (change)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                            placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
+                        </ng-select>
+                        <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                            translate}}</span> -->
+        
+                        <ng-multiselect-dropdown
+                        (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                        (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
+                        placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
+                        [settings]="dropdownSettingsAreaSell"
+                        [data]="neighborhood" >
+                        </ng-multiselect-dropdown>
+        
+                        <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                            translate}}</span>
+        
+                    </div>
+        
+                    <div class="ngSelect separator">
+        
+                    </div>
+        
+                    <div class="ngSelect realState">
+                        <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+                        <ng-select placeholder="{{'home.Select type' | translate}}" [multiple]="false" [addTag]="addTagFn"
+                            [hideSelected]="true" bindLabel="name" [(ngModel)]="SelectedRealEstateType"
+                            (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')">
+                            <ng-option *ngFor="let c of RealEstateType" [value]="c.id" [disabled]="c.disabled">{{c.name}}
+                            </ng-option>
+                        </ng-select>
+                        <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
+                            translate}}</span>
+                    </div>
+        
+                    <div class="ngSelect separator">
+        
+                    </div>
+        
+                    <div class="ngSelect price">
+                        <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
+                        <div style="margin-left: 10px;">
+                            <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
+                                translate}}</label>
+                            <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
+                                [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                        </div>
+        
+                        <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |
+                            translate}}</span>
+                            
+                    </div>
 
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect city">
-                <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
-                <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
-                    bindLabel="name" placeholder="Select Area"
-                    (change)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')">
-                    <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                    </ng-option>
-                </ng-select>
-                <span *ngIf="selectedAreaNotValid"> {{'validation.This Filed Is Required!' | translate}}</span> -->
-
-                <ng-multiselect-dropdown
-                (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
-                (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
-                placeholder="{{'home.Select Area'| translate}}" 
-                [(ngModel)]="selectedArea"
-                [settings]="dropdownSettingsAreaSell"
-                [data]="cites"
-            >
-                </ng-multiselect-dropdown>
-
-                <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-
-            </div>
-            
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-
-
-            <div class="col-xs-12 col-lg-2 ngSelect">
-                <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                <!-- <ng-select [items]="neighborhood"  [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
-                    bindLabel="name"
-                    (change)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                    placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
-                </ng-select>
-                <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span> -->
-
-                <ng-multiselect-dropdown
-                (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
-                [settings]="dropdownSettingsAreaSell"
-                [data]="neighborhood" >
-                </ng-multiselect-dropdown>
-
-                <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                    translate}}</span>
-
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect realState">
-                <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
-                <ng-select placeholder="{{'home.Select type' | translate}}" [multiple]="false" [addTag]="addTagFn"
-                    [hideSelected]="true" bindLabel="name" [(ngModel)]="SelectedRealEstateType"
-                    (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')">
-                    <ng-option *ngFor="let c of RealEstateType" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                    </ng-option>
-                </ng-select>
-                <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
-                    translate}}</span>
-            </div>
-
-            <div class="col-6 col-lg-1 ngSelect separator">
-
-            </div>
-
-            <div class="col-xs-12 col-lg-2 ngSelect price">
-                <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
-                <div style="margin-left: 10px;">
-                    <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
-                        translate}}</label>
-                    <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
-                        [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                </div>
+                
+                <div class="another-option" >
+                    <!-- (click)="file.click()" -->
+    
+                    <div class="compound">
+                        <input
+                            type="checkbox"
+                            [(ngModel)]="checkboxVar"
+                            [ngModelOptions]="{standalone: true}" 
+                            />
+    
+                        <div [ngClass]="{'disabled':!checkboxVar}">
+                            <ng-multiselect-dropdown
+                                    (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
+                                    (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
+                                    placeholder="{{'home.Select Area'| translate}}" 
+                                    [(ngModel)]="selectedArea"
+                                    [settings]="dropdownSettingsArea"
+                                    [data]="cites">
+                            </ng-multiselect-dropdown>
+        
+                        </div>
+    
+    
+                    </div>
+    
                 </div>
 
-                <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |
-                    translate}}</span>
-                    
             </div>
-            
-            <!-- <div class="col-xs-12 description">
-                <p class="lable d-none d-lg-block">{{'home.Write a unique description of your unit' | translate}} </p>
-                <textarea (ngModelChange)="validateInputs(unitDescription, '', 'unitDescription')" cols="ngSelect-input"
-                    placeholder="{{'home.description' | translate}}" [(ngModel)]="unitDescription"
-                    class="col-xs-12"></textarea>
-                
-                    <span style="font-size: 10px;color: red;" *ngIf="unitDescriptionNotValid">{{'validation.This Filed Is
-                    Required!' | translate}}</span>
-            </div> -->
 
 
-            <div class="col-xs-12 col-lg-3 ngSelect submit_buttons">
+            <div class="ngSelect submit_buttons">
                 <button #apply
                     (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,price,priceMaxRange,unitDescription})"
                     class="btn button-success applyBtn continueBtn float-end mb-3">{{'button.actions.Apply & Continue' |
                     translate}}</button>
             </div>
+
+
         </ng-template>
     </div>
 </div>

@@ -233,9 +233,9 @@ export class ApiService {
   public getGeographical(data: any) {
     return this.SyncClient(`${this.BaseURL}api/geographical`, 'GET', data, null)
   }
-  // public getsearch(data: any) {
-  //   return this.SyncClient(`${this.BaseURL}api/search`, 'GET', data, null)
-  // }
+  public getsearch(data: any) {
+    return this.SyncClient(`${this.BaseURL}api/search`, 'GET', data, null)
+  }
   public getContacts() {
     return this.SyncClient(`${this.BaseURL}api/content/contact`, 'GET')
   }
