@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http'
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { zoomOut } from 'ng-animate'
 import { CookieService } from 'ngx-cookie-service';
+import { Console } from 'console'
 
 
 @Component({
@@ -33,6 +34,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
 
   dropdownList2: any = [];
+  dropdownList3: any = [];
+  dropdownList4: any = [];
   selectedItems2: any = [];
   dropdownSettings2 = {};
   
@@ -93,6 +96,9 @@ export class HomeComponent implements OnInit {
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
   MinPrice:any
+  droploc:any
+  dropComp:any
+  dropNeig:any
 
   minPriceValue = [
     { val: 0, view: '0 EGP' },
@@ -141,7 +147,7 @@ export class HomeComponent implements OnInit {
   searchQuery: any;
   response: any; 
   search_bar_model: any = {
-    cities: [1],
+    cities: [2],
     areas: [],
     neighborhood: [],
     type: [],
@@ -149,6 +155,8 @@ export class HomeComponent implements OnInit {
     max_price: null,
     // propose:'buy'
   }
+  Comp: any = []
+  Neigh: any = []
 
   constructor(
     //header:HeaderComponent,
@@ -220,7 +228,7 @@ export class HomeComponent implements OnInit {
     if (!this.recentlyAdded.length) {
       await this.getRecentlyAdded()
     }
-    
+    await this.getLoc()
     await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
@@ -236,6 +244,7 @@ export class HomeComponent implements OnInit {
     this.resetFormData()
     await this.setupUnitTypesCount()
     await this.setupMinPrice()
+    //await this.getLoc()
   }
   async GetHintSearch() {
 
@@ -441,8 +450,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         
     }
     
-
-   
+   console.log("minPrice")
+   console.log(this.MinPrice)
     
   }
   getIPAddress()
@@ -494,6 +503,69 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
 
     return this.validateInputs(selected, defaultVal, label)
+  }
+
+  onItemSelectNested(item: any){
+    console.log(item['itemName'])
+    if(item['itemName']=="Compounds"){
+        this.Comp.push(item['areaID'])
+            }
+            console.log(this.Comp)
+           this.getCompound()   
+  }
+
+  onItemSelectNested2(item: any){
+    console.log(item['id'])
+    //if(item['itemName']=="Compounds"){
+        this.Neigh.push(item['id'])
+           // }
+            console.log(this.Neigh)
+           this.getNeig()   
+  }
+  onItemDeSelectNested2(item: any){
+    console.log(item['id'])
+     
+    for (let i = 0; i < this.dropdownList4.length; i++) {
+      if(this.dropdownList4[i]['locationID']==item['id']){
+        //delete this.dropdownList3[i];
+       
+          this.dropdownList4.splice(i, 1);
+          i-- 
+}
+    }
+    for (let i = 0; i < this.Neigh.length; i++) {
+      if(this.Neigh[i]==item['id']){
+        //delete this.dropdownList3[i];
+       
+          this.Neigh.splice(i, 1);
+          i-- 
+}
+    }
+
+    console.log(this.dropdownList4)
+  }
+
+  onItemDeSelectNested(item: any){
+    console.log(item['areaID'])
+     
+    for (let i = 0; i < this.dropdownList3.length; i++) {
+      if(this.dropdownList3[i]['areaID']==item['areaID']){
+        //delete this.dropdownList3[i];
+       
+          this.dropdownList3.splice(i, 1);
+          i-- 
+}
+    }
+    for (let i = 0; i < this.Comp.length; i++) {
+      if(this.Comp[i]==item['areaID']){
+        //delete this.dropdownList3[i];
+       
+          this.Comp.splice(i, 1);
+          i-- 
+}
+    }
+
+    
   }
 
   async onItemDeSelect(selected: any, defaultVal: any, label: string): Promise<boolean> {
@@ -551,31 +623,25 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       limitSelection: 2,
     }
 	
-	    this.dropdownList2 = [
-      { "id": 1, "itemName": "India", "category": "asia" },
-      { "id": 2, "itemName": "Singapore", "category": "asia pacific" },
-      { "id": 3, "itemName": "Germany", "category": "Europe" },
-      { "id": 4, "itemName": "France", "category": "Europe" },
-      { "id": 5, "itemName": "South Korea", "category": "asia" },
-      { "id": 6, "itemName": "Sweden", "category": "Europe" },
-      { "id": 7, "itemName": "Maadi", "category": "Maadi" }
-    ];
+	    this.dropdownList2 = this.droploc.data
     
     this.selectedItems2 = [
     ];
         
     this.dropdownSettings2 = { 
           singleSelection: false, 
-          text:"Select Countries",
+          text:"Select Area",
           selectAllText:'Select All',
           unSelectAllText:'UnSelect All',
           enableSearchFilter: true,
-          groupBy: "category",
+          groupBy: "areaName",
+          selectGroup: false,
           badgeShowLimit: 1,
           allowSearchFilter: false,
           limitSelection: 2,
+          enableCheckAll:false,
           // classes:"myclass custom-class",
-          // showCheckbox: true,
+           showCheckbox: true,
           // lazyLoading: true
     };  
 	
@@ -696,6 +762,52 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       })
     }
   }
+  async getLoc(){
+    let data={
+      id:this.activeCity
+    }
+    this.droploc=await this.apiService.getloc(data);
+    this.dropdownList2=this.droploc.data
+    console.log("Location")
+    console.log(this.droploc)
+  }
+
+  async getCompound(){
+    let data={
+      id:this.Comp[this.Comp.length-1]
+    }
+    this.dropComp=await this.apiService.getCompound(data);
+    // if(this.dropdownList3.isempty()){
+    // this.dropdownList3=this.dropComp.data}
+    // else{
+    // }
+
+    this.dropdownList3 = this.dropdownList3.concat(this.dropComp.data)
+
+    
+    
+    
+    console.log("Compound")
+    console.log(this.dropComp.data)
+    console.log(this.dropdownList3)
+  }
+
+  async getNeig(){
+    let data={
+      id:this.Neigh[this.Neigh.length-1]
+    }
+    this.dropNeig=await this.apiService.getNeig(data);
+    
+
+    this.dropdownList4 = this.dropdownList4.concat(this.dropNeig.data)
+
+    
+    
+    
+    console.log("neighborhood")
+    console.log(this.dropNeig.data)
+    console.log(this.dropdownList4)
+  }
   async getGeographical(activeCity: number = 1, force: boolean) {
     if (!this.geographical?.data || force) {
       let data ={
@@ -777,11 +889,13 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.selectedNeighborhood = null
     this.activeCity = city
     console.log('city')
-    console.log(city)
+    console.log(this.activeCity)
     this.search_model.cities = [this.activeCity]
     this.setupUnitTypesCount()
     this.setupMinPrice()
     this.setupGeographicalData(this.geographical, city)
+    this.getLoc()
+    // this.getCompound()
   }
   setMinValue(val: any, method: string) {
     this.priceMinRange = val

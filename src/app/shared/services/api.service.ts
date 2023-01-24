@@ -265,6 +265,16 @@ export class ApiService {
   public getUnitTypes() {
     return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
   }
+  public async getloc(data: any) : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getloc`, 'GET',data, null)
+  }
+  public async getCompound(data: any) : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getCompound`, 'GET',data, null)
+  }
+ 
+  public async getNeig(data: any) : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getNeig`, 'GET',data, null)
+  }
 
   public getMyNotifications() {
     return this.AsyncClient(`${this.BaseURL}api/my-notifications`, 'GET')
@@ -290,14 +300,14 @@ export class ApiService {
   // }
 
 
-  public async unit_types_count_neighborhood(data: any): Promise<any> {
-    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_neighborhood`, 'GET', data, null)
-  }
-  public async unit_types_count_area(data: any): Promise<any> {
-    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_area`, 'GET', data, null)
-  }
+  // public async unit_types_count_neighborhood(data: any): Promise<any> {
+  //   return await this.SyncClient(`${this.BaseURL}api/unit_types_count_neighborhood`, 'GET', data, null)
+  // }
+  // public async unit_types_count_area(data: any): Promise<any> {
+  //   return await this.SyncClient(`${this.BaseURL}api/unit_types_count_area`, 'GET', data, null)
+  // }
 
-  public async unit_types_count_city(data: any): Promise<any> {
-    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_city`, 'GET', data, null)
-  }  
+  // public async unit_types_count_city(data: any): Promise<any> {
+  //   return await this.SyncClient(`${this.BaseURL}api/unit_types_count_city`, 'GET', data, null)
+  // }  
 }
