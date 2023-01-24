@@ -289,6 +289,3 @@ export class ApiService {
   //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
   // }
 
-
- 
-}

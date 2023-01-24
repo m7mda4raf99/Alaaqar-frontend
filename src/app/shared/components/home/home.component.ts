@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit {
   search_bar_model: any = {
     cities: [1],
     areas: [],
-    neighborhood: [],
+    neighborhoods: [],
     type: [],
     min_price: null,
     max_price: null,
@@ -169,6 +169,7 @@ export class HomeComponent implements OnInit {
   buyRentSearchFlag: boolean = false;
 
   checkboxVar: boolean = false;
+
 
   constructor(
     //header:HeaderComponent,
@@ -309,8 +310,6 @@ export class HomeComponent implements OnInit {
       }
   }
    
-
-
   async Getsearch() {
     
     let data={
@@ -320,28 +319,34 @@ export class HomeComponent implements OnInit {
     this.response=  await this.apiService.getsearch(data)
     console.log('response')
     console.log(this.response)
-
-    if(this.response.message === 'city'){
-      console.log('city')
-      this.search_bar_model.cities= this.response.data[0].id
-      
-    }
-    if(this.response.message === 'area'){
-      console.log('area')
-      this.search_bar_model.areas= this.response.data
-    }
-    if(this.response.message === 'neighborhood'){
-      console.log('neighborhood')
-      this.search_bar_model.neighborhoods= this.response.data
-    }
-    console.log('search_bar_model')
-    console.log(this.search_bar_model)
-    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
-
-
-  }
+    
+if(this.response.message === 'city'){
+  console.log('city')
+  this.search_bar_model.cities= this.response.data[0].id
   
+}
+if(this.response.message === 'area'){
+  console.log('area')
+  this.search_bar_model.areas= this.response.data
+}
+if(this.response.message === 'neighborhood'){
+  console.log('neighborhood')
+  this.search_bar_model.neighborhoods= this.response.data
+}
+console.log('search_bar_model')
+console.log(this.search_bar_model)
+this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+
+
+   }
+
+   selectItem(name: string) {
+    this.searchQuery = name;
+    this.isListVisible = false;
+  }
   search() {
+    console.log('search_model')
+    console.log(this.search_model)
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }
 
@@ -841,7 +846,7 @@ export class HomeComponent implements OnInit {
   search_model: any = {
     cities: [1],
     areas: [],
-    neighborhood: [],
+    neighborhoods: [],
     type: [],
     min_price: null,
     max_price: null,
@@ -862,6 +867,8 @@ export class HomeComponent implements OnInit {
   setMinValue(val: any, method: string) {
     this.priceMinRange = val
     this.setMaxSelections(val, method)
+    console.log("set min price")
+    console.log(val)
     this.search_model.min_price = val
   }
   setMaxSelections(val: any, method: string) {
@@ -891,11 +898,12 @@ export class HomeComponent implements OnInit {
     this.priceMaxRange = val
     this.toggleDropdown()
     this.apply.nativeElement.focus()
+    console.log("set max price")
+    console.log(val)
     this.search_model.max_price = val
   }
 
 
-  
   focusMinPriceInput() {
     this.minPrice.nativeElement.focus()
   }
@@ -903,6 +911,8 @@ export class HomeComponent implements OnInit {
     this.dropdownMenuButton1.nativeElement.click()
   }
   setPricePlaceHolder() {
+    this.search_model.max_price = this.priceMaxRange
+    this.search_model.min_price = this.priceMinRange
     if (this.priceMinRange === 0 && this.priceMaxRange === '' || this.priceMaxRange === null || this.priceMaxRange === 0) {
       return this.translateService.instant('home.All Prices')
     }
@@ -910,6 +920,8 @@ export class HomeComponent implements OnInit {
     if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
     if (!this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
     return this.translateService.instant('home.Select price range')
+
+    
   }
 
   abbreviateNumber(number: number) {
@@ -1073,7 +1085,14 @@ export class HomeComponent implements OnInit {
         } else {
           this.neighborhood.map((val: any) => val.disabled = false)
         }
-        this.search_model.neighborhood = selected
+
+        //this.search_model.neighborhoods = selected
+
+        let uniqueNeighborhoods = new Set(this.search_model.neighborhoods);
+        for (let i = 0; i < selected.length; i++) {
+          uniqueNeighborhoods.add(selected[i]['item_id']);
+        }
+        this.search_model.neighborhoods = Array.from(uniqueNeighborhoods); 
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
@@ -1177,14 +1196,15 @@ export class HomeComponent implements OnInit {
           });
         }
         this.neighborhood = neighborhoodArr
-        // console.log("neighbrhood 2")
-        // console.log(this.neighborhood)
+
       }
       this.setupUnitTypesCount()
       this.setupMinPrice()
-      console.log("selected halimo")
-      console.log(selected)
-      this.search_model.areas = selected
+      let uniqueAreas = new Set(this.search_model.areas);
+      for (let i = 0; i < selected.length; i++) {
+          uniqueAreas.add(selected[i]['item_id']);
+      }
+      this.search_model.areas = Array.from(uniqueAreas);      
     }
     if (label === 'Real estate type') {
       //this.SelectedRealEstateTypeNotValid = !this.selectedNeighborhood && this.selectedNeighborhood?.id ? true : false
