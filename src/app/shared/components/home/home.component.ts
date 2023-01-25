@@ -349,10 +349,6 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
    }
 
-   selectItem(name: string) {
-    this.searchQuery = name;
-    this.isListVisible = false;
-  }
   search() {
     console.log('search_model')
     console.log(this.search_model)
@@ -719,10 +715,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           badgeShowLimit: 1,
           allowSearchFilter: false,
           limitSelection: 2,
-          enableFilterSelectAll: false
-          // classes:"myclass custom-class",
-           showCheckbox: true,
-          // lazyLoading: true
+          enableFilterSelectAll: false,
+          showCheckbox: true,
     };  
 	
   }
