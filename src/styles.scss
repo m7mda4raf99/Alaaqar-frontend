@@ -1167,6 +1167,11 @@ span.dropdown-multiselect--active{
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
+
+    @media (max-width:425px) {
+        border: 1px solid #d9d3d3;
+        border-radius: 10px;    
+    }
 }
 
 .selected-list .countplaceholder {

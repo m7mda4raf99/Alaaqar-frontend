@@ -592,6 +592,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     
     if(item['itemName']=="Compounds" || item['itemName']==="كومباند"){
       this.checkboxVar = true
+      this.SelectedNeighborhoodNotValid = false
         this.Comp.push(item['areaID'])
         this.getCompound(true) 
 
@@ -674,7 +675,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   }
 
+  
+
   onItemSelectNeighborhood(item: any){
+    this.SelectedNeighborhoodNotValid = false
     this.search_model.neighborhoods = []
 
     for(let item of this.selectedItemNeighborhood){
@@ -690,7 +694,16 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     }
   }
 
+  onItemSelectUnitType(item: any){
+    this.SelectedRealEstateTypeNotValid = false
+    
+    this.search_model.type = [this.SelectedRealEstateType[0]['id']]
+    // this.setupMinPrice()
+
+  }
+
   onItemSelectCompound(item: any){
+    this.SelectedCompoundNotValid = false
     this.search_model.compounds = []
 
     for(let item of this.selectedItemCompound){
@@ -915,7 +928,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   async getRecentlyAdded() {
     let headers = {
       'offset': '0',
-      'limit': '6',
+      'limit': '3',
     }
     let recentlyAdded = await this.apiService.getRecentlyAdded(headers)
     this.recentlyAdded = recentlyAdded.data
@@ -1402,11 +1415,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       this.selectedCityNotValid = true 
     }
 
+    console.log(this.selectedItemCity)
+
     if ( (Array.isArray(this.selectedItemArea) && this.selectedItemArea.length === 0) ) { 
       this.selectedAreaNotValid = true 
     }
 
-    if ( (Array.isArray(this.selectedItemNeighborhood) && this.selectedItemNeighborhood.length === 0) ) { 
+    if ( (Array.isArray(this.selectedItemNeighborhood) && this.selectedItemNeighborhood.length === 0 && !this.checkboxVar) 
+   && this.dropdownListNeighborhood.length > 0) { 
       this.SelectedNeighborhoodNotValid = true 
     }
 
@@ -1432,7 +1448,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
     if (!this.SelectedRealEstateTypeNotValid &&
       (!this.SelectedNeighborhoodNotValid  || this.activeTab === "buy" || this.activeTab === "rent") &&
-      !this.selectedAreaNotValid &&
+      !this.selectedAreaNotValid && !this.SelectedCompoundNotValid &&
       !this.PriceNotValid) {
         data.defaultCountry = this.selectedItemCity[0]['itemName']
         data.selectedCountryId = this.selectedItemCity[0]['id']

@@ -228,21 +228,6 @@
                 
             </div> -->
         </div>
-            <!-- <form (ngSubmit)="Getsearch()">
-            <input [(ngModel)]="searchQuery" name="searchQuery" type="text" placeholder="Search...">
-            <button type="submit">Search</button>
-            </form> -->
-
-            <!-- <form (ngSubmit)="Getsearch()">
-            <div class="search-container">
-                <input type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="Search...">
-                <button type="submit">Search</button>
-                <ul *ngIf="response.data.length > 0 && response.data !=='no results found'">
-                  <li *ngFor="let result of response.data">{{ result.name_en }}</li>
-                </ul>
-              </div>
-            </form> -->
-            
 
         <!-- Second section (Recently Added)-->
         <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
@@ -616,13 +601,6 @@
                         class="btn button-success applyBtn float-end button-bordered">{{'search_button' |
                         translate}}</button>
     
-                    <!-- <button #apply
-                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'})"
-                        class="btn button-success applyBtn float-end firstbtn"> {{'electronic_consultant' |
-                        translate}}</button> -->
-                    
-    
-    
                 </div>
     
                 <div class="another-option">
@@ -646,11 +624,6 @@
                 <div class="all-options">
                     <div class="ngSelect main">
                         <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-                        <!-- <ng-select bindLabel="name" [(ngModel)]="defaultCountry"  placeholder="{{'home.Select city'| translate}}"(change)="onChangeCity(defaultCountry)">
-                            <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}} ({{c.units_count}})
-                            </ng-option>
-                        </ng-select>
- -->
 
                         <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
                         [settings]="settingsCity"
@@ -667,23 +640,6 @@
         
                     <div class="ngSelect city">
                         <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
-                        <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="true"
-                            bindLabel="name" placeholder="{{'home.Select Area'| translate}}"
-                            (change)="validateInputs(selectedArea, defaultSelectedArea, 'Area')">
-                            <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                                ({{c.units_count}})
-                            </ng-option>
-                        </ng-select> -->
-        
-                        <!-- <ng-multiselect-dropdown
-                            (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
-                            (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
-                            placeholder="{{'home.Select Area'| translate}}" 
-                            [(ngModel)]="selectedArea"
-                            [settings]="dropdownSettingsArea"
-                            [data]="cites"
-                        >
-                        </ng-multiselect-dropdown> -->
 
                         <angular2-multiselect [data]="dropdownListArea" 
                             [(ngModel)]="selectedItemArea" 
@@ -701,23 +657,6 @@
                    
                     <div class="ngSelect">
                         <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                        <!-- <ng-select [addTag]="addTagFn" [hideSelected]="true" [multiple]="true" bindLabel="name"
-                            (change)="validateInputs(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                            placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
-                            <ng-option *ngFor="let c of neighborhood" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                                ({{c.units_count}})
-                            </ng-option>
-                        </ng-select> -->
-        
-                     
-                        <!-- <ng-multiselect-dropdown
-                            (onSelect)="onItemSelectNested2($event)"
-                            
-                            placeholder="{{'home.Select Neighborhood' | translate}}" 
-                            [(ngModel)]="selectedItemNeighborhood"
-                            [settings]="dropdownSettings"
-                            [data]="dropdownList4">
-                        </ng-multiselect-dropdown> -->
 
                         <angular2-multiselect 
                             [data]="dropdownListNeighborhood" 
@@ -738,14 +677,7 @@
             
                     <div class="ngSelect realState">
                         <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
-                        <!-- <ng-select [multiple]="false" [addTag]="addTagFn" [hideSelected]="true" bindLabel="name"
-                            placeholder="{{'home.Select type' | translate}}"
-                            (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')"
-                            [(ngModel)]="SelectedRealEstateType">
-                            <ng-option *ngFor="let c of Current_unit_count_array" [value]="c.id" >{{c.name_en}} ({{c.units_count}})
-                            </ng-option>
-                        </ng-select> -->
-
+                
                         <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
                             [settings]="settingsUnitType"
                             (onSelect)="onItemSelect(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')">
@@ -826,40 +758,44 @@
                             </ul>
         
                         </div>
-                        <!-- <span *ngIf="priceMinRange==''||priceMaxRange==''">{{'validation.This Filed Is Required!' | translate}}</span> -->
                         
                     </div>
                 </div>
 
-                <div class="compound">
+                <div class="ngSelect compound">
                     <input
                         type="checkbox"
                         [checked]="checkboxVar"
                         [disabled]="true"
                         (change)="checkboxVar = !checkboxVar"/>
 
-                    <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
-                        <angular2-multiselect 
-                            [data]="dropdownListCompound" 
-                            [(ngModel)]="selectedItemCompound" 
-                            [settings]="settingsCompound"
-                            (onSelect)="onItemSelectCompound($event)"
-                            (onDeSelect) =onItemDeSelectCompound($event)>
-                        </angular2-multiselect>
+                    <div>
+                        <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
+                            <angular2-multiselect 
+                                [data]="dropdownListCompound" 
+                                [(ngModel)]="selectedItemCompound" 
+                                [settings]="settingsCompound"
+                                (onSelect)="onItemSelectCompound($event)"
+                                (onDeSelect) =onItemDeSelectCompound($event)>
+                            </angular2-multiselect>
+        
+                        </div>
     
-                    </div>
-
-                    <div class="multiselect" *ngIf="checkboxVar">
-                        <angular2-multiselect 
-                            [data]="dropdownListCompound" 
-                            [(ngModel)]="selectedItemCompound" 
-                            [settings]="settingsCompound"
-                            (onSelect)="onItemSelectCompound($event)"
-                            (onDeSelect) =onItemDeSelectCompound($event)>
-                        </angular2-multiselect>
+                        <div class="multiselect" *ngIf="checkboxVar">
+                            <angular2-multiselect 
+                                [data]="dropdownListCompound" 
+                                [(ngModel)]="selectedItemCompound" 
+                                [settings]="settingsCompound"
+                                (onSelect)="onItemSelectCompound($event)"
+                                (onDeSelect) =onItemDeSelectCompound($event)>
+                            </angular2-multiselect>
+        
+                        </div>
     
-                    </div>
+                        <span *ngIf="SelectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+    
 
+                    </div>
 
                 </div>
     
@@ -906,10 +842,14 @@
                 <div class="all-options">
                     <div class="ngSelect main">
                         <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-                        <ng-select bindLabel="name" [(ngModel)]="defaultCountry" (change)="onChangeCity(defaultCountry)">
-                            <ng-option *ngFor="let c of countries" [value]="c.id">{{c.name}}
-                            </ng-option>
-                        </ng-select>
+                        
+                        <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
+                        [settings]="settingsCity"
+                        (onSelect)="onChangeCity($event)">
+                        </angular2-multiselect>
+
+                        <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+
                     </div>
         
                     <div class="ngSelect separator">
@@ -918,23 +858,13 @@
         
                     <div class="ngSelect city">
                         <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
-                        <!-- <ng-select [(ngModel)]="selectedArea" [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
-                            bindLabel="name" placeholder="Select Area"
-                            (change)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')">
-                            <ng-option *ngFor="let c of cites" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                            </ng-option>
-                        </ng-select>
-                        <span *ngIf="selectedAreaNotValid"> {{'validation.This Filed Is Required!' | translate}}</span> -->
-        
-                        <ng-multiselect-dropdown
-                        (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
-                        (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
-                        placeholder="{{'home.Select Area'| translate}}" 
-                        [(ngModel)]="selectedArea"
-                        [settings]="dropdownSettingsAreaSell"
-                        [data]="cites"
-                    >
-                        </ng-multiselect-dropdown>
+                       
+                        <angular2-multiselect [data]="dropdownListArea" 
+                            [(ngModel)]="selectedItemArea" 
+                            [settings]="settingsArea" 
+                            (onSelect)="onItemSelectArea($event)" (onDeSelect) =onItemDeSelectArea($event)
+                            (onDeSelectAll)="onDeSelectAll($event)">
+                        </angular2-multiselect>
         
                         <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
         
@@ -947,22 +877,15 @@
         
                     <div class="ngSelect">
                         <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                        <!-- <ng-select [items]="neighborhood"  [addTag]="addTagFn" [hideSelected]="true" [multiple]="false"
-                            bindLabel="name"
-                            (change)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                            placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood">
-                        </ng-select>
-                        <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                            translate}}</span> -->
-        
-                        <ng-multiselect-dropdown
-                        (onSelect)="onItemSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                        (onDeSelect) = "onItemDeSelect(selectedNeighborhood, defaultSelectedNeighborhood, 'Neighborhood')"
-                        placeholder="{{'home.Select Neighborhood' | translate}}" [(ngModel)]="selectedNeighborhood"
-                        [settings]="dropdownSettingsAreaSell"
-                        [data]="neighborhood" >
-                        </ng-multiselect-dropdown>
-        
+                        
+                        <angular2-multiselect 
+                            [data]="dropdownListNeighborhood" 
+                            [(ngModel)]="selectedItemNeighborhood" 
+                            [settings]="settingsNeigbhorhood"
+                            (onSelect)="onItemSelectNeighborhood($event)"
+                            (onDeSelect) =onItemDeSelectNeighborhood($event)>
+                        </angular2-multiselect>
+
                         <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
                             translate}}</span>
         
@@ -974,12 +897,12 @@
         
                     <div class="ngSelect realState">
                         <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
-                        <ng-select placeholder="{{'home.Select type' | translate}}" [multiple]="false" [addTag]="addTagFn"
-                            [hideSelected]="true" bindLabel="name" [(ngModel)]="SelectedRealEstateType"
-                            (change)="validateInputs(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')">
-                            <ng-option *ngFor="let c of RealEstateType" [value]="c.id" [disabled]="c.disabled">{{c.name}}
-                            </ng-option>
-                        </ng-select>
+                        
+                        <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
+                            [settings]="settingsUnitType"
+                            (onSelect)="onItemSelectUnitType($event)">
+                        </angular2-multiselect>
+
                         <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
                             translate}}</span>
                     </div>
@@ -1007,26 +930,40 @@
                 <div class="another-option" >
                     <!-- (click)="file.click()" -->
     
-                    <div class="compound">
+                    <div class="ngSelect compound">
                         <input
                             type="checkbox"
-                            [(ngModel)]="checkboxVar"
-                            [ngModelOptions]="{standalone: true}" 
-                            
-                            />
+                            [checked]="checkboxVar"
+                            [disabled]="true"
+                            (change)="checkboxVar = !checkboxVar"/>
     
-                        <div class="multiselect" [ngClass]="{'disabled':!checkboxVar}">
-                            <ng-multiselect-dropdown
-                                    (onSelect)="onItemSelect(selectedArea, defaultSelectedArea, 'Area')"
-                                    (onDeSelect) = "onItemDeSelect(selectedArea, defaultSelectedArea, 'Area')"
-                                    placeholder="{{'home.Select Area'| translate}}" 
-                                    [(ngModel)]="selectedArea"
-                                    [settings]="dropdownSettingsArea"
-                                    [data]="cites">
-                            </ng-multiselect-dropdown>
+                        <div>
+                            <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
+                                <angular2-multiselect 
+                                    [data]="dropdownListCompound" 
+                                    [(ngModel)]="selectedItemCompound" 
+                                    [settings]="settingsCompound"
+                                    (onSelect)="onItemSelectCompound($event)"
+                                    (onDeSelect) =onItemDeSelectCompound($event)>
+                                </angular2-multiselect>
+            
+                            </div>
         
-                        </div>
+                            <div class="multiselect" *ngIf="checkboxVar">
+                                <angular2-multiselect 
+                                    [data]="dropdownListCompound" 
+                                    [(ngModel)]="selectedItemCompound" 
+                                    [settings]="settingsCompound"
+                                    (onSelect)="onItemSelectCompound($event)"
+                                    (onDeSelect) =onItemDeSelectCompound($event)>
+                                </angular2-multiselect>
+            
+                            </div>
+        
+                            <span *ngIf="SelectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+        
     
+                        </div>
     
                     </div>
     
