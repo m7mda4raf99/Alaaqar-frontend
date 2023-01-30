@@ -991,7 +991,7 @@ a{
 
     p{
         font-size: calc(1.25rem + 0.25vw) !important;
-        margin-top: 20px !important;
+        //margin-top: 20px !important;
     }
 }
 
@@ -1001,7 +1001,7 @@ a{
 }
 
 .home .first-sec .search-sec .ngSelect.main{
-    min-width: 11% !important;
+    min-width: 14% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.city{
@@ -1009,7 +1009,7 @@ a{
 }
 
 .home .first-sec .search-sec .ngSelect.realState{
-    min-width: 14% !important;
+    min-width: 19% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.separator{
@@ -1130,11 +1130,15 @@ span.dropdown-multiselect--active{
 
 .pure-checkbox input[type=checkbox]+label {
     font-weight: 600 !important;
+    padding-left: 1em !important;
+    color: #0e6a0e !important;
 }
 
 .pure-checkbox{
     .lazyContainer input[type=checkbox]+label {
         font-weight: 400 !important;
+        padding-left: 2em !important;
+        color: black !important;
     }
 }
 
@@ -1157,4 +1161,37 @@ span.dropdown-multiselect--active{
     .lazyContainer input[type=checkbox]:disabled+label:before {
         visibility: visible;
     }
+}
+
+.selected-list .c-btn {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.selected-list .countplaceholder {
+    position: unset !important;
+    transform: translateY(0%) !important;
+
+}
+
+.clear-all {
+    position: unset !important;
+    margin: 0px 10px !important;
+    transform: translateY(0%) !important;
+    // display: none;
+}
+
+.selected-list .c-list .c-token .c-remove {
+    display: none !important;
+}
+
+.selected-list .c-angle-down, .selected-list .c-angle-up {
+    position: unset !important;
+    transform: translateY(-40%) !important;
+    // padding: 1% 1% 1% 1% !important;
+}
+
+.selected-list .c-list .c-token {
+    padding: 0% !important;
 }

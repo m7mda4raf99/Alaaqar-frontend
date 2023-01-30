@@ -169,7 +169,10 @@ export class ApiService {
     return await this.SyncClient(`${this.BaseURL}api/my-unit/${id}`, 'GET', null, null)
   }
   public async getPublicUnit(id: string): Promise<any> {
+    console.log("apiservice: ", id)
     return await this.SyncClient(`${this.BaseURL}api/unit/${id}`, 'GET', null, null)
+    // return await this.SyncClient(`${this.BaseURL}api/unit/23828`, 'GET', null, null)
+
   }
   public async editUnit(id: string): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/edit-unit/${id}`, 'GET', null, null)
@@ -265,6 +268,11 @@ export class ApiService {
   public getUnitTypes() {
     return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
   }
+
+  public async getCity() : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getCity`, 'GET',null, null)
+  }
+
   public async getloc(data: any) : Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/getloc`, 'GET',data, null)
   }

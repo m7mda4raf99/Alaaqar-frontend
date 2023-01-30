@@ -143,7 +143,7 @@ export class LoginComponent implements OnInit {
       let obj = {
         'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
         'name': this.phoneForm.get('name')?.value,
-        'email': this.phoneForm.get('name')?.value,
+        'email': this.phoneForm.get('email')?.value,
         'avatar': this.avatarUrl
       }
       const register = await this.apiService.register(obj)

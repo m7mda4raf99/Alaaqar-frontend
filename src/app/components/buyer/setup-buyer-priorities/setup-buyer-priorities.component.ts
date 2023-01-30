@@ -195,7 +195,9 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
       max_price: '',
       city_id: '',
       areas: [],
+      locations: [],
       neighborhoods: [],
+      compounds: [],
       periorities: [],
       options: []
     }
@@ -206,7 +208,9 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
     obj.min_price = propertyValue['priceMinRange'] ? propertyValue['priceMinRange'] : 0
     obj.max_price = propertyValue['priceMaxRange'] ? propertyValue['priceMaxRange'] : ''
     obj.areas = propertyValue['selectedArea'] ? propertyValue['selectedArea'] : []
+    obj.locations = propertyValue['selectedLocation'] ? propertyValue['selectedLocation'] : []
     obj.neighborhoods = propertyValue['selectedNeighborhood'] ? propertyValue['selectedNeighborhood'] : []
+    obj.compounds = propertyValue['selectedCompound'] ? propertyValue['selectedCompound'] : []
     obj.propose = propertyValue['propose'] = propertyValue['propose']
     for (const key in formValues) {
       for (const k in formValues[key]) {
@@ -240,6 +244,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
     }
     return true
   }
+
   async addInquiry(inquiryData: any) {
     if (inquiryData.max_price === '') {inquiryData.max_price = 0}
     console.log(inquiryData)

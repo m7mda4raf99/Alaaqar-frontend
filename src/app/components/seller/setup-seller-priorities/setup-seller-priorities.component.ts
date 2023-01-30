@@ -49,6 +49,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         this.router.navigate(['/home'])
       }
       this.propertyDetailsData = val
+      console.log("ashraf:" , this.propertyDetailsData)
     })
     this.sub4 = this.appService.uploads$.subscribe(val => this.attachments = val)
     this.sellerForm = this.prioritiesService.sellerForm
