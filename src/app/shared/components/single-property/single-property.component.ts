@@ -78,12 +78,15 @@ export class SinglePropertyComponent implements OnInit {
     if (activeRoute.queryParams && activeRoute.queryParams.id) {
       if (activeRoute.queryParams.isPublic && activeRoute.queryParams.isPublic == 'true') {
         this.isPublic = true
+        console.log("activeRoute:", activeRoute.queryParams.id.length)
         const data = await this.getPublicPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
+        console.log("data1: ", data)
       } else {
         this.isPublic = false
         const data = await this.getPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
+        console.log("data2: ", this.data)
       }
     }
     this.sliderTags = []

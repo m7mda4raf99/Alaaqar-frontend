@@ -10,8 +10,11 @@
     @import "../blog/blog.component.scss";
     .first-sec {
         color: #2c2c2c;
+        padding-top: 5%;
+
         @media (max-width: 425px) {
-            margin-top: -75px;
+            margin-top: -110px;
+            padding-top: 0%;
         }
         .sm-bg {
             @media (min-width: 768px) {
@@ -28,6 +31,10 @@
 
                 h1 {
                     padding-top: 9% !important;
+
+                    @media (max-width: 425px) {
+                        padding-top: 0% !important;
+                    }
                 }
             }
             @media (max-width: 425px) {
@@ -86,7 +93,7 @@
                 }
                 background-color: #f7f7f7;
                 border-radius: 10px 10px 0px 0px;
-                margin-top: 5%;
+                margin-top: 3%;
                 overflow: hidden;
                 .tab {
                     display: inline-block;
@@ -215,7 +222,7 @@
             background: transparent url("../../assets/images/brian-babb-XbwHrt87mQ0.png") 0% 0% no-repeat padding-box;
             @media (max-width: 425px) {
                 background-size: contain;
-                min-height: 327px;
+                min-height: 315px;
             }
             .overlay {
                 cursor: auto;
@@ -299,6 +306,14 @@
                         @media (max-width: 425px) {
                             margin-top: 25px;
 						}
+
+                        .multiselect{
+                            // width: 20%;
+                            
+                            @media (max-width: 425px) {
+                                width: 100%;
+                            }
+                        }
 
 					}
 					
@@ -455,7 +470,7 @@
             }
             .ngSelect {
                 @media (min-width: 1024px) {
-                    min-width: 10.333333%;
+                    min-width: 22.333333%;
                     &.main{
                         min-width: 5%;
                     }
@@ -581,7 +596,8 @@
                             border: 1px solid #ccc;
                         }
                         &.dimmed {
-                            color: #999;
+                            color: black;
+                            font-size: 14px;
                         }
                     }
                     ul.dropdown-menu {
@@ -613,9 +629,6 @@
                             height: fit-content;
                         }
                         
-                        #fromTextbox {
-                            
-                        }
                         
                         #Rectangle_1314_rbk {
                             height: 24px;

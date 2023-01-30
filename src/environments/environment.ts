@@ -9,12 +9,12 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://dashboard-testing.alaaqar.com/',
+  baseUrl: 'https://dashboard-live.alaaqar.com/',
 };
 
 // export const environment = {
 //   production: false,
-//   baseUrl: 'https://dashboard-testing.alaaqar.com',
+//   baseUrl: 'https://dashboard-live.alaaqar.com',
 // };
 
 /*
