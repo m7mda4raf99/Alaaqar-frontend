@@ -219,8 +219,36 @@ export class SinglePropertyComponent implements OnInit {
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
+
+  print(data: any){
+    console.log("my data: ", data)
+  }
+
   getOptions(data: any) {
+    console.log("data ashraf: ", data)
+    
     if (data.criterias !== undefined) {
+
+      if(data['name_en'] === 'Interior'){
+        console.log('hereeeeeee')
+        // let description = data.criterias.length - 1
+        // let title = data.criterias.length - 2
+        // data.criterias.splice(description, 1);
+        // data.criterias.splice(title, 1);
+        let arr = []
+        for(let item of data.criterias){
+          if(item['criteria_name_en'] != 'Unit Title' && item['criteria_name_en'] != 'Write a unique description'){
+            arr.push(item)
+          }
+        }
+
+        // console.log("arr: ", arr)
+        data.criterias = arr
+        // console.log("data.criterias: ", data.criterias)
+
+      }
+
+
       return data?.criterias ? data.criterias : []
     }
   }

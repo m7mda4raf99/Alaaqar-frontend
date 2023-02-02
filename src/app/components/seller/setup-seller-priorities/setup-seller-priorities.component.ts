@@ -49,7 +49,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         this.router.navigate(['/home'])
       }
       this.propertyDetailsData = val
-      console.log("ashraf:" , this.propertyDetailsData)
+      // console.log("ashraf:" , this.propertyDetailsData)
     })
     this.sub4 = this.appService.uploads$.subscribe(val => this.attachments = val)
     this.sellerForm = this.prioritiesService.sellerForm
@@ -104,6 +104,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       this.appService.imgTags$.next(getImagTags)
     }
     const activeRoute = this.activeRouter.snapshot
+    console.log("activeRoute.queryParams.edit: ", activeRoute.queryParams.edit)
     if (activeRoute.queryParams && activeRoute.queryParams.edit && activeRoute.queryParams.id) {
       await this.fetchEditData(activeRoute.queryParams.id)
     } else {
@@ -142,8 +143,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       for (const k in sellerFormValue[key]) {
         if (Array.isArray(sellerFormValue[key][k])) {
           sellerFormValue[key][k].forEach((element: any) => {
-            console.log('element')
-            console.log(element.value)
+            // console.log('element')
+            // console.log(element.value)
             if (element?.id) {
               let criteriaID = this.getOptionCriteriaId(k)
               this.NotCompsearchObj.options.push({
@@ -155,12 +156,12 @@ export class SetupSellerPrioritiesComponent implements OnInit {
                 let criteriaID = this.getOptionCriteriaId(k)
                 if(criteriaID==29)
                 {
-                  console.log('description khado')
+                  // console.log('description khado')
                   this.description = element.value
                 }
                 if(criteriaID==28)
                 {
-                  console.log('title khado')
+                  // console.log('title khado')
                   this.title = element.value
                   this.NotCompsearchObj['title'] = this.propertyDetailsNotCompleted['title'] = element.value
                 }
@@ -180,8 +181,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     this.NotCompsearchObj['description'] = this.propertyDetailsNotCompleted['description'] = this.description
     this.NotCompsearchObj['title'] = this.propertyDetailsNotCompleted['title'] = this.title
 
-    console.log("NotCompsearchObj");
-    console.log(this.NotCompsearchObj)
+    // console.log("NotCompsearchObj");
+    // console.log(this.NotCompsearchObj)
    this.appService.addUnitData$.next(this.NotCompsearchObj)
   }
   async getCriteria(data: any) {
@@ -236,6 +237,10 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     this.criteria['data'] = unitData.data.criteria
     this.criteria.data['icons_path'] = unitData.data.icons_path
     // this.criteria.data['price'] = unitData.data.price
+
+    console.log("this.editObj: ", this.editObj)
+    console.log("this.criteria: ", this.criteria)
+
     this.setupCriteriaEdit()
     return true
   }
@@ -265,7 +270,10 @@ export class SetupSellerPrioritiesComponent implements OnInit {
               let sValue: any = values
               sValue['iconUrl'] = this.baseUrl + sValue.icon
               if (arr[index]?.length >= Object.keys(obj).length) { index += 1 }
-              arr[index].push(sValue)
+
+              if(!arr[index].includes(data[k])){
+                arr[index].push(sValue)
+              }
             }
           }
         }
@@ -294,7 +302,11 @@ export class SetupSellerPrioritiesComponent implements OnInit {
               name_en: "Unit photos",
               options: []
             }
-            this.data[k].push(obj)
+            console.log("here1 before: ", this.data[k])
+            if(!this.data[k].includes(obj)){
+              this.data[k].push(obj)
+            }
+            console.log("here1 after: ", this.data[k])
             this.appService.tabFour$.next(this.data[k])
           }
           // console.log("this.data2: ", this.data)
@@ -356,7 +368,11 @@ export class SetupSellerPrioritiesComponent implements OnInit {
             if (key <= 4) {
               delete Object.assign(data[k], { ['name_en']: data[k]['criteria_name_en'] })['criteria_name_en'];
               delete Object.assign(data[k], { ['name_ar']: data[k]['criteria_name_ar'] })['criteria_name_ar'];
-              arr[key].push(data[k])
+              
+              if(!arr[key].includes(data[k])){
+                arr[key].push(data[k])
+              }
+
             }
           }
         }
@@ -382,7 +398,13 @@ export class SetupSellerPrioritiesComponent implements OnInit {
               name_en: "Unit photos",
               options: []
             }
-            this.data[k].push(obj)
+            
+            console.log("here2 before: ", this.data[k])
+            if(!this.data[k].includes(obj)){
+              this.data[k].push(obj)
+            }
+            console.log("here2 after: ", this.data[k])
+
             this.appService.tabFour$.next(this.data[k])
           }
           let control = this.prioritiesService.sellerForm.get(k) as FormGroup
@@ -480,21 +502,26 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     
     let criteria_data = this.data[formId] 
 
-    if(formId === '1'){
-      let array = []
-
-      for(let i = 0; i < criteria_data.length - 2; i++){
-        array.push(criteria_data[i])
+    if(Array.isArray(criteria_data)){
+      if(formId === '1'){
+        let array = []
+  
+        for(let i = 0; i < criteria_data.length - 2; i++){
+          array.push(criteria_data[i])
+        }
+        criteria_data = array
+      } 
+      else if(formId === '4'){
+        let array = []
+  
+        for(let i = 0; i < criteria_data.length - 1; i++){
+          array.push(criteria_data[i])
+        }
+        criteria_data = array
       }
-      criteria_data = array
-    } else if(formId === '4'){
-      let array = []
-
-      for(let i = 0; i < criteria_data.length - 1; i++){
-        array.push(criteria_data[i])
-      }
-      criteria_data = array
     }
+
+    
 
     return criteria_data
   }
@@ -519,23 +546,32 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   doSearchQuery() {
     let sellerFormValue = this.sellerForm.value
     let propertyValue = this.propertyDetailsData
+
+    console.log("sellerFormValue: ", sellerFormValue)
+    console.log("propertyValue: ", propertyValue)
+
     this.propertyDetailsObj = {}
     if (Object.keys(propertyValue).length > 0) {
       this.searchObj.images = this.attachments
+      console.log("this.searchObj.images: ",this.searchObj.images)
       for (const key in propertyValue) {
         this.searchObj['price'] = this.propertyDetailsObj['price'] = propertyValue['priceMinRange']
         this.searchObj['description'] = this.propertyDetailsObj['description'] = propertyValue['unitDescription']
         this.searchObj['city_id'] = this.propertyDetailsObj['city_id'] = propertyValue['selectedCountryId']
         this.searchObj['area_id'] = this.propertyDetailsObj['area_id'] = Array.isArray(propertyValue['selectedArea']) ? propertyValue['selectedArea'][0] : propertyValue['selectedArea']
         this.searchObj['type_id'] = this.propertyDetailsObj['type_id'] = propertyValue['SelectedRealEstateType']
-        this.propertyDetailsObj['neighborhood_id'] = Array.isArray(propertyValue['selectedNeighborhood']) && propertyValue['selectedNeighborhood'][0] ? propertyValue['selectedNeighborhood'][0]['id'] : propertyValue['selectedNeighborhood']
-        if (Array.isArray(propertyValue['selectedNeighborhood']) && propertyValue['selectedNeighborhood'].length > 0) {
-          this.searchObj['neighborhood_id'] = propertyValue['selectedNeighborhood'][0]['id']
-        } else if (propertyValue['selectedNeighborhood'] && propertyValue['selectedNeighborhood'].constructor === Object) {
-          this.searchObj['neighborhood_id'] = propertyValue['selectedNeighborhood']['id']
-        } else {
-          this.searchObj['neighborhood_id'] = ''
-        }
+        // this.propertyDetailsObj['neighborhood_id'] = Array.isArray(propertyValue['selectedNeighborhood']) && propertyValue['selectedNeighborhood'][0] ? propertyValue['selectedNeighborhood'][0]['id'] : propertyValue['selectedNeighborhood']
+        this.searchObj['neighborhood_id'] = this.propertyDetailsObj['neighborhood_id'] = Array.isArray(propertyValue['selectedNeighborhood']) ? propertyValue['selectedNeighborhood'][0] : propertyValue['selectedNeighborhood']
+        this.searchObj['location_id'] = this.propertyDetailsObj['location_id'] = Array.isArray(propertyValue['selectedLocation']) ? propertyValue['selectedLocation'][0] : propertyValue['selectedLocation']
+        this.searchObj['compound_id'] = this.propertyDetailsObj['compound_id'] = Array.isArray(propertyValue['selectedCompound']) ? propertyValue['selectedCompound'][0] : propertyValue['selectedCompound']
+
+        // if (Array.isArray(propertyValue['selectedNeighborhood']) && propertyValue['selectedNeighborhood'].length > 0) {
+        //   this.searchObj['neighborhood_id'] = propertyValue['selectedNeighborhood'][0]['id']
+        // } else if (propertyValue['selectedNeighborhood'] && propertyValue['selectedNeighborhood'].constructor === Object) {
+        //   this.searchObj['neighborhood_id'] = propertyValue['selectedNeighborhood']['id']
+        // } else {
+        //   this.searchObj['neighborhood_id'] = ''
+        // }
         this.propertyDetailsObj['selectedAreaObj'] = propertyValue['selectedAreaObj']
         this.propertyDetailsObj[key] = propertyValue[key]
 
@@ -556,10 +592,27 @@ export class SetupSellerPrioritiesComponent implements OnInit {
             } else {
               if (element && element.value !== undefined && element.value !== null) { 
                 let criteriaID = this.getOptionCriteriaId(k)
-                this.searchObj.options.push({
-                  option: Number(element.value),
-                  criteria: criteriaID
-                })
+                if(criteriaID==29)
+                {
+                  // console.log('description khado')
+                  this.searchObj['description'] = this.propertyDetailsObj['description'] = element.value
+
+                }
+                if(criteriaID==28)
+                {
+                  // console.log('title khado')
+                  this.searchObj['title'] = this.propertyDetailsObj['title'] = element.value
+                }
+                // console.log('criteriaID')
+                // console.log(criteriaID)
+                if(criteriaID!=29 && criteriaID !=28)
+                {
+                  this.searchObj.options.push({
+                    option: Number(element.value),
+                    criteria: criteriaID
+                  })
+                }
+
               }
             }
           });
@@ -587,8 +640,12 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       this.appService.query$.next('sell')
       this.router.navigate(['/sell/property-details'])
     }
+    // console.log('searchObj')
+    // console.log(this.searchObj)
 
   }
+
+
   getOptionCriteriaId(ObjKey: string) {
 
     let id = ''

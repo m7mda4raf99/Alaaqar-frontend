@@ -10,7 +10,7 @@
     @import "../blog/blog.component.scss";
     .first-sec {
         color: #2c2c2c;
-        padding-top: 5%;
+        // padding-top: 5%;
 
         @media (max-width: 425px) {
             margin-top: -110px;
@@ -419,6 +419,12 @@
     
                         .compound{
                             display: flex;
+
+                            margin-top: 0;
+                            @media (max-width: 425px) {
+                                margin-top: 25px;
+                            }
+
                         }
     
                         .disabled{
@@ -619,7 +625,8 @@
                         border-radius: 10px;
                         // transform: translate(0px, 36px) !important;
                         @media (max-width: 425px) {
-                            width: 340px;
+                            width: 320px;
+                            margin-top: 0px !important ;
                         }
                         
                         #price_range{

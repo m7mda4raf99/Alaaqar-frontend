@@ -86,6 +86,9 @@ export class BuyerUnitDetailsComponent implements OnInit {
     let unit = await this.apiService.getPublicUnit(snapshot.queryParams.id)
     this.spinner.hide();
     this.proerityType = 'buy'
+
+    console.log("unit.data.tags: ", unit.data.tags)
+
     let slider: any = []
     if (unit.data.tags !== undefined && unit.data.tags.length > 0) {
       unit.data.tags.forEach((element: any, i: number) => {

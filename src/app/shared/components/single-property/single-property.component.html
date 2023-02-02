@@ -43,40 +43,52 @@
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="actions">
-                        <div class="head row">
-                            <div class="col float-start">
-                                <p>{{data?.propose?.toUpperCase()}}</p>
-                            </div>
-                            <div class="col float-end">
-                                <!-- <img *ngIf="propertyDetails.itemIsFavorite" (click)="AddToFavorite(propertyDetails)" class="fav float-end" src="../../../../assets//images/Path 165 copy.png" />
-                                <img *ngIf="!propertyDetails.itemIsFavorite" (click)="AddToFavorite(propertyDetails)" class="fav float-end" src="../../../../assets//images/Path 165.png" />
-                                <img (click)="copyUrl()" src="../../../../assets/images/Path 161.svg" class="float-end" /> -->
-                            </div>
-                        </div>
-                        <div class="accuracy row" *ngIf="proerityType === 'buy' ">
-                            <div class="col-8">
-                                <p class="text-head">Results Accuracy</p>
-                                <p class="text-desc">
-                                    Based on selected Priorities, your results will match your choices by 76%
-                                </p>
-                            </div>
-                            <div class="col-4">
-                                <div class="percent float-end">
-                                    <span class="float-end ">67%</span>
-
+                        <div>
+                            <div class="head row">
+                                <div class="col float-start">
+                                    <p>{{data?.propose?.toUpperCase()}}</p>
+                                </div>
+                                <div class="col float-end">
+                                    <!-- <img *ngIf="propertyDetails.itemIsFavorite" (click)="AddToFavorite(propertyDetails)" class="fav float-end" src="../../../../assets//images/Path 165 copy.png" />
+                                    <img *ngIf="!propertyDetails.itemIsFavorite" (click)="AddToFavorite(propertyDetails)" class="fav float-end" src="../../../../assets//images/Path 165.png" />
+                                    <img (click)="copyUrl()" src="../../../../assets/images/Path 161.svg" class="float-end" /> -->
                                 </div>
                             </div>
-                        </div>
-                        <p class="price">
-                             {{'propertyDetails.EGP' | translate}} {{numberWithCommas(data?.price ? data.price : '')}}
+                            <div class="accuracy row" *ngIf="proerityType === 'buy' ">
+                                <div class="col-8">
+                                    <p class="text-head">Results Accuracy</p>
+                                    <p class="text-desc">
+                                        Based on selected Priorities, your results will match your choices by 76%
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <div class="percent float-end">
+                                        <span class="float-end ">67%</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="title">
+                                {{renderString(data?.title)}}
+
                         </p>
 
-                        <div class="row">
+                            <p class="price">
+                                {{'propertyDetails.EGP' | translate}} {{numberWithCommas(data?.price ? data.price : '')}}
+                            </p>
                             <span class="location" style="color: #ABABB6;">
                                 <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
-                                {{activeLang === 'en' ? data.area_name_en : data.area_name_ar}}
+                            {{ print(data) }}
+
+                            {{ data?.compound_name_en ? (activeLang === 'en' ? data?.compound_name_en : data?.compound_name_ar): '' }}{{ data?.compound_name_en ? ', ' : '' }}
+                            {{ data?.neighborhood_name_en ? (activeLang === 'en' ? data?.neighborhood_name_en : data?.neighborhood_name_ar) : ' ' }}{{ data?.neighborhood_name_en ? ', ' : '' }}
+                            {{activeLang === 'en' ? data?.location_name_en : data?.location_name_ar}}, 
+                            {{activeLang === 'en' ? data?.area_name_en : data?.area_name_ar}}, 
+                            {{activeLang === 'en' ? data?.city_name_en : data?.city_name_ar}}
+                            
                             </span>
-                            <div class="row" style="color:#5A8DEE">
+                            <div style="color:#5A8DEE">
                                 <p style="padding:10px 20px">
                                     {{data?.status}}
                                 </p>
@@ -84,17 +96,17 @@
                             <p *ngIf="proerityType === 'sell' " class="mt-5" style="color: #5A8DEE;">
                                 {{'propertyDetails.Click assign to evaluator' | translate}}
                             </p>
-                            <!-- <button (click)="editUnit(params.id)" class="btn more edit-unit">Edit this unit</button> -->
-
-                            <!-- <button (click)="editUnit()" *ngIf="proerityType === 'sell' "
-                                class="btn more edit-unit">Edit this unit</button>
-                            <button *ngIf="proerityType === 'sell' " class="btn button-success more"
-                                (click)="addUnit(content)">Assign to evaluator</button>
-                            <button *ngIf="proerityType === 'buy' " class="btn button-success more"
-                                (click)="open(content)">Assign to evaluator</button> -->
-                                <button *ngIf="isPublic" style="margin-top: 50%;"  class="btn button-success more" (click)="requestVisit(sellerContent)">{{'propertyDetails.Request a visit' | translate}}</button>
 
                         </div>
+                        <!-- <button (click)="editUnit(params.id)" class="btn more edit-unit">Edit this unit</button> -->
+
+                        <!-- <button (click)="editUnit()" *ngIf="proerityType === 'sell' "
+                            class="btn more edit-unit">Edit this unit</button>
+                        <button *ngIf="proerityType === 'sell' " class="btn button-success more"
+                            (click)="addUnit(content)">Assign to evaluator</button>
+                        <button *ngIf="proerityType === 'buy' " class="btn button-success more"
+                            (click)="open(content)">Assign to evaluator</button> -->
+                        <button *ngIf="isPublic"  class="btn button-success more" (click)="requestVisit(sellerContent)">{{'propertyDetails.Request a visit' | translate}}</button>
 
                     </div>
                 </div>
@@ -105,6 +117,7 @@
                     <p class="title">{{'propertyDetails.Details' | translate}}</p>
                     <p class="desc">
                         {{renderString(data?.description)}}
+
                     </p>
                 </div>
                 <div class="col-12 more-details">
@@ -112,8 +125,9 @@
                         *ngFor="let item of getItemCriteria(data) | keyvalue; let index = index;">
                         <p class="head">{{getParentName(item.value)}}</p>
                         <div class="row">
-                            <div class="col-xs-6 col-md-4 col-lg-3 mt-3"
+                            <div class="col-xs-6 col-md-4 col-lg-2 mt-3 fit-content"
                                 *ngFor="let sItem of getOptions(item.value) | keyvalue">
+                                
                                 <div class="box">
                                     <span class="icon">
                                         <img src="{{renderIconUrl(sItem.value)}}" alt="..."/>

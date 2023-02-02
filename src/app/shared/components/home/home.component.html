@@ -627,7 +627,8 @@
 
                         <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
                         [settings]="settingsCity"
-                        (onSelect)="onChangeCity($event)">
+                        (onSelect)="onChangeCity($event)"
+                        (onDeSelectAll)="onDeSelectAllCity()">
                         </angular2-multiselect>
 
 
@@ -645,7 +646,7 @@
                             [(ngModel)]="selectedItemArea" 
                             [settings]="settingsArea" 
                             (onSelect)="onItemSelectArea($event)" (onDeSelect) =onItemDeSelectArea($event)
-                            (onDeSelectAll)="onDeSelectAll($event)">
+                            (onDeSelectAll)="onDeSelectAllArea()">
                         </angular2-multiselect>
         
                         <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
@@ -680,7 +681,7 @@
                 
                         <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
                             [settings]="settingsUnitType"
-                            (onSelect)="onItemSelect(SelectedRealEstateType, defaultSelectedRealEstateType, 'Real estate type')">
+                            (onSelect)="onItemSelectUnitType($event)">
                         </angular2-multiselect>
 
 
@@ -696,7 +697,7 @@
                         <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
                         <div class="dropdown" ngbDropdown>
                             <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
-                                (click)="focusMinPriceInput()" class="btn dropdown-toggle setPriceBtn ngSelect-input"
+                                class="btn dropdown-toggle setPriceBtn ngSelect-input"
                                 type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{setPricePlaceHolder()}}
                             </button>
@@ -845,7 +846,8 @@
                         
                         <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
                         [settings]="settingsCity"
-                        (onSelect)="onChangeCity($event)">
+                        (onSelect)="onChangeCity($event)"
+                        (onDeSelectAll)="onDeSelectAllCity()">
                         </angular2-multiselect>
 
                         <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
@@ -863,7 +865,7 @@
                             [(ngModel)]="selectedItemArea" 
                             [settings]="settingsArea" 
                             (onSelect)="onItemSelectArea($event)" (onDeSelect) =onItemDeSelectArea($event)
-                            (onDeSelectAll)="onDeSelectAll($event)">
+                            (onDeSelectAll)="onDeSelectAllArea()">
                         </angular2-multiselect>
         
                         <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
