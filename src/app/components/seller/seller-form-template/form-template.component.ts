@@ -100,24 +100,38 @@ export class SellFormTemplateComponent implements OnInit {
             uploads.get('Unit photos')?.setValue([this.myFiles])
 
             for (const sTag in this.myFilesPreview) {
-              this.myFilesPreview[sTag].forEach((el: any) => {
-                let sObj: any = {
-                  tag_id: '',
-                  image: ''
-                }
-                this.imgTags.forEach((element: any) => {
-                  if (element.name_ar === sTag || element.name_en === sTag) {
-                    sObj.tag_id = element.id
+              if(sTag != "Initial"){
+                this.myFilesPreview[sTag].forEach((el: any) => {
+                  let sObj: any = {
+                    tag_id: '',
+                    image: ''
                   }
+                  this.imgTags.forEach((element: any) => {
+                    if (element.name_ar === sTag || element.name_en === sTag) {
+                      sObj.tag_id = element.id
+                    }
+                  });
+                  sObj.image = el
+                  images.push(sObj)
                 });
-                sObj.image = el
-                images.push(sObj)
-              });
 
-
+              }
             }
             this.appService.uploads$.next(images)
           }
+
+          // let myFilesPreview: any = {}
+
+          // for(let item in this.myFilesPreview){
+          //   if(item != "Initial"){
+          //     myFilesPreview[item] = this.myFilesPreview[item]
+          //   }
+          // }
+
+          // console.log("this.myFilesPreview2", this.myFilesPreview)
+          // console.log("myFilesPreview2", myFilesPreview)
+
+
           this.appService.propertyImagesPreview$.next(this.myFilesPreview)
         })
       }
@@ -367,7 +381,7 @@ export class SellFormTemplateComponent implements OnInit {
       
     }
     this.file.nativeElement.value = ''
-    console.log("myFilesPreview: ", this.myFilesPreview)
+    // console.log("myFilesPreview: ", this.myFilesPreview)
   }
 
   fileEvent(e: any, key: any) {
@@ -453,10 +467,10 @@ export class SellFormTemplateComponent implements OnInit {
 
   deleteFromInitial(key: any, index: any){
     let x = this.myFilesPreview['Initial'][0]
-    console.log("x is here: ", x)
+    // console.log("x is here: ", x)
 
     let i = this.myFilesPreview['Initial'].indexOf(x, 0);
-    console.log("x index is here: ", i)
+    // console.log("x index is here: ", i)
 
     let tagArray = this.myFilesPreview['Initial'].filter((img: any) => img['tag'] === key)
     let deletedImage = tagArray[index]
@@ -517,24 +531,43 @@ export class SellFormTemplateComponent implements OnInit {
     //   this.active += 1
     // }
     // if (this.active === Number(Object.keys(this.imagesForm.controls).length)) {
+
+    // let myFilesPreview: any = {}
+
+    // for(let item in this.myFilesPreview){
+    //   if(item != "Initial"){
+    //     myFilesPreview[item] = this.myFilesPreview[item]
+    //   }
+    // }
+
+    // delete myFilesPreview['Initial']
+
+
+
+    // console.log("this.myFilesPreview1", this.myFilesPreview)
+    // console.log("myFilesPreview1", myFilesPreview)
+
+
     this.appService.propertyImagesPreview$.next(this.myFilesPreview)
     let tags = this.appService.imgTags$.value?.data
     let images: any = []
     let imagesToUpload: any = []
     for (const sTag in this.myFilesPreview) {
-      this.myFilesPreview[sTag].forEach((el: any) => {
-        let sObj: any = {
-          tag_id: '',
-          image: ''
-        }
-        tags.forEach((element: any) => {
-          if (element.name_ar === sTag || element.name_en === sTag) {
-            sObj.tag_id = element.id
+      if(sTag != "Initial"){
+        this.myFilesPreview[sTag].forEach((el: any) => {
+          let sObj: any = {
+            tag_id: '',
+            image: ''
           }
+          tags.forEach((element: any) => {
+            if (element.name_ar === sTag || element.name_en === sTag) {
+              sObj.tag_id = element.id
+            }
+          });
+          sObj.image = el
+          images.push(sObj)
         });
-        sObj.image = el
-        images.push(sObj)
-      });
+      }
 
 
     }
@@ -556,14 +589,14 @@ export class SellFormTemplateComponent implements OnInit {
 
     }
 
-    console.log("images")
-    console.log(images)
-    console.log("imagesToUpload")
-    console.log(imagesToUpload)
-    console.log("myFiles")
-    console.log(this.myFiles)
-    console.log("my images")
-    console.log(this.allImages)
+    // console.log("images")
+    // console.log(images)
+    // console.log("imagesToUpload")
+    // console.log(imagesToUpload)
+    // console.log("myFiles")
+    // console.log(this.myFiles)
+    // console.log("my images")
+    // console.log(this.allImages)
     
 
     this.appService.uploads$.next(images)
@@ -584,7 +617,7 @@ export class SellFormTemplateComponent implements OnInit {
   imagesPreview() {
     let arr = []
 
-    console.log("this.myFilesPreview: ", this.myFilesPreview) 
+    // console.log("this.myFilesPreview: ", this.myFilesPreview) 
 
     for (let [k, val] of Object.entries(this.myFilesPreview)) {
       if(k != 'Initial'){
@@ -601,7 +634,7 @@ export class SellFormTemplateComponent implements OnInit {
       }
       
     }
-    console.log(arr)
+    // console.log(arr)
     return arr
   }
 
@@ -635,7 +668,7 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   print(data: any, key: any) {
-    console.log(data)
+    // console.log(data)
   }
 
 
@@ -643,36 +676,33 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   filterTitleDescription(data: any[]){
+    if(Array.isArray(data) && data.length > 0){
       return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
-    // if(data.length > 0){
-    //   return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
-    // }else {
-    //   return []
-    // }
+    }else {
+      return []
+    }
   }
 
   filterOther(data: any[]){
-    return data.filter(x => x.name_en != 'Unit Title' 
+    if(Array.isArray(data) && data.length){
+      return data.filter(x => x.name_en != 'Unit Title' 
       && x.name_en != 'Write a unique description'
       && x.icon != 'upload.svg');
-    // if(data.length){
-    //   return data.filter(x => x.name_en != 'Unit Title' 
-    //   && x.name_en != 'Write a unique description'
-    //   && x.icon != 'upload.svg');
-    // }else{
-    //   return []
-    // }
+    }else{
+      return []
+    }
     
   }
 
   filterImage(data: any[]){
-      return data.filter(x => x.icon === 'upload.svg');
+    console.log("data now1: ", data)
 
-    // if(data.length){
-    //   return data.filter(x => x.icon === 'upload.svg');
-    // }else{
-    //   return []
-    // }
+    if(Array.isArray(data) && data.length){
+      console.log("data now2: ", data.filter(x => x.icon === 'upload.svg'))
+      return data.filter(x => x.icon === 'upload.svg');
+    }else{
+      return []
+    }
   }
 
   onChangeImageTag(event: any, index: any){
@@ -682,7 +712,7 @@ export class SellFormTemplateComponent implements OnInit {
 
     this.myFilesPreview['Initial'][index]['tag'] = selectedTag
 
-    console.log(this.myFilesPreview)
+    // console.log(this.myFilesPreview)
 
 
     // if (!this.myFiles[this.selectedImageTag] && !this.myFiles[this.selectedImageTag]?.length) {
@@ -709,7 +739,7 @@ export class SellFormTemplateComponent implements OnInit {
           delete this.myFilesPreview[key]
         }
       }
-      console.log("here: ", this.myFilesPreview)
+      // console.log("here: ", this.myFilesPreview)
     }else{
       this.myFilesPreview = {}
     }

@@ -83,15 +83,25 @@ export class UnitDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("this.propertyData: ", this.propertyData)
+
+    // if(this.propertyImages['Initial']){
+    //   delete this.propertyImages['Initial']
+    // }
+
     this.spinner.show();
     let propertyData: any = {
       options: [],
       optionsView: []
     }
+    console.log("propertyData: ", propertyData)
+
     for (const key in this.propertyData) {
       if (this.propertyData[key]?.constructor !== Object) {
         propertyData[key] = this.propertyData[key]
       }
+      console.log("key: ", key)
+
       let parents: any = [
         {
           name_en: 'Interior',
@@ -111,6 +121,8 @@ export class UnitDetailsComponent implements OnInit {
         }
       ]
       let i = Number(key) - 1
+      console.log("i: ", i)
+      
       if (i !== NaN && i < 3) {
         propertyData.optionsView.push({
           name_en: parents[i].name_en,
@@ -131,21 +143,33 @@ export class UnitDetailsComponent implements OnInit {
     }
     this.propertyDetails = propertyData
     this.propertyDataView = propertyData.optionsView
+
+    console.log("propertyDetails: ", this.propertyDetails)
+    console.log("propertyDataView: ", this.propertyDataView)
+    console.log("propertyImages: ", this.propertyImages)
+
     let slider: any = []
     for (const key in this.propertyImages) {
-      this.sliderTags.push(key)
-      this.propertyImages[key].forEach((element: any, i: number) => {
-        slider.push({
-          img: element,
-          title: `Slide ${i}`,
-          tag: key
-        })
-      });
+      if(key != 'Initial'){
+        this.sliderTags.push(key)
+        this.propertyImages[key].forEach((element: any, i: number) => {
+          slider.push({
+            img: element,
+            title: `Slide ${i}`,
+            tag: key
+          })
+        });
+      }
     }
     this.sliderData = slider
     this.data = slider
     this.tagLength = this.data.length
     this.spinner.hide();
+    console.log("sliderData: ", this.sliderData)
+    console.log("data: ", this.data)
+    console.log("tagLength: ", this.tagLength)
+
+    
   }
   getViewName(value: any) {
     return this.activeLang === 'en' ? value.name_en : value.name_ar
@@ -285,8 +309,15 @@ export class UnitDetailsComponent implements OnInit {
       let unitData = this.unitData
       const user = this.cookieService.get('user')
       unitData['user_id'] = JSON.parse(user).id
+
+      console.log("unitData: ", unitData)
+
       const addUnitRes = await this.apiService.addUnit(unitData)
       this.spinner.hide()
+
+      console.log("addUnitRes: ", addUnitRes)
+
+
       if (addUnitRes !== false) {
         let evaluator = addUnitRes.data.evaluator
         this.evaluator.name = evaluator.name

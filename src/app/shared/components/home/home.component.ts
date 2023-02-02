@@ -43,29 +43,17 @@ export class HomeComponent implements OnInit {
   dropdownListArea: any = [];
   dropdownListCompound: any = [];
   dropdownListNeighborhood: any = [];
+  
   selectedItemCity: any = [];
   selectedItemArea: any = [];
   selectedItemNeighborhood: any = [];
   selectedItemCompound: any = [];
+  
   settingsArea = {};
   settingsNeigbhorhood = {};
   settingsCompound = {};
   settingsCity = {};
   settingsUnitType = {};
-
-  dropdownListashraf= [
-    {"id":1,"itemName":"India"},
-    {"id":2,"itemName":"Singapore"},
-    {"id":3,"itemName":"Australia"},
-    {"id":4,"itemName":"Canada"},
-    {"id":5,"itemName":"South Korea"},
-    {"id":6,"itemName":"Germany"},
-    {"id":7,"itemName":"France"},
-    {"id":8,"itemName":"Russia"},
-    {"id":9,"itemName":"Italy"},
-    {"id":10,"itemName":"Sweden"}
-  ];
-  selectedItemsashraf: any = [];
 
   video_src = 'alaqaar-solution.mp4'
 
@@ -80,7 +68,6 @@ export class HomeComponent implements OnInit {
   sub2 = new Subscription()
   activeTab: string = 'buy'
   countries: any = []
-  geographical: any = {}
   activeCity: number = 1
   cites = [
     { id: 1, name: "Cairo", disabled: false,units_count:0}
@@ -142,14 +129,7 @@ export class HomeComponent implements OnInit {
   blogs: any = []
   aboutUs: any = {}
 
-  selectedItems: any = [];
-  dropdownSettings: IDropdownSettings = {};
-  dropdownSettingsArea: IDropdownSettings = {};
-  dropdownSettingsAreaSell: IDropdownSettings = {};
-
-
   isLoggedIn: boolean = false
-  unit_count_array: any = [];
   Current_unit_count_array: any =[]
   proposeID: number = 2
 
@@ -164,11 +144,11 @@ export class HomeComponent implements OnInit {
     max_price: null,
     // propose:'buy'
   }
+
   Comp: any = []
   Neigh: any = []
 
   isListVisible: boolean = true;
-  previousValue: any;
 
   buyRentSearchFlag: boolean = false;
 
@@ -198,7 +178,6 @@ export class HomeComponent implements OnInit {
       this.getNeig(false)
       this.getAreaLocations(false)
       this.getCompound(false)
-      this.setMultiSelection()
       if (val.toUpperCase() === 'AR') {
         this.defaultSelectedArea = 'اختار المنطقة'
         this.defaultSelectedNeighborhood = "اختار الحي"
@@ -208,7 +187,6 @@ export class HomeComponent implements OnInit {
         this.defaultSelectedNeighborhood = 'Select Neighborhood'
         this.defaultSelectedRealEstateType = 'Select Type'
       }
-      //await this.getGeographical(this.activeCity, false)
     }
     )
     this.sub2 = this._activatedRoute.queryParams.subscribe(params => {
@@ -240,26 +218,23 @@ export class HomeComponent implements OnInit {
     this.spinner.show()
     
     await this.setPrice()
+    await this.getCity(true)
+    await this.getAreaLocations(true)
+    this.setMultiSelection('buy')
+    this.getUnitTypes()
+    // await this.setupUnitTypesCount()
+    // await this.setupMinPrice()
+
+    this.spinner.hide()
 
     if (!this.recentlyAdded.length) {
       await this.getRecentlyAdded()
     }
-
-    await this.getCity(true)
-    await this.getAreaLocations(true)
-    //await this.getGeographical(this.activeCity, false)
     this.getHomeAboutSectionData()
     this.getFooterContact()
     this.getAboutUsHome()
     this.getHomeBlogs()
-    this.getUnitTypes()
-    this.setMultiSelection()
-    await this.setupUnitTypesCount()
-    await this.setupMinPrice()
-    this.spinner.hide()
     this.resetFormData()
-
-    //await this.getLoc()
   }
   
   async setPrice(){
@@ -549,23 +524,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     }
   }
 
-  onChangePrice(){
-    this.PriceNotValid = false
-  }
-
-  onItemSelect(selected: any, defaultVal: any, label: string): boolean {
-    if (label === 'Area'){
-      this.selectedAreaNotValid = false
-    }
-
-    if (label === 'Neighborhood'){
-      this.SelectedNeighborhoodNotValid = false
-    }
-
-
-    return this.validateInputs(selected, defaultVal, label)
-  }
-
+  // AREA
   async onItemSelectArea(item: any){
     this.selectedAreaNotValid = false
 
@@ -611,10 +570,6 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
  
   }
 
-  onDeSelectAll(item:any ){
-    this.checkboxVar = false
-  }
-
   onItemDeSelectArea(item: any){
     let area: any = []
     let location: any = []
@@ -646,6 +601,13 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           }
       }
 
+      for (let i = 0; i < this.selectedItemCompound.length; i++) {
+        if(this.selectedItemCompound[i]['areaID']==item['areaID']){
+            this.selectedItemCompound.splice(i, 1);
+            i-- 
+          }
+      }
+
       // console.log("ashrafff: ", this.dropdownListCompound)
 
       if(this.dropdownListCompound.length === 0){
@@ -665,6 +627,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           i-- 
         }
       }
+
+      for (let i = 0; i < this.selectedItemNeighborhood.length; i++) {
+        if(this.selectedItemNeighborhood[i]['locationID']==item['id']){
+          this.selectedItemNeighborhood.splice(i, 1);
+          i-- 
+        }
+      }
+
       for (let i = 0; i < this.Neigh.length; i++) {
         if(this.Neigh[i]==item['id']){
           this.Neigh.splice(i, 1);
@@ -675,8 +645,13 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   }
 
-  
+  onDeSelectAllArea(){
+    this.checkboxVar = false
+    this.selectedItemNeighborhood = []
+    this.selectedItemCompound = []
+  }
 
+  // NEIHGBORHOOD
   onItemSelectNeighborhood(item: any){
     this.SelectedNeighborhoodNotValid = false
     this.search_model.neighborhoods = []
@@ -694,6 +669,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     }
   }
 
+  // UNIT TYPE
   onItemSelectUnitType(item: any){
     this.SelectedRealEstateTypeNotValid = false
     
@@ -702,6 +678,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   }
 
+  // COMPOUND
   onItemSelectCompound(item: any){
     this.SelectedCompoundNotValid = false
     this.search_model.compounds = []
@@ -719,67 +696,12 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     }
   }
 
-  async onItemDeSelect(selected: any, defaultVal: any, label: string): Promise<boolean> {
-    if (label === 'Area'){
-      if (Array.isArray(selected)) {
-        if(selected.length === 0){
-          this.spinner.show()
-         //await this.getGeographical(this.activeCity, true)
-         this.spinner.hide()
-         return true
-        }
-      }
-    }
-
-    // if (label === 'Neighborhood'){
-    //   if (Array.isArray(selected) && selected.length === 0) {
-    //       this.SelectedNeighborhoodNotValid = true
-    //   }
-    // }
-
-
-    return this.validateInputs(selected, defaultVal, label)
+  // PRICE
+  onChangePrice(){
+    this.PriceNotValid = false
   }
 
-  onSelectAll(items: any) {
-    //console.log(items);
-  }
-
-  setMultiSelection(){
-    
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      itemsShowLimit: 1,
-      allowSearchFilter: true,
-      limitSelection: 5,
-    };
-
-    this.dropdownSettingsArea = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      itemsShowLimit: 1,
-      allowSearchFilter: true,
-      limitSelection: 3,
-    }
-
-    this.dropdownSettingsAreaSell = {
-      singleSelection: true,
-      idField: 'item_id',
-      textField: 'item_text',
-      itemsShowLimit: 1,
-      allowSearchFilter: true,
-      limitSelection: 2,
-    }
-    
-    this.selectedItemArea = [];
-    this.selectedItemNeighborhood = [];
-    this.selectedArea = null
-    this.selectedNeighborhood = null
-    this.SelectedRealEstateType = []
-    
+  setMultiSelection(tab: string){
     this.settingsCity = { 
       singleSelection: true, 
       text: this.lang === 'en' ? "Select City" : "اختار المدينة",
@@ -789,8 +711,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       allowSearchFilter: false,
       enableFilterSelectAll: false,
       showCheckbox: false,
+      position: 'bottom', autoPosition: false
     };  
-
 
     this.settingsArea = { 
           singleSelection: false, 
@@ -802,9 +724,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           selectGroup: false,
           badgeShowLimit: 1,
           allowSearchFilter: false,
-          limitSelection: 3,
+          limitSelection: (tab === "buy" || tab === "rent") ? 3 : 1,
           enableFilterSelectAll: false,
           showCheckbox: true,
+          position: 'bottom', autoPosition: false
     };  
 
     this.settingsNeigbhorhood = { 
@@ -816,9 +739,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       groupBy: "neiName",
       badgeShowLimit: 1,
       allowSearchFilter: false,
-      limitSelection: 5,
+      limitSelection: (tab === "buy" || tab === "rent") ? 5 : 1,
       enableFilterSelectAll: false,
       showCheckbox: true,
+      position: 'bottom', autoPosition: false
     };  
 
     this.settingsCompound = { 
@@ -830,9 +754,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       groupBy: "compoundName",
       badgeShowLimit: 1,
       allowSearchFilter: false,
-      limitSelection: 5,
+      limitSelection: (tab === "buy" || tab === "rent") ? 5 : 1,
       enableFilterSelectAll: false,
       showCheckbox: true,
+      position: 'bottom', autoPosition: false
     };  
 
     this.settingsUnitType = {
@@ -844,6 +769,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       allowSearchFilter: false,
       enableFilterSelectAll: false,
       showCheckbox: false,
+      position: 'bottom', autoPosition: false
     }
 	
   }
@@ -1074,16 +1000,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     
   }
 
-  // async getLoc(){
-  //   let data={
-  //     id:this.activeCity,
-  //     name: this.lang === 'en' ? 'name_en' : 'name_ar'
-  //   }
-  //   this.droploc = await this.apiService.getloc(data);
-  //   this.dropdownListArea = this.droploc.data
-  //   console.log("Location")
-  //   console.log(this.dropdownListArea)
-  // }
+
 
   async getCompound(isChanged: boolean){
     if(isChanged){
@@ -1125,10 +1042,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   
       this.dropdownListCompound = array
     }
-    
-    // console.log("Compound")
-    // console.log(this.dropComp.data)
-    // console.log(this.dropdownListCompound)
+
   }
 
   async getNeig(isChangedArea: boolean){
@@ -1173,77 +1087,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   
     }
 
-    // console.log("neighborhood")
-    // console.log(this.dropNeig.data)
-    // console.log(this.dropdownListNeighborhood)
   }
-
-
-  // async getGeographical(activeCity: number = 1, force: boolean) {
-  //   if (!this.geographical?.data || force) {
-  //     let data ={
-  //       Id:this.proposeID
-  //     }
-  //     this.geographical = await this.apiService.getGeographical(data)
-  //     if (this.geographical === false) { Promise.resolve(false) }
-  //   }
-  //   if (this.geographical.message === 200) {
-  //     this.setupGeographicalData(this.geographical, activeCity)
-  //   }
-  // }
-  // setupGeographicalData(dataArr: any, selectedArea: number = 1) {
-  //   let cityArr: any = []
-  //   let areaArr: any = []
-  //   let neighborhoodArr: any = []
-
-  //   dataArr.data.forEach((element: any, i: number) => {
-  //     const obj = {
-  //       id: element.id,
-  //       name: this.lang === 'en' ? element.name_en : element.name_ar,
-  //       units_count:element.units_count
-  //     }
-  //     if (element.id === selectedArea) {
-  //       this.defaultCountry = obj.name
-  //       if (Array.isArray(element.areas) && element.areas.length > 0) {
-  //         element.areas.forEach((area: any) => {
-  //           const areaObj = {
-  //             item_id: area.id,
-  //             item_text: this.lang === 'en' ? area.name_en +" (" + area.units_count + ")" : area.name_ar + " ( " + area.units_count + " )" ,
-  //             id: area.id,
-  //             name: this.lang === 'en' ? area.name_en : area.name_ar,
-  //             disabled: false,
-  //             units_count:area.units_count
-  //           }
-  //           areaArr = areaArr.concat(areaObj)
-            
-  //           if (Array.isArray(area.neighborhoods) && area.neighborhoods.length > 0) {
-              
-              
-              
-  //             area.neighborhoods.forEach((neighborhood: any, i: number) => {
-  //               const neighborhoodObj = {
-  //                 item_id: neighborhood.id, 
-  //                 item_text: this.lang === 'en' ? neighborhood.name_en +" (" + neighborhood.units_count + ")" : neighborhood.name_ar + " ( " + neighborhood.units_count + " )" ,
-  //                 id: neighborhood.id,
-  //                 name: this.lang === 'en' ? neighborhood.name_en : neighborhood.name_ar,
-  //                 units_count:neighborhood.units_count
-  //               }
-                
-  //               neighborhoodArr = neighborhoodArr.concat(neighborhoodObj)
-  //             })
-  //           }
-  //         })
-  //       }
-
-  //     }
-  //     cityArr.push(obj)
-  //   })
-  //   this.countries = cityArr
-  //   this.cites = areaArr
-  //   this.neighborhood = neighborhoodArr
-
-  // }
-
 
   search_model: any = {
     cities: [],
@@ -1257,71 +1101,34 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     // propose:'buy'
   }
 
+  onDeSelectAllCity(){
+    this.selectedItemArea = []
+    this.selectedItemNeighborhood = []
+    this.selectedItemCompound = []
+  }
+
   async onChangeCity(city: any) {
     this.selectedCityNotValid = false
     city = city['id']
-    // item['id']
     this.selectedArea = null
     this.selectedNeighborhood = null
+    this.selectedItemArea = []
+    this.selectedItemNeighborhood = []
+    this.selectedItemCompound = []
     this.activeCity = city
-    // console.log('city')
-    // console.log(this.activeCity)
     this.search_model.cities = [this.activeCity]
     // this.setupUnitTypesCount()
     // this.setupMinPrice()
-    //this.setupGeographicalData(this.geographical, city)
-    // this.getLoc()
     this.spinner.show()
     await this.getAreaLocations(true)
     this.spinner.hide()
     // this.getCompound()
   }
-  setMinValue(val: any, method: string) {
-    this.priceMinRange = val
-    this.setMaxSelections(val, method)
-    // console.log("set min price")
-    // console.log(val)
-    this.search_model.min_price = val
-  }
-  setMaxSelections(val: any, method: string) {
-    if (val !== undefined || val !== null) {
-      const values = []
-      let incrementValue = Math.round(Number(val))
-      
-      for (let i = 0; i < 5; i++) {
-        if(method == 'buy'){
-          i < 3 ? incrementValue += 300000 : incrementValue += 2000000
-          values.push({ val: incrementValue, view: this.abbreviateNumber(incrementValue) })
-        }else{
-          incrementValue = incrementValue * 2
-          values.push({ val: incrementValue, view: this.abbreviateNumber(incrementValue) })
-        }
-      }
-
-      values.push({ val: '', view: this.translateService.instant('home.any price') })
-      this.maxPriceValue = values
-      setTimeout(() => { this.maxPrice?.nativeElement.focus() }, 200);
-    }
-  }
-  setMaxValue(val: any) {
-    const values = []
-    values.push({ val: '', view: this.translateService.instant('home.any price') })
-    this.maxPriceValue = values
-    this.priceMaxRange = val
-    this.toggleDropdown()
-    this.apply.nativeElement.focus()
-    // console.log("set max price")
-    // console.log(val)
-    this.search_model.max_price = val
-  }
-
 
   focusMinPriceInput() {
     this.minPrice.nativeElement.focus()
   }
-  toggleDropdown() {
-    this.dropdownMenuButton1.nativeElement.click()
-  }
+
   setPricePlaceHolder() {
     this.search_model.max_price = this.priceMaxRange
     this.search_model.min_price = this.priceMinRange
@@ -1368,6 +1175,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.spinner.show()
 
     this.resetSelection()
+    this.setMultiSelection(tab)
     
     const queryParams: Params = { q: tab }
     if(tab == 'buy'){
@@ -1383,7 +1191,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     if(tab== 'rent'){
       this.proposeID=1
     }
-    //await this.getGeographical(this.activeCity, true)
+
     this.router.navigate(
       [],
       {
@@ -1396,12 +1204,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   }
   resetSelection() {
-    this.selectedArea = []
-    this.selectedNeighborhood = [] 
+    //this.selectedItemCity = [];
+    this.selectedItemArea = [];
+    this.selectedItemNeighborhood = [];
+    this.selectedItemCompound = [];
+    this.selectedArea = null
+    this.selectedNeighborhood = null
     this.SelectedRealEstateType = []
-    this.priceMinRange = ''
-    this.priceMaxRange = ''
-    this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = this.PriceNotValid = this.selectedCityNotValid = false
+    this.checkboxVar = this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = this.PriceNotValid = this.selectedCityNotValid = false
   }
   submit(data: any) {
     const user = this.cookieService.get('user')
@@ -1440,7 +1250,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         // this.unitDescriptionNotValid = true 
       }
 
-      if(data.price == undefined || data.price == "" || data.price == "0"){
+      if(this.price == undefined || this.price == "" || this.price == "0"){
         this.PriceNotValid = true;
       }
       
@@ -1464,6 +1274,11 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         data.selectedCompound = this.search_model.compounds
         data.SelectedRealEstateType = this.SelectedRealEstateType[0]['id']
         data.priceMinRange = this.minValue
+
+        if(this.activeTab != "buy" && this.activeTab != "rent"){
+          data.priceMinRange = this.price
+        }
+
         data.priceMaxRange = this.maxValue
 
         console.log("ehab: ",data)
@@ -1499,162 +1314,6 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         this.appServiceService.propertyDetails$.next(data)
 
     }
-  }
-  validateInputs(selected: any, defaultVal: any, label: string): boolean {
-
-    if (label === 'Neighborhood') {
-
-      if (Array.isArray(this.selectedNeighborhood)) {
-        if (this.selectedNeighborhood.length > 4) {
-          this.neighborhood.map((val: any) => {
-            if (Array.isArray(this.selectedNeighborhood)) {
-              if (!this.selectedNeighborhood.includes(val.id)) {
-                val.disabled = true
-              }
-            } else {
-              if (this.selectedNeighborhood !== val) {
-                val.disabled = true
-              }
-            }
-          })
-        } else {
-          this.neighborhood.map((val: any) => val.disabled = false)
-        }
-
-        //this.search_model.neighborhoods = selected
-
-        let uniqueNeighborhoods = new Set(this.search_model.neighborhoods);
-        for (let i = 0; i < selected.length; i++) {
-          uniqueNeighborhoods.add(selected[i]['item_id']);
-        }
-        this.search_model.neighborhoods = Array.from(uniqueNeighborhoods); 
-      }
-      this.setupUnitTypesCount()
-      this.setupMinPrice()
-    }
-    
-    if (label === 'Area') {
-      let activeCity: any
-      
-      let neighborhoodArr: any = []
-      
-      this.selectedNeighborhood = null
-      //console.log("selectedArea: ", this.selectedArea)
-      
-      if (Array.isArray(this.selectedArea)) {
-        if (this.selectedArea.length < 3) {
-          this.cites.map((val: any) => val.disabled = false)
-        } else {
-          this.cites.map((val: any) => {
-            if (Array.isArray(this.selectedArea)) {
-              if (!this.selectedArea.includes(val.id)) {
-                val.disabled = true
-              }
-            } else {
-              if (this.selectedArea !== val) {
-                val.disabled = true
-              }
-            }
-          })
-        }
-        // console.log("ashraf 3, ")
-
-        selected.forEach((areaId: any) => {
-          this.geographical.data.forEach((city: any) => {
-            if (city.name_en === this.defaultCountry || city.name_ar === this.defaultCountry) { activeCity = city }
-          });
-          // console.log("ashraf 2, ", activeCity)
-          // console.log("ashraf 4, ", Object.keys(activeCity))
-
-          if (Object.keys(activeCity).length > 0) {
-            // console.log("ashraf 5, ", activeCity.areas)
-            activeCity.areas.forEach((area: any) => {
-              // console.log("ashraf 6, ", area.id)
-              // console.log("ashraf 7, ", areaId)
-
-              if (area.id === areaId || area.id === areaId.item_id) {
-                let neighborhoods = area.neighborhoods
-                // console.log("ashraf, ", neighborhoods.length)
-                if (Array.isArray(neighborhoods) && neighborhoods.length > 0) {
-                  neighborhoods.forEach((neighborhood: any) => {
-                    const areaObj = {
-                      item_id: neighborhood.id, 
-                      item_text: this.lang === 'en' ? neighborhood.name_en +" (" + neighborhood.units_count + ")" : neighborhood.name_ar + " ( " + neighborhood.units_count + " )" ,
-                      id: neighborhood.id,
-                      name: this.lang === 'en' ? neighborhood.name_en : neighborhood.name_ar,
-                      units_count:neighborhood.units_count,
-                      disabled: false
-                    }
-                    neighborhoodArr = neighborhoodArr.concat(areaObj)
-                  });
-                }
-              }
-            });
-          }
-        });
-        this.neighborhood = neighborhoodArr
-
-        // console.log("neighbrhood 2")
-        // console.log(this.neighborhood)
-      } else {
-        neighborhoodArr = []
-        
-        this.geographical.data.forEach((city: any) => {
-          
-          if (city.name_en === this.defaultCountry || city.name_ar === this.defaultCountry) { 
-            activeCity = city 
-          }
-        });
-        
-        if (Object.keys(activeCity).length > 0) {
-          
-          activeCity.areas.forEach((area: any) => {
-            
-            if (area.id === this.selectedArea || area.id === this.selectedArea.item_id) {
-              
-              let neighborhoods = area.neighborhoods
-              
-              if (Array.isArray(neighborhoods) && neighborhoods.length > 0) {
-                neighborhoods.forEach((neighborhood: any) => {
-                  const areaObj = {
-                    item_id: neighborhood.id, 
-                    item_text: this.lang === 'en' ? neighborhood.name_en +" (" + neighborhood.units_count + ")" : neighborhood.name_ar + " ( " + neighborhood.units_count + " )" ,
-                    id: neighborhood.id,
-                    name: this.lang === 'en' ? neighborhood.name_en : neighborhood.name_ar,
-                    units_count:neighborhood.units_count,
-                    disabled: false
-                  }
-                  neighborhoodArr = neighborhoodArr.concat(areaObj)
-                });
-              }
-            }
-          });
-        }
-        this.neighborhood = neighborhoodArr
-
-      }
-      this.setupUnitTypesCount()
-      this.setupMinPrice()
-      let uniqueAreas = new Set(this.search_model.areas);
-      for (let i = 0; i < selected.length; i++) {
-          uniqueAreas.add(selected[i]['item_id']);
-      }
-      this.search_model.areas = Array.from(uniqueAreas);      
-    }
-    if (label === 'Real estate type') {
-      //this.SelectedRealEstateTypeNotValid = !this.selectedNeighborhood && this.selectedNeighborhood?.id ? true : false
-      
-      if(this.SelectedRealEstateType != this.defaultSelectedRealEstateType)
-        this.SelectedRealEstateTypeNotValid = false
-      
-      // console.log("selected: ", [selected[0]['id']])
-
-      this.search_model.type = [selected[0]['id']]
-      this.setupMinPrice()
-    }
-  
-
-    return true
   }
   async toggleFavorite(item: any) {
     let hasError: boolean = false
@@ -1743,6 +1402,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
 
   onSliderChange(){
+    console.log("this.minValue: ", this.minValue)
     this.priceMinRange = this.minValue
     this.priceMaxRange = this.maxValue
   }

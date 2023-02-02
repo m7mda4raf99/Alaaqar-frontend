@@ -63,6 +63,10 @@
             }
         }
         .actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
             .score {
                 position: absolute;
                 right: 40px;
@@ -160,6 +164,15 @@
                     color: #ff725f;
                 }
             }
+            .title{
+                font-size: 20px;
+                padding: 5px;
+                @media only screen and (min-width: 1024px) and (max-width: 1350px) {
+                    font-size: 25px;
+                    margin-top: 16px;
+                }
+            }
+
             .price {
                 font-family: "Rubik-bold";
                 font-size: 35px;
@@ -185,8 +198,9 @@
                 height: 50px;
             }
             .button-success {
-                margin-top: 15px;
-                width: 360px;
+                margin-top: 0px;
+                width: 100%;
+                margin: 0px;
                 @media (max-width: 768px) {
                     max-width: 100%;
                 }
