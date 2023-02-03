@@ -166,6 +166,7 @@ export class SinglePropertyComponent implements OnInit {
     }
   }
   renderIconUrl(obj: any) {
+    console.log("url: ", this.BaseUrl + obj.icon)
     return this.BaseUrl + obj.icon
   }
   showMoreOptions(title: any, data: any, model: any) {
