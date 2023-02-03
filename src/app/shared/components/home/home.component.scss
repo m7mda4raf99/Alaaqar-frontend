@@ -877,6 +877,12 @@
                 }
         
             }
+
+            .space-between{
+                display: flex;
+                justify-content: space-between;
+            }
+            
             .location {
                 display: inline-block;
                 font-size: 14px;
@@ -915,6 +921,11 @@
                     .img-icon {
                         width: 20px;
                     }
+                }
+
+                .space-between{
+                    display: flex;
+                    justify-content: space-between;
                 }
 
                 // .col-6{

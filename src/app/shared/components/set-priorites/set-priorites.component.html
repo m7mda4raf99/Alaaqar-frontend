@@ -37,13 +37,14 @@
                             </div>
 
                             <!-- high priorites -->
-                            <div *ngIf="activeTab === 1" class="row justify-content-center">
+                            <div *ngIf="activeTab === 1" class="row margin_all">
                                 <!-- [class.selected]="item.selected === true" -->
                                 <div class="mt-3 custom-element" *ngFor="let item of getCriterias(1)">
                                     
                                     <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 1'>
                                         <div class="insert">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
+                                            <!-- <fa-icon [icon]="faCheckSquare"></fa-icon> -->
+                                            <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
                                         </div>
                                         
                                         <span class="icon">
@@ -57,7 +58,7 @@
 
                                     <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 1'>
                                         <div class="delete">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
+                                            <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
                                         </div>
 
                                         <span class="icon">
@@ -71,14 +72,10 @@
 
                             </div>
 
-                            <div *ngIf="activeTab != 1" class="row justify-content-center">
-                                <div class="mt-3 custom-element" *ngFor="let item of prioritiesList['1']">
+                            <div *ngIf="activeTab != 1" class="margin_all">
+                                <div class="margin_item" *ngFor="let item of prioritiesList['1']">
                         
-                                    <div class="box clicked">
-                                        <div class="delete">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
-                                        </div>
-
+                                    <div class="box preview">
                                         <span class="icon">
                                             <img  src="{{baseUrl + item.icon}}" alt="..."/>
                                         </span>
@@ -105,13 +102,13 @@
                             </div>
 
                             <!-- medium priorites -->
-                            <div *ngIf="activeTab === 2" class="row justify-content-center">
+                            <div *ngIf="activeTab === 2" class="row margin_all">
                                 <!-- [class.selected]="item.selected === true" -->
                                 <div class="mt-3 custom-element" *ngFor="let item of getCriterias(2)">
                                     
                                     <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 2'>
                                         <div class="insert">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
+                                            <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
                                         </div>
                                         
                                         <span class="icon">
@@ -125,7 +122,7 @@
 
                                     <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 2'>
                                         <div class="delete">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
+                                            <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
                                         </div>
 
                                         <span class="icon">
@@ -139,14 +136,10 @@
 
                             </div>
 
-                            <div *ngIf="activeTab != 2" class="row justify-content-center">
-                                <div class="mt-3 custom-element" *ngFor="let item of prioritiesList['2']">
+                            <div *ngIf="activeTab != 2" class="margin_all">
+                                <div class="margin_item" *ngFor="let item of prioritiesList['2']">
                         
-                                    <div class="box clicked">
-                                        <div class="delete">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
-                                        </div>
-
+                                    <div class="box preview">
                                         <span class="icon">
                                             <img  src="{{baseUrl + item.icon}}" alt="..."/>
                                         </span>
@@ -174,13 +167,14 @@
                             </div>
 
                            <!-- low priorites -->
-                            <div *ngIf="activeTab === 3" class="row justify-content-center">
+                            <div *ngIf="activeTab === 3" class="row margin_all">
                                 <!-- [class.selected]="item.selected === true" -->
                                 <div class="mt-3 custom-element" *ngFor="let item of getCriterias(3)">
                                     
                                     <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 3'>
                                         <div class="insert">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
+                                            <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
+
                                         </div>
                                         
                                         <span class="icon">
@@ -194,7 +188,7 @@
 
                                     <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 3'>
                                         <div class="delete">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
+                                            <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
                                         </div>
 
                                         <span class="icon">
@@ -208,14 +202,10 @@
 
                             </div>
 
-                            <div *ngIf="activeTab != 3" class="row justify-content-center">
-                                <div class="mt-3 custom-element" *ngFor="let item of prioritiesList['3']">
+                            <div *ngIf="activeTab != 3" class="margin_all">
+                                <div class="margin_item" *ngFor="let item of prioritiesList['3']">
                         
-                                    <div class="box clicked">
-                                        <div class="delete">
-                                            <fa-icon [icon]="faCheckSquare"></fa-icon>
-                                        </div>
-
+                                    <div class="box preview">
                                         <span class="icon">
                                             <img  src="{{baseUrl + item.icon}}" alt="..."/>
                                         </span>

@@ -133,6 +133,12 @@
                 width: 20px;
             }
         }
+
+        .space-between{
+            display: flex;
+            justify-content: space-between;
+        }
+
     }
 
     .card-body {
@@ -180,6 +186,11 @@
             @media (max-width: 1440px) {
                 right: 34%;
             }
+        }
+
+        .space-between{
+            display: flex;
+            justify-content: space-between;
         }
     }
 }
