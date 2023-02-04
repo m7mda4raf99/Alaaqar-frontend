@@ -43,45 +43,66 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-sm-12 col-lg-4">
+                <div class="col-sm-12 col-lg-4 center">
                     <div class="actions">
-                        <div class="head row">
-                            <div class="col float-start">
-                                <p>{{getPropose()}}</p>
+                        <div>
+
+                            <div class="head row">
+                                <div class="col float-start">
+                                    <p>{{getPropose()}}</p>
+                                </div>
+                                <div class="col float-end">
+                                    <img *ngIf="propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
+                                        class="fav float-end" src="../../../../assets//images/Path 165 copy.png" alt="..."/>
+                                    <img *ngIf="!propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
+                                        class="fav float-end" src="../../../../assets//images/Path 165.png" alt="..."/>
+                                    <img (click)="copyUrl()" src="../../../../assets/images/Path 161.svg"
+                                        class="float-end" alt="..."/>
+                                </div>
                             </div>
-                            <div class="col float-end">
-                                <img *ngIf="propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
-                                    class="fav float-end" src="../../../../assets//images/Path 165 copy.png" alt="..."/>
-                                <img *ngIf="!propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
-                                    class="fav float-end" src="../../../../assets//images/Path 165.png" alt="..."/>
-                                <img (click)="copyUrl()" src="../../../../assets/images/Path 161.svg"
-                                    class="float-end" alt="..."/>
+                            <p class="title">
+                                {{ propertyDetails.title }}
+
+                            </p>
+                            <div class="accuracy row" *ngIf="proerityType === 'buy' && params?.score">
+                                <div class="col-8">
+                                    <p class="text-head">{{'propertyDetails.Results Accuracy' | translate}}</p>
+                                    <p class="text-desc">
+                                        {{'propertyDetails.results match your choices by' | translate}}
+                                        {{getScore(params?.score)}}%
+                                    </p>
+                                </div>
+                                <div class="col-4" style="position: relative;">
+                                    <nz-progress class="float-end" nzType="circle" [nzPercent]="getScore(params['score'])"
+                                        [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                    </nz-progress>
+                                    <span class="score">{{getScore(params['score'])}}%</span>
+                                </div>
                             </div>
+                            <p class="price">
+                                {{'propertyDetails.EGP' | translate}} {{numberWithCommas(getPrice())}} 
+                            </p>
+                            <div class="row">
+                                <span class="location" style="color: #ABABB6;">
+                                    <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                    {{getSelectedCompound()}}
+                                    {{getSelectedNeighborhood()}}
+                                    {{getSelectedLocation()}}
+                                    {{getSelectedArea()}}
+                                    {{getSelectedCity()}}
+
+                                </span>
+                            </div>
+
+                            <div class="unit_code">
+                                <img width="22px" src="../../../../assets/images/unit_code.png" alt="..."/>
+                                
+                                {{activeLang === 'en' ? 'Unit Code' : 'كود الوحدة' }}: #{{ propertyDetails?.code }} 
+
+                            </div>
+
                         </div>
-                        <div class="accuracy row" *ngIf="proerityType === 'buy' ">
-                            <div class="col-8">
-                                <p class="text-head">{{'propertyDetails.Results Accuracy' | translate}}</p>
-                                <p class="text-desc">
-                                    {{'propertyDetails.results match your choices by' | translate}}
-                                    {{getScore(params?.score)}}%
-                                </p>
-                            </div>
-                            <div class="col-4" style="position: relative;">
-                                <nz-progress class="float-end" nzType="circle" [nzPercent]="getScore(params['score'])"
-                                    [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
-                                </nz-progress>
-                                <span class="score">{{getScore(params['score'])}}%</span>
-                            </div>
-                        </div>
-                        <p class="price">
-                            {{'propertyDetails.EGP' | translate}} {{numberWithCommas(getPrice())}} 
-                        </p>
-                        <div class="row">
-                            <span class="location" style="color: #ABABB6;">
-                                <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
-                                {{getSelectedNeighborhood()}}
-                            </span>
-                        </div>
+
                         <div class="row justify-content-center" style="padding: 10px;">
 
                             <p *ngIf="proerityType === 'sell' " class="mt-5" style="color: #5A8DEE;">
@@ -100,12 +121,12 @@
 
             </div>
             <!--buy-->
-            <div class="row details mt-5 mb-5">
-                <div class="col-sm-12 col-lg-8">
+            <div class="row details mt-5 mb-5 col-lg-8">
+                <div class="col-sm-12">
                     <p class="title"> {{'propertyDetails.Details' | translate}}</p>
-                    <p class="desc">
-                        {{renderString(propertyDetails)}}
-                    </p>
+                    <div id="description" class="desc">
+                        {{renderString(propertyDetails.description)}}
+                    </div>
                 </div>
                 <div class="col-12 more-details">
                     <div class="row justify-content-center"

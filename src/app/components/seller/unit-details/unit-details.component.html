@@ -43,67 +43,85 @@
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="actions">
-                        <div class="head row">
-                            <div class="col float-start">
-                                <p>{{getPropose()}}</p>
+                        <div>
+                            <div class="head row">
+                                <div class="col float-start">
+                                    <p>{{getPropose()}}</p>
+                                </div>
+                                <div class="col float-end">
+                                    <!-- <img *ngIf="propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
+                                        class="fav float-end" src="../../../../assets//images/Path 165 copy.png" />
+                                    <img *ngIf="!propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
+                                        class="fav float-end" src="../../../../assets//images/Path 165.png" /> -->
+                                    <img (click)="copyUrl()" src="../../../../assets/images/Path 161.svg"
+                                        class="float-end" alt="..."/>
+                                </div>
                             </div>
-                            <div class="col float-end">
-                                <!-- <img *ngIf="propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
-                                    class="fav float-end" src="../../../../assets//images/Path 165 copy.png" />
-                                <img *ngIf="!propertyDetails.isFavorite" (click)="toggleFavorite(propertyDetails)"
-                                    class="fav float-end" src="../../../../assets//images/Path 165.png" /> -->
-                                <img (click)="copyUrl()" src="../../../../assets/images/Path 161.svg"
-                                    class="float-end" alt="..."/>
-                            </div>
-                        </div>
-                        <div class="accuracy row" *ngIf="proerityType === 'buy' ">
-                            <div class="col-8">
-                                <p class="text-head">{{'propertyDetails.Results Accuracy' | translate}}</p>
-                                <p class="text-desc">
-                                    {{'propertyDetails.results match your choices by' | translate}}
-                                    {{getScore(params?.score)}}%
-                                </p>
-                            </div>
-                            <div class="col-4" style="position: relative;">
-                                <nz-progress
-                                class="float-end"
-                                    nzType="circle" [nzPercent]="getScore(params['score'])"
-                                    [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
-                                </nz-progress>
-                                <span class="score">{{getScore(params['score'])}}</span>
-                            </div>
-                        </div>
-                        <p class="price">
-                            {{numberWithCommas(getPrice())}} {{'propertyDetails.EGP' | translate}}
-                        </p>
-                        <div class="row justify-content-center" style="padding: 10px;">
-                            <span class="location" style="color: #ABABB6;">
-                                <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
-                                {{getSelectedNeighborhood()}}
-                            </span>
-                            <p *ngIf="proerityType === 'sell' " class="mt-5" style="color: #5A8DEE;">
-                                {{'propertyDetails.Click assign to evaluator' | translate}}
+
+                            <p class="title">
+                                {{ propertyData?.title }}
                             </p>
-                            <button (click)="editUnit()" *ngIf="proerityType === 'sell' && params.edit != 'true' "
-                                class="btn more edit-unit">{{'propertyDetails.Edit this unit' | translate}}</button>
-                            <button *ngIf="proerityType === 'sell' && params.edit == 'true'"
-                                class="btn button-success more" (click)="UpdateUnit(content)">{{'propertyDetails.Assign
-                                to evaluator' | translate}}</button>
-                            <button *ngIf="proerityType === 'sell' && params.edit != 'true' "
-                                class="btn button-success more" (click)="addUnit(content)">{{'propertyDetails.Assign to
-                                evaluator' | translate}}</button>
+
+                            <div class="accuracy row" *ngIf="proerityType === 'buy' ">
+                                <div class="col-8">
+                                    <p class="text-head">{{'propertyDetails.Results Accuracy' | translate}}</p>
+                                    <p class="text-desc">
+                                        {{'propertyDetails.results match your choices by' | translate}}
+                                        {{getScore(params?.score)}}%
+                                    </p>
+                                </div>
+                                <div class="col-4" style="position: relative;">
+                                    <nz-progress
+                                    class="float-end"
+                                        nzType="circle" [nzPercent]="getScore(params['score'])"
+                                        [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                    </nz-progress>
+                                    <span class="score">{{getScore(params['score'])}}</span>
+                                </div>
+                            </div>
+                            <p class="price">
+                                {{numberWithCommas(getPrice())}} {{'propertyDetails.EGP' | translate}}
+                            </p>
+                            <div class="row justify-content-center" style="padding: 10px;">
+                                <span class="location" style="color: #ABABB6;">
+                                    <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                    {{getSelectedCompound()}}
+                                    {{getSelectedNeighborhood()}}
+                                    {{getSelectedLocation()}}
+                                    {{getSelectedArea()}}
+                                    {{getSelectedCity()}}
+
+
+                                </span>
+                                
+                            </div>
+
                         </div>
+
+                        <p *ngIf="proerityType === 'sell' " class="mt-5" style="color: #5A8DEE;">
+                            {{'propertyDetails.Click assign to evaluator' | translate}}
+                        </p>
+
+                        <button (click)="editUnit()" *ngIf="proerityType === 'sell' && params.edit != 'true' "
+                            class="btn more edit-unit">{{'propertyDetails.Edit this unit' | translate}}</button>
+                        <button *ngIf="proerityType === 'sell' && params.edit == 'true'"
+                            class="btn button-success more" (click)="UpdateUnit(content)">{{'propertyDetails.Assign
+                            to evaluator' | translate}}</button>
+                        <button *ngIf="proerityType === 'sell' && params.edit != 'true' "
+                            class="btn button-success more" (click)="addUnit(content)">{{'propertyDetails.Assign to
+                            evaluator' | translate}}</button>
+
                     </div>
                 </div>
 
             </div>
             <!-- sell -->
-            <div class="row details mt-5 mb-5" *ngIf="proerityType === 'sell'">
-                <div class="col-sm-12 col-lg-8">
+            <div class="row details mt-5 mb-5 col-lg-8" *ngIf="proerityType === 'sell'">
+                <div class="col-sm-12">
                     <p class="title"> {{'propertyDetails.Details' | translate}}</p>
-                    <p class="desc">
-                        {{propertyData?.description}}
-                    </p>
+                    <div id="description" class="desc">
+                        {{renderString(propertyData?.description)}}
+                    </div>
                 </div>
                 <div class="col-12 more-details" *ngFor="let view of propertyDataView | keyvalue">
                     <!--  Interior -->
@@ -111,7 +129,8 @@
                     <div class="row">
                         <div class="col-xs-6 col-md-4 col-lg-3 mt-3"
                             *ngFor="let item of getViewOptions(view.value) | keyvalue;let index = index;">
-                            <div class="box">
+
+                            <div class="box" *ngIf="item.key != 'Unit Title' && item.key != 'Write a unique description'">
                                 <span class="icon">
                                     <img src="{{renderIconUrl(item.value)}}" alt="..."/>
                                 </span>
@@ -137,12 +156,12 @@
                 </div>
             </div>
             <!--buy-->
-            <div class="row details mt-5 mb-5" *ngIf="proerityType !== 'sell'">
-                <div class="col-sm-12 col-lg-8">
+            <div class="row details mt-5 mb-5 col-lg-8" *ngIf="proerityType !== 'sell'">
+                <div class="col-sm-12">
                     <p class="title"> {{'propertyDetails.Details' | translate}}</p>
-                    <p class="desc">
-                        {{propertyData?.description}}
-                    </p>
+                    <div id="description" class="desc">
+                        {{renderString(propertyData?.description)}}
+                    </div>
                 </div>
                 <div class="col-12 more-details">
                     <div class="row justify-content-center"

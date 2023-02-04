@@ -87,7 +87,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
     this.spinner.hide();
     this.proerityType = 'buy'
 
-    console.log("unit.data.tags: ", unit.data.tags)
+    // console.log("unit.data.tags: ", unit.data.tags)
 
     let slider: any = []
     if (unit.data.tags !== undefined && unit.data.tags.length > 0) {
@@ -129,8 +129,17 @@ export class BuyerUnitDetailsComponent implements OnInit {
   getItemCriteria(data: any) {
     return data.parents
   }
-  getOptions(data: any) {
+    getOptions(data: any) {    
     if (data.criterias !== undefined) {
+      if(data['name_en'] === 'Interior'){
+        let arr = []
+        for(let item of data.criterias){
+          if(item['criteria_name_en'] != 'Unit Title' && item['criteria_name_en'] != 'Write a unique description'){
+            arr.push(item)
+          }
+        }
+        data.criterias = arr
+      }
       return data?.criterias ? data.criterias : []
     }
   }
@@ -148,6 +157,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
     return str.toUpperCase()
   }
   getScore(score: number) {
+    // console.log("score: ", score)
     return Math.round(score)
   }
   editUnit() {
@@ -352,14 +362,52 @@ export class BuyerUnitDetailsComponent implements OnInit {
     this.modalService.dismissAll()
     this.router.navigate(['/visits'])
   }
-  getSelectedNeighborhood() {
-    if (this.propertyDetails.area_name_en !== undefined) {
-      return this.activeLang === 'en' ? this.propertyDetails.area_name_en : this.propertyDetails.area_name_ar
+
+
+
+  getSelectedCompound() {
+    if (this.propertyDetails.compound_name_en !== undefined) {
+      return this.activeLang === 'en' ? this.propertyDetails.compound_name_en + ", ": this.propertyDetails.compound_name_ar + ", "
     }
-    return this.propertyData.selectedNeighborhood && this.propertyData.selectedNeighborhood.name ? this.propertyData.selectedNeighborhood.name :
-      this.propertyData.selectedAreaObj && this.propertyData.selectedAreaObj[0] ? this.propertyData.selectedAreaObj[0].name :
-        ''
+    return ''
   }
+  getSelectedNeighborhood() {
+    if (this.propertyDetails.neighborhood_name_en !== undefined) {
+      return this.activeLang === 'en' ? this.propertyDetails.neighborhood_name_en + ", ": this.propertyDetails.neighborhood_name_ar + ", "
+    }
+    return ''
+  }
+
+  getSelectedLocation() {
+    if (this.propertyDetails.location_name_en !== undefined) {
+      return this.activeLang === 'en' ? this.propertyDetails.location_name_en + ", ": this.propertyDetails.location_name_ar + ", "
+    }
+    return ''
+  }
+
+  getSelectedArea() {
+    if (this.propertyDetails.area_name_en !== undefined) {
+      return this.activeLang === 'en' ? this.propertyDetails.area_name_en + ", ": this.propertyDetails.area_name_ar + ", "
+    }
+    return ''
+  }
+
+  getSelectedCity() {
+    if (this.propertyDetails.city_name_en !== undefined) {
+      return this.activeLang === 'en' ? this.propertyDetails.city_name_en: this.propertyDetails.city_name_ar
+    }
+    return ''
+  }
+
+  // getSelectedNeighborhood() {
+  //   console.log('this.propertyDetails: ' , this.propertyDetails)
+  //   if (this.propertyDetails.area_name_en !== undefined) {
+  //     return this.activeLang === 'en' ? this.propertyDetails.area_name_en : this.propertyDetails.area_name_ar
+  //   }
+  //   return this.propertyData.selectedNeighborhood && this.propertyData.selectedNeighborhood.name ? this.propertyData.selectedNeighborhood.name :
+  //     this.propertyData.selectedAreaObj && this.propertyData.selectedAreaObj[0] ? this.propertyData.selectedAreaObj[0].name :
+  //       ''
+  // }
 
   async requestVisit(content: any) {
     let data = {
@@ -380,9 +428,14 @@ export class BuyerUnitDetailsComponent implements OnInit {
   getObjKey(obj: any) {
     return this.activeLang === 'en' ? obj.criteria_name_en : obj.criteria_name_ar
   }
+  // renderString(str: any) {
+  //   var div = document.createElement("div");
+  //   div.innerHTML = str.description;
+  //   return div.textContent || div.innerText || "";
+  // }
+
   renderString(str: any) {
-    var div = document.createElement("div");
-    div.innerHTML = str.description;
-    return div.textContent || div.innerText || "";
+    var div = document.getElementById('description')
+    div!.innerHTML = str?.trim();
   }
 }

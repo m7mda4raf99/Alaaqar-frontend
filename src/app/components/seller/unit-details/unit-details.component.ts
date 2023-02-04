@@ -174,7 +174,13 @@ export class UnitDetailsComponent implements OnInit {
   getViewName(value: any) {
     return this.activeLang === 'en' ? value.name_en : value.name_ar
   }
+
+  print(data: any){
+    console.log("item: ", data)
+  }
+
   getViewOptions(value: any) {
+    console.log("getViewOptions: ", value)
     return value.options ? value.options : []
   }
   renderIconUrl(obj: any) {
@@ -405,13 +411,38 @@ export class UnitDetailsComponent implements OnInit {
     this.modalService.dismissAll()
     this.router.navigate(['/visits'])
   }
-  getSelectedNeighborhood() {
-    if (this.propertyDetails.area_name_en !== undefined) {
-      return this.activeLang === 'en' ? this.propertyDetails.area_name_en : this.propertyDetails.area_name_ar
+  getSelectedCompound() {
+    if (this.propertyData?.selectedCompoundObj?.length != 0) {
+      return this.activeLang === 'en' ? this.propertyData?.selectedCompoundObj[0]?.name_en + ", ": this.propertyData?.selectedCompoundObj[0]?.name_ar + ", "
     }
-    return this.propertyData.selectedNeighborhood && this.propertyData.selectedNeighborhood.name ? this.propertyData.selectedNeighborhood.name :
-      this.propertyData.selectedAreaObj && this.propertyData.selectedAreaObj[0] ? this.propertyData.selectedAreaObj[0].name :
-        ''
+    return ''
+  }
+  getSelectedNeighborhood() {
+    if (this.propertyData?.selectedNeighborhoodObj?.length != 0) {
+      return this.activeLang === 'en' ? this.propertyData?.selectedNeighborhoodObj[0]?.name_en + ", ": this.propertyData?.selectedNeighborhoodObj[0]?.name_ar + ", "
+    }
+    return ''
+  }
+
+  getSelectedLocation() {
+    if (this.propertyData?.selectedLocationObj?.length != 0) {
+      return this.activeLang === 'en' ? this.propertyData?.selectedLocationObj[0]?.name_en + ", ": this.propertyData?.selectedLocationObj[0]?.name_ar + ", "
+    }
+    return ''
+  }
+
+  getSelectedArea() {
+    if (this.propertyData?.selectedLocationObj?.length != 0) {
+      return this.activeLang === 'en' ? this.propertyData?.selectedLocationObj[0]?.area_en + ", ": this.propertyData?.selectedLocationObj[0]?.area_ar + ", "
+    }
+    return ''
+  }
+
+  getSelectedCity() {
+    if (this.propertyData?.selectedCountry?.length != 0) {
+      return this.activeLang === 'en' ? this.propertyData?.selectedCountry?.name: this.propertyData?.selectedCountry?.name_ar
+    }
+    return ''
   }
 
   async requestVisit(content: any) {
@@ -427,6 +458,11 @@ export class UnitDetailsComponent implements OnInit {
   }
   getScore(score: number) {
     return Math.round(score)
+  }
+
+  renderString(str: any) {
+    var div = document.getElementById('description')
+    div!.innerHTML = str?.trim();
   }
 
 }

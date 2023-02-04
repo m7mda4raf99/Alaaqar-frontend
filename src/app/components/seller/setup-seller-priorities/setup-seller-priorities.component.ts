@@ -211,6 +211,11 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   async getImageTags() {
     return await this.apiService.getImageTags()
   }
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
+
   async setupFormCriteria() {
     if (this.params.type_id && this.params.propose) {
       let data = {

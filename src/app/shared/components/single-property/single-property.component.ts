@@ -78,15 +78,15 @@ export class SinglePropertyComponent implements OnInit {
     if (activeRoute.queryParams && activeRoute.queryParams.id) {
       if (activeRoute.queryParams.isPublic && activeRoute.queryParams.isPublic == 'true') {
         this.isPublic = true
-        console.log("activeRoute:", activeRoute.queryParams.id.length)
+        // console.log("activeRoute:", activeRoute.queryParams.id.length)
         const data = await this.getPublicPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
-        console.log("data1: ", data)
+        // console.log("data1: ", data)
       } else {
         this.isPublic = false
         const data = await this.getPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
-        console.log("data2: ", this.data)
+        // console.log("data2: ", this.data)
       }
     }
     this.sliderTags = []
@@ -166,7 +166,7 @@ export class SinglePropertyComponent implements OnInit {
     }
   }
   renderIconUrl(obj: any) {
-    console.log("url: ", this.BaseUrl + obj.icon)
+    // console.log("url: ", this.BaseUrl + obj.icon)
     return this.BaseUrl + obj.icon
   }
   showMoreOptions(title: any, data: any, model: any) {
@@ -225,31 +225,17 @@ export class SinglePropertyComponent implements OnInit {
     console.log("my data: ", data)
   }
 
-  getOptions(data: any) {
-    console.log("data ashraf: ", data)
-    
+  getOptions(data: any) {    
     if (data.criterias !== undefined) {
-
       if(data['name_en'] === 'Interior'){
-        console.log('hereeeeeee')
-        // let description = data.criterias.length - 1
-        // let title = data.criterias.length - 2
-        // data.criterias.splice(description, 1);
-        // data.criterias.splice(title, 1);
         let arr = []
         for(let item of data.criterias){
           if(item['criteria_name_en'] != 'Unit Title' && item['criteria_name_en'] != 'Write a unique description'){
             arr.push(item)
           }
         }
-
-        // console.log("arr: ", arr)
         data.criterias = arr
-        // console.log("data.criterias: ", data.criterias)
-
       }
-
-
       return data?.criterias ? data.criterias : []
     }
   }
@@ -286,9 +272,16 @@ export class SinglePropertyComponent implements OnInit {
     this.modalService.dismissAll()
     this.router.navigate(['/visits'])
   }
+  // renderString(str: any) {
+  //   var div = document.createElement("div");
+  //   div.innerHTML = str
+  //   return div.textContent || div.innerText || "";
+  // }
+
   renderString(str: any) {
-    var div = document.createElement("div");
-    div.innerHTML = str;
-    return div.textContent || div.innerText || "";
+    var div = document.getElementById('description')
+    // console.log("x: ", div)
+    div!.innerHTML = str?.trim();
   }
+
 }

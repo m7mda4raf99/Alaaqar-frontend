@@ -174,6 +174,11 @@ export class PropertyDetailsComponent implements OnInit {
     this.spinner.hide();
 
   }
+
+  print(data: any){
+    console.log("my data: ", data)
+  }
+
   abbreviateNumber(number: number) {
     Number(number)
     var SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"]

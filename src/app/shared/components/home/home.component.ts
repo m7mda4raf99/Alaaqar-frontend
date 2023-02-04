@@ -320,7 +320,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
 
   print(data:any){
-    // console.log(data)
+    // console.log("item: ", data)
   }
 
   async setupUnitTypesCount() {
@@ -859,7 +859,13 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     let recentlyAdded = await this.apiService.getRecentlyAdded(headers)
     this.recentlyAdded = recentlyAdded.data
 
+    // console.log("recentlyAdded: ", this.recentlyAdded)
+
     return true
+  }
+
+  getItemCriteria(data: any){
+    return data?.filter((item: any) => item.icon != '/public/assets/icons/criteria/')
   }
   
   numberWithCommas(x: any) {
@@ -1225,7 +1231,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       this.selectedCityNotValid = true 
     }
 
-    console.log(this.selectedItemCity)
+    // console.log(this.selectedItemCity)
 
     if ( (Array.isArray(this.selectedItemArea) && this.selectedItemArea.length === 0) ) { 
       this.selectedAreaNotValid = true 
@@ -1265,13 +1271,17 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         data.selectedCountry = {
           id: this.selectedItemCity[0]['id'],
           name: this.selectedItemCity[0]['itemName'],
+          name_ar: this.selectedItemCity[0]['name_ar'],
           // units_count: 0
         }
         data.selectedArea =  this.search_model.areas
         data.selectedAreaObj = this.selectedAreaObj
         data.selectedLocation = this.search_model.locations
+        data.selectedLocationObj = this.selectedItemArea
         data.selectedNeighborhood = this.search_model.neighborhoods
+        data.selectedNeighborhoodObj = this.selectedItemNeighborhood
         data.selectedCompound = this.search_model.compounds
+        data.selectedCompoundObj = this.selectedItemCompound
         data.SelectedRealEstateType = this.SelectedRealEstateType[0]['id']
         data.priceMinRange = this.minValue
 
@@ -1281,7 +1291,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
         data.priceMaxRange = this.maxValue
 
-        console.log("ehab: ",data)
+        // console.log("ehab: ",data)
       
         // let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
         
@@ -1402,7 +1412,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
 
   onSliderChange(){
-    console.log("this.minValue: ", this.minValue)
+    // console.log("this.minValue: ", this.minValue)
     this.priceMinRange = this.minValue
     this.priceMaxRange = this.maxValue
   }
