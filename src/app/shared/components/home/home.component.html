@@ -251,6 +251,7 @@
                         
                         <div class="row mt-3 results" >
                             <div *ngFor="let item of recentlyAdded" class="col-xs-12 col-sm-6 col-xl-4">
+                                {{ print(item) }}
                                 <div class="card mb-3">
                                     <div class="row g-0 card-content">
                                         <div class="col-12" style="position: relative;">
@@ -317,7 +318,7 @@
                                                 </div>
                                                 <div class="card-text">
                                                     <div class="space-between">
-                                                        <div class="desc" *ngFor="let c of item['criteria'] | slice:0:4">
+                                                        <div class="desc" *ngFor="let c of getItemCriteria(item['criteria']) | slice:0:4">
                                                             <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
                                                             {{getCriteriaOptions(c)}}
                                                         </div>
