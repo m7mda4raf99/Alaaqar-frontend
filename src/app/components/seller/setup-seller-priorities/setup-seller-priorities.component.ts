@@ -43,7 +43,10 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
       }
     })
-    this.sub2 = this.prioritiesService.SellerPriority$.subscribe(val => this.priorities = val)
+    this.sub2 = this.prioritiesService.SellerPriority$.subscribe(val => {
+      this.priorities = val
+      this.removeImgDuplicate()
+    })
     this.sub3 = this.appService.propertyDetails$.subscribe(val => {
       if (!Object.keys(val).length) {
         this.router.navigate(['/home'])
@@ -98,13 +101,39 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     images: [],
     options: []
   }
+
+  removeImgDuplicate(){
+    let obj:any = {}
+
+    if(this.priorities[1]){
+      obj[1] = this.priorities[1]
+    }
+    if(this.priorities[2]){
+      obj[2] = this.priorities[2]
+    }
+    if(this.priorities[3]){
+      obj[3] = this.priorities[3]
+    }
+    if(this.priorities[4]){
+      obj[4] = []
+      for(let item of this.priorities[4]){
+        if(!obj[4].includes(item)){
+          obj[4].push(item)
+        }
+      }
+    }
+
+    this.priorities = obj
+
+  }
+
   async ngOnInit() {
     const getImagTags = await this.getImageTags()
     if (getImagTags !== false) {
       this.appService.imgTags$.next(getImagTags)
     }
     const activeRoute = this.activeRouter.snapshot
-    console.log("activeRoute.queryParams.edit: ", activeRoute.queryParams.edit)
+    // console.log("activeRoute.queryParams.edit: ", activeRoute.queryParams.edit)
     if (activeRoute.queryParams && activeRoute.queryParams.edit && activeRoute.queryParams.id) {
       await this.fetchEditData(activeRoute.queryParams.id)
     } else {
@@ -121,6 +150,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     
     return true
   }
+
   setupNotCompletedSell(){
     let propertyValue = this.propertyDetailsData
     let sellerFormValue = this.sellerForm.value
@@ -185,6 +215,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     // console.log(this.NotCompsearchObj)
    this.appService.addUnitData$.next(this.NotCompsearchObj)
   }
+
   async getCriteria(data: any) {
     return await this.apiService.getCriteriaForSeller(data)
   }
@@ -243,8 +274,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     this.criteria.data['icons_path'] = unitData.data.icons_path
     // this.criteria.data['price'] = unitData.data.price
 
-    console.log("this.editObj: ", this.editObj)
-    console.log("this.criteria: ", this.criteria)
+    // console.log("this.editObj: ", this.editObj)
+    // console.log("this.criteria: ", this.criteria)
 
     this.setupCriteriaEdit()
     return true
@@ -260,7 +291,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       }
       let data = this.criteria.data
 
-      // console.log("data: ", data)
+      // console.log("arr now before setup: ", arr)
 
       if (!Object.keys(this.data).length) {
         this.criteriaParent = []
@@ -282,16 +313,24 @@ export class SetupSellerPrioritiesComponent implements OnInit {
             }
           }
         }
+
+        // console.log("this.data before: ", this.data)
+
         this.data = arr
+
+        // console.log("this.data after: ", this.data)
+
         if (Object.keys(this.priorities).length === 0) {
           this.prioritiesService.SellerPriority$.next(this.data)
 
           this.appService.unitCriteria$.next(this.criteria.data)
-        } else {
-          this.data = this.priorities
-        }
+        } 
+        // else {
+        //   console.log("this.priorities: ", this.priorities)
+        //   this.data = this.priorities
+        // }
 
-        // console.log("this.data1: ", this.data)
+        // console.log("this.dataashraf: ", this.data)
 
         for (let [k, val] of Object.entries(this.data)) {
           if (k === '1') { this.appService.tabOne$.next(this.data[k]) }
@@ -307,11 +346,11 @@ export class SetupSellerPrioritiesComponent implements OnInit {
               name_en: "Unit photos",
               options: []
             }
-            console.log("here1 before: ", this.data[k])
+            // console.log("here1 before: ", this.data[k])
             if(!this.data[k].includes(obj)){
               this.data[k].push(obj)
             }
-            console.log("here1 after: ", this.data[k])
+            // console.log("here1 after: ", this.data[k])
             this.appService.tabFour$.next(this.data[k])
           }
           // console.log("this.data2: ", this.data)
@@ -364,6 +403,10 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       }
       let data = this.criteria.data
       let key = 1
+
+      // console.log("arr now before: ", arr)
+
+
       if (!Object.keys(this.data).length) {
         for (let [k, val] of Object.entries(data)) {
           if (k !== 'icons_path' && data[k].constructor == Object) {
@@ -381,6 +424,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
             }
           }
         }
+        // console.log("arr now after: ", arr)
         this.data = arr
         if (Object.keys(this.priorities).length === 0) {
           this.prioritiesService.SellerPriority$.next(this.data)
@@ -404,11 +448,11 @@ export class SetupSellerPrioritiesComponent implements OnInit {
               options: []
             }
             
-            console.log("here2 before: ", this.data[k])
+            // console.log("here2 before: ", this.data[k])
             if(!this.data[k].includes(obj)){
               this.data[k].push(obj)
             }
-            console.log("here2 after: ", this.data[k])
+            // console.log("here2 after: ", this.data[k])
 
             this.appService.tabFour$.next(this.data[k])
           }
@@ -459,20 +503,25 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
   validateNext(): boolean {
     const currentStep = String(this.currentStep)
+    console.log("this.prioritiesService.sellerForm.get(currentStep): ", this.prioritiesService.sellerForm.get(currentStep))
     if (this.prioritiesService.sellerForm.get(currentStep)?.valid && currentStep !== '4') {
       return false
     }
     return true
   }
+
   next() {
-    this.setupNotCompletedSell()
-    this.currentStep++
-    let next = String(this.currentStep)
-    this.activeTab = this.currentStep
-    this.enableNextTab(this.activeTab)
-    setTimeout(() => { this.togglePanel('tab-' + this.activeTab) }, 20);
-    this.appService.activeTab$.next(next)
-    this.Stepper.next()
+    
+    if(!this.validateNext()){
+      this.setupNotCompletedSell()
+      this.currentStep++
+      let next = String(this.currentStep)
+      this.activeTab = this.currentStep
+      this.enableNextTab(this.activeTab)
+      setTimeout(() => { this.togglePanel('tab-' + this.activeTab) }, 20);
+      this.appService.activeTab$.next(next)
+      this.Stepper.next()
+    }
   }
   back() {
     this.currentStep--
@@ -497,9 +546,23 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
   validateSubmit(): boolean {
     if (this.prioritiesService.sellerForm.valid && this.currentStep === 4) {
+      // if(){
+
+      // }else{
+      //   return false
+      // }
       return false
     }
     return true
+  }
+  
+  review(){
+    console.log("this.sellerForm: ", this.prioritiesService.sellerForm)
+    if(this.validateSubmit()){
+
+    }else{
+      this.doSearchQuery()
+    }
   }
 
   getCurrentActiveForm(formId: string) {
@@ -552,13 +615,13 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     let sellerFormValue = this.sellerForm.value
     let propertyValue = this.propertyDetailsData
 
-    console.log("sellerFormValue: ", sellerFormValue)
-    console.log("propertyValue: ", propertyValue)
+    // console.log("sellerFormValue: ", sellerFormValue)
+    // console.log("propertyValue: ", propertyValue)
 
     this.propertyDetailsObj = {}
     if (Object.keys(propertyValue).length > 0) {
       this.searchObj.images = this.attachments
-      console.log("this.searchObj.images: ",this.searchObj.images)
+      // console.log("this.searchObj.images: ",this.searchObj.images)
       for (const key in propertyValue) {
         this.searchObj['price'] = this.propertyDetailsObj['price'] = propertyValue['priceMinRange']
         this.searchObj['description'] = this.propertyDetailsObj['description'] = propertyValue['unitDescription']

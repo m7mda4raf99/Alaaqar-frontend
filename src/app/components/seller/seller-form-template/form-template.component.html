@@ -13,6 +13,9 @@
                             <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
                             {{getKeyName(criteria.name_en, formData)}}
                     </p>
+
+                    <span *ngIf="isInvalid(criteria)" class="required"> * </span>
+
                     
                     <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
                         <ng-container
@@ -55,6 +58,8 @@
                             <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
                             {{getKeyName(criteria.name_en, formData)}}
                     </p>
+
+                    <span *ngIf="isInvalid(criteria)" class="required"> * </span>
                     
                     <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
                         <ng-container
@@ -139,7 +144,9 @@
                                 
                                 <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
                                 {{getKeyName(criteria.name_en, formData)}}
-                        </p>                        
+
+                                <span *ngIf="imagesPreview().length === 0 && !uploadingPhotos" class="required"> * </span>
+                        </p>               
                         
                         <div style="display: flex;"> 
                             <div class="imagesUpload masterplan" >

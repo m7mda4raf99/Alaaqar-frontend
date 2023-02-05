@@ -249,7 +249,7 @@ export class SinglePropertyComponent implements OnInit {
     this.router.navigate(['/sell'], { queryParams: { edit: true, id } })
   }
   getItemCriteria(data: any) {
-    return data.parents
+    return data?.parents
   }
   getObjKey(obj: any) {
     return this.activeLang === 'en' ? obj.criteria_name_en : obj.criteria_name_ar
