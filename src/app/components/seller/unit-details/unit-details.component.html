@@ -102,8 +102,8 @@
                             {{'propertyDetails.Click assign to evaluator' | translate}}
                         </p>
 
-                        <button (click)="editUnit()" *ngIf="proerityType === 'sell' && params.edit != 'true' "
-                            class="btn more edit-unit">{{'propertyDetails.Edit this unit' | translate}}</button>
+                        <!-- <button (click)="editUnit()" *ngIf="proerityType === 'sell' && params.edit != 'true' "
+                            class="btn more edit-unit">{{'propertyDetails.Edit this unit' | translate}}</button> -->
                         <button *ngIf="proerityType === 'sell' && params.edit == 'true'"
                             class="btn button-success more" (click)="UpdateUnit(content)">{{'propertyDetails.Assign
                             to evaluator' | translate}}</button>
@@ -116,8 +116,8 @@
 
             </div>
             <!-- sell -->
-            <div class="row details mt-5 mb-5 col-lg-8" *ngIf="proerityType === 'sell'">
-                <div class="col-sm-12">
+            <div class="row details mt-5 mb-5" *ngIf="proerityType === 'sell'">
+                <div class="col-sm-12 col-lg-8">
                     <p class="title"> {{'propertyDetails.Details' | translate}}</p>
                     <div id="description" class="desc">
                         {{renderString(propertyData?.description)}}
@@ -156,8 +156,8 @@
                 </div>
             </div>
             <!--buy-->
-            <div class="row details mt-5 mb-5 col-lg-8" *ngIf="proerityType !== 'sell'">
-                <div class="col-sm-12">
+            <div class="row details mt-5 mb-5" *ngIf="proerityType !== 'sell'">
+                <div class="col-sm-12 col-lg-8">
                     <p class="title"> {{'propertyDetails.Details' | translate}}</p>
                     <div id="description" class="desc">
                         {{renderString(propertyData?.description)}}

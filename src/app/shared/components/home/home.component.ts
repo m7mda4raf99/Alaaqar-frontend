@@ -199,6 +199,10 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
+
   async ngOnInit() {
 
 

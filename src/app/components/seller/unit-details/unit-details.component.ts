@@ -211,6 +211,7 @@ export class UnitDetailsComponent implements OnInit {
     return this.propertyDetails['propose'] && this.propertyDetails['propose'] == 1 ? 'RENTAL' : 'SELL'
   }
   editUnit() {
+    console.log("this.propertyImages: ", this.propertyImages)
     this.appServiceService.propertyImagesPreviewEditMode$.next(this.propertyImages)
     this.router.navigate(['/sell'], { queryParams: { type_id: this.propertyDetails?.type_id, propose: this.propertyDetails?.propose } })
   }
