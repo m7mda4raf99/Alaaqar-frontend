@@ -915,6 +915,12 @@ a{
         padding-top: 190px;
     }
 }
+@media (max-width:425px){
+    body{
+        padding-top: 80px;
+    }
+}
+
 @media (max-width:768px){
     .app-header ng-select{
         .ng-select-container, .ngSelect-input{

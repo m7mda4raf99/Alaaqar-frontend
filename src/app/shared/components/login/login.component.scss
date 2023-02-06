@@ -8,6 +8,11 @@
         background-color: #FFF;
         border-radius: 10px;
         margin: 70px 0px;
+
+        @media (max-width: 425px){
+            margin: 0px 0px;
+        }
+
         position: relative;
         .main-row {
             @media only screen and (min-width: 768px) and (max-width: 1024px) {
