@@ -23,22 +23,33 @@
                 </div>
                 <div class="links">
                     <h3> {{'footer.Important Links' | translate}}</h3>
-                    <p> <a routerLink='/how-it-works'>{{'footer.How it works?' | translate}}</a></p>
-                    <p><a routerLink='/about'>{{'footer.About us' | translate}}</a></p>
-                    <p><a routerLink='/terms-condition'>{{'footer.Terms & Conditions' | translate}}</a></p>
-                    <p><a routerLink='/blog'>{{'footer.Blog' | translate}}</a></p>
+                    
+                    <div class="flex">
+                        <p> <a routerLink='/how-it-works'>{{'footer.How it works?' | translate}}</a></p>
+                        <p><a routerLink='/about'>{{'footer.About us' | translate}}</a></p>
+                    </div>
+                    
+                    <div class="flex">
+                        <p><a routerLink='/terms-condition'>{{'footer.Terms & Conditions' | translate}}</a></p>
+                        <p><a routerLink='/blog'>{{'footer.Blog' | translate}}</a></p>
+                    </div>
+
                 </div>
                 <div class="services">
                     <h3> {{'footer.Services' | translate}}</h3>
-                    <p> <a routerLink=''>{{'footer.Buy' | translate}}</a></p>
-                    <p><a routerLink=''>{{'footer.Rent' | translate}}</a></p>
-                    <p><a routerLink=''>{{'footer.Sell' | translate}}</a></p>
-                    <p><a routerLink=''>{{'footer.Rental' | translate}}</a></p>
+                    <div class="flex">
+                        <p> <a routerLink=''>{{'footer.Buy' | translate}}</a></p>
+                        <p><a routerLink=''>{{'footer.Rent' | translate}}</a></p>
+                        <p><a routerLink=''>{{'footer.Sell' | translate}}</a></p>
+                        <p><a routerLink=''>{{'footer.Rental' | translate}}</a></p>
+                    </div>
                 </div>
                 <div class="contacts">
                     <h3> {{'footer.Contact' | translate}}</h3>
-                    <p> {{contacts.contact_phone}} </p>
-                    <p> {{contacts.contact_email}} </p>
+                    <div class="flex">
+                        <p> {{contacts.contact_phone}} </p>
+                        <p> {{contacts.contact_email}} </p>
+                    </div>
                 </div>
                 <div class="download">
                     
