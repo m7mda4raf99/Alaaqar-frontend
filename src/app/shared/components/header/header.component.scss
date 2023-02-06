@@ -100,6 +100,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
                     top: 20px;
                 }
                 a{
+                    width: 100%;
                     color: #ababb6;
                     display: flex;
                     position: relative;
@@ -170,8 +171,9 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
     &__mini{
         // display: flex;
         // margin-right: 20px;
-        cursor: pointer;
+        
         .icon{
+            cursor: pointer;
             svg{
                 width: 20px;
                 height: 20px;
@@ -188,6 +190,16 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
                 }
             }
         }
+
+        img{
+            width: 50px;
+            height: 50px;
+        }
+
+    }
+    &__options{
+        display: flex;
+        align-items: center;
     }
     &__signup{
         display: flex;
@@ -373,12 +385,14 @@ ng-select{
                         border-bottom: 0;
                         a{
                             color: white;
+                            width: 100%;
                         }
                     }
                 }
             }
             &.active{
                 left: 0;
+                top: 80px;
             }
         }
         &__collapse{
@@ -401,28 +415,32 @@ ng-select{
                 }
             }
         }
+        &__options{
+            display: none;
+        }
+
     }
 }
 
-@media (max-width:1023px){
-    .app-header{
-        &__logo{
-            right: initial;
-            top: -69px;
-            margin-left: 15px;
-            width: 110px;
-        }
-        &.rtl{
-            .app-header{
-                &__logo{
-                    right: inherit;
-                    left: initial;
-                    margin-right: 15px;
-                }
-            }
-        }
-    }
-}
+// @media (max-width:1023px){
+//     .app-header{
+//         &__logo{
+//             right: initial;
+//             top: -69px;
+//             margin-left: 15px;
+//             width: 110px;
+//         }
+//         &.rtl{
+//             .app-header{
+//                 &__logo{
+//                     right: inherit;
+//                     left: initial;
+//                     margin-right: 15px;
+//                 }
+//             }
+//         }
+//     }
+// }
 
 @media (max-width:479px){
     
@@ -441,6 +459,17 @@ ng-select{
                 display: none;
             }
 
+        }
+
+        &__logo{
+            width: 125px;
+        }
+
+        &__mini{
+            img{
+                width: 40px !important;
+                height: 40px !important;
+            }
         }
     }
 }

@@ -715,7 +715,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       allowSearchFilter: false,
       enableFilterSelectAll: false,
       showCheckbox: false,
-      position: 'bottom', autoPosition: false
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
     };  
 
     this.settingsArea = { 
@@ -731,7 +732,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           limitSelection: (tab === "buy" || tab === "rent") ? 3 : 1,
           enableFilterSelectAll: false,
           showCheckbox: true,
-          position: 'bottom', autoPosition: false
+          position: 'bottom', autoPosition: false,
+          searchAutofocus: false
     };  
 
     this.settingsNeigbhorhood = { 
@@ -746,7 +748,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       limitSelection: (tab === "buy" || tab === "rent") ? 5 : 1,
       enableFilterSelectAll: false,
       showCheckbox: true,
-      position: 'bottom', autoPosition: false
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
     };  
 
     this.settingsCompound = { 
@@ -761,7 +764,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       limitSelection: (tab === "buy" || tab === "rent") ? 5 : 1,
       enableFilterSelectAll: false,
       showCheckbox: true,
-      position: 'bottom', autoPosition: false
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
     };  
 
     this.settingsUnitType = {
@@ -773,7 +777,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       allowSearchFilter: false,
       enableFilterSelectAll: false,
       showCheckbox: false,
-      position: 'bottom', autoPosition: false
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
     }
 	
   }
