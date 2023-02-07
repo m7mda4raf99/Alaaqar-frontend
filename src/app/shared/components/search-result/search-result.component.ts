@@ -114,6 +114,10 @@ export class SearchResultComponent implements OnInit {
     this.search(false)
     this.get_bedrooms_options(5)
     this.get_space_options(4)
+    console.log("result",this.results)
+   
+  }
+
 
     /// New Search filter 
     this.activeCity = this.search_model.cities

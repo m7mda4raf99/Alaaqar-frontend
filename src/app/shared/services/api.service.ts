@@ -117,6 +117,9 @@ export class ApiService {
   public async getCriteriaForSeller(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/criteria_parent_for_seller`, 'GET', data, null)
   }
+  public async unit_types_count_compound(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_compound`, 'GET', data, null)
+  }
   public async unit_types_count_neighborhood(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/unit_types_count_neighborhood`, 'GET', data, null)
   }
@@ -130,9 +133,12 @@ export class ApiService {
   public async GetMinUnitPriceReal(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/GetMinUnitPriceReal`, 'GET', data, null)
   }
-
+  
   public async GetMinUnitPriceNei(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/GetMinUnitPriceNei`, 'GET', data, null)
+  }
+  public async GetMinUnitPriceCom(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/GetMinUnitPriceCom`, 'GET', data, null)
   }
 
   public async GetMinUnitPriceCtiy(data: any): Promise<any> {
@@ -271,9 +277,10 @@ export class ApiService {
   public getUnitTypes() {
     return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
   }
+  
 
-  public async getCity() : Promise<any> {
-    return await this.SyncClient(`${this.BaseURL}api/getCity`, 'GET',null, null)
+  public async getCity(data: any) : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getCity`, 'GET',data, null)
   }
 
   public async getloc(data: any) : Promise<any> {

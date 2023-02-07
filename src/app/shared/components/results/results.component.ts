@@ -49,6 +49,7 @@ export class ResultsComponent implements OnInit {
       }
       this.spinner.hide()
       this.results = results.data
+      console.log("results",this.results)
 
     } else {
       this.router.navigate(['/home'])
@@ -158,5 +159,8 @@ export class ResultsComponent implements OnInit {
   }
   navigateToItemDetails(item: any) {
     this.router.navigate(['buy/property-details'], { queryParams: { id: item.unit_id, type: 'buy', score: item.score } })
+  }
+  setDate(date: any){
+    return "Listed on " + date.substring(0, 10)
   }
 }
