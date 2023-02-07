@@ -29,7 +29,7 @@ export class CanDeactivateGuard implements CanDeactivate<SetupSellerPrioritiesCo
       const { value } = await Swal.fire({
         title: 'Are you sure you want to exit from this page?',
         text: 'Well, click Save and Exit button so as not to lose the entered data',
-        showCloseButton: true,
+        // showCloseButton: true,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Save and Exit',

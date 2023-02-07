@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center priorites-row" style="background-color: #F7F7F7;">
             <div class="col-xs-12 col-xl-10 main-content">
-                <div class="row">
+                <!-- <div class="row"> -->
 
                     <!-- priorites-list -->
                     <div class="col-xs-12 col-xl-12 priorites-list order-1 order-xl-0">
@@ -24,14 +24,17 @@
                             <!-- --------------------high------------------ -->
 
                             <!-- high priority header  -->
-                            <div class="justify-content-center" style="display: flex; justify-content: space-between;">
-                                <div class="col-10">
+                            <div style="display: flex;
+                            justify-content: space-between;
+                            margin: 0% 5%;
+                            align-items: baseline;">
+                                <div>
                                     <p class="priority-header high">{{'setPriorities.High priority' | translate}}</p>
                                     <p>{{'setPriorities.Select High priority' | translate}}</p>
                                 </div>
 
-                                <div class="col-1">
-                                    <button *ngIf="activeTab === 1" [disabled]='isDoneDimmed(1)' class="btn done" (click)="onClickDone(1)">{{'setPriorities.Done' | translate}}</button>
+                                <div>
+                                    <button *ngIf="activeTab === 1" [disabled]='isDoneDimmed(1)' class="btn done" (click)="onClickDone(1); ">{{'setPriorities.Done' | translate}}</button>
                                     <button *ngIf="activeTab != 1" class="btn edit" (click)="onClickEdit(1)">{{'setPriorities.Edit' | translate}}</button>
                                 </div>
                             </div>
@@ -73,6 +76,7 @@
                             </div>
 
                             <div *ngIf="activeTab != 1" class="margin_all">
+                                <!-- {{ scroll(mid) }} -->
                                 <div class="margin_item" *ngFor="let item of prioritiesList['1']">
                         
                                     <div class="box preview">
@@ -84,18 +88,22 @@
                                         </span>
                                     </div>
                                 </div>
+
                             </div>
                             
                             <!-- --------------------medium------------------ -->
 
                             <!-- medium priority header  -->
-                            <div class="justify-content-center" style="display: flex; justify-content: space-between;">
-                                <div class="col-10">
+                            <div style="display: flex;
+                            justify-content: space-between;
+                            margin: 0% 5%;
+                            align-items: baseline;">
+                                <div>
                                     <p class="priority-header medium">{{'setPriorities.Medium priority' | translate}}</p>
                                     <p>{{'setPriorities.Select Medium priority' | translate}}</p>
                                 </div>
 
-                                <div class="col-1">
+                                <div>
                                     <button *ngIf="activeTab === 2 || isEmpty(2)" [disabled]='isDoneDimmed(2)' class="btn done" (click)="onClickDone(2)">{{'setPriorities.Done' | translate}}</button>
                                     <button *ngIf="activeTab != 2  && !isEmpty(2)" class="btn edit" (click)="onClickEdit(2)">{{'setPriorities.Edit' | translate}}</button>
                                 </div>
@@ -153,13 +161,16 @@
                             <!-- --------------------low------------------ -->
 
                            <!-- low priority header  -->
-                            <div class="justify-content-center" style="display: flex; justify-content: space-between;">
-                                <div class="col-10">
+                            <div style="display: flex;
+                            justify-content: space-between;
+                            margin: 0% 5%;
+                            align-items: baseline;">
+                                <div>
                                     <p class="priority-header low">{{'setPriorities.Low priority' | translate}}</p>
                                     <p>{{'setPriorities.Select Low priority' | translate}}</p>
                                 </div>
 
-                                <div class="col-1">
+                                <div>
                                     <button *ngIf="activeTab === 3 || isEmpty(3)" [disabled]='isDoneDimmed(3)' class="btn done" (click)="onClickDone(3)">{{'setPriorities.Done' | translate}}</button>
                                     <button *ngIf="activeTab != 3  && !isEmpty(3)" class="btn edit" (click)="onClickEdit(3)">{{'setPriorities.Edit' | translate}}</button>
 
@@ -220,12 +231,12 @@
                     </div>
 
                     <div style="display: flex; justify-content: end; ">
-                        <div style="width: 25%;">
+                        <div class="responsive">
                             <button [disabled]='validateNext()' style="display: block;max-width: 100%;width: 100%;" class="btn button-success more" (click)="doSearch()">{{'setPriorities.Set Priorities' | translate}}</button>
 
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
 
             </div>
         </div>

@@ -12,9 +12,9 @@
         </div>
         <div class="col-md-12 col-lg-6 custom-padding home-controls">
             <h1>{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
-            <p class="save">{{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
+            <p #actions class="save">{{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
 
-            <div #actions class="col-md-10 stats">
+            <div class="col-md-10 stats">
 
                 <div class="center">
                     <p class="count"> {{ 'home.Property count' | translate }} </p>
@@ -804,7 +804,8 @@
                     </button>
                     
                     <button #apply
-                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'})"
+                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'});
+                        scroll(actions);"
                         class="btn button-success applyBtn firstbtn"> {{'electronic_consultant' |
                         translate}}
                     </button>

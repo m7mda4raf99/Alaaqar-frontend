@@ -1,4 +1,40 @@
+.container{
+//     .image_criteria{
+//         display: flex; 
+//         justify-content: space-between;
+
+//         @media (max-width: 425px) {
+//             display: block; 
+//         }
+//    }
+}
+
+.guidance{
+    width: 100%;
+    padding: 5px 0px 0px 15px;
+    
+    @media (max-width: 425px) {
+        font-size: 13px;
+    }
+}
+
 .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 465px;
+
+    .upload-link{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10%;
+
+        @media (max-width: 425px) {
+            padding-top: 25%;
+        }
+    }
+
     .button-row {
         button {
             background-color: transparent;

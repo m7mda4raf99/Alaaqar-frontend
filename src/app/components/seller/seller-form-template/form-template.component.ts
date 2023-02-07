@@ -783,4 +783,20 @@ export class SellFormTemplateComponent implements OnInit {
     return false
   }
 
+  setStyle(){
+    const div = document.getElementById('image_criteria');
+
+    if (div != null) {
+      if(this.imagesPreview().length === 0){
+        div.style.display = 'block'
+      }else{
+        div.style.display = 'flex'
+        div.style.justifyContent = 'space-between'
+        div.style.alignItems = 'baseline'
+      }
+    }
+
+    console.log("div: ", div)
+  }
+
 }
