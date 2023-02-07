@@ -75,7 +75,9 @@ export class MyUnitsComponent implements OnInit {
       offset: body.offset ? body.offset : 0,
       limit: body.limit ? body.limit : 4
     }
-    let units = await this.apiService.getMyUnits(bodyData)
+    let units = await this.apiService.getMyUncompletedUnits(bodyData)
+    // console.log('units')
+    // console.log(units)
     if (units !== false) {
       this.Uncompleteditems = this.Uncompleteditems && this.Uncompleteditems && this.Uncompleteditems.length > 0 ? this.Uncompleteditems.concat(units.data) : units.data
     } else {
@@ -83,9 +85,34 @@ export class MyUnitsComponent implements OnInit {
     }
     return true
   }
-  editUnit() {
-    this.appService.propertyImagesPreviewEditMode$.next(this.propertyImages)
-    this.router.navigate(['/sell'], { queryParams: { type_id: this.propertyDetails?.type_id, propose: this.propertyDetails?.propose } })
+  editUnit(item: any) {
+
+    // console.log('item')
+    // console.log(item)
+    let data = {
+      SelectedRealEstateType: item.value['type_id'],  
+      defaultCountry: item.value['city']['name_en'],
+      price: item.value['price'],
+      selectedArea: item.value['area']['id'],
+      selectedLocation: item.value['location']['id'], 
+      selectedNeighborhood : item.value['neighborhood']['id'],
+      selectedCountry : item.value['city'],
+      selectedCountryId: item.value['city']['id'],
+      selectedAreaObj : item.value['area'],
+      selectedNeighborhoodObj : item.value['neighborhood']
+      // selectedCompound: item.value['compound']['id'],
+
+    }
+
+    // console.log('data')
+    // console.log(data)
+    this.appService.propertyDetails$.next(data)
+    
+
+    //console.log(item.value['propose_id'])
+    // this.appService.propertyImagesPreviewEditMode$.next(this.propertyImages)
+    this.router.navigate(['/sell'], { queryParams: { type_id: item.value['type_id'], propose: item.value['propose_id'] } })
+
   }
   async getUnits(body: any = {}) {
     let bodyData = {

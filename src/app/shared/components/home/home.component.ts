@@ -69,9 +69,7 @@ export class HomeComponent implements OnInit {
   activeTab: string = 'buy'
   countries: any = []
   activeCity: number = 1
-  cites = [
-    { id: 1, name: "Cairo", disabled: false,units_count:0}
-  ]
+
   areas = [
     { id: 1, name: "area", disabled: false,units_count:0 }
   ]
@@ -930,6 +928,12 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       this.dropdownListCity = array
       
       this.selectedItemCity.push(this.dropdownListCity[0])
+      this.search_model.cities = [this.activeCity]
+      // for(let item of this.dropdownListCity){
+      //   if(item['id']==1){
+      //     this.selectedItemCity.push(item)
+      //   }
+      // }
 
     }else{
       let array = []
@@ -947,11 +951,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       }
   
       this.dropdownListCity = array
+
     }
-
-
-    // console.log("city")
-    // console.log(this.dropdownListCity)
   }
 
   async getAreaLocations(isChangedCity: boolean) {
@@ -981,6 +982,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       }
 
       this.dropdownListArea = array
+
 
       // console.log("Location")
       // console.log(this.dropdownListArea)
@@ -1313,8 +1315,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         }
         
         else if((this.activeTab === 'sell' || this.activeTab === 'rental') && !this.isLoggedIn){
-          //  this.router.navigate(['/login'])
-          this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
+           //this.router.navigate(['/login'])
+          //  this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
+
+           this.router.navigate(['/login'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
 
         }
         else{
@@ -1326,6 +1330,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         }
         
         this.appServiceService.propertyDetails$.next(data)
+        // console.log('data')
+        // console.log(data)
 
     }
   }

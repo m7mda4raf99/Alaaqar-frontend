@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   otpValue: any
   avatarUrl: any
   firstLogin: any
+  activeRoute: any
   constructor(
     private apiService: ApiService,
     private cookieService: CookieService,
@@ -52,6 +53,9 @@ export class LoginComponent implements OnInit {
     if (this.activeRouter.snapshot.queryParams && this.activeRouter.snapshot.queryParams.fLogin == 'true') {
       this.firstLogin = true
     }
+     this.activeRoute = this.activeRouter.snapshot
+    console.log('queryParams')
+    console.log(this.activeRoute.queryParams)
   }
 
   changePreferredCountries() {
@@ -113,7 +117,14 @@ export class LoginComponent implements OnInit {
       this.appService.isLoggedIn$.next(true)
 
       this.notificationService.showSuccess('Success login !')
-      this.location.back()
+     if(this.activeRoute.queryParams['type_id'] && this.activeRoute.queryParams['propose'] ){
+        this.router.navigate(['/sell'], { queryParams: { type_id: this.activeRoute.queryParams['type_id'], propose: this.activeRoute.queryParams['propose']} })
+
+      }
+      else{
+        this.location.back()
+      }
+      
       // this.firstLogin ? this.location.back() : this.router.navigate(['/home'])
     }
   }

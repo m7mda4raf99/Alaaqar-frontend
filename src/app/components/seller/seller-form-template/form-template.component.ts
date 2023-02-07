@@ -222,7 +222,6 @@ export class SellFormTemplateComponent implements OnInit {
         selected: false,
       }
 
-      console.log("this.stepform: ", this.stepForm)
 
       return this.stepForm.get(key)?.setValue([obj])
     }
@@ -293,7 +292,6 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   isInvalid(criteria: any){
-    console.log("this.stepForm: ", this.stepForm.controls[criteria['name_en']])
     return this.stepForm.controls[criteria['name_en']].status === 'INVALID'
   }
 
@@ -698,7 +696,6 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   filterTitleDescription(data: any[]){
-    console.log("formdata: ", data)
     if(Array.isArray(data) && data.length > 0){
       return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
     }else {

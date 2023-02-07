@@ -52,7 +52,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         this.router.navigate(['/home'])
       }
       this.propertyDetailsData = val
-      // console.log("ashraf:" , this.propertyDetailsData)
+       console.log('propertyDetailsData')
+       console.log( this.propertyDetailsData)
     })
     this.sub4 = this.appService.uploads$.subscribe(val => this.attachments = val)
     this.sellerForm = this.prioritiesService.sellerForm
@@ -162,6 +163,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         this.NotCompsearchObj['area_id'] = this.propertyDetailsNotCompleted['area_id'] = Array.isArray(propertyValue['selectedArea']) ? propertyValue['selectedArea'][0] : propertyValue['selectedArea']
         this.NotCompsearchObj['type_id'] = this.propertyDetailsNotCompleted['type_id'] = propertyValue['SelectedRealEstateType']
         this.NotCompsearchObj['neighborhood_id'] = this.propertyDetailsNotCompleted['neighborhood_id'] = Array.isArray(propertyValue['selectedNeighborhood']) ? propertyValue['selectedNeighborhood'][0] : propertyValue['selectedNeighborhood']
+        this.NotCompsearchObj['location_id'] = this.propertyDetailsNotCompleted['location_id'] = Array.isArray(propertyValue['selectedLocation']) ? propertyValue['selectedLocation'][0] : propertyValue['selectedLocation']
+        this.NotCompsearchObj['compound_id'] = this.propertyDetailsNotCompleted['compound_id'] = Array.isArray(propertyValue['selectedCompound']) ? propertyValue['selectedCompound'][0] : propertyValue['selectedCompound'] 
         this.propertyDetailsNotCompleted['selectedAreaObj'] = propertyValue['selectedAreaObj']
         this.propertyDetailsNotCompleted[key] = propertyValue[key]
 
@@ -173,8 +176,6 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       for (const k in sellerFormValue[key]) {
         if (Array.isArray(sellerFormValue[key][k])) {
           sellerFormValue[key][k].forEach((element: any) => {
-            // console.log('element')
-            // console.log(element.value)
             if (element?.id) {
               let criteriaID = this.getOptionCriteriaId(k)
               this.NotCompsearchObj.options.push({
@@ -195,10 +196,14 @@ export class SetupSellerPrioritiesComponent implements OnInit {
                   this.title = element.value
                   this.NotCompsearchObj['title'] = this.propertyDetailsNotCompleted['title'] = element.value
                 }
-                this.NotCompsearchObj.options.push({
-                  option: Number(element.value),
-                  criteria: criteriaID
-                })
+              
+                if(criteriaID!=29 && criteriaID !=28)
+                {
+                  this.NotCompsearchObj.options.push({
+                    option: Number(element.value),
+                    criteria: criteriaID
+                  })
+                }
               }
               
             }
@@ -211,8 +216,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     this.NotCompsearchObj['description'] = this.propertyDetailsNotCompleted['description'] = this.description
     this.NotCompsearchObj['title'] = this.propertyDetailsNotCompleted['title'] = this.title
 
-    // console.log("NotCompsearchObj");
-    // console.log(this.NotCompsearchObj)
+    console.log("NotCompsearchObj");
+    console.log(this.NotCompsearchObj)
    this.appService.addUnitData$.next(this.NotCompsearchObj)
   }
 
@@ -503,7 +508,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
   validateNext(): boolean {
     const currentStep = String(this.currentStep)
-    console.log("this.prioritiesService.sellerForm.get(currentStep): ", this.prioritiesService.sellerForm.get(currentStep))
+    // console.log("this.prioritiesService.sellerForm.get(currentStep): ", this.prioritiesService.sellerForm.get(currentStep))
     if (this.prioritiesService.sellerForm.get(currentStep)?.valid && currentStep !== '4') {
       return false
     }
@@ -557,7 +562,6 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
   
   review(){
-    console.log("this.sellerForm: ", this.prioritiesService.sellerForm)
     if(this.validateSubmit()){
 
     }else{
