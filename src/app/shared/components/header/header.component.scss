@@ -117,6 +117,25 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
                     }
                     
                 }
+                &.responsive{
+                    display: none;
+                }
+            }
+
+            nav{
+                &.responsive{
+                    display: none;
+                }
+            }
+
+            .direction{
+                display: flex;
+                flex-direction: row;
+                align-items: end;
+
+                .responsive{
+                    display: none;
+                }
             }
         }
     }
@@ -353,11 +372,17 @@ ng-select{
         left: 0;
         z-index: 99999;
         background: white;
+        
         &__menu{
+
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between;
             position: fixed;
-            width: 280px;
+            width: 240px;
             left: -280px;
-            height: calc(100vh - 138px);
+            height: -webkit-fill-available;
+            // height: calc(100vh - 138px);
             background: white;
             // top: 100%;
             top: 138px;
@@ -367,6 +392,7 @@ ng-select{
             ul{
                 display: flex;
                 flex-direction: column;
+                justify-content: space-between;
                 width: 100%;
                 padding: 15px;
                 li{
@@ -387,6 +413,26 @@ ng-select{
                             color: white;
                             width: 100%;
                         }
+                    }
+
+                    &.responsive{
+                        display: block;
+                    }
+                }
+                
+                nav{
+                    &.responsive{
+                        display: block;
+                    }
+                }
+
+                .direction{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: initial;
+
+                    .responsive{
+                        display: block;
                     }
                 }
             }
