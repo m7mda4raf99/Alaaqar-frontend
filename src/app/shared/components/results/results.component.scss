@@ -3,6 +3,10 @@
     .main-row {
         margin-top: 50px;
 
+        @media (max-width: 425px) {
+            margin-top: 20px;
+        }
+
         .result-head {
             p.float-start{
                 font-family:'Rubik-bold';

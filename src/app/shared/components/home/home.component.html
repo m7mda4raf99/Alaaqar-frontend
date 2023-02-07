@@ -11,27 +11,27 @@
         <div class="col-md-12 col-lg-6 image-sec d-block d-lg-none sm-bg">
         </div>
         <div class="col-md-12 col-lg-6 custom-padding home-controls">
-            <h1 style="font-size: calc(1.075rem + 2.5vw);">{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
-            <p>{{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
+            <h1>{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
+            <p #actions class="save">{{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
 
-            <div class="row">
+            <div class="col-md-10 stats">
 
-                <div class="col-6 col-lg-1 stats">
+                <div class="center">
                     <p class="count"> {{ 'home.Property count' | translate }} </p>
                     <p class="title"> {{ 'home.Property' | translate }} </p>
                 </div>
 
-                <div class="col-6 col-lg-1 stats">
+                <div class="center">
                     <p class="count"> {{ 'home.Developers count' | translate }} </p>
                     <p class="title"> {{ 'home.Developers' | translate }} </p>
                 </div>
 
-                <div class="col-6 col-lg-1 stats">
+                <div class="center">
                     <p class="count"> {{ 'home.Areas count' | translate }} </p>
                     <p class="title"> {{ 'home.Areas' | translate }} </p>
                 </div>
 
-                <div class="col-6 col-lg-1 stats">
+                <div class="center">
                     <p class="count"> {{ 'home.Consultants count' | translate }} </p>
                     <p class="title"> {{ 'home.Consultants' | translate }} </p>
                 </div>
@@ -185,7 +185,7 @@
         </div>
 
         <div class="col-12 alaqaar-solution">
-            <div class="container">
+            <div class="container responsive">
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <div class="video-preview">
@@ -418,48 +418,40 @@
             </div>
         </div>
         
-        <div class="download-app row">
+        <div class="download-app">
 
-            <div class="row justify-content-center">
-                <div class="col-xs-12 custom-padding">
-                    <div class="row justify-content-center">
-                        <div class="col-xs-12 col-md-12 col-lg-6 order-1 order-lg-0">
-                            <div class="section-head-left">
-                                <h2>
-                                    <span class="top"></span>
-                                    {{'home.Download app.title' | translate}}
-                                    <span></span>
-                                </h2>
-                                <p class="description" style="margin-bottom: 120px;">
-                                    {{'home.Download app.description' | translate}}
-                                </p>
-                            </div>
-                            <div class="row left-sec justify-content-center">
-                                <div class="col downlaod">
-                                    <img (click)="navigateToAppStore()" src="../../../../assets/images/ios.png"
-                                        alt="..." />
-                                    <img (click)="navigateToGooglePlay()" src="../../../../assets/images/googleplay.png"
-                                        alt="..." />
-                                </div>
-                                <!-- <div class="col downlaod">
-                            </div> -->
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6 order-0 order-lg-1" style="margin:0;">
-                            <div class="holder">
-                                <img class="iphone" src="../../../../assets/images/iphone-13-pro-max-mockup_freebie.png"
-                                    alt="..." />
-                                <img class="iphone-sm" src="../../../../assets/images/Single mockup.png" alt="..." />
-                            </div>
-                        </div>
-
-                    </div>
+            <div>
+                <div class="section-head-left" style="margin: 0% 5%;">
+                    <h2>
+                        <span class="top"></span>
+                        {{'home.Download app.title' | translate}}
+                        <span></span>
+                    </h2>
+                    <p class="description">
+                        {{'home.Download app.description' | translate}}
+                    </p>
                 </div>
-
+                <div class="left-sec">
+                    <div class="downlaod">
+                        <img (click)="navigateToAppStore()" src="../../../../assets/images/ios.png"
+                            alt="..." />
+                        <img (click)="navigateToGooglePlay()" src="../../../../assets/images/googleplay.png"
+                            alt="..." />
+                    </div>
+                    <!-- <div class="col downlaod">
+                </div> -->
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 order-0 order-lg-1 app">
+                <div class="holder">
+                    <img class="iphone" src="../../../../assets/images/iphone-13-pro-max-mockup_freebie.png"
+                        alt="..." />
+                    <img class="iphone-sm" src="../../../../assets/images/Single mockup.png" alt="..." />
+                </div>
             </div>
         </div>
 
-        <div class="row about-alaqaar">
+        <div class="about-alaqaar">
             <div class="row">
                 <div class="col-xs-12 col-md-11">
                     <div class="row main-row">
@@ -578,8 +570,8 @@
                     <!-- <div class="search-container"> -->
 
                         <div style="width: -webkit-fill-available; position:relative">
-                            <input style="width: inherit; padding: 1% 5% 1% 5%; border-radius: 10px; border: 1px solid #cabcbc;" type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="{{'buy.Placeholder'| translate}}">
-                            <fa-icon style="position: absolute; left: 1.5%; right: 1.5%; top: 25%; width: fit-content;" [icon]="faSearch"></fa-icon>
+                            <input type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="{{'buy.Placeholder'| translate}}">
+                            <fa-icon [icon]="faSearch"></fa-icon>
 
                         </div>
                         <!-- <button type="submit">Search</button> -->
@@ -606,7 +598,7 @@
     
                 <div class="another-option">
                     <!-- (click)="file.click()" -->
-                    <a  (click)="buyRentSearchFlag = !buyRentSearchFlag"
+                    <a  (click)="buyRentSearchFlag = !buyRentSearchFlag; scroll(actions);"
                         style=" color: #f55441; ">
                         {{'buy.Choose Options' | translate}}    
                     </a>
@@ -766,12 +758,13 @@
 
                 <div class="ngSelect compound">
                     <input
+                        class="checkbox"
                         type="checkbox"
                         [checked]="checkboxVar"
                         [disabled]="true"
                         (change)="checkboxVar = !checkboxVar"/>
 
-                    <div>
+                    <div class="dropdown">
                         <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
                             <angular2-multiselect 
                                 [data]="dropdownListCompound" 
@@ -811,7 +804,8 @@
                     </button>
                     
                     <button #apply
-                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'})"
+                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'});
+                        scroll(actions);"
                         class="btn button-success applyBtn firstbtn"> {{'electronic_consultant' |
                         translate}}
                     </button>
@@ -822,7 +816,7 @@
                     <!-- (click)="file.click()" -->
     
                     <div style="display: flex;">
-                        <a  (click)="buyRentSearchFlag = !buyRentSearchFlag"
+                        <a  (click)="buyRentSearchFlag = !buyRentSearchFlag; scroll(actions);"
                             style=" color: #f55441; ">
                             {{'buy.Choose Keywords' | translate}}    
                         </a>
@@ -916,7 +910,7 @@
         
                     <div class="ngSelect price">
                         <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
-                        <div style="margin-left: 10px;">
+                        <div>
                             <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
                                 translate}}</label>
                             <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
@@ -935,12 +929,13 @@
     
                     <div class="ngSelect compound">
                         <input
+                            class="checkbox"
                             type="checkbox"
                             [checked]="checkboxVar"
                             [disabled]="true"
                             (change)="checkboxVar = !checkboxVar"/>
     
-                        <div>
+                        <div class="dropdown">
                             <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
                                 <angular2-multiselect 
                                     [data]="dropdownListCompound" 

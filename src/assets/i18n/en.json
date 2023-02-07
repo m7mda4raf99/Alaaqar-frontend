@@ -228,6 +228,7 @@
             "myunits": "My units "
         },
         "My Property": "My Property",
+        "My Unpublished": "My Unpublished",
         "My inquiry": "My inquiry",
         "Grid View": "Grid View",
         "List View": "List View",
@@ -273,6 +274,7 @@
             "sell": "Sell"
         },
         "Go to the best buyer":"Find the best buyer",
+        "Required": "Required",
         "Step":"Step",
         "unit Photos":"unit Photos",
         "upload photos":"Upload Photos",
@@ -328,7 +330,9 @@
             "Results": "Results",
             "filter by":"Default",
             "Price":"Price",
-            "Score":"Score"
+            "Score":"Score",
+            "PriceHigh":"Price: Low to High",
+            "PriceLow":"Price: High to Low"
         }
     },
     "favorites": {

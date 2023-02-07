@@ -27,26 +27,214 @@
         </div>
         <nav class="app-header__menu">
             <ul>
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-                    false}">
-                    <a routerLink='/home'>{{'header.tab_home' | translate}}</a>
-                </li>
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-                    true}">
-                    <a routerLink='/blog'>{{'header.blog' | translate}}</a>
-                </li>
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-                    true}">
-                    <a routerLink='/how-it-works'>{{'header.how it works' | translate}}</a>
-                </li>
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-                    true}">
-                    <a routerLink='/about'>{{'header.about_us' | translate}}</a>
-                </li>
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-                    true}">
-                    <a routerLink='/contact'>{{'header.contact_us' | translate}}</a>
-                </li>
+                <div class="direction">
+                    <!-- Profile -->
+                    <li class="responsive" *ngIf="isLoggedIn" style="padding: 0px;" (click)="pressedProfile = !pressedProfile;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <ngx-avatar src="{{setAvatarUrl()}}" size="40"> </ngx-avatar>
+
+                            <div style="margin: 0px 10px;"> 
+                                <span style="font-size: 14px; font-weight: 700;"> {{getName()}} </span>
+                                <span style="font-size: 14px; color: #626262"> +{{getPhone()}} </span>
+
+                            </div>
+
+                            <fa-icon *ngIf="!pressedProfile" [icon]="faChevronDown"></fa-icon>
+                            <fa-icon *ngIf="pressedProfile" [icon]="faChevronUp"></fa-icon>
+
+                        </div>
+
+                    </li>
+
+                    <nav *ngIf="pressedProfile" class="responsive">
+                        <ul style="padding: 0px;">
+                            <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="navigateToVisits();isMenuCollapsed = true;expand_collapse($event)" class="dropdown-item" >
+                                    <img src="../../../../assets/images/my_visits.png" alt="image" style="margin: 0px 5px;" >
+                                    {{'header.my_visits' | translate}}
+                                </button> 
+                            </li>
+
+                            <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="navigateToUnits();isMenuCollapsed = true;expand_collapse($event)" class="dropdown-item" >
+                                    <img src="../../../../assets/images/my_units.png" alt="image" style="margin: 0px 5px;">
+                                    
+                                    {{'header.my_units' | translate}}
+                                </button>
+                            </li>
+
+                            <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="navigateToFavorites();isMenuCollapsed = true;expand_collapse($event)" class="dropdown-item" type="button">
+                                    <img src="../../../../assets/images/favorites.png" alt="image" style="margin: 0px 5px;"> {{'header.Profile.Favorites' |
+                                    translate}}
+                                </button>
+                            </li>
+
+                            <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="navigateToEditProfile();isMenuCollapsed = true;expand_collapse($event)" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/settings.png" alt="image" style="margin: 0px 5px;">{{'header.Profile.edit' |
+                                    translate}}
+                                </button>
+                            </li>
+
+                            <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="showConfirmModel(content);isMenuCollapsed = true; expand_collapse($event)" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/logout.png" alt="image" style="margin: 0px 5px;">{{'header.Profile.logout' |
+                                    translate}}
+                                </button>
+
+                                <ng-template #content let-c="close" let-d="dismiss">
+                                    <div [class.rtl]="activeLang.title === 'AR'">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-title">{{'header.Profile.logout' | translate}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>{{'header.Profile.logout message' | translate}} </strong></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                (click)="c('cancel click')">{{'button.actions.cancel' | translate}}</button>
+                                            <button type="button" class="btn btn-danger" (click)="logout()">{{'header.Profile.logout' |
+                                                translate}}</button>
+                                        </div>
+                
+                                    </div>
+                                </ng-template>
+
+                            </li>
+
+                        </ul>
+                        
+                    </nav>
+
+                    <div *ngIf="pressedProfile" class="responsive" style="background-color: #d5d5d5; width: 100%; height: 0.5px; margin-top: 15px;"> </div>
+                    <div *ngIf="!pressedProfile" class="responsive" style="background-color: #d5d5d5; width: 100%; height: 1px;"> </div>
+
+                    <!-- Home -->
+                    <li style="margin-top: 15px;" (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        false}">
+                        <a routerLink='/home'>{{'header.tab_home' | translate}}</a>
+                    </li>
+                    <!-- Blog -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        true}">
+                        <a routerLink='/blog'>{{'header.blog' | translate}}</a>
+                    </li>
+                    <!-- How it works -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        true}">
+                        <a routerLink='/how-it-works'>{{'header.how it works' | translate}}</a>
+                    </li>
+                    <!-- About us -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        true}">
+                        <a routerLink='/about'>{{'header.about_us' | translate}}</a>
+                    </li>
+                    <!-- Contact us -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        true}">
+                        <a routerLink='/contact'>{{'header.contact_us' | translate}}</a>
+                    </li>
+                    <!-- Select country -->
+                    <li class="responsive" style="padding: 5px 0px;" >
+
+                        <ng-select [items]="cities3"
+                        bindLabel="name"
+                        bindValue="name"
+                        placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
+                        [(ngModel)]="selectedCityName"
+                        (change)="transform_country(selectedCityName); expand_collapse($event)" 
+                        style="border: none ! important; width: 100% !important">
+                
+                        <ng-template ng-label-tmp let-item="item">
+                            <img height="20" width="20"  [src]="item.avatar"/>
+                            <b>{{item.name|translate}}</b> 
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                            <img height="15" width="15" [src]="item.avatar"/>
+                            <b>{{item.name|translate}}</b>
+                        </ng-template>
+            
+                    </ng-select>
+
+                    </li>
+                    <!-- Select language -->
+                    <li class="responsive" style="padding: 5px 10px 0px;">
+                        <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" 
+                        style="display: flex; align-items: center;"
+                        (click)="transform_language('en'); expand_collapse($event)">
+                            <span style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
+                            <small style="margin: 0px 2px;">ENGLISH</small>
+                        </div>
+                        
+                        <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " 
+                        style="display: flex; align-items: center;"
+                        (click)="transform_language('ar'); expand_collapse($event)">
+                            <span style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
+                            <small style="margin: 0px 2px;">عربي</small>
+                        </div>
+                    </li>
+                    <!-- Sign up -->
+                    <li class="responsive">
+                        <div *ngIf="!isLoggedIn && ( activeLang.title === 'AR' || activeLang === 'AR' )">
+                            <div style="background-color: #d5d5d5; width: 100%; height: 1px; margin-bottom: 15px;"> </div>
+                            <div class="app-header__signup" (click)="navigateToLogin(); expand_collapse($event)" >
+                                <span class="icon">
+                                    <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
+                                        <path d="M0 0h48v48h-48z" fill="none" />
+                                    </svg>
+                                </span>
+                                {{'sign_up' | translate}}
+                            </div>
+                        </div>
+            
+                        <div *ngIf="!isLoggedIn && ( activeLang.title === 'EN' || activeLang === 'EN' )">
+                            <div style="background-color: #d5d5d5; width: 100%; height: 1px; margin-bottom: 15px;"> </div>
+                            <div class="app-header__signup" (click)="navigateToLogin(); expand_collapse($event)" >
+                                <span class="icon">
+                                    <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
+                                        <path d="M0 0h48v48h-48z" fill="none" />
+                                    </svg>
+                                </span>
+                                {{'sign_up' | translate}}
+                            </div>
+                        </div>
+                    </li>
+                </div>
+
+                <!-- Logout -->
+                <!-- <li class="responsive" *ngIf="isLoggedIn" style="padding: 0px;">
+                    <button style="padding: 0px;" (click)="showConfirmModel(content);isMenuCollapsed = true; expand_collapse($event)" class="dropdown-item"
+                        type="button">
+                        <img src="../../../../assets/images/logout.png" alt="image" style="margin: 0px 5px;">{{'header.Profile.logout' |
+                        translate}}
+                    </button>
+
+                    <ng-template #content let-c="close" let-d="dismiss">
+                        <div [class.rtl]="activeLang.title === 'AR'">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-title">{{'header.Profile.logout' | translate}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>{{'header.Profile.logout message' | translate}} </strong></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    (click)="c('cancel click')">{{'button.actions.cancel' | translate}}</button>
+                                <button type="button" class="btn btn-danger" (click)="logout()">{{'header.Profile.logout' |
+                                    translate}}</button>
+                            </div>
+    
+                        </div>
+                    </ng-template>
+                </li> -->
+
             </ul>
         </nav>
         <div class="app-header__logo">
@@ -56,8 +244,8 @@
         </div>
         <div class="app-header__user" >
             
-            <div class="app-header__mini" (click)="navigateToNotifications();isMenuCollapsed = true" style="position: relative;">
-                <span class="icon" style="margin: 0px 5px;">
+            <div class="app-header__mini" style="position: relative; display: flex;">
+                <span class="icon" (click)="navigateToNotifications();isMenuCollapsed = true" style="margin: 0px 5px; display: flex; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18.5" height="21.503" viewBox="0 0 18.5 21.503">
                         <g id="Iconly_Light_Notification" data-name="Iconly/Light/Notification"
                             transform="translate(0.75 0.75)">
@@ -75,186 +263,176 @@
                     </svg>
 
                 </span>
-            </div>
-            <!-- <div class="app-header__mini" (click)="navigateToFavorites();isMenuCollapsed = true">
-                <span class="icon">
-                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: none;
-                                    stroke: #184D47;
-                                    stroke-linecap: round;
-                                    stroke-linejoin: round;
-                                    stroke-width: 2px;
-                                }
-                            </style>
-                        </defs>
-                        <g data-name="16-heart" id="_16-heart">
-                            <path class="cls-1"
-                                d="M28.43,4.63A8.66,8.66,0,0,0,16,4.63a8.66,8.66,0,0,0-12.43,0,9.1,9.1,0,0,0,0,12.69L16,30,28.43,17.31A9.1,9.1,0,0,0,28.43,4.63Z" />
-                            <path class="cls-1" d="M26,11a4,4,0,0,0-4-4" />
-                        </g>
-                    </svg>
-                </span>
-            </div> -->
-            
-            <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'">
-                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
-                    <span class="icon">
-                        <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
-                            <path d="M0 0h48v48h-48z" fill="none" />
-                        </svg>
-                    </span>
-                    {{'sign_up' | translate}}
-                </div>
-            </div>
 
-            <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN'">
-                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
-                    <span class="icon">
-                        <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
-                            <path d="M0 0h48v48h-48z" fill="none" />
-                        </svg>
-                    </span>
-                    {{'sign_up' | translate}}
-                </div>
+                <ngx-avatar *ngIf="isLoggedIn" src="{{setAvatarUrl()}}" size="40"> </ngx-avatar>
+
             </div>
             
-            <div *ngIf="isLoggedIn" class="app-header__profile"  style="display:flex; margin-left: 10px; margin-right: 10px; position: relative; ">
-                <ngx-avatar src="{{setAvatarUrl()}}"> </ngx-avatar>
-
-                <div ngbDropdown class="dropdown loggedin" style="margin-left: 10px; margin-top: 10px;">
-                    
-                    <!-- <img class="avatar" src="{{setAvatarUrl()}}" alt="..." /> -->
-                    <button ngbDropdownToggle  type="button" id="dropdownMenu2"
-                        data-bs-toggle="dropdown" aria-expanded="false"
+            <div class="app-header__options">
+                <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'">
+                    <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
+                        <span class="icon">
+                            <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
+                                <path d="M0 0h48v48h-48z" fill="none" />
+                            </svg>
+                        </span>
+                        {{'sign_up' | translate}}
+                    </div>
+                </div>
+    
+                <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN'">
+                    <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
+                        <span class="icon">
+                            <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
+                                <path d="M0 0h48v48h-48z" fill="none" />
+                            </svg>
+                        </span>
+                        {{'sign_up' | translate}}
+                    </div>
+                </div>
+                
+                <div *ngIf="isLoggedIn" class="app-header__profile"  style="display:flex; margin-left: 10px; margin-right: 10px; position: relative; ">
+                    <div ngbDropdown class="dropdown loggedin">
                         
-                        style="background-color: white;border: 0px;">
                         <!-- <img class="avatar" src="{{setAvatarUrl()}}" alt="..." /> -->
-                        <!-- <span class="rt-icon">
-                        <fa-icon [icon]="faEllipsisV"></fa-icon>
+                        <button ngbDropdownToggle  type="button" id="dropdownMenu2"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            
+                            style="background-color: white;border: 0px;">
+                            <!-- <img class="avatar" src="{{setAvatarUrl()}}" alt="..." /> -->
+                            <!-- <span class="rt-icon">
+                            <fa-icon [icon]="faEllipsisV"></fa-icon>
+                            
+                        </span> -->
+                        {{getName()}}
+                        </button>
+                        <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  >
+                            <li> 
+                                <button (click)="navigateToVisits();isMenuCollapsed = true" class="dropdown-item" >
+                                    <img src="../../../../assets/images/my_visits.png" alt="image">
+                                    {{'header.my_visits' | translate}}
+                                </button> 
+                            </li>
+                            <li> 
+                                <button (click)="navigateToUnits();isMenuCollapsed = true" class="dropdown-item" >
+                                    <img src="../../../../assets/images/my_units.png" alt="image">
+                                    
+                                    {{'header.my_units' | translate}}
+                                </button>
+                            </li>
+                            <li>
+                                <button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item" type="button">
+                                    <img src="../../../../assets/images/favorites.png" alt="image"> {{'header.Profile.Favorites' |
+                                    translate}}
+                                </button>
+                            </li>
+                            <li>
+                                <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/settings.png" alt="image">{{'header.Profile.edit' |
+                                    translate}}
+                                </button>
+                            </li>
+                            <!-- <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item" type="button"><fa-icon [icon]="faHeart" class="user-icon"></fa-icon> {{'header.Profile.Favorites' | translate}}</button></li> -->
+                            <li>
+                                <button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/logout.png" alt="image">{{'header.Profile.logout' |
+                                    translate}}
+                                </button>
+                            </li>  
+                        </ul>
+                        <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'"   >
                         
-                    </span> -->
-                    {{getName()}}
-                    </button>
-                    <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  >
-                        <li> <button (click)="navigateToVisits();isMenuCollapsed = true" class="dropdown-item" >
-                            <img src="../../../../assets/images/my_visits.png" alt="image">
-                            {{'header.my_visits' | translate}}
-                        </button> 
-                        </li>
-                        <li> <button (click)="navigateToUnits();isMenuCollapsed = true" class="dropdown-item" >
-                            <img src="../../../../assets/images/my_units.png" alt="image">
-                            
-                            {{'header.my_units' | translate}}
-                            </button>
-                        </li>
-                        <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item"
-                            type="button">
-                            <img src="../../../../assets/images/favorites.png" alt="image"> {{'header.Profile.Favorites' |
-                            translate}}
-                        </button></li>
-                        <li>
-                            <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
+                            <li> <button (click)="navigateToVisits();isMenuCollapsed = true" class="dropdown-item" >
+                                <img src="../../../../assets/images/my_visits.png" alt="image">
+                                {{'header.my_visits' | translate}}
+                            </button> 
+                            </li>
+                            <li> <button (click)="navigateToUnits();isMenuCollapsed = true" class="dropdown-item" >
+                                <img src="../../../../assets/images/my_units.png" alt="image">
+                                
+                                {{'header.my_units' | translate}}
+                                </button>
+                            </li>
+                            <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item"
                                 type="button">
-                                <img src="../../../../assets/images/settings.png" alt="image">{{'header.Profile.edit' |
-                                translate}}
-                            </button>
-                        </li>
-                        <!-- <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item" type="button"><fa-icon [icon]="faHeart" class="user-icon"></fa-icon> {{'header.Profile.Favorites' | translate}}</button></li> -->
-                        <li><button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
-                                type="button">
-                                <img src="../../../../assets/images/logout.png" alt="image">{{'header.Profile.logout' |
-                                translate}}
-                            </button></li>  
-                    </ul>
-                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'"   >
-                    
-                        <li> <button (click)="navigateToVisits();isMenuCollapsed = true" class="dropdown-item" >
-                            <img src="../../../../assets/images/my_visits.png" alt="image">
-                            {{'header.my_visits' | translate}}
-                        </button> 
-                        </li>
-                        <li> <button (click)="navigateToUnits();isMenuCollapsed = true" class="dropdown-item" >
-                            <img src="../../../../assets/images/my_units.png" alt="image">
-                            
-                            {{'header.my_units' | translate}}
-                            </button>
-                        </li>
-                        <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item"
-                            type="button">
-                            <img src="../../../../assets/images/favorites.png" alt="image"> {{'header.Profile.Favorites' |
-                            translate}}
-                        </button></li>
-                        <li>
-                            <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
-                                type="button">
-                                <img src="../../../../assets/images/settings.png" alt="image">{{'header.Profile.edit' |
-                                translate}}
-                            </button>
-                        </li>
-                        <!-- <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item" type="button"><fa-icon [icon]="faHeart" class="user-icon"></fa-icon> {{'header.Profile.Favorites' | translate}}</button></li> -->
-                        <li><button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
-                                type="button">
-                                <img src="../../../../assets/images/logout.png" alt="image">{{'header.Profile.logout' |
+                                <img src="../../../../assets/images/favorites.png" alt="image"> {{'header.Profile.Favorites' |
                                 translate}}
                             </button></li>
-                            
-                            
-                            
-                    </ul>
-                </div>
-                <ng-template #content let-c="close" let-d="dismiss">
-                    <div [class.rtl]="activeLang.title === 'AR'">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="modal-title">{{'header.Profile.logout' | translate}}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p><strong>{{'header.Profile.logout message' | translate}} </strong></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary"
-                                (click)="c('cancel click')">{{'button.actions.cancel' | translate}}</button>
-                            <button type="button" class="btn btn-danger" (click)="logout()">{{'header.Profile.logout' |
-                                translate}}</button>
-                        </div>
-
+                            <li>
+                                <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/settings.png" alt="image">{{'header.Profile.edit' |
+                                    translate}}
+                                </button>
+                            </li>
+                            <!-- <li><button (click)="navigateToFavorites();isMenuCollapsed = true" class="dropdown-item" type="button"><fa-icon [icon]="faHeart" class="user-icon"></fa-icon> {{'header.Profile.Favorites' | translate}}</button></li> -->
+                            <li>
+                                <button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/logout.png" alt="image">{{'header.Profile.logout' |
+                                    translate}}
+                                </button>
+                            </li>
+                                
+                                
+                                
+                        </ul>
                     </div>
-                </ng-template>
-            </div>
-            <!-- <div class="app-header__language">
-                
-                
-            </div> -->
-
-            <small *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="margin: 0px 2px;">ENGLISH</small>
-            <span (click)="transform_language('en')" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
-            <small *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " style="margin: 0px 2px;">عربي</small>
-            <span (click)="transform_language('ar')" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'" style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
-
-            <ng-select [items]="cities3"
-        bindLabel="name"
-        bindValue="name"
-        placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
-        [(ngModel)]="selectedCityName"
-        (change)="transform_country(selectedCityName)" style="border: none ! important;">
-        
-        <ng-template ng-label-tmp let-item="item">
-            <img height="20" width="20"  [src]="item.avatar"/>
-            <b>{{item.name|translate}}</b> 
-            </ng-template>
-            <ng-template ng-option-tmp let-item="item" let-index="index">
-            <img height="15" width="15" [src]="item.avatar"/>
-            <b>{{item.name|translate}}</b>
-            </ng-template>
+                    <ng-template #content let-c="close" let-d="dismiss">
+                        <div [class.rtl]="activeLang.title === 'AR'">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-title">{{'header.Profile.logout' | translate}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>{{'header.Profile.logout message' | translate}} </strong></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    (click)="c('cancel click')">{{'button.actions.cancel' | translate}}</button>
+                                <button type="button" class="btn btn-danger" (click)="logout()">{{'header.Profile.logout' |
+                                    translate}}</button>
+                            </div>
     
-            </ng-select>
+                        </div>
+                    </ng-template>
+                </div>
+            
+                
+                <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="display: flex; align-items: center;">
+                    <small style="margin: 0px 2px;">ENGLISH</small>
+                    <span (click)="transform_language('en')" style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
+                </div>
+                
+                <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " style="display: flex; align-items: center;">
+                    <small style="margin: 0px 2px;">عربي</small>
+                    <span (click)="transform_language('ar')" style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
+                </div>
 
+                <ng-select [items]="cities3"
+                    bindLabel="name"
+                    bindValue="name"
+                    placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
+                    [(ngModel)]="selectedCityName"
+                    (change)="transform_country(selectedCityName)" style="border: none ! important;">
+            
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="20" width="20"  [src]="item.avatar"/>
+                        <b>{{item.name|translate}}</b> 
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                        <img height="15" width="15" [src]="item.avatar"/>
+                        <b>{{item.name|translate}}</b>
+                    </ng-template>
+        
+                </ng-select>
+    
+            </div>
         <!-- </div> -->
 
     </div>

@@ -83,7 +83,7 @@ export class UnitDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("this.propertyData: ", this.propertyData)
+    // console.log("this.propertyData: ", this.propertyData)
 
     // if(this.propertyImages['Initial']){
     //   delete this.propertyImages['Initial']
@@ -94,13 +94,13 @@ export class UnitDetailsComponent implements OnInit {
       options: [],
       optionsView: []
     }
-    console.log("propertyData: ", propertyData)
+    // console.log("propertyData: ", propertyData)
 
     for (const key in this.propertyData) {
       if (this.propertyData[key]?.constructor !== Object) {
         propertyData[key] = this.propertyData[key]
       }
-      console.log("key: ", key)
+      // console.log("key: ", key)
 
       let parents: any = [
         {
@@ -121,7 +121,7 @@ export class UnitDetailsComponent implements OnInit {
         }
       ]
       let i = Number(key) - 1
-      console.log("i: ", i)
+      // console.log("i: ", i)
       
       if (i !== NaN && i < 3) {
         propertyData.optionsView.push({
@@ -144,9 +144,9 @@ export class UnitDetailsComponent implements OnInit {
     this.propertyDetails = propertyData
     this.propertyDataView = propertyData.optionsView
 
-    console.log("propertyDetails: ", this.propertyDetails)
-    console.log("propertyDataView: ", this.propertyDataView)
-    console.log("propertyImages: ", this.propertyImages)
+    // console.log("propertyDetails: ", this.propertyDetails)
+    // console.log("propertyDataView: ", this.propertyDataView)
+    // console.log("propertyImages: ", this.propertyImages)
 
     let slider: any = []
     for (const key in this.propertyImages) {
@@ -165,9 +165,8 @@ export class UnitDetailsComponent implements OnInit {
     this.data = slider
     this.tagLength = this.data.length
     this.spinner.hide();
-    console.log("sliderData: ", this.sliderData)
-    console.log("data: ", this.data)
-    console.log("tagLength: ", this.tagLength)
+
+    
 
     
   }
@@ -176,11 +175,11 @@ export class UnitDetailsComponent implements OnInit {
   }
 
   print(data: any){
-    console.log("item: ", data)
+    // console.log("item: ", data)
   }
 
   getViewOptions(value: any) {
-    console.log("getViewOptions: ", value)
+    // console.log("getViewOptions: ", value)
     return value.options ? value.options : []
   }
   renderIconUrl(obj: any) {
@@ -211,6 +210,7 @@ export class UnitDetailsComponent implements OnInit {
     return this.propertyDetails['propose'] && this.propertyDetails['propose'] == 1 ? 'RENTAL' : 'SELL'
   }
   editUnit() {
+    // console.log("this.propertyImages: ", this.propertyImages)
     this.appServiceService.propertyImagesPreviewEditMode$.next(this.propertyImages)
     this.router.navigate(['/sell'], { queryParams: { type_id: this.propertyDetails?.type_id, propose: this.propertyDetails?.propose } })
   }
@@ -316,12 +316,12 @@ export class UnitDetailsComponent implements OnInit {
       const user = this.cookieService.get('user')
       unitData['user_id'] = JSON.parse(user).id
 
-      console.log("unitData: ", unitData)
+      // console.log("unitData: ", unitData)
 
       const addUnitRes = await this.apiService.addUnit(unitData)
       this.spinner.hide()
 
-      console.log("addUnitRes: ", addUnitRes)
+      // console.log("addUnitRes: ", addUnitRes)
 
 
       if (addUnitRes !== false) {

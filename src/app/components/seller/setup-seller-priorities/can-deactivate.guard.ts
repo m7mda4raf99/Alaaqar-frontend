@@ -29,7 +29,7 @@ export class CanDeactivateGuard implements CanDeactivate<SetupSellerPrioritiesCo
       const { value } = await Swal.fire({
         title: 'Are you sure you want to exit from this page?',
         text: 'Well, click Save and Exit button so as not to lose the entered data',
-        showCloseButton: true,
+        // showCloseButton: true,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Save and Exit',
@@ -42,10 +42,7 @@ export class CanDeactivateGuard implements CanDeactivate<SetupSellerPrioritiesCo
           let unitData = this.unitData
           const user = this.cookieService.get('user')
           unitData['user_id'] = JSON.parse(user).id
-          //unitData['neighborhood_id'] = 1
-           unitData['description'] = "hello"
-           unitData['title'] = "heyy"
-          console.log('unitData')
+          console.log('unitData guard shars')
           console.log(unitData)
           const addUnitRes = await this.apiService.addNotCompletedUnit(unitData)
           console.log(addUnitRes)

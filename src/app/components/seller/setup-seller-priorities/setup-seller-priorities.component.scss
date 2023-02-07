@@ -304,7 +304,7 @@
         .holder {
             background-color: #fff;
             border-radius: 20px;
-            padding-bottom: 40px;
+            padding-bottom: 30px;
             p {
                 color: #2C2C2C;
                 font-size: 16px;
@@ -356,6 +356,10 @@
         // padding: 15px;
     }
     .priorites-control {
+        @media (max-width: 425px) {
+            display: none !important;
+        }
+
         display: flex !important;
         flex-direction: column !important;
         background: #fff;
@@ -488,6 +492,23 @@
 
                  font-family: 'Rubik-bold';
              }
+         }
+
+         .required{
+            color: red !important;
+            font-size: 13px !important;
+            padding-top: 3px !important;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            @media (max-width: 425px) {
+                padding-top: 5px !important;
+                font-size: 10px !important;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+
          }
         //  .col-image {
         //     // @media (max-width: 786px) {

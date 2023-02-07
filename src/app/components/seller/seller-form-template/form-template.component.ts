@@ -97,7 +97,11 @@ export class SellFormTemplateComponent implements OnInit {
             }
             let uploads = this.prioritiesService?.sellerForm.get('4') as FormGroup
 
+            // console.log('uploads1: ', uploads)
+
             uploads.get('Unit photos')?.setValue([this.myFiles])
+
+            // console.log('uploads2: ', uploads)
 
             for (const sTag in this.myFilesPreview) {
               if(sTag != "Initial"){
@@ -117,6 +121,7 @@ export class SellFormTemplateComponent implements OnInit {
 
               }
             }
+
             this.appService.uploads$.next(images)
           }
 
@@ -131,6 +136,7 @@ export class SellFormTemplateComponent implements OnInit {
           // console.log("this.myFilesPreview2", this.myFilesPreview)
           // console.log("myFilesPreview2", myFilesPreview)
 
+          // console.log("this.myFilesPreview", this.myFilesPreview)
 
           this.appService.propertyImagesPreview$.next(this.myFilesPreview)
         })
@@ -167,7 +173,11 @@ export class SellFormTemplateComponent implements OnInit {
           this.sub = this.appService.tabThree$.subscribe(val => this.formData = val)
           break;
         case '4':
-          this.sub = this.appService.tabFour$.subscribe(val => this.formData = val)
+          this.sub = this.appService.tabFour$.subscribe(val => {
+            this.formData = val
+            // console.log("this.formData: ", this.formData)
+          })
+
           break
         default:
           // 1
@@ -211,8 +221,12 @@ export class SellFormTemplateComponent implements OnInit {
         name_en: "",
         selected: false,
       }
+
+
       return this.stepForm.get(key)?.setValue([obj])
     }
+
+
   }
 
   getFormValue(key: any) {
@@ -275,6 +289,10 @@ export class SellFormTemplateComponent implements OnInit {
 
   setSingleSelect(e: any, key: any, value: any, filled: any) {    
     this.stepForm.get(key)?.setValue([value])
+  }
+
+  isInvalid(criteria: any){
+    return this.stepForm.controls[criteria['name_en']].status === 'INVALID'
   }
 
   checkIsSelected(key: any, value: any) {
@@ -617,13 +635,15 @@ export class SellFormTemplateComponent implements OnInit {
   imagesPreview() {
     let arr = []
 
+    // console.log('this.myFilesPreview ashraf: ', this.myFilesPreview)
+
     // console.log("this.myFilesPreview: ", this.myFilesPreview) 
 
     for (let [k, val] of Object.entries(this.myFilesPreview)) {
       if(k != 'Initial'){
         for (const key in this.myFilesPreview[k]) {
           
-          console.log("key: ", k, ", index: ", key) 
+          // console.log("key: ", k, ", index: ", key) 
 
           arr.push({
             "img": this.myFilesPreview[k][key],
@@ -695,10 +715,10 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   filterImage(data: any[]){
-    console.log("data now1: ", data)
+    // console.log("data now1: ", data)
 
     if(Array.isArray(data) && data.length){
-      console.log("data now2: ", data.filter(x => x.icon === 'upload.svg'))
+      // console.log("data now2: ", data.filter(x => x.icon === 'upload.svg'))
       return data.filter(x => x.icon === 'upload.svg');
     }else{
       return []
@@ -758,6 +778,22 @@ export class SellFormTemplateComponent implements OnInit {
       }
     }
     return false
+  }
+
+  setStyle(){
+    const div = document.getElementById('image_criteria');
+
+    if (div != null) {
+      if(this.imagesPreview().length === 0){
+        div.style.display = 'block'
+      }else{
+        div.style.display = 'flex'
+        div.style.justifyContent = 'space-between'
+        div.style.alignItems = 'baseline'
+      }
+    }
+
+    console.log("div: ", div)
   }
 
 }
