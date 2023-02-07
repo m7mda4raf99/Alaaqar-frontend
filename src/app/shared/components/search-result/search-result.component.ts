@@ -114,10 +114,6 @@ export class SearchResultComponent implements OnInit {
     this.search(false)
     this.get_bedrooms_options(5)
     this.get_space_options(4)
-    console.log("result",this.results)
-   
-  }
-
 
     /// New Search filter 
     this.activeCity = this.search_model.cities
@@ -301,6 +297,8 @@ export class SearchResultComponent implements OnInit {
     this.search_model['bedroom'] = this.bedroom
     this.search_model['space'] = this.space
     this.search_model['propose'] = this.propose
+    console.log('propose')
+    console.log(this.propose)
     this.search_model['max_price'] = this.priceMaxRange
     this.search_model['min_price'] = this.priceMinRange
     this.search_model
@@ -380,7 +378,8 @@ export class SearchResultComponent implements OnInit {
   // Get city
   async getCity(isChanged: boolean){
     if(isChanged){
-      this.dropCity=await this.apiService.getCity();
+
+      this.dropCity=await this.apiService.getCity(1);
       this.dropdownListCity=this.dropCity.data
       let arraycity = []
       for(let item of this.dropCity.data){

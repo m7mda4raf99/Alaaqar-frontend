@@ -142,7 +142,7 @@ export class LoginComponent implements OnInit {
       this.cookieService.set('user', JSON.stringify(obj), { expires: 2, sameSite: 'Lax', secure: false });
       localStorage.setItem('avatarsPath', verifyOtp.data.user.avatar);
       this.appService.isLoggedIn$.next(true)
-      await this.updateProfile()
+      //await this.updateProfile()
       this.notificationService.showSuccess('Success login !')
      if(this.activeRoute.queryParams['type_id'] && this.activeRoute.queryParams['propose'] ){
         this.router.navigate(['/sell'], { queryParams: { type_id: this.activeRoute.queryParams['type_id'], propose: this.activeRoute.queryParams['propose']} })

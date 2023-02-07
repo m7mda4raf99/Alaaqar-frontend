@@ -55,8 +55,8 @@
                                             {{'Profile.Please Enter a valid phone number' | translate}}
                                         </div>
                                     </div>
-                                    <p>The value of id is {{ (phoneForm.get('phone')?.value['number']) }}</p>
-                                    <p>The value of id is "{{setAvatarSrc()}}</p>
+                                    <!-- <p>The value of id is {{ (phoneForm.get('phone')?.value['number']) }}</p>
+                                    <p>The value of id is "{{setAvatarSrc()}}</p> -->
 
                                     <button type="submit" class="btn submit-btn button-success save-changes"
                                         [disabled]="isLoading || (phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"
