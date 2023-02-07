@@ -392,7 +392,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     {
       for (let i = 0; i < this.selectedItemNeighborhood.length; i++) {
         let data = {
-          id: this.selectedItemNeighborhood[i].item_id,
+          id: this.selectedItemNeighborhood[i].id,
           xd:this.proposeID
         }
   
@@ -1056,8 +1056,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   
       this.dropdownListCity = array
       
-      this.selectedItemCity.push(this.dropdownListCity[0])
-      this.search_model.cities = [this.activeCity]
+      // this.selectedItemCity.push(this.dropdownListCity[0])
+      // this.search_model.cities = [this.activeCity]
+      
+      
       // for(let item of this.dropdownListCity){
       //   if(item['id']==1){
       //     this.selectedItemCity.push(item)
