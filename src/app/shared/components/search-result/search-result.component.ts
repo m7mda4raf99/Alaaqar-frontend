@@ -91,6 +91,7 @@ export class SearchResultComponent implements OnInit {
     this.setDefaultFormValue()
     this.get_bedrooms_options(5)
     this.get_space_options(4)
+    console.log("result",this.results)
    
   }
 

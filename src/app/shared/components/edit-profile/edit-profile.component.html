@@ -32,6 +32,13 @@
                                         <input formControlName="name" type="text" class="form-control" id="name"
                                             aria-describedby="inputGroupPrepend" placeholder="Your name">
                                     </div>
+
+                                    <div>
+                                        <label for="validationCustom01" class="form-label">{{'signIn.Email' | translate}}</label>
+                                        <input formControlName="email" type="email" class="form-control" id="email"
+                                            aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Email' | translate}}">
+                                    </div>
+
                                     <div>
                                         <ngx-intl-tel-input style="display: block;width: 100%;" [cssClass]="'custom'"
                                             [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
@@ -48,6 +55,8 @@
                                             {{'Profile.Please Enter a valid phone number' | translate}}
                                         </div>
                                     </div>
+                                    <p>The value of id is {{ (phoneForm.get('phone')?.value['number']) }}</p>
+                                    <p>The value of id is "{{setAvatarSrc()}}</p>
 
                                     <button type="submit" class="btn submit-btn button-success save-changes"
                                         [disabled]="isLoading || (phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"

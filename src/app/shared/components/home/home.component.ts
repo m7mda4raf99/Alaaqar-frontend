@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
   dropdownListArea: any = [];
   dropdownListCompound: any = [];
   dropdownListNeighborhood: any = [];
+  dropdownListRealstateType: any = [];
   
   selectedItemCity: any = [];
   selectedItemArea: any = [];
@@ -346,17 +347,51 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       {id: 18, name_en: 'Labor housing', name_ar: 'سكن عمال', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
       {id: 19, name_en: 'Medical', name_ar: 'طبي', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
       {id: 20, name_en: 'Land', name_ar: 'أرض', category_id: 3, category_name_en: 'Other',category_name_ar:'اخرى',units_count: 0},
-      
-  
-      
+      {id: 21, name_en: 'Studio', name_ar: 'ستوديو', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 22, name_en: 'Penthouse', name_ar: 'بنتهاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 23, name_en: 'Roof', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
     ]
 
-   
-    if (this.selectedNeighborhood && this.selectedNeighborhood.length > 0)
+    if (this.selectedItemCompound && this.selectedItemCompound.length > 0)
     {
-      for (let i = 0; i < this.selectedNeighborhood.length; i++) {
+      for (let i = 0; i < this.selectedItemCompound.length; i++) {
         let data = {
-          id: this.selectedNeighborhood[i].item_id
+          id: this.selectedItemCompound[i].id,
+          xd:this.proposeID
+        }
+        console.log("Compound",this.selectedItemCompound[i].id,)
+  
+        let array = await this.apiService.unit_types_count_compound(data);
+        let x =0
+        for (const key in array.data) {
+        
+          this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
+          x++
+        }
+        x=0
+      
+      }
+      let array1 = []
+      for(let item of this.Current_unit_count_array){
+
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+        }
+
+        array1.push(obj)
+      }
+      this.dropdownListRealstateType=array1
+    } 
+
+
+
+    else if (this.selectedItemNeighborhood && this.selectedItemNeighborhood.length > 0)
+    {
+      for (let i = 0; i < this.selectedItemNeighborhood.length; i++) {
+        let data = {
+          id: this.selectedItemNeighborhood[i].item_id,
+          xd:this.proposeID
         }
   
         let array = await this.apiService.unit_types_count_neighborhood(data);
@@ -367,16 +402,29 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           x++
         }
         x=0
-  
+      
       }
+      let array1 = []
+      for(let item of this.Current_unit_count_array){
+
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+        }
+
+        array1.push(obj)
+      }
+      this.dropdownListRealstateType=array1
     } 
-    else if (this.selectedArea && this.selectedArea.length > 0)
+    else if (this.selectedItemArea && this.selectedItemArea.length > 0)
     {
 
-      for (let i = 0; i < this.selectedArea.length; i++) {
+      for (let i = 0; i < this.selectedItemArea.length; i++) {
         let data = {
-          id: this.selectedArea[i].item_id
+          id: this.selectedItemArea[i].id,
+          xd:this.proposeID
         }
+        
   
         let array = await this.apiService.unit_types_count_area(data);
         let x =0
@@ -386,6 +434,17 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           x++
         }
         x=0
+        let array1 = []
+      for(let item of this.Current_unit_count_array){
+
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+        }
+
+        array1.push(obj)
+      }
+      this.dropdownListRealstateType=array1
   
       }
     } else{
@@ -394,12 +453,26 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           xd:this.proposeID
         }
             let array = await this.apiService.unit_types_count_city(data);
+            console.log("array",array.data)
              let x =0
         for (const key in array.data) {
           this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
           x++
         }
         x=0
+        // console.log("count",this.Current_unit_count_array)
+        let array1 = []
+      for(let item of this.Current_unit_count_array){
+
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+        }
+
+        array1.push(obj)
+      }
+      console.log("count",array1)
+      this.dropdownListRealstateType=array1
     }
     // else {
     //   // console.log("gwa City");
@@ -424,9 +497,23 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   async setupMinPrice() {
     if (this.SelectedRealEstateType && this.SelectedRealEstateType.length > 0)
     {
-        let data = {
-          id: this.SelectedRealEstateType[0].id
-        }
+      let data = {
+        id: this.SelectedRealEstateType[0].id ,
+        id2:  this.activeCity,
+        id3: this.selectedItemArea.length > 0 ? this.selectedItemArea[0].id : 0,
+         id4: this.selectedItemNeighborhood.length > 0 ? this.selectedItemNeighborhood[0].id : 0,
+         id5: this.selectedItemCompound.length > 0 ? this.selectedItemCompound[0].id : 0,
+        xd: this.proposeID 
+      }
+        console.log(data.id)
+        console.log(data.id2)
+        //console.log("a7a",this.selectedItemArea)
+        console.log(data.id3)
+        // console.log(data.id4)
+        // console.log(data.id5)
+
+
+        // console.log("realstate",this.SelectedRealEstateType[0].id)
   
         this.MinPrice = await this.apiService.GetMinUnitPriceReal(data);
         if(this.MinPrice.data){
@@ -438,11 +525,28 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
       // }
     } 
-    if (this.selectedNeighborhood && this.selectedNeighborhood.length > 0)
+    else if (this.selectedItemCompound && this.selectedItemCompound.length > 0)
     {
       // for (let i = 0; i < this.selectedNeighborhood.length; i++) {
         let data = {
-          id: this.selectedNeighborhood[0].item_id
+          id: this.selectedItemCompound[0].id,
+          xd:this.proposeID
+        }
+  
+         this.MinPrice = await this.apiService.GetMinUnitPriceCom(data);
+         if(this.MinPrice.data){
+          this.minValue = +this.MinPrice.data
+          this.minValueText = this.minValue
+        }
+  
+      // }
+    }
+   else if (this.selectedItemNeighborhood && this.selectedItemNeighborhood.length > 0)
+    {
+      // for (let i = 0; i < this.selectedNeighborhood.length; i++) {
+        let data = {
+          id: this.selectedItemNeighborhood[0].id,
+          xd:this.proposeID
         }
   
          this.MinPrice = await this.apiService.GetMinUnitPriceNei(data);
@@ -453,12 +557,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   
       // }
     } 
-    else if (this.selectedArea && this.selectedArea.length > 0)
+    else if (this.selectedItemArea && this.selectedItemArea.length > 0)
     {
       // for (let i = 0; i < this.selectedArea.length; i++) {
         let data = {
-          id: this.selectedArea[0].item_id
+          id: this.selectedItemArea[0].id,
+          xd:this.proposeID
          }
+         console.log("id",this.selectedItemArea[0].id)
   
          this.MinPrice = await this.apiService.GetMinUnitPriceArea(data);
          if(this.MinPrice.data){
@@ -480,10 +586,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
     }
     
-  //  console.log("minPrice")
-  //  console.log(this.MinPrice)
-  //   console.log(this.MinPrice)
-  //   console.log(this.minValue)
+   console.log("minPrice")
+   console.log(this.MinPrice)
+    console.log(this.MinPrice)
+    console.log(this.minValue)
   //   console.log(this.options)
     
   }
@@ -549,7 +655,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.search_model.areas = area
     this.search_model.locations = location
     
-    if(item['itemName']=="Compounds" || item['itemName']==="كومباند"){
+    if(item['itemName'].includes("Compounds") || item['itemName'].includes("كومباند")){
       this.checkboxVar = true
       this.SelectedNeighborhoodNotValid = false
         this.Comp.push(item['areaID'])
@@ -567,6 +673,9 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     }
     
     // console.log(this.Comp)
+    console.log("area",this.selectedItemArea)
+    await this.setupUnitTypesCount()
+    await this.setupMinPrice()
  
   }
 
@@ -645,20 +754,25 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   }
 
-  onDeSelectAllArea(){
+  async onDeSelectAllArea(){
     this.checkboxVar = false
     this.selectedItemNeighborhood = []
     this.selectedItemCompound = []
+    this.dropdownListNeighborhood = []
+    this.dropdownListCompound = []
+    await this.setupUnitTypesCount()
   }
 
   // NEIHGBORHOOD
-  onItemSelectNeighborhood(item: any){
+  async onItemSelectNeighborhood(item: any){
     this.SelectedNeighborhoodNotValid = false
     this.search_model.neighborhoods = []
 
     for(let item of this.selectedItemNeighborhood){
       this.search_model.neighborhoods.push(item.id)
     }
+    await this.setupUnitTypesCount()
+    await this.setupMinPrice()
   }
 
   onItemDeSelectNeighborhood(item: any){
@@ -674,26 +788,29 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.SelectedRealEstateTypeNotValid = false
     
     this.search_model.type = [this.SelectedRealEstateType[0]['id']]
-    // this.setupMinPrice()
+     this.setupMinPrice()
 
   }
 
   // COMPOUND
-  onItemSelectCompound(item: any){
+  async onItemSelectCompound(item: any){
     this.SelectedCompoundNotValid = false
     this.search_model.compounds = []
 
     for(let item of this.selectedItemCompound){
       this.search_model.compounds.push(item.id)
     }
+    await this.setupUnitTypesCount()
+    await this.setupMinPrice()
   }
 
-  onItemDeSelectCompound(item: any){
+  async onItemDeSelectCompound(item: any){
     this.search_model.compounds = []
 
     for(let item of this.selectedItemCompound){
       this.search_model.compounds.push(item.id)
     }
+    await this.setupUnitTypesCount()
   }
 
   // PRICE
@@ -873,6 +990,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
   
   getUnitTypes() {
+   
     if (this.UnitTypes && this.UnitTypes.length > 0) {
       let types: any = []
       for (const key in this.UnitTypes) {
@@ -906,7 +1024,12 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
   async getCity(isChanged: boolean){
     if(isChanged){
-      this.dropCity=await this.apiService.getCity();
+      this.selectedItemCity = []
+      let data = {
+        xd:this.proposeID
+      }
+      
+      this.dropCity=await this.apiService.getCity(data);
       this.dropdownListCity=this.dropCity.data
   
       let array = []
@@ -915,9 +1038,10 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en :  item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar,
           name_en: item.name_en,
           name_ar: item.name_ar,
+          
         }
   
         array.push(obj)
@@ -937,6 +1061,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           itemName: this.lang === 'en' ? item.name_en :  item.name_ar,
           name_en: item.name_en,
           name_ar: item.name_ar,
+          
         }
   
         array.push(obj)
@@ -955,6 +1080,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
       let data={
         id: this.activeCity,
+        xd:this.proposeID
       }
       this.droploc = await this.apiService.getloc(data)
 
@@ -964,8 +1090,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en :  item.name_ar,
-          areaName: this.lang === 'en' ? item.area_en :  item.area_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar,
+          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar,
           name_en: item.name_en,
           name_ar: item.name_ar,
           area_en: item.area_en,
@@ -1011,7 +1137,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   async getCompound(isChanged: boolean){
     if(isChanged){
       let data={
-        id:this.Comp[this.Comp.length-1]
+        id:this.Comp[this.Comp.length-1],
+        xd:this.proposeID
       }
       this.dropComp=await this.apiService.getCompound(data);
       
@@ -1020,7 +1147,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       for(let item of this.dropComp.data){
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en : item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar,
           name_en: item.name_en,
           name_ar: item.name_ar,
           areaID: item.areaID,
@@ -1054,7 +1181,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   async getNeig(isChangedArea: boolean){
     if(isChangedArea){
       let data={
-        id:this.Neigh[ this.Neigh.length-1 ]
+        id:this.Neigh[ this.Neigh.length-1 ],
+        xd:this.proposeID
       }
       this.dropNeig=await this.apiService.getNeig(data);
       
@@ -1063,7 +1191,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       for(let item of this.dropNeig.data){
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en : item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar,
           name_en: item.name_en,
           name_ar: item.name_ar,
           locationID: item.locationID,
@@ -1123,8 +1251,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     this.selectedItemCompound = []
     this.activeCity = city
     this.search_model.cities = [this.activeCity]
-    // this.setupUnitTypesCount()
-    // this.setupMinPrice()
+    this.setupUnitTypesCount()
+    this.setupMinPrice()
     this.spinner.show()
     await this.getAreaLocations(true)
     this.spinner.hide()
@@ -1197,7 +1325,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
     if(tab== 'rent'){
       this.proposeID=1
     }
-
+    console.log("propose",this.proposeID)
+    await this.getCity(true)
     this.router.navigate(
       [],
       {

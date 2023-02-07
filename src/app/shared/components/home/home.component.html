@@ -680,7 +680,7 @@
                     <div class="ngSelect realState">
                         <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
                 
-                        <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
+                        <angular2-multiselect [data]="dropdownListRealstateType" [(ngModel)]="SelectedRealEstateType" 
                             [settings]="settingsUnitType"
                             (onSelect)="onItemSelectUnitType($event)">
                         </angular2-multiselect>
@@ -901,7 +901,7 @@
                     <div class="ngSelect realState">
                         <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
                         
-                        <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
+                        <angular2-multiselect [data]="dropdownListRealstateType" [(ngModel)]="SelectedRealEstateType" 
                             [settings]="settingsUnitType"
                             (onSelect)="onItemSelectUnitType($event)">
                         </angular2-multiselect>

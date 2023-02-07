@@ -98,14 +98,15 @@
                     -ms-transition: all 0.4s ease;
                     transition: all 0.4s ease;
                     font-family: 'Rubik-bold';
-                    font-size: 30px;
+                    font-size: 22px;
+            
                     span {
                         color: #FF725F;
                         font-size: 13px;
                     }
-    
+            
                 }
-            .location {
+                .location {
                 display: block;
                 font-size: 14px;
                 color: #ABABB6;
@@ -114,57 +115,118 @@
                     width: 8px;
                     margin-right: 3px;
                 }
-            }
-            .card-text {
+                }
+                .card-text {
                 color: #ABABB6;
+        
                 .desc {
                     padding-top: 5px;
                     font-size: 14px;
+        
                     .img-icon {
                         width: 20px;
                     }
                 }
-            }
-            .card-body {
-                .percent {
+        
+                .space-between{
+                    display: flex;
+                    justify-content: space-between;
+                }
+        
+                }
+                .date {
+                display: block;
+                font-size: 14px;
+                color: #ababb6;
+                padding-bottom: 10px;
+                img {
+                    width: 15px;
+                    margin-right: 3px;
+                }
+                }
+                .card-body {
+                 .percent {
                     border-radius: 50%;
                     padding: 4px;
-                    background-image: linear-gradient(white, white), 
-                                      linear-gradient(to right, #147AD6, #79D2DE,#C175E8, #EC6666, #F9C669);
+                    background-image: linear-gradient(white, white),
+                        linear-gradient(to right, #147AD6, #79D2DE, #C175E8, #EC6666, #F9C669);
                     background-origin: border-box;
                     background-clip: content-box, border-box;
                     display: inline-block;
                     width: 55px;
                     height: 55px;
-
+        
                     span {
                         padding: 10px 9px;
                     }
                 }
+        
                 .score {
                     position: absolute;
                     right: 40px;
                     top: 20px;
+        
                     @media (max-width: 320px) {
                         right: 17%;
                     }
+        
                     @media (max-width: 375px) {
                         right: 32%;
                     }
+        
                     @media (max-width: 425px) {
                         right: 32%;
                     }
+        
                     @media (max-width: 768px) {
                         right: 41%;
                     }
+        
                     @media (max-width: 1024px) {
                         right: 7%;
                     }
+        
                     @media (max-width: 1440px) {
                         right: 34%;
                     }
-                }
-            }
+                    }
+                    .score1 {
+                        position: absolute;
+                        right: 40px;
+                        top: 38px;
+                        font-size: x-small;
+            
+                        @media (max-width: 320px) {
+                            right: 17%;
+                        }
+            
+                        @media (max-width: 375px) {
+                            right: 32%;
+                        }
+            
+                        @media (max-width: 425px) {
+                            right: 32%;
+                        }
+            
+                        @media (max-width: 768px) {
+                            right: 41%;
+                        }
+            
+                        @media (max-width: 1024px) {
+                            right: 7%;
+                        }
+            
+                        @media (max-width: 1440px) {
+                            right: 24%;
+                        }
+                        }
+        
+                 .space-between{
+                    display: flex;
+                    justify-content: space-between;
+                    }
+                 }
+                 
             }
         }
     }
