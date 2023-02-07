@@ -5,10 +5,6 @@
     </ngx-spinner>
     <div class="row justify-content-center" style="margin: 0;">
         <div class="col-xs-12 col-sm-10">
-            <div class="main-bar">
-                <span routerLink="/home" class="btn button-success">{{'electronic_consultant' |
-                    translate}}</span>
-            </div>
             <div style="display:flex;" class="breadcrumb">
                 <div class="col-md-10 col-xs-12 bg-head">
                     <p class="main-title">{{'search.title' | translate}} <span>({{total_search_count}} {{'search.count' | translate}})</span></p>
@@ -23,28 +19,38 @@
                     <select #dropdownFilter class="_filter" (change)="filterBy(dropdownFilter.value)"
                         class="form-select form-select-lg mb-3 float-end" aria-label=".form-select-lg example">
                         <option value="">{{'Results.sub.filter by' | translate}}</option>
-                        <option value="price">{{'Results.sub.Price' | translate}}</option>
+                        <option value="DESC">{{'Results.sub.PriceLow' | translate}}</option>
+                        <option value="ASC">{{'Results.sub.PriceHigh' | translate}}</option>
                     </select>
                     <fa-icon [icon]="faFilter" class="faFilter"></fa-icon>
                 </div>
             </div>
 
-            <form class="search-filters">
-                <div [formGroup]="searchForm" class="search-filters__box">
+            <div class="search-filters">
+                <div  class="search-filters__box">
+
                     <div class="search-filters__filter city">
                         <p>{{'home.City' | translate}}</p>
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر المدينة' :'Select city'" class="_filter" (change)="filtering($event,'cities')"  formControlName="cities">
-                            <ng-option [value]="city['id']" *ngFor="let city of cities">{{activeLang == 'ar' ? city['name_ar'] : city['name_en']}} ({{city['units_count']}})</ng-option>
-                        </ng-select>
+                        <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
+                        [settings]="settingsCity"
+                        (onSelect)="onChangeCity($event)"
+                        (onDeSelectAll)="onDeSelectAllCity()">
+                        </angular2-multiselect>
                         <span class="icon">
                             <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
                         </span>
+
+
                     </div>
+
                     <div class="search-filters__filter area">
                         <p>{{'home.Area' | translate}}</p>
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر المنطقة' :'Select area'" class="_filter multi" (change)="filtering($event,'areas')"  formControlName="areas" [multiple]="true" >
-                            <ng-option [value]="area['id']" [disabled]="areas_arr.length == 3 && !areas_arr.includes(area['id'])" *ngFor="let area of areas">{{activeLang == 'ar' ? area['name_ar'] : area['name_en']}} ({{area['units_count']}})</ng-option>
-                        </ng-select>
+                        <angular2-multiselect [data]="dropdownListArea" 
+                            [(ngModel)]="selectedItemArea" 
+                            [settings]="settingsArea" 
+                            (onSelect)="onItemSelectArea($event)" (onDeSelect) =onItemDeSelectArea($event)
+                            (onDeSelectAll)="onDeSelectAllArea()">
+                        </angular2-multiselect>
                         <span class="icon">
                             <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
                         </span>
@@ -52,9 +58,13 @@
 
                     <div class="search-filters__filter neighborhood">
                         <p>{{'home.Neighborhood' | translate}}</p>
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر الحي' :'Select neighborhood'" class="_filter multi" (change)="filtering($event,'neighborhood')"  formControlName="neighborhood" [multiple]="true">
-                            <ng-option [value]="neighborhood['id']" [disabled]="neighborhoods_arr.length == 5 && !neighborhoods_arr.includes(neighborhood['id'])" *ngFor="let neighborhood of neighborhoods">{{activeLang == 'ar' ? neighborhood['name_ar'] : neighborhood['name_en']}} ({{neighborhood['units_count']}})</ng-option>
-                        </ng-select>
+                        <angular2-multiselect 
+                        [data]="dropdownListNeighborhood" 
+                        [(ngModel)]="selectedItemNeighborhood" 
+                        [settings]="settingsNeigbhorhood"
+                        (onSelect)="onItemSelectNeighborhood($event)"
+                        (onDeSelect) =onItemDeSelectNeighborhood($event)>
+                    </angular2-multiselect>
                         <span class="icon">
                             <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
                         </span>
@@ -62,14 +72,42 @@
 
                     <div class="search-filters__filter estate_type">
                         <p>{{'home.Real estate type' | translate}}</p>
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'أختر النوع' :'Select type'" class="_filter" (change)="filtering($event,'estate')"  formControlName="type" >
-                            <ng-option [value]="unit['id']" *ngFor="let unit of units_type">{{activeLang == 'ar' ? unit['name_ar'] : unit['name_en']}}</ng-option>
+                        <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
+                        [settings]="settingsUnitType"
+                        (onSelect)="onItemSelectUnitType($event)">
+                    </angular2-multiselect>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="search-filters__filter propose">
+                        <p>{{'sell_rent' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'للبيع / للإيجار' :'For Sell / Rent'" class="_filter" [(ngModel)]="propose">
+                            <ng-option [value]="'sell'">{{'home.Sell' | translate}}</ng-option>
+                            <ng-option [value]="'rent'">{{'home.Rent' | translate}}</ng-option>
                         </ng-select>
                         <span class="icon">
                             <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
                         </span>
                     </div>
-
+                    <div class="search-filters__filter rooms">
+                        <p>{{'rooms' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'عدد الغرف' : 'Rooms count'" class="_filter" [(ngModel)]="bedroom">
+                            <ng-option [value]="room.id" *ngFor="let room of bedroom_arr">{{activeLang == 'ar' ? room.name_ar : room.name_en}}</ng-option>
+                          </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="search-filters__filter space">
+                        <p>{{'space' | translate}}</p>
+                        <ng-select [placeholder]="activeLang == 'ar' ? 'المساحة' :'Space'" class="_filter" [(ngModel)]="space">
+                            <ng-option [value]="space['id']" *ngFor="let space of space_arr">{{activeLang == 'ar' ? space['name_ar'] : space['name_en']}}</ng-option>
+                        </ng-select>
+                        <span class="icon">
+                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
                     <div class="search-filters__filter priceRange">
                         <p>{{'home.Price range' | translate}}</p>
                         <div class="dropdown" ngbDropdown>
@@ -120,40 +158,47 @@
                             <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
                         </span>
                     </div>
-                    <div class="search-filters__filter propose">
-                        <p>{{'sell_rent' | translate}}</p>
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'للبيع / للإيجار' :'For Sell / Rent'" class="_filter" formControlName="propose">
-                            <ng-option [value]="'sell'">{{'home.Sell' | translate}}</ng-option>
-                            <ng-option [value]="'rent'">{{'home.Rent' | translate}}</ng-option>
-                        </ng-select>
-                        <span class="icon">
-                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
-                        </span>
+                    <div class="ngSelect compound">
+                        <input
+                            class="checkbox"
+                            type="checkbox"
+                            [checked]="checkboxVar"
+                            [disabled]="true"
+                            (change)="checkboxVar = !checkboxVar"/>
+    
+                        <div class="dropdown">
+                            <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
+                                <angular2-multiselect 
+                                    [data]="dropdownListCompound" 
+                                    [(ngModel)]="selectedItemCompound" 
+                                    [settings]="settingsCompound"
+                                    (onSelect)="onItemSelectCompound($event)"
+                                    (onDeSelect) =onItemDeSelectCompound($event)>
+                                </angular2-multiselect>
+            
+                            </div>
+        
+                            <div class="multiselect" *ngIf="checkboxVar">
+                                <angular2-multiselect 
+                                    [data]="dropdownListCompound" 
+                                    [(ngModel)]="selectedItemCompound" 
+                                    [settings]="settingsCompound"
+                                    (onSelect)="onItemSelectCompound($event)"
+                                    (onDeSelect) =onItemDeSelectCompound($event)>
+                                </angular2-multiselect>
+            
+                            </div>
+        
+                            <span *ngIf="SelectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+        
+    
+                        </div>
+    
                     </div>
-                    <div class="search-filters__filter rooms">
-                        <p>{{'rooms' | translate}}</p>
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'عدد الغرف' :'Rooms count'" class="_filter" formControlName="bedroom">
-                            <ng-option [value]="room['id']" *ngFor="let room of bedroom_arr">{{activeLang == 'ar' ? room['name_ar'] : room['name_en']}}</ng-option>
-                        </ng-select>
-                        <span class="icon">
-                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
-                        </span>
-                    </div>
-                    <div class="search-filters__filter space">
-                        <p>{{'space' | translate}}</p>
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'المساحة' :'Space'" class="_filter" formControlName="space">
-                            <ng-option [value]="space['id']" *ngFor="let space of space_arr">{{activeLang == 'ar' ? space['name_ar'] : space['name_en']}}</ng-option>
-                        </ng-select>
-                        <span class="icon">
-                            <svg class="feather feather-chevron-down" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"/></svg>
-                        </span>
-                    </div>
-
-
                 </div>
                 <button type="submit" (click)="quick_search()" class="btn button-success">{{'search_button' | translate}}</button>
-                
-            </form>
+               
+            </div>
             
             <div class="row mt-3 results" *ngIf="results.length > 0">
                 <div *ngFor="let item of results" class="col-xs-12 col-sm-6 col-xl-4">

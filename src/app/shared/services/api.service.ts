@@ -162,6 +162,9 @@ export class ApiService {
   public async getMyUnits(body:any = {}): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/my-units`, 'POST', null, body)
   }
+  public async getMyUncompletedUnits(body:any = {}): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/my-uncompleted-units`, 'POST', null, body)
+  }
   public async getInquiry(body:any = {}): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/my-inquiries`, 'POST', null, body)
   }

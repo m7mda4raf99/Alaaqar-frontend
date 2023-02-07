@@ -221,6 +221,8 @@
         },
         "My Property":"عقاراتي",
         "My inquiry":"استعلاماتي",
+        "My Unpublished":" غير منشورة",
+
         "Grid View":"عرض الشبكة",
         "List View":"عرض القائمة",
         "No units yet":"لا يوجد لديك عقارات",
@@ -320,7 +322,11 @@
             "Results": "نتائج البحث",
             "filter by":"إفتراضي",
             "Price":"السعر",
-            "Score":"Score"
+            "Score":"Score",
+            "PriceHigh":"السعر: من الأكثر إلى الأقل",
+            "PriceLow":"السعر: من الأقل إلى الأكثر"
+
+
         }
     },
     "favorites": {

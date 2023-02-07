@@ -42,10 +42,7 @@ export class CanDeactivateGuard implements CanDeactivate<SetupSellerPrioritiesCo
           let unitData = this.unitData
           const user = this.cookieService.get('user')
           unitData['user_id'] = JSON.parse(user).id
-          //unitData['neighborhood_id'] = 1
-           unitData['description'] = "hello"
-           unitData['title'] = "heyy"
-          console.log('unitData')
+          console.log('unitData guard shars')
           console.log(unitData)
           const addUnitRes = await this.apiService.addNotCompletedUnit(unitData)
           console.log(addUnitRes)
