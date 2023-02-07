@@ -93,6 +93,11 @@ export class SetPrioritesComponent implements OnInit {
     this.sub.unsubscribe()
     this.sub1.unsubscribe()
   }
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
+
   async getPriorities() {
     let data: any = await this.apiService.getPriorities()
     if (data === false) {

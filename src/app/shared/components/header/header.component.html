@@ -78,6 +78,33 @@
                                 </button>
                             </li>
 
+                            <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="showConfirmModel(content);isMenuCollapsed = true; expand_collapse($event)" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/logout.png" alt="image" style="margin: 0px 5px;">{{'header.Profile.logout' |
+                                    translate}}
+                                </button>
+
+                                <ng-template #content let-c="close" let-d="dismiss">
+                                    <div [class.rtl]="activeLang.title === 'AR'">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-title">{{'header.Profile.logout' | translate}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>{{'header.Profile.logout message' | translate}} </strong></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                (click)="c('cancel click')">{{'button.actions.cancel' | translate}}</button>
+                                            <button type="button" class="btn btn-danger" (click)="logout()">{{'header.Profile.logout' |
+                                                translate}}</button>
+                                        </div>
+                
+                                    </div>
+                                </ng-template>
+
+                            </li>
+
                         </ul>
                         
                     </nav>
@@ -182,7 +209,7 @@
                 </div>
 
                 <!-- Logout -->
-                <li class="responsive" *ngIf="isLoggedIn" style="padding: 0px;">
+                <!-- <li class="responsive" *ngIf="isLoggedIn" style="padding: 0px;">
                     <button style="padding: 0px;" (click)="showConfirmModel(content);isMenuCollapsed = true; expand_collapse($event)" class="dropdown-item"
                         type="button">
                         <img src="../../../../assets/images/logout.png" alt="image" style="margin: 0px 5px;">{{'header.Profile.logout' |
@@ -206,7 +233,7 @@
     
                         </div>
                     </ng-template>
-                </li>
+                </li> -->
 
             </ul>
         </nav>

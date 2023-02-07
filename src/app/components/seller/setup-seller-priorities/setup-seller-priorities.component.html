@@ -287,9 +287,9 @@
           <div class="row d-block d-xl-none" style="min-height: 90px;">
             <div class="col-6"></div>
             <div class="button col-sm-6 col-xs-12 float-end">
-              <button (click)="back()" [disabled]="currentStep === 1"
-                class="button btn button-success next-back sub-action">{{'button.actions.Back' | translate}}</button>
-              <button *ngIf="validateSubmit()" (click)="next()" [disabled]="validateNext()"
+              <!-- <button (click)="back()" [disabled]="currentStep === 1"
+                class="button btn button-success next-back sub-action">{{'button.actions.Back' | translate}}</button> -->
+              <button *ngIf="validateSubmit()" (click)="scroll(holder); next()" [disabled]="validateNext()"
                 class="button btn button-success float-end">{{'button.actions.Next' | translate}} </button>
               <button *ngIf="!validateSubmit()" [disabled]='validateSubmit()' class="btn button-success float-end"
                 (click)="doSearchQuery()">{{'button.actions.Review' | translate}}</button>
