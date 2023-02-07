@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AppServiceService } from '../../../services/app-service.service'
-import { faUser, faEllipsisV, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEllipsisV, faSignOutAlt, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faEdit, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
@@ -10,14 +10,14 @@ import { environment } from 'src/environments/environment';
 import { ApiService } from '../../services/api.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 
-
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  faChevronDown = faChevronDown
+  faChevronUp = faChevronUp
   faUSer = faUser
   faSignOutAlt = faSignOutAlt
   faEllipsisV = faEllipsisV
@@ -29,7 +29,8 @@ export class HeaderComponent implements OnInit {
   haveNotifications: boolean = false
   avatarUrl: any
   selectedCityName = 'egypt';
-  
+  pressedProfile: boolean = false
+
   cities3 = [
     {
       id: 1,
@@ -123,6 +124,10 @@ export class HeaderComponent implements OnInit {
   }
   getName(){
     return(this.userData.name)
+  }
+
+  getPhone(){
+    return(this.userData.phone)
   }
 
   switchLang(val: string) {
@@ -223,6 +228,8 @@ export class HeaderComponent implements OnInit {
   }
 
   expand_collapse(element:any){
+    this.pressedProfile = false;
+
     this._ElementRef.nativeElement.querySelector('.app-header__collapse').classList.toggle('active')
     this._ElementRef.nativeElement.querySelector('.app-header__menu').classList.toggle('active')
     // this._ElementRef.nativeElement.querySelector('body').style.overflow  = 'hidden'

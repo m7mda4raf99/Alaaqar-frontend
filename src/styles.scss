@@ -239,12 +239,12 @@ input:focus {
 
 ng-otp-input {
     .wrapper {
-        width: max-content;
-        margin: auto;
+        display: flex;
+        justify-content: space-around;
     }
 
     .otp-input {
-        width: 70px !important;
+        width: 60px !important;
         height: 70px !important;
     }
 }
@@ -937,7 +937,7 @@ a{
 .coming-soon{
     position: fixed;
     width: 100%;
-    height: calc(100vh - 139px);
+    height: calc(100vh - 80px);
     // top: 139px;
     display: flex;
     align-items: center;

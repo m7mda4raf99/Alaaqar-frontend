@@ -20,7 +20,7 @@
                         <span class="top"></span>
                         {{'contactus.Get in touch' | translate}} 
                     </h2>
-                    <p style="color: #A9A9A9;padding-bottom: 50px;">
+                    <p>
                         {{'contactus.How can we help you? we are here for you!' | translate}}
                     </p>
                     <div class="row">
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button style="    width: 200px;height: 50px;" [disabled]="contactForm.invalid"
+                                    <button [disabled]="contactForm.invalid"
                                         (click)="submit()" class="btn button-success" type="submit">{{'button.actions.Submit' | translate}}</button>
                                 </div>
                             </form>

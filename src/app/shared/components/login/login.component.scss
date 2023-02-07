@@ -112,6 +112,11 @@
                             display: block;
                             padding: 20px 35px;
                             font-size: 29px;
+
+                            @media (max-width: 425px) {
+                                font-size: 24px;
+                            }
+
                             .arrow {
                                 display: inline-block;
                                 width: 25px;
