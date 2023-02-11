@@ -1035,6 +1035,8 @@
                 .card-title {
                     color: #f55441;
                 }
+
+                box-shadow: 8px 3px 30px;
                 // .overlay {
                 //     background: transparent linear-gradient(180deg, #2b696242 0%, #327064bf 100%) 0% 0% no-repeat
                 //         padding-box;
@@ -1062,7 +1064,6 @@
             border-radius: 5px;
         }
         
-
         .results {
             background-color: #F7F7F7;
         
@@ -1132,6 +1133,11 @@
         
                 }
             }
+
+            // .hover{
+            //     box-shadow: 8px 3px 30px;
+                
+            // }
         
         }
     }
@@ -1174,7 +1180,7 @@
         }
     }
     .download-app {
-        display: flex;
+        display: none;
         padding: 8% 6% 10% 6%;
 
         @media (max-width: 425px) {

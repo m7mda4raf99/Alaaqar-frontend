@@ -405,11 +405,19 @@ nz-progress {
         position: relative;
         width: 70px !important;
         height: 70px !important;
+
+        @media (max-width: 425px) {
+            width: 65px !important;
+            height: 65px !important;
+        }
+
         justify-content: center;
         margin: 0 auto;
 
         .ant-progress-circle {
             overflow: visible;
+            box-shadow: 5px 5px 20px;
+            border-radius: 50%;
 
             path {
                 stroke-width: 8 !important;
@@ -675,7 +683,8 @@ nz-progress {
 
 .priceRange {
     .dropdown-toggle:after {
-        display: inline-block;
+        // display: inline-block;
+        display: none;
         margin-left: 0.255em;
         vertical-align: 0.255em;
         content: "";
@@ -1249,4 +1258,11 @@ span.dropdown-multiselect--active{
 
 .required{
     color: red;
+}
+
+.search-filters__box .cuppa-dropdown {
+    position: relative !important;
+    border-radius: 50px !important;
+    font-size: 14px !important;
+    box-shadow: 0 10px 6px #59595919 !important;
 }
