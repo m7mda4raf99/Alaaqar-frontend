@@ -222,7 +222,7 @@ export class HomeComponent implements OnInit {
     
     await this.setPrice()
     await this.getCity(true)
-    await this.getAreaLocations(true)
+    //await this.getAreaLocations(true)
     this.setMultiSelection('buy')
     this.getUnitTypes()
     // await this.setupUnitTypesCount()
@@ -1153,7 +1153,9 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         id:this.Comp[this.Comp.length-1],
         xd:this.proposeID
       }
-      this.dropComp=await this.apiService.getCompound(data);
+      this.dropComp =await this.apiService.getCompound(data);
+
+      console.log("compunds: ", this.dropComp.data)
       
       let array = []
     

@@ -5,6 +5,19 @@
 
     </ngx-spinner>
 
+    <!-- <form class="example-form">
+        <input type="text"
+               placeholder="Search for a street"
+               [formControl]="control"
+               [matAutocomplete]="auto"
+               class="example-input">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+            {{street}}
+          </mat-option>
+        </mat-autocomplete>
+      </form> -->
+
     <!-- First section (Find Your Perfect Future Home)-->
     <div class="row first-sec ">
         
@@ -250,7 +263,7 @@
                         </div>
                         
                         <div class="row mt-3 results" >
-                            <div *ngFor="let item of recentlyAdded" class="col-xs-12 col-sm-6 col-xl-4">
+                            <div *ngFor="let item of recentlyAdded" class="col-xs-12 col-sm-6 col-xl-4 hover">
                                 {{ print(item) }}
                                 <div class="card mb-3">
                                     <div class="row g-0 card-content">
@@ -691,9 +704,14 @@
                         <div class="dropdown" ngbDropdown>
                             <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
                                 class="btn dropdown-toggle setPriceBtn ngSelect-input"
-                                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                                style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                 {{setPricePlaceHolder()}}
+
+                                <fa-icon style="position: initial; color: #aaaaaa"  [icon]="faChevronDown"></fa-icon>
+
                             </button>
+
                             <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
                                 (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
                                 

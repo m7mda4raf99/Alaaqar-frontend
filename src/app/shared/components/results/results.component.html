@@ -51,7 +51,11 @@
                                                     <div class="col-4 float-end" style="position: relative;    transform: translate(10px, -56px);">
                                                         <nz-progress class="float-end" nzType="circle" style="background: radial-gradient(circle at center, #f7f7f7 0%,#fbfbfb 47%,#ffffff 47%,#23bc2b00 47%,#23bc2b05 48%);"
                                                             [nzPercent]="getScore(item['score'])"
-                                                            [nzStrokeColor]="{ '0%': '#ef8169','50%':'#288bd8','70%':'#ad8ee5', '100%': '#ea666b' }">
+                                                            [nzStrokeColor]="{ '0%': '#288bd8','50%':'#ea666b','70%':'#f8c069', '100%': '#ad8ee5' }">
+
+                                                            <!-- [nzPercent]="getScore(item['score'])" -->
+                                                            <!-- [nzStrokeColor]="{ '0%': '#ef8169','50%':'#288bd8','70%':'#ad8ee5', '100%': '#ea666b' }"> -->
+
                                                         </nz-progress>
                                                         <span class="score">{{getScore(item['score'])}}%</span>
                                                         <span class="score1"> Matching</span>

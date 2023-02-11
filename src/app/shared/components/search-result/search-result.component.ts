@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { NotificationsService } from '../../../services/notifications.service'
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Subscription } from 'rxjs';
@@ -27,6 +27,7 @@ export class SearchResultComponent implements OnInit {
   @ViewChild('dropdownMenuButton1') dropdownMenuButton1!: ElementRef
 
   faFilter = faFilter
+  faChevronDown = faChevronDown
   baseUrl = environment.baseUrl
   sub = new Subscription()
   sub2 = new Subscription()
@@ -424,7 +425,7 @@ export class SearchResultComponent implements OnInit {
   setMultiSelection(tab: string){
     this.settingsCity = { 
       singleSelection: true, 
-      text: this.activeLang === 'en' ? "Select City" : "اختار المدينة",
+      text: this.activeLang === 'en' ? "City" : "المدينة",
       searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
       noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
       enableSearchFilter: true,
@@ -436,7 +437,7 @@ export class SearchResultComponent implements OnInit {
 
     this.settingsArea = { 
           singleSelection: false, 
-          text: this.activeLang === 'en' ? "Select Area" : "اختار المنطقة",
+          text: this.activeLang === 'en' ? "Area" : "المنطقة",
           searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
           noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
           enableSearchFilter: true,
@@ -452,7 +453,7 @@ export class SearchResultComponent implements OnInit {
 
     this.settingsNeigbhorhood = { 
       singleSelection: false, 
-      text: this.activeLang === 'en' ? "Select Neighborhood" : "اختار الحي",
+      text: this.activeLang === 'en' ? "Neighborhood" : "الحي",
       searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
       noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
       enableSearchFilter: true,
@@ -467,7 +468,7 @@ export class SearchResultComponent implements OnInit {
 
     this.settingsCompound = { 
       singleSelection: false, 
-      text: this.activeLang === 'en' ? "Select Compound" : "اختار الكومباوند",
+      text: this.activeLang === 'en' ? "Compound" : "الكومباوند",
       searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
       noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
       enableSearchFilter: true,
@@ -481,7 +482,7 @@ export class SearchResultComponent implements OnInit {
     };  
       this.settingsUnitType = {
       singleSelection: true, 
-      text: this.activeLang === 'en' ? "Select Type" : "اختار نوع العقار",
+      text: this.activeLang === 'en' ? "Type" : "نوع العقار",
       searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
       noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
       enableSearchFilter: true,

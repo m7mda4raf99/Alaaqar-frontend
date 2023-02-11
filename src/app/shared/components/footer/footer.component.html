@@ -53,15 +53,20 @@
                 </div>
                 <div class="download">
                     
-                    <h3> {{'home.Download app.title' | translate}} </h3>
+                    <h3 style="margin-bottom: 0px;"> {{'home.Download app.title' | translate}} </h3>
                     
                     <div class="row left-sec justify-content-center">
-                        <div class="col downlaod">
+                        <div class="col downlaod" style="display: none;">
                             <img (click)="navigateToAppStore()" src="../../../../assets/images/ios.png"
                                 alt="..." />
                             <img (click)="navigateToGooglePlay()" src="../../../../assets/images/googleplay.png"
                                 alt="..." />
                         </div>
+
+                        <div class="col downlaod">
+                            <img style="width: 50%;" src="../../../../assets/images/coming_soon.jpg" alt="..." />
+                        </div>
+
                     </div>
        
                 </div>
