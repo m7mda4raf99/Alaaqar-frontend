@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { NotificationsService } from '../../../services/notifications.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -22,6 +23,8 @@ import 'bootstrap';
   styleUrls: ['./unit-details.component.scss']
 })
 export class BuyerUnitDetailsComponent implements OnInit {
+  faChevronDown = faChevronDown
+  faChevronUp = faChevronUp
   faAngleLeft = faAngleLeft
   faAngleRight = faAngleRight
   BaseUrl = environment.baseUrl
@@ -54,6 +57,8 @@ export class BuyerUnitDetailsComponent implements OnInit {
   tagLength: number = 0
   activeIndex: number = 0
   unitCriteria: any = this.appServiceService.unitCriteria$.value
+  descriptionDisplay: any = 'none'
+
   constructor(private activeRouter: ActivatedRoute,
     private router: Router,
     private notificationService: NotificationsService,
@@ -437,5 +442,13 @@ export class BuyerUnitDetailsComponent implements OnInit {
   renderString(str: any) {
     var div = document.getElementById('description')
     div!.innerHTML = str?.trim();
+  }
+
+  displayDescription(){
+    if(this.descriptionDisplay === 'initial'){
+      this.descriptionDisplay = 'none'
+    }else{
+      this.descriptionDisplay = 'initial'
+    }
   }
 }

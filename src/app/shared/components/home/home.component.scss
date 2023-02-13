@@ -626,6 +626,12 @@
                     }
                 }
                 &.priceRange {
+                    width: 22%;
+
+                    @media (max-width: 425px) {
+                        width: 100%;
+                    }
+
                     min-width: 21%;
                     // min-width: 15%;
                     

@@ -786,6 +786,11 @@ nz-progress {
         font-family: 'Rubik';
         display: inline-flex;
         margin: 0 15px;
+
+        @media (max-width:425px){
+            font-size: 13px;
+        }
+    
     }
 }
 
@@ -1056,7 +1061,7 @@ a{
 }
 
 .home .first-sec .search-sec .ngSelect.realState{
-    min-width: 19% !important;
+    min-width: 20% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.separator{
@@ -1266,3 +1271,16 @@ span.dropdown-multiselect--active{
     font-size: 14px !important;
     box-shadow: 0 10px 6px #59595919 !important;
 }
+
+.ng-autocomplete {
+    width: 100% !important;
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-input>input {
+    cursor: pointer !important;
+}
+
+.dropdown-list.tagToBody {
+    left: initial !important;
+}
+

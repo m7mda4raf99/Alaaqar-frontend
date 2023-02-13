@@ -73,6 +73,7 @@ import { AvatarModule } from 'ngx-avatar';
 
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/can-deactivate.guard';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/
     PriceRangeSliderComponent  
   ],
   imports: [
+    AutocompleteLibModule,
     AngularMultiSelectModule,
     AvatarModule,
     FormsModule,

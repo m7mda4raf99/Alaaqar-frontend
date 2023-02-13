@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faFilter, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { NotificationsService } from '../../../services/notifications.service'
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Subscription } from 'rxjs';
@@ -28,6 +28,7 @@ export class SearchResultComponent implements OnInit {
 
   faFilter = faFilter
   faChevronDown = faChevronDown
+  faChevronUp = faChevronUp
   baseUrl = environment.baseUrl
   sub = new Subscription()
   sub2 = new Subscription()
@@ -44,6 +45,7 @@ export class SearchResultComponent implements OnInit {
   priceMinRange: any
   hideMinRange: boolean = false
   hideMaxRange: boolean = false
+  isFilterPressed: boolean = true
 
   total_search_count:any
 
@@ -69,6 +71,17 @@ export class SearchResultComponent implements OnInit {
   defaultSelectedCity = 'Select City'
   defaultSelectedNeighborhood = 'Select Neighborhood'
   defaultSelectedRealEstateType = 'Select Type'
+
+  divStyle: number = 0;
+  display:any = 'none'
+
+  changeFilter(){
+    if(this.display === 'none'){
+      this.display = 'initial'
+    }else{
+      this.display = 'none'
+    }
+  }
   
   constructor(
     private router: Router,
@@ -104,6 +117,10 @@ export class SearchResultComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if(window.matchMedia("(min-width: 425px)").matches){
+      this.display = 'flex'
+    }
+    
     this.appService.selected_country$.subscribe((res:any) =>{
       this.selected_country = res
     })
@@ -122,9 +139,7 @@ export class SearchResultComponent implements OnInit {
     await this.getCity(true)
     await this.getAreaLocations(true)
     this.setMultiSelection('buy')
-    this.getUnitTypes()
-
-    
+    this.getUnitTypes()    
   }
 
   async search(isloadMore?: boolean) {

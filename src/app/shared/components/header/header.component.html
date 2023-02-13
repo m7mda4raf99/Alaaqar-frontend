@@ -404,14 +404,16 @@
                 </div>
             
                 
-                <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="display: flex; align-items: center;">
+                <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="display: flex; align-items: center; cursor: pointer; "
+                (click)="transform_language('en')">
                     <small style="margin: 0px 2px;">ENGLISH</small>
-                    <span (click)="transform_language('en')" style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
+                    <span  style="padding: 3px 10px !important; background: #ababb6; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
                 </div>
                 
-                <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " style="display: flex; align-items: center;">
+                <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " style="display: flex; align-items: center; cursor: pointer; "
+                (click)="transform_language('ar')">
                     <small style="margin: 0px 2px;">عربي</small>
-                    <span (click)="transform_language('ar')" style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
+                    <span  style="padding: 3px 10px !important; background: #ababb6; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
                 </div>
 
                 <ng-select [items]="cities3"

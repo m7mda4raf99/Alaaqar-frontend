@@ -121,12 +121,17 @@
 
             </div>
             <!--buy-->
-            <div class="row details mt-5 mb-5">
-                <div class="col-sm-12 col-lg-8">
-                    <p class="title"> {{'propertyDetails.Details' | translate}}</p>
-                    <div id="description" class="desc">
-                        {{renderString(propertyDetails.description)}}
+            <div class="row details col-lg-8 mt-5 mb-5">
+                <div class="col-sm-12">
+                    <div (click)="displayDescription()" style="display: flex; justify-content: space-between; cursor: pointer; align-items: center;">
+                        <p class="title">{{'propertyDetails.Details' | translate}}</p>
+                        <fa-icon *ngIf="descriptionDisplay === 'initial'" [icon]="faChevronUp"></fa-icon> 
+                        <fa-icon *ngIf="descriptionDisplay === 'none'" [icon]="faChevronDown"></fa-icon>       
                     </div>
+
+                    {{renderString(propertyDetails.description)}}
+                    <div class="desc" id="description" [ngStyle]="{'display': descriptionDisplay}"></div>
+
                 </div>
                 <div class="col-12 more-details">
                     <div class="row justify-content-center"
