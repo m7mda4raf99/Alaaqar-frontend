@@ -14,19 +14,28 @@
                             translate}}</p>
                     </div>
                 </div>
-                <div class="col-md-2" style="position: relative;">
-                    
-                    <select #dropdownFilter class="_filter" (change)="filterBy(dropdownFilter.value)"
-                        class="form-select form-select-lg mb-3 float-end" aria-label=".form-select-lg example">
-                        <option value="">{{'Results.sub.filter by' | translate}}</option>
-                        <option value="DESC">{{'Results.sub.PriceLow' | translate}}</option>
-                        <option value="ASC">{{'Results.sub.PriceHigh' | translate}}</option>
-                    </select>
-                    <fa-icon [icon]="faFilter" class="faFilter"></fa-icon>
+                
+                <div class="buttons">
+                    <div class="filter-button" (click)="changeFilter()">
+                        <span> {{'Results.sub.Filters' | translate}} </span>
+                        <fa-icon *ngIf="display === 'initial'" style="position: initial;" [icon]="faChevronUp" class="faChevronUp"></fa-icon>
+                        <fa-icon *ngIf="display === 'none'" style="position: initial;" [icon]="faChevronDown" class="faChevronDown"></fa-icon>
+                    </div>
+                    <div class="col-md-2" style="position: relative; margin: 0% 1%; width: 100%;">
+                        
+                        <select #dropdownFilter class="_filter" (change)="filterBy(dropdownFilter.value)"
+                            class="form-select form-select-lg mb-3 float-end" aria-label=".form-select-lg example">
+                            <option value="">{{'Results.sub.filter by' | translate}}</option>
+                            <option value="DESC">{{'Results.sub.PriceLow' | translate}}</option>
+                            <option value="ASC">{{'Results.sub.PriceHigh' | translate}}</option>
+                        </select>
+                        <fa-icon [icon]="faFilter" class="faFilter"></fa-icon>
+                    </div>
                 </div>
+
             </div>
 
-            <div class="search-filters">
+            <div class="search-filters" [ngStyle]="{'display': display}">
                 <div  class="search-filters__box">
 
                     <div class="search-filters__filter city">

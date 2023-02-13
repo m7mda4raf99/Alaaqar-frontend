@@ -5,18 +5,27 @@
 
     </ngx-spinner>
 
-    <!-- <form class="example-form">
-        <input type="text"
-               placeholder="Search for a street"
-               [formControl]="control"
-               [matAutocomplete]="auto"
-               class="example-input">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
-            {{street}}
-          </mat-option>
-        </mat-autocomplete>
-      </form> -->
+    <div style="display: none;" class="ng-autocomplete">
+        <ng-autocomplete 
+          [data]="autoComplete"
+          [searchKeyword]="keyword"
+          placeholder="Select country"
+          (selected)='selectEvent($event)'
+          (inputChanged)='onChangeSearch($event)'
+          (inputFocused)='onFocused($event)'
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate"
+          [debounceTime]="200">                                 
+        </ng-autocomplete>
+        
+        <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.name"></a>
+        </ng-template>
+        
+        <ng-template #notFoundTemplate let-notFound>
+        <!-- <div [innerHTML]="notFound"></div> -->
+        </ng-template>
+        </div>
 
     <!-- First section (Find Your Perfect Future Home)-->
     <div class="row first-sec ">
@@ -734,7 +743,7 @@
         
                                     <div id="slider">
                                         <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                                        (mouseup)="onSliderChange()"></ngx-slider>
+                                        (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)"></ngx-slider>
                                     </div>
         
                                     <div id="textboxes">
@@ -744,10 +753,10 @@
                 
                                             <div id="fromTextbox">
                                       
-                                                <input id="Rectangle_1314_rbk" [(ngModel)]="minValue" 
+                                                <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
                                                 placeholder="Min value" ngxNumberFormat="#,###,###,###"
                                                 [allowNegative]="false" type="text"
-                                                (keyup)="onSliderChange()"/>
+                                                (keyup)="userChangeMin(false)"/>
                                             </div>
                                         </div>
                                         
@@ -756,10 +765,10 @@
                                           
                                             <div id="fromTextbox">
                                       
-                                                <input id="Rectangle_1314_rbk" [(ngModel)]="maxValue" 
+                                                <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
                                                 placeholder="Min value" ngxNumberFormat="#,###,###,###"
                                                 [allowNegative]="false" type="text"
-                                                (keyup)="onSliderChange()"/>
+                                                (keyup)="userChangeMax(false)"/>
                                             </div>
                                         </div>
                                     

@@ -116,6 +116,8 @@ export class HomeComponent implements OnInit {
   dropNeig:any
 
   minValue: number = 0;
+  minValueInput: number = 0;
+  maxValueInput: number = 0
   minValueText: number = 0;
   maxValue: number = 40000000;
   
@@ -172,11 +174,13 @@ export class HomeComponent implements OnInit {
     ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
+      this.setMultiSelection('buy')
       this.getCity(false)
       this.getUnitTypes()
       this.getNeig(false)
       this.getAreaLocations(false)
       this.getCompound(false)
+      // this.getTypes()
       if (val.toUpperCase() === 'AR') {
         this.defaultSelectedArea = 'اختار المنطقة'
         this.defaultSelectedNeighborhood = "اختار الحي"
@@ -192,8 +196,10 @@ export class HomeComponent implements OnInit {
       if (params['q'] && params['q'] !== null) {
         this.activeTab = params['q']
         this.setPrice()
+        this.setMultiSelection(this.activeTab)
       } else {
         this.setActiveTab('buy')
+        this.setMultiSelection('buy')
       }
     })
   }
@@ -271,19 +277,40 @@ export class HomeComponent implements OnInit {
     this.isListVisible = false;
   }
 
+  doingSearch: boolean = false
+
   async GetHintSearch() {
+    console.log("searchQuery: ", this.searchQuery)
 
     if(this.searchQuery !== ""){
       let data={
         query : this.searchQuery  
       }  
     
-       this.response=  await this.apiService.getsearch(data)
+      this.doingSearch = true
+      this.response=  await this.apiService.getsearch(data)
+      this.doingSearch = false
+
+      this.autoComplete = []
+
+      for(let i = 0; i < 10 && this.response.data[i]; i++){
+        this.autoComplete.push(
+          {
+            id: i+1,
+            name: this.response.data[i]['name_en']
+          }
+        )
+      }
+
       //  console.log(this.response)
       }
       else{
         this.response = {data: "no results found"}
+        this.autoComplete = []
       }
+      console.log("response: ", this.response.data)
+      console.log("autoComplete: ", this.autoComplete)
+
   }
    
   async Getsearch() {
@@ -296,22 +323,22 @@ export class HomeComponent implements OnInit {
     // console.log('response')
     // console.log(this.response)
     
-if(this.response.message === 'city'){
-  // console.log('city')
-  this.search_bar_model.cities= this.response.data[0].id
-  
-}
-if(this.response.message === 'area'){
-  // console.log('area')
-  this.search_bar_model.areas= this.response.data
-}
-if(this.response.message === 'neighborhood'){
-  // console.log('neighborhood')
-  this.search_bar_model.neighborhoods= this.response.data
-}
-// console.log('search_bar_model')
-// console.log(this.search_bar_model)
-this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+    if(this.response.message === 'city'){
+      // console.log('city')
+      this.search_bar_model.cities= this.response.data[0].id
+      
+    }
+    if(this.response.message === 'area'){
+      // console.log('area')
+      this.search_bar_model.areas= this.response.data
+    }
+    if(this.response.message === 'neighborhood'){
+      // console.log('neighborhood')
+      this.search_bar_model.neighborhoods= this.response.data
+    }
+    // console.log('search_bar_model')
+    // console.log(this.search_bar_model)
+    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
 
 
    }
@@ -378,15 +405,14 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
+          units_count: item.units_count
         }
 
         array1.push(obj)
       }
       this.dropdownListRealstateType=array1
     } 
-
-
 
     else if (this.selectedItemNeighborhood && this.selectedItemNeighborhood.length > 0)
     {
@@ -411,7 +437,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
+          units_count: item.units_count
         }
 
         array1.push(obj)
@@ -441,7 +468,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
+          units_count: item.units_count
         }
 
         array1.push(obj)
@@ -468,7 +496,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + "(" + item.units_count + ")"  :  item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
+          units_count: item.units_count
         }
 
         array1.push(obj)
@@ -821,6 +850,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   }
 
   setMultiSelection(tab: string){
+    console.log("this.lang === 'en': ", this.lang === 'en')
     this.settingsCity = { 
       singleSelection: true, 
       text: this.lang === 'en' ? "Select City" : "اختار المدينة",
@@ -1027,6 +1057,8 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         this.RealEstateType = types
       })
     }
+
+    console.log("this.RealEstateType: ", this.RealEstateType)
   }
 
   async getCity(isChanged: boolean){
@@ -1048,7 +1080,7 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
           itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar,
           name_en: item.name_en,
           name_ar: item.name_ar,
-          
+          units_count: item.units_count
         }
   
         array.push(obj)
@@ -1070,19 +1102,34 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       let array = []
   
       for(let item of this.dropdownListCity){
-  
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en :  item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
-          
+          units_count: item.units_count
         }
   
         array.push(obj)
       }
   
       this.dropdownListCity = array
+
+      array = []
+  
+      for(let item of this.selectedItemCity){
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+  
+        array.push(obj)
+      }
+  
+      this.selectedItemCity = array
 
     }
   }
@@ -1095,20 +1142,22 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         xd:this.proposeID
       }
       this.droploc = await this.apiService.getloc(data)
-
+      let values:any[] =Object.values(this.droploc['data']);
       let array = []
 
-      for(let item of this.droploc.data){
+      for(let item of values){
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar,
-          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar + " (" + item.units_count_Location + ")",
+          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
           area_en: item.area_en,
           area_ar: item.area_ar,
           areaID: item.areaID,
+          units_count_Location: item.units_count_Location,
+          units_count_area: item.units_count_area
         }
 
         array.push(obj)
@@ -1127,13 +1176,15 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en :  item.name_ar,
-          areaName: this.lang === 'en' ? item.area_en :  item.area_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar + " (" + item.units_count_Location + ")",
+          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
           area_en: item.area_en,
           area_ar: item.area_ar,
           areaID: item.areaID,
+          units_count_Location: item.units_count_Location,
+          units_count_area: item.units_count_area
         }
 
         array.push(obj)
@@ -1141,11 +1192,32 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       }
 
       this.dropdownListArea = array
+
+      array = []
+
+      for(let item of this.selectedItemArea){
+
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar + " (" + item.units_count_Location + ")",
+          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          area_en: item.area_en,
+          area_ar: item.area_ar,
+          areaID: item.areaID,
+          units_count_Location: item.units_count_Location,
+          units_count_area: item.units_count_area
+        }
+
+        array.push(obj)
+
+      }
+
+      this.selectedItemArea = array
     }
     
   }
-
-
 
   async getCompound(isChanged: boolean){
     if(isChanged){
@@ -1156,17 +1228,18 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       this.dropComp =await this.apiService.getCompound(data);
 
       console.log("compunds: ", this.dropComp.data)
-      
+      let values:any[] =Object.values(this.dropComp['data']);
       let array = []
     
-      for(let item of this.dropComp.data){
+      for(let item of values){
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar + " (" + item.units_count + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
           areaID: item.areaID,
-          compoundName: this.lang === 'en' ? "Compound" : "كومباوند"
+          compoundName: this.lang === 'en' ? "Compound" : "كومباوند",
+          units_count: item.units_count
         }
         array.push(obj)
       }
@@ -1179,16 +1252,34 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       for(let item of this.dropdownListCompound){
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en : item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar + " (" + item.units_count + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
           areaID: item.areaID,
-          compoundName: this.lang === 'en' ? "Compound" : "كومباوند"
+          compoundName: this.lang === 'en' ? "Compound" : "كومباوند",
+          units_count: item.units_count
         }
         array.push(obj)
       }
   
       this.dropdownListCompound = array
+
+      array = []
+  
+      for(let item of this.selectedItemCompound){
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          areaID: item.areaID,
+          compoundName: this.lang === 'en' ? "Compound" : "كومباوند",
+          units_count: item.units_count
+        }
+        array.push(obj)
+      }
+  
+      this.selectedItemCompound = array
     }
 
   }
@@ -1200,17 +1291,18 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         xd:this.proposeID
       }
       this.dropNeig=await this.apiService.getNeig(data);
-      
+      let values:any[] =Object.values(this.dropNeig['data']);
       let array = []
   
-      for(let item of this.dropNeig.data){
+      for(let item of values){
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar + " (" + item.units_count + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
           locationID: item.locationID,
-          neiName: this.lang === 'en' ? "Neighborhood" : "الحي"
+          neiName: this.lang === 'en' ? "Neighborhood" : "الحي",
+          units_count: item.units_count
         }
         array.push(obj)
       }
@@ -1223,16 +1315,34 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
       for(let item of this.dropdownListNeighborhood){
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en : item.name_ar,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar + " (" + item.units_count + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
           locationID: item.locationID,
-          neiName: this.lang === 'en' ? "Neighborhood" : "الحي"
+          neiName: this.lang === 'en' ? "Neighborhood" : "الحي",
+          units_count: item.units_count
         }
         array.push(obj)
       }
   
       this.dropdownListNeighborhood = array
+
+      array = []
+  
+      for(let item of this.selectedItemNeighborhood){
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          locationID: item.locationID,
+          neiName: this.lang === 'en' ? "Neighborhood" : "الحي",
+          units_count: item.units_count
+        }
+        array.push(obj)
+      }
+  
+      this.selectedItemNeighborhood = array
   
     }
 
@@ -1427,13 +1537,13 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
         data.selectedCompound = this.search_model.compounds
         data.selectedCompoundObj = this.selectedItemCompound
         data.SelectedRealEstateType = this.SelectedRealEstateType[0]['id']
-        data.priceMinRange = this.minValue
+        data.priceMinRange = this.priceMinRange
 
         if(this.activeTab != "buy" && this.activeTab != "rent"){
           data.priceMinRange = this.price
         }
 
-        data.priceMaxRange = this.maxValue
+        data.priceMaxRange = this.priceMaxRange
 
         // console.log("ehab: ",data)
       
@@ -1558,12 +1668,99 @@ this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.str
   setDate(date: any){
     return date.substring(0, 10)
   }
+  // flag: boolean, min: boolean
+
+  userChangeMin(flag: boolean){    
+    if(flag){
+      this.minValueInput = this.minValue
+      this.priceMinRange = this.minValue
+  }else{
+    this.priceMinRange = Number(this.minValueInput)
+
+    if(this.priceMaxRange < this.priceMinRange){
+      this.priceMaxRange = this.priceMinRange
+      this.maxValueInput = this.priceMinRange
+    }
+  }
+
+  }
+
+  userChangeMax(flag: boolean){    
+    if(flag){
+        this.maxValueInput = this.maxValue
+        this.priceMaxRange = this.maxValue
+    }else{
+      this.priceMaxRange = Number(this.maxValueInput)
+
+      if(this.priceMaxRange < this.priceMinRange){
+        this.priceMinRange = this.priceMaxRange
+        this.minValueInput = this.priceMaxRange
+      }
+
+    }
+  }
 
   onSliderChange(){
-    // console.log("this.minValue: ", this.minValue)
+    console.log("this.minValue: ", this.minValue)
+
+    // if(min){
+
+    //   if(flag){
+    //     this.minValueInput = this.minValue
+    //   }else{
+    //     this.minValue = this.minValueInput
+    //   }
+
+    // }else{
+    //   if(flag){
+    //     this.minValueInput = this.minValue
+    //   }else{
+    //     this.minValue = this.minValueInput
+    //   }
+    // }
+
     this.priceMinRange = this.minValue
     this.priceMaxRange = this.maxValue
   }
+
+  autoComplete: any = []
+
+  keyword = 'name';
+  data = [
+    {
+      id: 1,
+      name: 'Georgia'
+    },
+     {
+       id: 2,
+       name: 'Usa'
+     },
+     {
+       id: 3,
+       name: 'England'
+     }
+  ];
+
+
+  selectEvent(item: any) {
+    // do something with selected item
+    console.log("selected: ", item)
+  }
+
+  async onChangeSearch(val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    console.log("changed: ", val)
+    this.searchQuery = val
+    await this.GetHintSearch()
+
+  }
+  
+  onFocused(e: any){
+    // do something when input is focused
+    console.log("focused: ", e)
+  }
+
 }
 
 function reverseGeocodingWithGoogle(latitude: number, longitude: number) {

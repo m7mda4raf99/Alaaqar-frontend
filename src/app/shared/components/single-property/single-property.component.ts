@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { NotificationsService } from '../../../services/notifications.service'
 import { NgbModal, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap'
 import { AppServiceService } from '../../../services/app-service.service'
@@ -17,6 +17,8 @@ import 'bootstrap';
   styleUrls: ['./single-property.component.scss']
 })
 export class SinglePropertyComponent implements OnInit {
+  faChevronDown = faChevronDown
+  faChevronUp = faChevronUp
   faAngleLeft = faAngleLeft
   faAngleRight = faAngleRight
   BaseUrl = environment.baseUrl
@@ -56,6 +58,8 @@ export class SinglePropertyComponent implements OnInit {
   isPublic: boolean = false
   moreData: any = {}
   sliderTags: any = []
+  descriptionDisplay: any = 'none'
+
   constructor(
     private activeRouter: ActivatedRoute,
     private notificationService: NotificationsService,
@@ -282,6 +286,14 @@ export class SinglePropertyComponent implements OnInit {
     var div = document.getElementById('description')
     // console.log("x: ", div)
     div!.innerHTML = str?.trim();
+  }
+
+  displayDescription(){
+    if(this.descriptionDisplay === 'initial'){
+      this.descriptionDisplay = 'none'
+    }else{
+      this.descriptionDisplay = 'initial'
+    }
   }
 
 }
