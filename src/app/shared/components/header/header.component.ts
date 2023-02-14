@@ -82,7 +82,6 @@ export class HeaderComponent implements OnInit {
     }
     this.sub2 = this.appServiceService.isLoggedIn$.subscribe(val => {
       const user = this.cookieService.get('user')
-      console.log(user)
       if (user) {
         this.isLoggedIn = true
         this.getMyNotifications()
@@ -90,7 +89,6 @@ export class HeaderComponent implements OnInit {
 
         this.avatarUrl = localStorage.getItem('avatarsPath')
       }
-      console.log(this.userData.name)
 
 
     })
@@ -113,7 +111,6 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.activeLang.title)
   }
   setAvatarUrl() {
     return this.avatarUrl ? this.avatarUrl : '../../../../assets/images/Ellipse 1264.png'
@@ -214,17 +211,14 @@ export class HeaderComponent implements OnInit {
 
 
   transform_language(event:any){
-    // console.log(event)
     this.selectedLang(event.toUpperCase())
   }
 
 
   // selected_country = 'egypt'
   transform_country(event:any){
-    console.log(event)
     //this.selected_country = event.name
     this.appServiceService.selected_country$.next(event)
-    console.log(this.appServiceService.selected_country$)
   }
 
   expand_collapse(element:any){

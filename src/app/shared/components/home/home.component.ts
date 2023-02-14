@@ -280,7 +280,6 @@ export class HomeComponent implements OnInit {
   doingSearch: boolean = false
 
   async GetHintSearch() {
-    console.log("searchQuery: ", this.searchQuery)
 
     if(this.searchQuery !== ""){
       let data={
@@ -302,15 +301,11 @@ export class HomeComponent implements OnInit {
         )
       }
 
-      //  console.log(this.response)
       }
       else{
         this.response = {data: "no results found"}
         this.autoComplete = []
       }
-      console.log("response: ", this.response.data)
-      console.log("autoComplete: ", this.autoComplete)
-
   }
    
   async Getsearch() {
@@ -320,37 +315,29 @@ export class HomeComponent implements OnInit {
     }  
 
     this.response=  await this.apiService.getsearch(data)
-    // console.log('response')
-    // console.log(this.response)
+
     
     if(this.response.message === 'city'){
-      // console.log('city')
       this.search_bar_model.cities= this.response.data[0].id
       
     }
     if(this.response.message === 'area'){
-      // console.log('area')
       this.search_bar_model.areas= this.response.data
     }
     if(this.response.message === 'neighborhood'){
-      // console.log('neighborhood')
       this.search_bar_model.neighborhoods= this.response.data
     }
-    // console.log('search_bar_model')
-    // console.log(this.search_bar_model)
+
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
 
 
    }
 
   search() {
-    // console.log('search_model')
-    // console.log(this.search_model)
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
   }
 
   print(data:any){
-    // console.log("item: ", data)
   }
 
   async setupUnitTypesCount() {
@@ -388,7 +375,6 @@ export class HomeComponent implements OnInit {
           id: this.selectedItemCompound[i].id,
           xd:this.proposeID
         }
-        console.log("Compound",this.selectedItemCompound[i].id,)
   
         let array = await this.apiService.unit_types_count_compound(data);
         let x =0
@@ -402,10 +388,19 @@ export class HomeComponent implements OnInit {
       }
       let array1 = []
       for(let item of this.Current_unit_count_array){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
           units_count: item.units_count
         }
 
@@ -413,7 +408,7 @@ export class HomeComponent implements OnInit {
       }
       this.dropdownListRealstateType=array1
     } 
-
+    
     else if (this.selectedItemNeighborhood && this.selectedItemNeighborhood.length > 0)
     {
       for (let i = 0; i < this.selectedItemNeighborhood.length; i++) {
@@ -434,10 +429,19 @@ export class HomeComponent implements OnInit {
       }
       let array1 = []
       for(let item of this.Current_unit_count_array){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
           units_count: item.units_count
         }
 
@@ -445,6 +449,7 @@ export class HomeComponent implements OnInit {
       }
       this.dropdownListRealstateType=array1
     } 
+    
     else if (this.selectedItemArea && this.selectedItemArea.length > 0)
     {
 
@@ -458,72 +463,86 @@ export class HomeComponent implements OnInit {
         let array = await this.apiService.unit_types_count_area(data);
         let x =0
         for (const key in array.data) {
-        
           this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
           x++
         }
         x=0
         let array1 = []
-      for(let item of this.Current_unit_count_array){
+        for(let item of this.Current_unit_count_array){
+          let name = ''
 
-        let obj = {
-          id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
-          units_count: item.units_count
+          if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+            name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+          }else{
+            name = this.lang === 'en' ? item.name_en : item.name_ar
+          }
+
+          let obj = {
+            id: item.id,
+            itemName: name,
+            name_en: item.name_en,
+            name_ar: item.name_ar,
+            units_count: item.units_count
+          }
+
+          array1.push(obj)
         }
-
-        array1.push(obj)
-      }
-      this.dropdownListRealstateType=array1
+        this.dropdownListRealstateType=array1
   
       }
-    } else{
-              let data = {
-          id: this.activeCity,
-          xd:this.proposeID
+    } 
+    
+    else{
+        let data = {
+        id: this.activeCity,
+        xd:this.proposeID
         }
-            let array = await this.apiService.unit_types_count_city(data);
-            console.log("array",array.data)
-             let x =0
+        
+        let array = await this.apiService.unit_types_count_city(data);
+        let x =0
+        
         for (const key in array.data) {
           this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
           x++
         }
-        x=0
-        // console.log("count",this.Current_unit_count_array)
-        let array1 = []
-      for(let item of this.Current_unit_count_array){
-
-        let obj = {
-          id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  :  item.name_ar + " (" + item.units_count + ")",
-          units_count: item.units_count
-        }
-
-        array1.push(obj)
-      }
-      console.log("count",array1)
-      this.dropdownListRealstateType=array1
-    }
-    // else {
-    //   // console.log("gwa City");
-    //   // console.log(this.selectedCity);
-    //   for (let i = 0; i < this.selectedCity.length; i++) {
-    //     let data = {
-    //       id: this.selectedCity[i].item_id
-    //     }
-    //     let array = await this.apiService.unit_types_count_city(data);
-    //     let x =0
-    //     for (const key in array.data) {
         
-    //       this.Current_unit_count_array[x].units_count += array.data[key]?.units_count
-    //       x++
-    //     }
-    //     x=0
-  
-    //   }
-    // }
-    
+        x=0
+        let array1 = []
+        for(let item of this.Current_unit_count_array){
+          let name = ''
+
+          if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+            name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+          }else{
+            name = this.lang === 'en' ? item.name_en : item.name_ar
+          }
+
+          let obj = {
+            id: item.id,
+            itemName: name,
+            name_en: item.name_en,
+            name_ar: item.name_ar,
+            units_count: item.units_count
+          }
+
+          array1.push(obj)
+        }
+        this.dropdownListRealstateType=array1
+    }
+
+    if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+      let array = []
+
+      for(let item of this.dropdownListRealstateType){
+        if(item['units_count'] > 0){
+          array.push(item)
+        }
+      }
+
+      this.dropdownListRealstateType = array
+
+    }
+
   }
   async setupMinPrice() {
     if (this.SelectedRealEstateType && this.SelectedRealEstateType.length > 0)
@@ -536,16 +555,7 @@ export class HomeComponent implements OnInit {
          id5: this.selectedItemCompound.length > 0 ? this.selectedItemCompound[0].id : 0,
         xd: this.proposeID 
       }
-        console.log(data.id)
-        console.log(data.id2)
-        //console.log("a7a",this.selectedItemArea)
-        console.log(data.id3)
-        // console.log(data.id4)
-        // console.log(data.id5)
 
-
-        // console.log("realstate",this.SelectedRealEstateType[0].id)
-  
         this.MinPrice = await this.apiService.GetMinUnitPriceReal(data);
         if(this.MinPrice.data){
           this.minValue = +this.MinPrice.data
@@ -594,9 +604,7 @@ export class HomeComponent implements OnInit {
         let data = {
           id: this.selectedItemArea[0].id,
           xd:this.proposeID
-         }
-         console.log("id",this.selectedItemArea[0].id)
-  
+         }  
          this.MinPrice = await this.apiService.GetMinUnitPriceArea(data);
          if(this.MinPrice.data){
           this.minValue = +this.MinPrice.data
@@ -616,20 +624,13 @@ export class HomeComponent implements OnInit {
         }
 
     }
-    
-   console.log("minPrice")
-   console.log(this.MinPrice)
-    console.log(this.MinPrice)
-    console.log(this.minValue)
-  //   console.log(this.options)
-    
+
   }
   
   getIPAddress()
   {
     this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
       // this.ipAddress = res.ip;
-      // console.log(this.ipAddress)
     });
   }
   
@@ -637,10 +638,8 @@ export class HomeComponent implements OnInit {
     let desLat = 0 ;
     let desLon = 0 ;
     let id = navigator.geolocation.watchPosition((position) =>{
-      // console.log(position.coords.latitude + position.coords.longitude);
 
     },(err) =>{
-      // console.log("error is " +err);
     }, {
       enableHighAccuracy :false,
       timeout:5000,
@@ -657,7 +656,6 @@ export class HomeComponent implements OnInit {
                     
         });
     } else {
-      //  console.log("No support for geolocation")
     }
   }
 
@@ -703,8 +701,6 @@ export class HomeComponent implements OnInit {
       this.spinner.hide()
     }
     
-    // console.log(this.Comp)
-    console.log("area",this.selectedItemArea)
     await this.setupUnitTypesCount()
     await this.setupMinPrice()
  
@@ -748,8 +744,6 @@ export class HomeComponent implements OnInit {
           }
       }
 
-      // console.log("ashrafff: ", this.dropdownListCompound)
-
       if(this.dropdownListCompound.length === 0){
         this.checkboxVar = false
       }
@@ -791,6 +785,8 @@ export class HomeComponent implements OnInit {
     this.selectedItemCompound = []
     this.dropdownListNeighborhood = []
     this.dropdownListCompound = []
+    this.search_model.areas = []
+    this.search_model.locations = []
     await this.setupUnitTypesCount()
   }
 
@@ -850,7 +846,6 @@ export class HomeComponent implements OnInit {
   }
 
   setMultiSelection(tab: string){
-    console.log("this.lang === 'en': ", this.lang === 'en')
     this.settingsCity = { 
       singleSelection: true, 
       text: this.lang === 'en' ? "Select City" : "اختار المدينة",
@@ -1013,8 +1008,6 @@ export class HomeComponent implements OnInit {
     let recentlyAdded = await this.apiService.getRecentlyAdded(headers)
     this.recentlyAdded = recentlyAdded.data
 
-    // console.log("recentlyAdded: ", this.recentlyAdded)
-
     return true
   }
 
@@ -1027,57 +1020,68 @@ export class HomeComponent implements OnInit {
   }
   
   getUnitTypes() {
-   
-    if (this.UnitTypes && this.UnitTypes.length > 0) {
-      let types: any = []
-      for (const key in this.UnitTypes) {
-        if (this.UnitTypes[key]?.id) {
-          const obj = {
-            id: this.UnitTypes[key]?.id,
-            itemName: this.lang === 'en' ? this.UnitTypes[key]?.name_en : this.UnitTypes[key]?.name_ar,
-          }
-          types.push(obj)
+    if (this.dropdownListRealstateType && this.dropdownListRealstateType.length > 0) {
+      let array = []
+  
+      for(let item of this.dropdownListRealstateType){
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
         }
+  
+        array.push(obj)
       }
-      this.RealEstateType = types
-    
-    } else {
-      this.apiService.getUnitTypes().subscribe(data => {
-        this.UnitTypes = data.data
-        let types: any = []
-        for (const key in data.data) {
-          if (data.data[key]?.id) {
-            const obj = {
-              id: data.data[key]?.id,
-              itemName: this.lang === 'en' ? data.data[key]?.name_en : data.data[key]?.name_ar,
-            }
-            types.push(obj)
-          }
-        }
-        this.RealEstateType = types
-      })
-    }
+  
+      this.dropdownListRealstateType = array
 
-    console.log("this.RealEstateType: ", this.RealEstateType)
-  }
+      array = []
+  
+      for(let item of this.SelectedRealEstateType){
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+  
+        array.push(obj)
+      }
+  
+      this.SelectedRealEstateType = array
+
+    }
+}
 
   async getCity(isChanged: boolean){
     if(isChanged){
       this.selectedItemCity = []
+
       let data = {
-        xd:this.proposeID
+        xd:this.proposeID,
+        tab: this.activeTab
       }
       
       this.dropCity=await this.apiService.getCity(data);
-      this.dropdownListCity=this.dropCity.data
-  
+      let values:any[] =Object.values(this.dropCity['data']);
       let array = []
   
-      for(let item of this.dropCity.data){
+      for(let item of values){
   
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar,
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           units_count: item.units_count
@@ -1102,9 +1106,18 @@ export class HomeComponent implements OnInit {
       let array = []
   
       for(let item of this.dropdownListCity){
+
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           units_count: item.units_count
@@ -1118,9 +1131,17 @@ export class HomeComponent implements OnInit {
       array = []
   
       for(let item of this.selectedItemCity){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           units_count: item.units_count
@@ -1139,18 +1160,30 @@ export class HomeComponent implements OnInit {
 
       let data={
         id: this.activeCity,
-        xd:this.proposeID
+        xd:this.proposeID,
+        tab: this.activeTab
       }
+
       this.droploc = await this.apiService.getloc(data)
       let values:any[] =Object.values(this.droploc['data']);
       let array = []
 
       for(let item of values){
+        let name = ''
+        let areaname = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")": item.name_ar + " (" + item.units_count_Location + ")"
+          areaname = this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+          areaname = this.lang === 'en' ? item.area_en : item.area_ar
+        }
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar + " (" + item.units_count_Location + ")",
-          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")",
+          itemName: name,
+          areaName: areaname,
           name_en: item.name_en,
           name_ar: item.name_ar,
           area_en: item.area_en,
@@ -1165,19 +1198,25 @@ export class HomeComponent implements OnInit {
 
       this.dropdownListArea = array
 
-
-      // console.log("Location")
-      // console.log(this.dropdownListArea)
-
     }else{
       let array = []
 
       for(let item of this.dropdownListArea){
+        let name = ''
+        let areaname = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")": item.name_ar + " (" + item.units_count_Location + ")"
+          areaname = this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+          areaname = this.lang === 'en' ? item.area_en : item.area_ar
+        }
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar + " (" + item.units_count_Location + ")",
-          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")",
+          itemName: name,
+          areaName: areaname,
           name_en: item.name_en,
           name_ar: item.name_ar,
           area_en: item.area_en,
@@ -1196,11 +1235,21 @@ export class HomeComponent implements OnInit {
       array = []
 
       for(let item of this.selectedItemArea){
+        let name = ''
+        let areaname = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")": item.name_ar + " (" + item.units_count_Location + ")"
+          areaname = this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+          areaname = this.lang === 'en' ? item.area_en : item.area_ar
+        }
 
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count_Location + ")"  :  item.name_ar + " (" + item.units_count_Location + ")",
-          areaName: this.lang === 'en' ? item.area_en + " (" + item.units_count_area + ")"  :  item.area_ar + " (" + item.units_count_area + ")",
+          itemName: name,
+          areaName: areaname,
           name_en: item.name_en,
           name_ar: item.name_ar,
           area_en: item.area_en,
@@ -1223,18 +1272,26 @@ export class HomeComponent implements OnInit {
     if(isChanged){
       let data={
         id:this.Comp[this.Comp.length-1],
-        xd:this.proposeID
+        xd:this.proposeID,
+        tab: this.activeTab
       }
       this.dropComp =await this.apiService.getCompound(data);
 
-      console.log("compunds: ", this.dropComp.data)
       let values:any[] =Object.values(this.dropComp['data']);
       let array = []
     
       for(let item of values){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           areaID: item.areaID,
@@ -1250,9 +1307,17 @@ export class HomeComponent implements OnInit {
       let array = []
   
       for(let item of this.dropdownListCompound){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           areaID: item.areaID,
@@ -1267,9 +1332,17 @@ export class HomeComponent implements OnInit {
       array = []
   
       for(let item of this.selectedItemCompound){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"  : item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           areaID: item.areaID,
@@ -1288,16 +1361,25 @@ export class HomeComponent implements OnInit {
     if(isChangedArea){
       let data={
         id:this.Neigh[ this.Neigh.length-1 ],
-        xd:this.proposeID
+        xd:this.proposeID,
+        tab: this.activeTab
       }
       this.dropNeig=await this.apiService.getNeig(data);
       let values:any[] =Object.values(this.dropNeig['data']);
       let array = []
   
       for(let item of values){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           locationID: item.locationID,
@@ -1313,9 +1395,16 @@ export class HomeComponent implements OnInit {
       let array = []
   
       for(let item of this.dropdownListNeighborhood){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           locationID: item.locationID,
@@ -1330,9 +1419,16 @@ export class HomeComponent implements OnInit {
       array = []
   
       for(let item of this.selectedItemNeighborhood){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.lang === 'en' ? item.name_en : item.name_ar
+        }
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")"   : item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
           locationID: item.locationID,
@@ -1364,6 +1460,8 @@ export class HomeComponent implements OnInit {
     this.selectedItemArea = []
     this.selectedItemNeighborhood = []
     this.selectedItemCompound = []
+    this.search_model.cites = []
+    this.checkboxVar = false
   }
 
   async onChangeCity(city: any) {
@@ -1450,7 +1548,9 @@ export class HomeComponent implements OnInit {
     if(tab== 'rent'){
       this.proposeID=1
     }
-    console.log("propose",this.proposeID)
+  
+    this.activeTab = tab
+
     await this.getCity(true)
     this.router.navigate(
       [],
@@ -1460,14 +1560,19 @@ export class HomeComponent implements OnInit {
         queryParamsHandling: 'merge',
       })
 
-      this.spinner.hide()
+    this.spinner.hide()
 
   }
   resetSelection() {
-    //this.selectedItemCity = [];
+    this.selectedItemCity = [];
     this.selectedItemArea = [];
     this.selectedItemNeighborhood = [];
     this.selectedItemCompound = [];
+    this.dropdownListCity = [];
+    this.dropdownListArea = [];
+    this.dropdownListNeighborhood = [];
+    this.dropdownListCompound = [];
+    this.dropdownListRealstateType = [];
     this.selectedArea = null
     this.selectedNeighborhood = null
     this.SelectedRealEstateType = []
@@ -1485,7 +1590,6 @@ export class HomeComponent implements OnInit {
       this.selectedCityNotValid = true 
     }
 
-    // console.log(this.selectedItemCity)
 
     if ( (Array.isArray(this.selectedItemArea) && this.selectedItemArea.length === 0) ) { 
       this.selectedAreaNotValid = true 
@@ -1545,7 +1649,6 @@ export class HomeComponent implements OnInit {
 
         data.priceMaxRange = this.priceMaxRange
 
-        // console.log("ehab: ",data)
       
         // let selectedCountryId = this.countries.filter((c: any) => c.name === data.defaultCountry)
         
@@ -1578,8 +1681,7 @@ export class HomeComponent implements OnInit {
         }
         
         this.appServiceService.propertyDetails$.next(data)
-        // console.log('data')
-        // console.log(data)
+
 
     }
   }
@@ -1701,7 +1803,6 @@ export class HomeComponent implements OnInit {
   }
 
   onSliderChange(){
-    console.log("this.minValue: ", this.minValue)
 
     // if(min){
 
@@ -1744,13 +1845,11 @@ export class HomeComponent implements OnInit {
 
   selectEvent(item: any) {
     // do something with selected item
-    console.log("selected: ", item)
   }
 
   async onChangeSearch(val: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
-    console.log("changed: ", val)
     this.searchQuery = val
     await this.GetHintSearch()
 
@@ -1758,7 +1857,6 @@ export class HomeComponent implements OnInit {
   
   onFocused(e: any){
     // do something when input is focused
-    console.log("focused: ", e)
   }
 
 }
