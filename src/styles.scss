@@ -1049,7 +1049,7 @@ a{
 
 // buy, rent, sell, rental components
 .home .first-sec .search-sec .ngSelect.priceRange{
-        min-width: 14% !important;
+        min-width: 19% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.main{
@@ -1284,3 +1284,16 @@ span.dropdown-multiselect--active{
     left: initial !important;
 }
 
+.autocomplete-container {
+    border-radius: 10px !important;
+    .input-container input {
+        border-radius: 10px !important;
+
+    }
+}
+
+.cuppa-dropdown{
+    border: 1px solid #cbcaca;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px #59595919;
+}

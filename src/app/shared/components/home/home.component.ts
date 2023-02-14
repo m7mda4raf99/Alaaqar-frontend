@@ -137,9 +137,11 @@ export class HomeComponent implements OnInit {
   searchQuery: any;
   response: any; 
   search_bar_model: any = {
-    cities: [2],
+    cities: [],
     areas: [],
+    locations: [],
     neighborhoods: [],
+    compounds: [],
     type: [],
     min_price: null,
     max_price: null,
@@ -316,22 +318,49 @@ export class HomeComponent implements OnInit {
 
     this.response=  await this.apiService.getsearch(data)
 
+    console.log('response')
+    console.log(this.response)
+    console.log(this.response.data[0]['name_en'])
     
-    if(this.response.message === 'city'){
-      this.search_bar_model.cities= this.response.data[0].id
-      
-    }
-    if(this.response.message === 'area'){
-      this.search_bar_model.areas= this.response.data
-    }
-    if(this.response.message === 'neighborhood'){
-      this.search_bar_model.neighborhoods= this.response.data
-    }
+    // Compounds
+    if(this.response.data[0]['city_id'] && this.response.data[0]['area_id']){
+      console.log('gwa compounds')
+      this.search_bar_model.compounds.push(this.response.data[0]['id']) 
 
+    } // Neighborhood
+    else if(this.response.data[0]['area_id'] && this.response.data[0]['location_id']){
+      console.log('gwa Neighborhood')
+      this.search_bar_model.neighborhoods.push(this.response.data[0]['id']) 
+    } // Locations
+    else if(this.response.data[0]['area_id']){
+      console.log('gwa Location')
+     this.search_bar_model.locations.push(this.response.data[0]['id']) 
+    } // Areas
+    else if(this.response.data[0]['city_id']){
+      this.search_bar_model.areas.push(this.response.data[0]['id']) 
+    } // Cities
+     else{
+      this.search_bar_model.cities.push(this.response.data[0]['id']) 
+
+    }
+    
+
+
+
+
+ 
+
+   
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
 
 
    }
+  async selectEvent(item: any) {
+    // do something with selected item
+    this.searchQuery = item['name']
+    await this.Getsearch()
+    
+  }
 
   search() {
     this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
@@ -1842,10 +1871,6 @@ export class HomeComponent implements OnInit {
      }
   ];
 
-
-  selectEvent(item: any) {
-    // do something with selected item
-  }
 
   async onChangeSearch(val: string) {
     // fetch remote data from here

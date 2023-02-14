@@ -5,28 +5,6 @@
 
     </ngx-spinner>
 
-    <div style="display: none;" class="ng-autocomplete">
-        <ng-autocomplete 
-          [data]="autoComplete"
-          [searchKeyword]="keyword"
-          placeholder="Select country"
-          (selected)='selectEvent($event)'
-          (inputChanged)='onChangeSearch($event)'
-          (inputFocused)='onFocused($event)'
-          [itemTemplate]="itemTemplate"
-          [notFoundTemplate]="notFoundTemplate"
-          [debounceTime]="200">                                 
-        </ng-autocomplete>
-        
-        <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.name"></a>
-        </ng-template>
-        
-        <ng-template #notFoundTemplate let-notFound>
-        <!-- <div [innerHTML]="notFound"></div> -->
-        </ng-template>
-        </div>
-
     <!-- First section (Find Your Perfect Future Home)-->
     <div class="row first-sec ">
         
@@ -174,24 +152,13 @@
             <span class="overlay"></span>
         </div>
         <div class="col-md-11 col-sm-12 search-sec">
-            <div *ngIf="activeTab === 'buy' && buyRentSearchFlag" class="buyRent-search">
-                <ng-container [ngTemplateOutlet]="buyRentSearch" [ngTemplateOutletContext]="{type: 'buy'}">
-                </ng-container>
-
-            </div>
-
-            <div *ngIf="activeTab === 'buy' && !buyRentSearchFlag" class="buyRent-row">
+            <div *ngIf="activeTab === 'buy'" class="buyRent-row">
                 <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'buy'}">
                 </ng-container>
 
             </div>
 
-            <div *ngIf="activeTab === 'rent' && buyRentSearchFlag">
-                <ng-container [ngTemplateOutlet]="buyRentSearch" [ngTemplateOutletContext]="{type: 'rent'}">
-                </ng-container>
-            </div>
-
-            <div *ngIf="activeTab === 'rent' && !buyRentSearchFlag" class="buyRent-row">
+            <div *ngIf="activeTab === 'rent'" class="buyRent-row">
                 <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'rent'}">
                 </ng-container>
             </div>
@@ -637,26 +604,29 @@
         <ng-template #buyRent let-type="type">
             <div class="options">
                 <div class="all-options">
-                    <div class="ngSelect main">
-                        <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-
-                        <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
-                        [settings]="settingsCity"
-                        (onSelect)="onChangeCity($event)"
-                        (onDeSelectAll)="onDeSelectAllCity()">
-                        </angular2-multiselect>
-
-
-                        <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                    <div class="ng-autocomplete" style="margin: 0% 2%;">
+                        <ng-autocomplete 
+                          [data]="autoComplete"
+                          [searchKeyword]="keyword"
+                          placeholder="{{'buy.Placeholder' | translate}}"
+                          (selected)='selectEvent($event)'
+                          (inputChanged)='onChangeSearch($event)'
+                          (inputFocused)='onFocused($event)'
+                          [itemTemplate]="itemTemplate"
+                          [notFoundTemplate]="notFoundTemplate"
+                          [debounceTime]="200">                                 
+                        </ng-autocomplete>
+                        
+                        <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                        </ng-template>
+                        
+                        <ng-template #notFoundTemplate let-notFound>
+                        <!-- <div [innerHTML]="notFound"></div> -->
+                        </ng-template>
                     </div>
-        
-                    <div class="ngSelect separator">
-        
-                    </div>
-        
-                    <div class="ngSelect city">
-                        <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
 
+                    <div class="ngSelect city" style="margin: 0% 1% 0% 2%;">
                         <angular2-multiselect [data]="dropdownListArea" 
                             [(ngModel)]="selectedItemArea" 
                             [settings]="settingsArea" 
@@ -666,34 +636,8 @@
         
                         <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
                     </div>
-                   
-                    <div class="ngSelect separator">
-        
-                    </div>
-                   
-                    <div class="ngSelect">
-                        <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-
-                        <angular2-multiselect 
-                            [data]="dropdownListNeighborhood" 
-                            [(ngModel)]="selectedItemNeighborhood" 
-                            [settings]="settingsNeigbhorhood"
-                            (onSelect)="onItemSelectNeighborhood($event)"
-                            (onDeSelect) =onItemDeSelectNeighborhood($event)>
-                        </angular2-multiselect>
-        
-                        <!-- <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                            translate}}</span> -->
-        
-                    </div>
-        
-                    <div class="ngSelect separator">
-        
-                    </div>
             
-                    <div class="ngSelect realState">
-                        <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
-                
+                    <div class="ngSelect realState" style="margin: 0% 1%;">                
                         <angular2-multiselect [data]="dropdownListRealstateType" [(ngModel)]="SelectedRealEstateType" 
                             [settings]="settingsUnitType"
                             (onSelect)="onItemSelectUnitType($event)">
@@ -704,12 +648,10 @@
                             translate}}</span>
                     </div>
         
-                    <div class="ngSelect separator">
-        
-                    </div>
-        
-                    <div class="ngSelect priceRange">
-                        <p class="lable d-none d-lg-block">{{'home.Price range' | translate}}</p>
+                    <div class="ngSelect priceRange" style="margin: 0% 2% 0% 1%; 
+                        border: 1px solid #cbcaca;
+                        border-radius: 10px;
+                        box-shadow: 0 3px 6px #59595919;">
                         <div class="dropdown" ngbDropdown>
                             <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
                                 class="btn dropdown-toggle setPriceBtn ngSelect-input"
@@ -784,39 +726,12 @@
                 </div>
 
                 <div class="ngSelect compound">
-                    <input
-                        class="checkbox"
-                        type="checkbox"
-                        [checked]="checkboxVar"
-                        [disabled]="true"
-                        (change)="checkboxVar = !checkboxVar"/>
-
-                    <div class="dropdown">
-                        <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
-                            <angular2-multiselect 
-                                [data]="dropdownListCompound" 
-                                [(ngModel)]="selectedItemCompound" 
-                                [settings]="settingsCompound"
-                                (onSelect)="onItemSelectCompound($event)"
-                                (onDeSelect) =onItemDeSelectCompound($event)>
-                            </angular2-multiselect>
-        
-                        </div>
-    
-                        <div class="multiselect" *ngIf="checkboxVar">
-                            <angular2-multiselect 
-                                [data]="dropdownListCompound" 
-                                [(ngModel)]="selectedItemCompound" 
-                                [settings]="settingsCompound"
-                                (onSelect)="onItemSelectCompound($event)"
-                                (onDeSelect) =onItemDeSelectCompound($event)>
-                            </angular2-multiselect>
-        
-                        </div>
-    
-                        <span *ngIf="SelectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-    
-
+                    <div class="buttons">
+                        <button (click)="search()"
+                            class="btn button-success applyBtn button-bordered">{{'search_button' |
+                            translate}}
+                        </button>
+                        
                     </div>
 
                 </div>
@@ -824,34 +739,15 @@
             </div>
 
             <div class="ngSelect actions">
-                <div class="buttons">
-                    <button (click)="search()"
-                        class="btn button-success applyBtn button-bordered">{{'search_button' |
-                        translate}}
-                    </button>
-                    
-                    <button #apply
-                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,priceMinRange,priceMaxRange,propose:type === 'buy' ? '2' : '1'});
-                        scroll(actions);"
-                        class="btn button-success applyBtn firstbtn"> {{'electronic_consultant' |
-                        translate}}
-                    </button>
-
+                <div class="advisor-description">
+                   <p> {{'advisor_description' | translate}} </p>
                 </div>
 
-                <div class="another-option" >
-                    <!-- (click)="file.click()" -->
-    
-                    <div style="display: flex;">
-                        <a  (click)="buyRentSearchFlag = !buyRentSearchFlag; scroll(actions);"
-                            style=" color: #f55441; ">
-                            {{'buy.Choose Keywords' | translate}}    
-                        </a>
-    
-                        <fa-icon style="padding: 0px 5px 0px 5px;" [icon]="faChevronDown" [styles]="{'color': 'red'}"></fa-icon>
-    
-                    </div>
-    
+                <div class="advisor-button">
+                    <button #apply
+                    class="btn button-success applyBtn firstbtn"> {{'electronic_consultant' |
+                    translate}}
+                    </button>
                 </div>
 
             </div>
