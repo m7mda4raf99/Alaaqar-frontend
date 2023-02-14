@@ -780,6 +780,10 @@ nz-progress {
     // padding-top: 25px;
     display: flex;
     align-items: center;
+
+    @media (max-width:425px){
+        font-size: 20px;
+    }
     span{
         font-size: 18px;
         color: #817f7f;
@@ -1273,7 +1277,11 @@ span.dropdown-multiselect--active{
 }
 
 .ng-autocomplete {
-    width: 100% !important;
+    width: 45% !important;
+
+    @media (max-width: 425px) {
+        width: 100% !important;
+    }
 }
 
 .ng-select .ng-select-container .ng-value-container .ng-input>input {
@@ -1293,7 +1301,30 @@ span.dropdown-multiselect--active{
 }
 
 .cuppa-dropdown{
-    border: 1px solid #cbcaca;
-    border-radius: 10px;
-    box-shadow: 0 3px 6px #59595919;
+    // border: 1px solid #cbcaca;
+    // border-radius: 10px;
+    // box-shadow: 0 3px 6px #59595919;
+}
+
+.home .first-sec .search-sec .buyRent-row .ngSelect{
+
+    &.city .cuppa-dropdown {
+        border: 1px solid #cbcaca;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px #59595919;
+
+        @media (max-width: 425px) {
+            border: 0px solid #cbcaca;
+        }
+    }
+
+    &.realState .cuppa-dropdown {
+        border: 1px solid #cbcaca;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px #59595919;
+
+        @media (max-width: 425px) {
+            border: 0px solid #cbcaca;
+        }
+    }
 }

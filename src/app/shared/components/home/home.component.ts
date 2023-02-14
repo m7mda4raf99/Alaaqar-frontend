@@ -131,7 +131,8 @@ export class HomeComponent implements OnInit {
   aboutUs: any = {}
 
   isLoggedIn: boolean = false
-  Current_unit_count_array: any =[]
+  Current_unit_count_array: any = []
+  Current_unit_count_array2: any = []
   proposeID: number = 2
 
   searchQuery: any;
@@ -229,10 +230,12 @@ export class HomeComponent implements OnInit {
     this.spinner.show()
     
     await this.setPrice()
-    await this.getCity(true)
+    await this.getNewArea()
+    await this.getRealNnew()
+    // await this.getCity(true)
     //await this.getAreaLocations(true)
     this.setMultiSelection('buy')
-    this.getUnitTypes()
+    // this.getUnitTypes()
     // await this.setupUnitTypesCount()
     // await this.setupMinPrice()
 
@@ -875,6 +878,31 @@ export class HomeComponent implements OnInit {
   }
 
   setMultiSelection(tab: string){
+    this.settingsRealNew = { 
+      singleSelection: true, 
+      text: this.lang === 'en' ? "Property Type" : "نوع العقار",
+      searchPlaceholderText: this.lang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.lang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      allowSearchFilter: false,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    }; 
+    this.settingsAreaNew = { 
+      singleSelection: true, 
+      text: this.lang === 'en' ? "Area" : "المنطقة",
+      searchPlaceholderText: this.lang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.lang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      allowSearchFilter: false,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };
+
     this.settingsCity = { 
       singleSelection: true, 
       text: this.lang === 'en' ? "Select City" : "اختار المدينة",
@@ -1047,43 +1075,6 @@ export class HomeComponent implements OnInit {
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
-  
-  getUnitTypes() {
-    if (this.dropdownListRealstateType && this.dropdownListRealstateType.length > 0) {
-      let array = []
-  
-      for(let item of this.dropdownListRealstateType){
-        let obj = {
-          id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
-          name_en: item.name_en,
-          name_ar: item.name_ar,
-          units_count: item.units_count
-        }
-  
-        array.push(obj)
-      }
-  
-      this.dropdownListRealstateType = array
-
-      array = []
-  
-      for(let item of this.SelectedRealEstateType){
-        let obj = {
-          id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
-          name_en: item.name_en,
-          name_ar: item.name_ar,
-          units_count: item.units_count
-        }
-  
-        array.push(obj)
-      }
-  
-      this.SelectedRealEstateType = array
-
-    }
-}
 
   async getCity(isChanged: boolean){
     if(isChanged){
@@ -1607,6 +1598,12 @@ export class HomeComponent implements OnInit {
     this.SelectedRealEstateType = []
     this.checkboxVar = this.SelectedRealEstateTypeNotValid = this.SelectedNeighborhoodNotValid = this.selectedAreaNotValid = this.PriceNotValid = this.selectedCityNotValid = false
   }
+
+  tryItNow(){
+    console.log("this.activeTab try it now: ", this.activeTab)
+    this.router.navigate(['/set-priorities'], { queryParams: { type_id: null, propose: this.activeTab === 'rent' ? 1 : 2 } })
+  }
+
   submit(data: any) {
     const user = this.cookieService.get('user')
 
@@ -1805,14 +1802,14 @@ export class HomeComponent implements OnInit {
     if(flag){
       this.minValueInput = this.minValue
       this.priceMinRange = this.minValue
-  }else{
-    this.priceMinRange = Number(this.minValueInput)
+    }else{
+      this.priceMinRange = Number(this.minValueInput)
 
-    if(this.priceMaxRange < this.priceMinRange){
-      this.priceMaxRange = this.priceMinRange
-      this.maxValueInput = this.priceMinRange
+      if(this.priceMaxRange < this.priceMinRange){
+        this.priceMaxRange = this.priceMinRange
+        this.maxValueInput = this.priceMinRange
+      }
     }
-  }
 
   }
 
@@ -1832,23 +1829,6 @@ export class HomeComponent implements OnInit {
   }
 
   onSliderChange(){
-
-    // if(min){
-
-    //   if(flag){
-    //     this.minValueInput = this.minValue
-    //   }else{
-    //     this.minValue = this.minValueInput
-    //   }
-
-    // }else{
-    //   if(flag){
-    //     this.minValueInput = this.minValue
-    //   }else{
-    //     this.minValue = this.minValueInput
-    //   }
-    // }
-
     this.priceMinRange = this.minValue
     this.priceMaxRange = this.maxValue
   }
@@ -1884,7 +1864,206 @@ export class HomeComponent implements OnInit {
     // do something when input is focused
   }
 
+  /////////// New Filters ///////////
+  dropdownListAreaNew: any = [];
+  droparea:any
+  selectedItemAreaNew: any = [];
+  settingsAreaNew = {};
+  selectedAreaNotValidNew: boolean = false
+
+
+  dropdownListRealNew: any = [];
+  dropRealnew:any
+  selectedItemRealNew: any = [];
+  settingsRealNew = {};
+  selectedRealNewNotValidNew: boolean = false
+
+  getUnitTypes() {
+    if (this.dropdownListRealstateType && this.dropdownListRealstateType.length > 0) {
+      let array = []
+  
+      for(let item of this.dropdownListRealstateType){
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+  
+        array.push(obj)
+      }
+  
+      this.dropdownListRealstateType = array
+
+      array = []
+  
+      for(let item of this.SelectedRealEstateType){
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+  
+        array.push(obj)
+      }
+  
+      this.SelectedRealEstateType = array
+
+    }
 }
+
+async getRealNnew() {
+  this.Current_unit_count_array2 = [
+    {id: 1, name_en: 'Apartment', name_ar: 'شقة', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 2, name_en: 'Villa', name_ar: 'فيلا', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 3, name_en: 'Townhouse', name_ar: 'شقة', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 4, name_en: 'Penthouse', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 5, name_en: 'Chalet', name_ar: 'شاليه', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 6, name_en: 'Twin House', name_ar: 'توين هاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 7, name_en: 'Duplex', name_ar: 'دوبليكس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 8, name_en: 'Full Floor', name_ar: 'دور كامل', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 9, name_en: 'Half Floor', name_ar: 'نصف دور', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 10, name_en: 'Whole Building', name_ar: 'مبنى', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 11, name_en: 'Bungalow', name_ar: 'بيت من طابق واحد', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 12, name_en: 'Hotel apartment', name_ar: 'شقة فندقية', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 13, name_en: 'ivilla', name_ar: 'ايفيلا', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 14, name_en: 'Office Space', name_ar: 'مكتب', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+    {id: 15, name_en: 'Commercial', name_ar: 'تجاري', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+    {id: 16, name_en: 'Warehouse', name_ar: 'مخزن', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+    {id: 17, name_en: 'Adminstrative', name_ar: 'إداري', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+    {id: 18, name_en: 'Labor housing', name_ar: 'سكن عمال', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+    {id: 19, name_en: 'Medical', name_ar: 'طبي', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
+    {id: 20, name_en: 'Land', name_ar: 'أرض', category_id: 3, category_name_en: 'Other',category_name_ar:'اخرى',units_count: 0},
+    {id: 21, name_en: 'Studio', name_ar: 'ستوديو', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 22, name_en: 'Penthouse', name_ar: 'بنتهاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    {id: 23, name_en: 'Roof', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+  ]
+
+  if (this.selectedItemAreaNew && this.selectedItemAreaNew.length > 0)
+  {
+
+    for (let i = 0; i < this.selectedItemAreaNew.length; i++) {
+      let data = {
+        id: this.selectedItemAreaNew[i].id,
+        xd:this.proposeID
+      }
+    
+      let array = await this.apiService.unit_types_count_areanew(data);
+      console.log("array",array)
+      let x =0
+      for (const key in array.data) {
+        this.Current_unit_count_array2[x].units_count += array.data[key]?.units_count
+        x++
+      }
+      
+      x=0
+      
+      let array1 = []
+      
+      for(let item of this.Current_unit_count_array2){
+        let name = ''
+
+        name = this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+        array1.push(obj)
+      }
+      this.dropdownListRealNew=array1
+    }
+  } 
+  else{
+    this.dropRealnew = await this.apiService.getUnitType()
+    let values:any[] =Object.values(this.dropRealnew['data']);
+    console.log("real",this.dropRealnew['data'])
+    let array = []
+
+    for(let item of values){
+
+      let obj = {
+        id: item.id,
+        itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")",
+        name_en: item.name_en,
+        name_ar: item.name_ar,
+        units_count: item.units_count
+      }
+
+      array.push(obj)
+    }
+
+    this.dropdownListRealNew = array
+  }
+}
+async onItemSelectRealNeW(item: any){
+   
+  let realnew: any = []
+
+  for (let item of this.selectedItemRealNew) {
+    realnew.push(item['id'])
+  }
+
+     this.search_model.type = realnew
+
+  
+   console.log('selectedItemRealNew')
+   console.log(this.selectedItemRealNew)
+  
+  // await this.setupUnitTypesCount()
+  // await this.setupMinPrice()
+
+}
+  async getNewArea() {
+
+      this.droparea = await this.apiService.getArea()
+      let values:any[] =Object.values(this.droparea['data']);
+      let array = []
+
+      for(let item of values){
+
+        let obj = {
+          id: item.id,
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")",
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+
+        array.push(obj)
+      }
+
+      this.dropdownListAreaNew = array
+
+  }
+
+  async onItemSelectAreaNeW(item: any){
+   
+    let area: any = []
+
+    for (let item of this.selectedItemAreaNew) {
+      area.push(item['id'])
+    }
+
+       this.search_model.areas = area
+
+      await this.getRealNnew()
+     console.log('selectedItemAreaNew')
+     console.log(this.selectedItemAreaNew)
+    
+    // await this.setupUnitTypesCount()
+    // await this.setupMinPrice()
+ 
+  }
+
+}
+
 
 function reverseGeocodingWithGoogle(latitude: number, longitude: number) {
   throw new Error('Function not implemented.')

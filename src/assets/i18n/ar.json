@@ -32,7 +32,8 @@
             "Submit":"إرسال",
             "Back":"رجوع",
             "Next":"القادم",
-            "Review":"مراجعة"
+            "Review":"مراجعة",
+            "Confirm": "أؤكد"
         }
     },
     "model":{
@@ -89,6 +90,8 @@
         "City":"المدينة",
         "Area":"المنطقة",
         "Neighborhood":"الحي",
+        "Location": "الموقع",
+        "Compound": "مُجَمَّع",
         "Real estate type":"نوع العقار",
         "Price range":"متوسط السعر",
         "Price range hint": "السعر الأدنى في هذه المنطقة: ",
@@ -382,7 +385,9 @@
     "try_solution":"جرب حل العقار",
     "search_button":"بحث سريع",
     "electronic_consultant":"جربه الآن",
-    "advisor_description": "تم إنشاء محرك بحث 'العقار' بالذكاء الاصطناعي الذي يرشدك عبر خطوات سهلة وبسيطة لتحديد متطلباتك بدقة ، وهذا هو النهج الأكثر دقة وفعالية للعثور على عقارك المثالي.",
+    "advisor_description1": "جرب",
+    "advisor_description2": " بحث العقار بالذكاء الاصطناعي,",
+    "advisor_description3": " بخطوات سهلة وبسيطة ستحصل على عقارك المثالي.",
     "sign_up":"إنشاء حساب",
     "current_language":"ع",
     "no_results":"لا يوجد نتائج بحث",

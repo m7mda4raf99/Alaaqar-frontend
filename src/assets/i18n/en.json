@@ -32,7 +32,8 @@
             "Submit": "Submit",
             "Back":"Back",
             "Next":"Next",
-            "Review":"Review"
+            "Review":"Review",
+            "Confirm": "Confirm"
         }
     },
     "model":{
@@ -96,6 +97,8 @@
         "City": "City",
         "Area": "Area",
         "Neighborhood": "Neighborhood",
+        "Location": "Location",
+        "Compound": "Compound",
         "Real estate type": "Real estate type",
         "Price range": "Price range",
         "Price range hint": "Minimum price in this area: ",
@@ -388,7 +391,9 @@
     "try_solution":"Try our solution",
     "search_button":"Quick search",
     "electronic_consultant":"Try it now",
-    "advisor_description": "'Al-AQAR' search engine created with Artificial Intelligence that guides you through easy and simple steps to precisely determine your demands, and this is the most accurate and effective approach to find your perfect property.",
+    "advisor_description1": "Try",
+    "advisor_description2": "AL-AAQAR AI Search,",
+    "advisor_description3": "by easy and simple steps you will get your perfect property.",
     "sign_up":"Sign up",
     "current_language":"E",
     "no_results":"No Results Found",
