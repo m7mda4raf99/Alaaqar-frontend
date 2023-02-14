@@ -283,6 +283,18 @@ export class ApiService {
     return await this.SyncClient(`${this.BaseURL}api/getCity`, 'GET',data, null)
   }
 
+  public async unit_types_count_areanew(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types_count_areanew`, 'GET', data, null)
+  }
+
+  public async getArea() : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getArea`, 'GET',null, null)
+  }
+
+  public async getUnitType() : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/unit_types`, 'GET',null, null)
+  }
+
   public async getloc(data: any) : Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/getloc`, 'GET',data, null)
   }

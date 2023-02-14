@@ -7,7 +7,9 @@ import { ApiService } from '../../services/api.service';
 import { environment } from 'src/environments/environment';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Observable, Subscription } from 'rxjs';
-import { faTimes, faChevronUp, faChevronDown, faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faChevronUp, faChevronDown, faCheckSquare, faSquare, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core'
+import { Options } from '@angular-slider/ngx-slider'
 
 
 @Component({
@@ -18,6 +20,7 @@ import { faTimes, faChevronUp, faChevronDown, faCheckSquare, faSquare } from '@f
 export class SetPrioritesComponent implements OnInit {
   @ViewChild('myaccordion', { static: true })
   protected accordion!: NgbAccordion;
+  faExclamationCircle = faExclamationCircle
   faTimes = faTimes
   faChevronUp = faChevronUp
   faChevronDown = faChevronDown
@@ -26,6 +29,7 @@ export class SetPrioritesComponent implements OnInit {
   constructor(
     config: NgbAccordionConfig,
     private prioritiesService: PrioritiesService,
+    private translateService: TranslateService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
@@ -34,12 +38,17 @@ export class SetPrioritesComponent implements OnInit {
     config.closeOthers = true;
     // config.type = 'info';
     config.animation = true
-    this.sub = this.appService.lang$.subscribe(val => this.activeLang = val)
-    this.sub1 = this.appService.propertyDetails$.subscribe(val => {
-      if (!Object.keys(val).length) {
-        this.router.navigate(['/home'])
-      }
+    this.sub = this.appService.lang$.subscribe(val => {
+      this.activeLang = val
+      this.setMultiSelection()
     })
+    this.sub1 = this.appService.propertyDetails$.subscribe(val => {
+      // if (!Object.keys(val).length) {
+      //   this.router.navigate(['/home'])
+      // }
+    })
+
+
   }
   items = [
     {
@@ -68,9 +77,59 @@ export class SetPrioritesComponent implements OnInit {
   // disableTab4: boolean = false
   baseUrl = environment.baseUrl
   activeLang: any = ''
+
+  // filter dropdowns
+  dropdownListCity: any = [];
+  dropdownListArea: any = [];
+  dropdownListCompound: any = [];
+  dropdownListLocation: any = [];
+  dropdownListNeighborhood: any = [];
+  dropdownListRealstateType: any = [];
+  
+  selectedItemCity: any = [];
+  selectedItemArea: any = [];
+  selectedItemCompound: any = [];
+  selectedItemLocation: any = [];
+  selectedItemNeighborhood: any = [];
+  selectedItemRealstateType: any = [];
+
+  settingsCity = {};
+  settingsArea = {};
+  settingsCompound = {};
+  settingsLocation = {};
+  settingsNeigbhorhood = {};
+  settingsUnitType = {};
+
+  // required
+  selectedCityNotValid: boolean = false
+  selectedAreaNotValid: boolean = false
+  selectedCompoundNotValid: boolean = false
+  selectedLocationNotValid: boolean = false
+  SelectedRealEstateTypeNotValid: boolean = false
+
+  priceMaxRange: any;
+  priceMinRange: any;
+
+  minValue: number = 0;
+  minValueInput: number = 0;
+  maxValueInput: number = 0
+  minValueText: number = 0;
+  maxValue: number = 40000000;
+  
+  options: Options = {
+    floor: 0,
+    ceil: 40000000,
+  };
+
+  checkboxVar: boolean = false;
+
+
   async ngOnInit() {
     this.spinner.show()
-    await this.getCriteria()
+
+    this.setMultiSelection()
+  
+    // await this.getCriteria()
     await this.getPriorities()
     this.setInitialPriorities()
     this.spinner.hide();
@@ -87,6 +146,101 @@ export class SetPrioritesComponent implements OnInit {
     // this.setItem(this.criteria[3])
 
     this.activeTab = 1
+  }
+
+  setMultiSelection(){
+    this.settingsCity = { 
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "City" : "المدينة",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      allowSearchFilter: false,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+
+    this.settingsArea = { 
+          singleSelection: false, 
+          text: this.activeLang === 'en' ? "Area" : "المنطقة",
+          searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+          noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+          enableSearchFilter: true,
+          groupBy: "areaName",
+          selectGroup: false,
+          badgeShowLimit: 1,
+          allowSearchFilter: false,
+          limitSelection: 3,
+          enableFilterSelectAll: false,
+          showCheckbox: true,
+          position: 'bottom', autoPosition: false,
+          searchAutofocus: false
+    };  
+
+    this.settingsLocation = { 
+      singleSelection: false, 
+      text: this.activeLang === 'en' ? "Location" : "الموقع",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      groupBy: "locationName",
+      selectGroup: false,
+      badgeShowLimit: 1,
+      allowSearchFilter: false,
+      limitSelection: 3,
+      enableFilterSelectAll: false,
+      showCheckbox: true,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+
+    this.settingsCompound = { 
+      singleSelection: false, 
+      text: this.activeLang === 'en' ? "Compound" : "الكومباوند",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      groupBy: "compoundName",
+      badgeShowLimit: 1,
+      allowSearchFilter: false,
+      limitSelection: 5,
+      enableFilterSelectAll: false,
+      showCheckbox: true,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+    
+    this.settingsNeigbhorhood = { 
+      singleSelection: false, 
+      text: this.activeLang === 'en' ? "Neighborhood" : "الحي",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      groupBy: "neiName",
+      badgeShowLimit: 1,
+      allowSearchFilter: false,
+      limitSelection: 5,
+      enableFilterSelectAll: false,
+      showCheckbox: true,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+
+    this.settingsUnitType = {
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "Type" : "نوع العقار",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      allowSearchFilter: false,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    }
+	
   }
 
   ngOnDestroy() {
@@ -305,4 +459,132 @@ export class SetPrioritesComponent implements OnInit {
     return true
   }
 
+  confirm(){
+
+  }
+
+  // -------------------- filters methods ----------------------------
+  
+  // --------- city ----------
+  
+  async onChangeCity(city: any) {
+
+  }
+
+  onDeSelectAllCity(){
+    this.selectedItemArea = []
+    this.selectedItemNeighborhood = []
+    this.selectedItemCompound = []
+    // this.search_model.cites = []
+    // this.checkboxVar = false
+  }
+
+  // --------- area ----------
+  
+  async onItemSelectArea(item: any){
+
+  }
+
+  onDeSelectAllArea(){
+
+  }
+
+  // --------- compound ----------
+  onItemSelectCompound(item: any){
+
+  }
+  
+  onItemDeSelectCompound(item: any){
+
+  }
+
+  // --------- location ----------
+  
+  async onItemSelectLocation(item: any){
+
+  }
+
+  onDeSelectAllLocation(){
+
+  }
+
+  // --------- neighborhood ----------
+
+  onItemSelectNeighborhood(item: any){
+
+  }
+
+  onItemDeSelectNeighborhood(item: any){
+
+  }
+
+  // --------- unit type ----------
+  onItemSelectUnitType(item: any){
+
+  }
+
+  // --------- price ----------
+  abbreviateNumber(number: number) {
+    var SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"]
+
+    // what tier? (determines SI symbol)
+    var tier = Math.log10(Math.abs(number)) / 3 | 0
+
+    // if zero, we don't need a suffix
+    if (tier == 0) return number
+
+    // get suffix and determine scale
+    var suffix = SI_SYMBOL[tier]
+    var scale = Math.pow(10, tier * 3)
+
+    // scale the number
+    var scaled = number / scale
+
+    // format number and add suffix
+    return scaled.toFixed(1) + suffix
+  }
+
+  setPricePlaceHolder() {
+    // this.search_model.max_price = this.priceMaxRange
+    // this.search_model.min_price = this.priceMinRange
+    if (this.priceMinRange === 0 && this.priceMaxRange === '' || this.priceMaxRange === null || this.priceMaxRange === 0) {
+      return this.translateService.instant('home.All Prices')
+    }
+    if (this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
+    if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
+    if (!this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
+    return this.translateService.instant('home.Select price range')
+
+    
+  }
+
+  userChangeMin(flag: boolean){    
+    if(flag){
+      this.minValueInput = this.minValue
+      this.priceMinRange = this.minValue
+    }else{
+      this.priceMinRange = Number(this.minValueInput)
+
+      if(this.priceMaxRange < this.priceMinRange){
+        this.priceMaxRange = this.priceMinRange
+        this.maxValueInput = this.priceMinRange
+      }
+    }
+
+  }
+
+  userChangeMax(flag: boolean){    
+    if(flag){
+        this.maxValueInput = this.maxValue
+        this.priceMaxRange = this.maxValue
+    }else{
+      this.priceMaxRange = Number(this.maxValueInput)
+
+      if(this.priceMaxRange < this.priceMinRange){
+        this.priceMinRange = this.priceMaxRange
+        this.minValueInput = this.priceMaxRange
+      }
+
+    }
+  }
 }

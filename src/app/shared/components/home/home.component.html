@@ -604,7 +604,7 @@
         <ng-template #buyRent let-type="type">
             <div class="options">
                 <div class="all-options">
-                    <div class="ng-autocomplete" style="margin: 0% 2%;">
+                    <div class="ng-autocomplete search_bar">
                         <ng-autocomplete 
                           [data]="autoComplete"
                           [searchKeyword]="keyword"
@@ -626,21 +626,22 @@
                         </ng-template>
                     </div>
 
-                    <div class="ngSelect city" style="margin: 0% 1% 0% 2%;">
-                        <angular2-multiselect [data]="dropdownListArea" 
-                            [(ngModel)]="selectedItemArea" 
-                            [settings]="settingsArea" 
-                            (onSelect)="onItemSelectArea($event)" (onDeSelect) =onItemDeSelectArea($event)
-                            (onDeSelectAll)="onDeSelectAllArea()">
+                    <div class="ngSelect city">
+                        <angular2-multiselect [data]="dropdownListAreaNew" 
+                            [(ngModel)]="selectedItemAreaNew" 
+                            [settings]="settingsAreaNew" 
+                            (onSelect)="onItemSelectAreaNeW($event)" (onDeSelect) =onItemDeSelectArea($event)
+                            (onDeSelectAll)="onDeSelectAllArea()"
+                            >
                         </angular2-multiselect>
         
                         <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
                     </div>
             
-                    <div class="ngSelect realState" style="margin: 0% 1%;">                
-                        <angular2-multiselect [data]="dropdownListRealstateType" [(ngModel)]="SelectedRealEstateType" 
-                            [settings]="settingsUnitType"
-                            (onSelect)="onItemSelectUnitType($event)">
+                    <div class="ngSelect realState">                
+                        <angular2-multiselect [data]="dropdownListRealNew" [(ngModel)]="selectedItemRealNew" 
+                            [settings]="settingsRealNew"
+                            (onSelect)="onItemSelectRealNeW($event)">
                         </angular2-multiselect>
 
 
@@ -648,10 +649,7 @@
                             translate}}</span>
                     </div>
         
-                    <div class="ngSelect priceRange" style="margin: 0% 2% 0% 1%; 
-                        border: 1px solid #cbcaca;
-                        border-radius: 10px;
-                        box-shadow: 0 3px 6px #59595919;">
+                    <div class="ngSelect priceRange">
                         <div class="dropdown" ngbDropdown>
                             <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
                                 class="btn dropdown-toggle setPriceBtn ngSelect-input"
@@ -726,7 +724,7 @@
                 </div>
 
                 <div class="ngSelect compound">
-                    <div class="buttons">
+                    <div class="buttons" style="width: 100%;">
                         <button (click)="search()"
                             class="btn button-success applyBtn button-bordered">{{'search_button' |
                             translate}}
@@ -739,13 +737,22 @@
             </div>
 
             <div class="ngSelect actions">
-                <div class="advisor-description">
-                   <p> {{'advisor_description' | translate}} </p>
+                <div class="advisor-description" style="display: flex;">
+                   <!-- <p style="font-size: larger;"> {{'advisor_description1' | translate}}&nbsp;</p> 
+                   <p style="font-size: larger; font-weight: 700;"> {{'advisor_description2' | translate}}&nbsp;</p> 
+                   <p style="font-size: larger;"> {{'advisor_description3' | translate}} </p> -->
+
+                    <p style="font-size: larger; font-weight: 700;text-align: center;">
+                        {{'advisor_description1' | translate}} {{'advisor_description2' | translate}} {{'advisor_description3' | translate}}
+
+                    </p>
+
+
                 </div>
 
                 <div class="advisor-button">
-                    <button #apply
-                    class="btn button-success applyBtn firstbtn"> {{'electronic_consultant' |
+                    <button #apply (click)="tryItNow()"
+                    class="btn button-success applyBtn firstbtn" style="height: 50px;"> {{'electronic_consultant' |
                     translate}}
                     </button>
                 </div>
@@ -795,7 +802,7 @@
                     </div>
         
         
-                    <div class="ngSelect">
+                    <div class="ngSelect neighborhood">
                         <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
                         
                         <angular2-multiselect 
