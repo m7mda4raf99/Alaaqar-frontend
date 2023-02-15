@@ -30,6 +30,7 @@
                                     <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
                                     [settings]="settingsCity"
                                     (onSelect)="onChangeCity($event)"
+                                    (onDeSelect)="onDeSelectAllCity()"
                                     (onDeSelectAll)="onDeSelectAllCity()">
                                     </angular2-multiselect>
             
@@ -42,12 +43,13 @@
                                 
                                 <!-- area -->
 
-                                <div class="ngSelect area">
+                                <div *ngIf="selectedItemCity.length > 0" class="ngSelect area">
                                     <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
                                     
                                     <angular2-multiselect [data]="dropdownListArea" [(ngModel)]="selectedItemArea" 
                                     [settings]="settingsArea"
                                     (onSelect)="onItemSelectArea($event)"
+                                    (onDeSelect)="onDeSelectAllArea()"
                                     (onDeSelectAll)="onDeSelectAllArea()">
                                     </angular2-multiselect>
             
@@ -55,18 +57,18 @@
             
                                 </div>
                                 
-                                <div class="separator">
+                                <div *ngIf="selectedItemCity.length > 0" class="separator">
                                 </div>
                                 
                                 <!-- compound -->
-                                <div class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
+                                <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
                                     <div class="title" >
                                         <input style="cursor: pointer;"
                                         class="checkbox"
                                         type="checkbox"
                                         [checked]="checkboxVar"
-                                        (change)="checkboxVar = !checkboxVar; setCompoundLocationNeigbhorhoodDropdown();"/>
-                                        <p [ngStyle]="{'color': colorCompound }" (click)="checkboxVar = !checkboxVar; setCompoundLocationNeigbhorhoodDropdown();" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
+                                        (change)="changedCheckBox()"/>
+                                        <p [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
 
                                     </div>
                 
@@ -79,7 +81,8 @@
                                                 [(ngModel)]="selectedItemCompound" 
                                                 [settings]="settingsCompound"
                                                 (onSelect)="onItemSelectCompound($event)"
-                                                (onDeSelect) =onItemDeSelectCompound($event)>
+                                                (onDeSelect) =onItemDeSelectCompound()
+                                                (onDeSelectAll)="onItemDeSelectCompound()">
                                             </angular2-multiselect>
                         
                                         </div>
@@ -91,17 +94,18 @@
                 
                                 </div>
 
-                                <div class="separator">
+                                <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" class="separator">
                                 </div>
 
                                 <!-- location -->
-                                <div class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
+                                <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
                                                                             'background': backgroundLocation }">
                                     <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
                                     
                                         <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
                                         [settings]="settingsLocation"
                                         (onSelect)="onItemSelectLocation($event)"
+                                        (onDeSelect)="onDeSelectAllLocation()"
                                         (onDeSelectAll)="onDeSelectAllLocation()">
                                         </angular2-multiselect>
             
@@ -109,28 +113,29 @@
             
                                 </div>
 
-                                <div class="separator">
+                                <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="separator">
                                 </div>
 
                                 <!-- neighborhood -->
-                                <div class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
+                                <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
                                     <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
                                         <angular2-multiselect 
                                             [data]="dropdownListNeighborhood" 
                                             [(ngModel)]="selectedItemNeighborhood" 
                                             [settings]="settingsNeigbhorhood"
                                             (onSelect)="onItemSelectNeighborhood($event)"
-                                            (onDeSelect) =onItemDeSelectNeighborhood($event)>
+                                            (onDeSelect) =onItemDeSelectNeighborhood($event)
+                                            (onDeSelectAll) =onItemDeSelectNeighborhood($event)>
                                         </angular2-multiselect>
             
                                 </div>
 
-                                <div class="separator">
+                                <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="separator">
                                 </div>
 
                                 <!-- unit type -->
 
-                                <div class="ngSelect realState">
+                                <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="ngSelect realState">
                                     <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
                                     
                                     <angular2-multiselect [data]="dropdownListRealstateType" 
@@ -143,11 +148,11 @@
                                         translate}}</span>
                                 </div>
 
-                                <div class="separator">
+                                <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="separator">
                                 </div>
                                 
                                 <!-- price range -->
-                                <div class="ngSelect priceRange">
+                                <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="ngSelect priceRange">
                                     <div class="dropdown" ngbDropdown>
                                         <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
                                         <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
@@ -176,7 +181,7 @@
                                                     <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
                     
                                                     <div id="Price_range_hint">
-                                                        {{'home.Price range hint' | translate}} {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
+                                                        {{'home.Price range hint' | translate}} {{ minPriceText }}: {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
                                                     </div>
                                                 </div>
                     
@@ -225,7 +230,7 @@
 
                             <div class="confirm">
                                 <button #apply
-                                    (click)="confirm()"
+                                    (click)="SetSearchModelValues(apply);"
                                     class="btn button-success" style="width: 100%;">{{'button.actions.Confirm' |
                                     translate}}
                                 </button>
@@ -234,7 +239,7 @@
                         </div>
                     </div>
                     <!-- priorites-list -->
-                    <div class="col-xs-12 col-xl-12 priorites-list order-1 order-xl-0">
+                    <div class="col-xs-12 col-xl-12 priorites-list order-1 order-xl-0" id="confirm">
                         <div class="mt-3 main">
 
                             <!-- --------------------high------------------ -->

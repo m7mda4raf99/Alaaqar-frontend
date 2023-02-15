@@ -139,7 +139,6 @@ export class SetPrioritesComponent implements OnInit {
 
     this.setMultiSelection()
   
-    // await this.getCriteria()
     await this.getPriorities()
     this.setInitialPriorities()
     await this.getCity(true)
@@ -269,14 +268,13 @@ export class SetPrioritesComponent implements OnInit {
     if (data === false) {
 
     }
-    console.log('data   =>', data)
     return this.priorities = data.data
   }
   async getCriteria() {
     const activeRoute = this.activeRouter.snapshot
-    if (activeRoute.queryParams && activeRoute.queryParams.type_id && activeRoute.queryParams.propose) {
+    if (activeRoute.queryParams && activeRoute.queryParams.propose) {
       let params = {
-        type_id: activeRoute.queryParams.type_id,
+        type_id: this.selectedItemRealstateType[0].id,
         propose: activeRoute.queryParams.propose
       }
       let data = await this.apiService.getCriteriaForBuyer(params)
@@ -291,7 +289,6 @@ export class SetPrioritesComponent implements OnInit {
         this.criteria.push(data.data[i])
       }
 
-      console.log("this.criteria: ", this.criteria)
 
       return this.criteria
     } else {
@@ -328,9 +325,6 @@ export class SetPrioritesComponent implements OnInit {
     }
     this.activeTab = tab + 1
 
-    console.log("this.prioritiesList: ", this.prioritiesList)
-    console.log("this.activeTab: ", this.activeTab)
-
   }
 
   onClickEdit(tab: any){
@@ -358,8 +352,6 @@ export class SetPrioritesComponent implements OnInit {
     } else {
       this.activeTab = 3
     }
-
-    console.log("this.criteria after click: ", this.criteria)
   }
 
   getCriterias(tab: any){
@@ -471,10 +463,6 @@ export class SetPrioritesComponent implements OnInit {
     return true
   }
 
-  confirm(){
-
-  }
-
   // -------------------- filters methods ----------------------------
   
   // --------- city ----------
@@ -499,59 +487,98 @@ export class SetPrioritesComponent implements OnInit {
 
   onDeSelectAllCity(){
     this.selectedItemArea = []
-    this.selectedItemNeighborhood = []
     this.selectedItemCompound = []
-    // this.search_model.cites = []
-    // this.checkboxVar = false
+    this.selectedItemLocation = []
+    this.selectedItemNeighborhood = []
+    this.selectedItemRealstateType = []
+
+    this.dropdownListArea = []
+    this.dropdownListCompound = []
+    this.dropdownListLocation = []
+    this.dropdownListNeighborhood = []
+    this.dropdownListRealstateType = []
+
+    this.checkboxVar = false
   }
 
   // --------- area ----------
   
   async onItemSelectArea(item: any){
+    this.selectedAreaNotValid = false
+
+    this.spinner.show()
     await this.getCompound(true)
     await this.getLocation(true)
+    this.spinner.hide()
   }
 
   onDeSelectAllArea(){
+    this.selectedItemCompound = []
+    this.selectedItemLocation = []
+    this.selectedItemNeighborhood = []
+    this.selectedItemRealstateType = []
 
+    this.dropdownListCompound = []
+    this.dropdownListLocation = []
+    this.dropdownListNeighborhood = []
+    this.dropdownListRealstateType = []
+
+    this.checkboxVar = false
   }
 
   // --------- compound ----------
   async onItemSelectCompound(item: any){
+    this.selectedCompoundNotValid = false
+
+    this.spinner.show()
     await this.setupUnitTypesCount()
     await this.setupMinPrice()
+    this.spinner.hide()
    }
   
-  onItemDeSelectCompound(item: any){
-
+  onItemDeSelectCompound(){
+    this.selectedItemRealstateType = []
+    this.dropdownListRealstateType = []
   }
 
   // --------- location ----------
   
   async onItemSelectLocation(item: any){
+    this.selectedLocationNotValid = false
+
+    this.spinner.show()
     await this.getNeig(true)
     await this.setupUnitTypesCount()
     await this.setupMinPrice()
+    this.spinner.hide()
   }
 
   onDeSelectAllLocation(){
-
+    this.selectedItemRealstateType = []
+    this.dropdownListRealstateType = []
   }
 
   // --------- neighborhood ----------
 
   async onItemSelectNeighborhood(item: any){
+    this.spinner.show()
     await this.setupUnitTypesCount()
     await this.setupMinPrice()
+    this.spinner.hide()
   }
 
   onItemDeSelectNeighborhood(item: any){
-
+    this.selectedItemRealstateType = []
+    this.dropdownListRealstateType = []
   }
 
   // --------- unit type ----------
   async onItemSelectUnitType(item: any){
-   await this.setupMinPrice()
+    this.SelectedRealEstateTypeNotValid = false
+
+    this.spinner.show()
+    await this.setupMinPrice()
+    this.spinner.hide()
   }
 
   // --------- price ----------
@@ -573,6 +600,19 @@ export class SetPrioritesComponent implements OnInit {
 
     // format number and add suffix
     return scaled.toFixed(1) + suffix
+  }
+
+  changedCheckBox(){
+    if(this.checkboxVar){
+      this.checkboxVar = false
+      this.selectedItemCompound = []
+    }else{
+      this.checkboxVar = true
+      this.selectedItemLocation = []
+
+    }
+
+    this.setCompoundLocationNeigbhorhoodDropdown()
   }
 
   setPricePlaceHolder() {
@@ -722,9 +762,7 @@ export class SetPrioritesComponent implements OnInit {
           id:this.selectedItemCity[0].id,
             }
   
-      console.log("id",data.id)
       this.dropdownListArea = await this.apiService.getAreaAdvisor(data)
-      console.log("APIcall",this.dropdownListArea)
       let values:any[] =Object.values(this.dropdownListArea['data']);
       let array = []
   
@@ -757,7 +795,6 @@ export class SetPrioritesComponent implements OnInit {
         tab: this.proposeID === 1 ? 'rent' : 'buy'
       }
       let dropComp =await this.apiService.getCompound(data);
-      console.log("com",this.dropdownListCompound['data'])
       let values:any[] =Object.values(dropComp['data']);
       let array = []
     
@@ -841,12 +878,11 @@ export class SetPrioritesComponent implements OnInit {
         tab: this.proposeID === 1 ? 'rent' : 'buy'
       }
       let dropLoc =await this.apiService.getLocation(data);
-      console.log("com",dropLoc['data'])
       let values:any[] =Object.values(dropLoc['data']);
       let array = []
     
       for(let item of values){
-        if(item.name_en != "Compounds"){
+        if(item.name_en.toLowerCase() != "compounds" && item.name_en.toLowerCase() != "compound"){
           let name = ''
           name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
        
@@ -1164,7 +1200,7 @@ export class SetPrioritesComponent implements OnInit {
   async setupMinPrice() {
     if (this.selectedItemRealstateType && this.selectedItemRealstateType.length > 0)
     {
-      this.minPriceText="property Type"
+      this.minPriceText= this.activeLang === 'en' ? "property type" : "نوع العقار"
       let data = {
         id: this.selectedItemRealstateType[0].id ,
         id2:  this.selectedItemCity[0].id,
@@ -1186,7 +1222,8 @@ export class SetPrioritesComponent implements OnInit {
     } 
     else if (this.selectedItemCompound && this.selectedItemCompound.length > 0)
     {
-      this.minPriceText="compound"
+      this.minPriceText= this.activeLang === 'en' ? "compound" : "مُجَمَّع"
+
       // for (let i = 0; i < this.selectedNeighborhood.length; i++) {
         let data = {
           id: this.selectedItemCompound[0].id,
@@ -1203,8 +1240,8 @@ export class SetPrioritesComponent implements OnInit {
     }
    else if (this.selectedItemNeighborhood && this.selectedItemNeighborhood.length > 0)
     {
-      this.minPriceText="neighborhood"
-  
+      this.minPriceText= this.activeLang === 'en' ? "neighborhood" : "حيّ"
+
       // for (let i = 0; i < this.selectedNeighborhood.length; i++) {
         let data = {
           id: this.selectedItemNeighborhood[0].id,
@@ -1221,7 +1258,7 @@ export class SetPrioritesComponent implements OnInit {
     } 
     else 
     {
-      this.minPriceText="location"
+      this.minPriceText= this.activeLang === 'en' ? "location" : "الموقع"
   
       // for (let i = 0; i < this.selectedArea.length; i++) {
         let data = {
@@ -1242,12 +1279,12 @@ export class SetPrioritesComponent implements OnInit {
   displayCompound: any
   pointerEventsCompound: any
   colorCompound: any = '#2c2c2c'
-  backgroundCompound: any = 'white'
+  backgroundCompound: any = 'transparent'
 
   displayLocation: any
   pointerEventsLocation: any
   colorLocation: any = '#2c2c2c'
-  backgroundLocation: any = 'white'
+  backgroundLocation: any = 'transparent'
 
   displayNeigbhorhood: any
   pointerEventsNeigbhorhood: any
@@ -1270,7 +1307,7 @@ export class SetPrioritesComponent implements OnInit {
         this.pointerEventsNeigbhorhood = 'none'
         this.colorCompound = '#2c2c2c'
         this.colorLocation = '#bfbfbf'
-        this.backgroundCompound = 'white'
+        this.backgroundCompound = 'transparent'
         this.backgroundLocation = '#f6f6f6'
 
       }else{
@@ -1280,7 +1317,7 @@ export class SetPrioritesComponent implements OnInit {
         this.colorCompound = '#bfbfbf'
         this.colorLocation = '#2c2c2c'
         this.backgroundCompound = '#f6f6f6'
-        this.backgroundLocation = 'white'
+        this.backgroundLocation = 'transparent'
       }
     }
     // responsive
@@ -1288,8 +1325,8 @@ export class SetPrioritesComponent implements OnInit {
       this.pointerEventsCompound = 'initial'
       this.pointerEventsLocation = 'initial'
       this.pointerEventsNeigbhorhood = 'initial'
-      this.backgroundCompound = 'white'
-      this.backgroundLocation = 'white'
+      this.backgroundCompound = 'transparent'
+      this.backgroundLocation = 'transparent'
       
       // checkbox is pressed
       if(this.checkboxVar){
@@ -1309,5 +1346,72 @@ export class SetPrioritesComponent implements OnInit {
         this.margin_bottom = '0px'
       }
     }
+  }
+
+  async SetSearchModelValues(item: any){
+    let confirmed = true
+
+    if(this.selectedItemCity.length === 0){
+      this.selectedCityNotValid = true
+    }
+
+    else if(this.selectedItemArea.length === 0){
+      this.selectedAreaNotValid = true
+    }
+
+    else if(this.checkboxVar && this.selectedItemCompound.length === 0){
+      this.selectedCompoundNotValid = true
+    }
+
+    else if(!this.checkboxVar && this.selectedItemLocation.length === 0){
+      this.selectedLocationNotValid = true
+    }
+
+    else if(this.selectedItemRealstateType.length === 0){
+      this.SelectedRealEstateTypeNotValid = true
+    }
+
+    if(this.selectedCityNotValid || this.selectedAreaNotValid || 
+      (this.checkboxVar && this.selectedCompoundNotValid) ||
+      (!this.checkboxVar && this.selectedLocationNotValid) ||
+      this.SelectedRealEstateTypeNotValid 
+      ){
+      confirmed = false
+    }
+
+    if(confirmed){
+      let data: any = {}
+
+      data.SelectedRealEstateType = this.selectedItemRealstateType[0].id
+      data.selectedCountryId = this.selectedItemCity[0].id
+      data.priceMinRange = this.priceMinRange
+      data.priceMaxRange = this.priceMaxRange
+      data.selectedArea = [this.selectedItemArea[0].id]
+
+      if(this.selectedItemLocation.length > 0){
+        data.selectedLocation = [this.selectedItemLocation[0].id]
+      }
+
+      if(this.selectedItemCompound.length > 0){
+        data.selectedCompound = [this.selectedItemCompound[0].id]
+      }
+
+      if(this.selectedItemNeighborhood.length > 0){
+        data.selectedNeighborhood = [this.selectedItemNeighborhood[0].id]
+      }
+
+      data.propose = ""+this.proposeID
+
+      this.appService.propertyDetails$.next(data)
+
+
+      this.spinner.show()
+      await this.getCriteria()
+      this.spinner.hide()
+
+      this.scroll(item)
+
+    }
+    
   }
 }
