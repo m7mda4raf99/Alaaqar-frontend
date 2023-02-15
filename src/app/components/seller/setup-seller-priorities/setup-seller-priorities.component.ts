@@ -52,8 +52,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         this.router.navigate(['/home'])
       }
       this.propertyDetailsData = val
-       console.log('propertyDetailsData')
-       console.log( this.propertyDetailsData)
+      //  console.log('propertyDetailsData')
+      //  console.log( this.propertyDetailsData)
     })
     this.sub4 = this.appService.uploads$.subscribe(val => this.attachments = val)
     this.sellerForm = this.prioritiesService.sellerForm
@@ -216,8 +216,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     this.NotCompsearchObj['description'] = this.propertyDetailsNotCompleted['description'] = this.description
     this.NotCompsearchObj['title'] = this.propertyDetailsNotCompleted['title'] = this.title
 
-    console.log("NotCompsearchObj");
-    console.log(this.NotCompsearchObj)
+    // console.log("NotCompsearchObj");
+    // console.log(this.NotCompsearchObj)
    this.appService.addUnitData$.next(this.NotCompsearchObj)
   }
 

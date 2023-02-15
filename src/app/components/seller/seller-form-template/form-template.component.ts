@@ -793,7 +793,7 @@ export class SellFormTemplateComponent implements OnInit {
       }
     }
 
-    console.log("div: ", div)
+    // console.log("div: ", div)
   }
 
 }

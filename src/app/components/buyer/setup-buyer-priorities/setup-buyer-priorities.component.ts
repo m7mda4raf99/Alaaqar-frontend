@@ -236,7 +236,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
       }
     }
 
-    console.log("obj: ", obj)
+    // console.log("obj: ", obj)
 
     let addInquiry = await this.addInquiry(obj)
     if (addInquiry === false) {
@@ -247,7 +247,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
 
   async addInquiry(inquiryData: any) {
     if (inquiryData.max_price === '') {inquiryData.max_price = 0}
-    console.log(inquiryData)
+    // console.log(inquiryData)
     let inquiry = await this.apiService.addInquiry(inquiryData)
     if (inquiry === false) {
       return false

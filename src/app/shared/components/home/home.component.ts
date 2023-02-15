@@ -232,7 +232,7 @@ export class HomeComponent implements OnInit {
     await this.setPrice()
     await this.getNewArea()
     await this.getRealNnew()
-    // await this.getCity(true)
+    await this.getCity(true)
     //await this.getAreaLocations(true)
     this.setMultiSelection('buy')
     // this.getUnitTypes()
