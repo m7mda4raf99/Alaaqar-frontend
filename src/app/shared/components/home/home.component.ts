@@ -1584,6 +1584,10 @@ export class HomeComponent implements OnInit {
 
   }
   resetSelection() {
+    this.dropdownListAreaNew = []
+    this.selectedItemAreaNew = []
+    this.dropdownListRealNew = []
+    this.selectedItemRealNew = []
     this.selectedItemCity = [];
     this.selectedItemArea = [];
     this.selectedItemNeighborhood = [];
@@ -2021,8 +2025,11 @@ async onItemSelectRealNeW(item: any){
 
 }
   async getNewArea() {
+      let data ={
+        xd: this.proposeID
+      }
 
-      this.droparea = await this.apiService.getArea()
+      this.droparea = await this.apiService.getArea(data)
       let values:any[] =Object.values(this.droparea['data']);
       let array = []
 
