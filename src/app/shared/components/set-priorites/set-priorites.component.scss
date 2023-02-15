@@ -43,11 +43,22 @@
             border-radius: 20px;
             padding: 2% 0%;
 
+            @media (max-width: 425px) {
+                display: block;
+                padding: 2% 4%;
+            }
+
             .filters{
                 display: flex;
                 width: 85%;
                 justify-content: space-between;
                 margin: 0% 1%;
+
+                @media (max-width: 425px) {
+                    display: block;
+                    width: 100%;
+                    margin-bottom: 10%;
+                }
 
                 .separator{
                     margin-top: 1%;
@@ -162,6 +173,7 @@
     
                         @media (max-width: 425px) {
                             width: 100%;
+                            padding: 10px 0px;
                         }
                             
                         input {
@@ -348,7 +360,30 @@
                         min-width: 14%!important;
     
                         @media (max-width: 425px) {
-							padding: 10px 0;
+							padding-top: 10px;
+
+                        }
+
+                        .title{
+                            display: flex;
+                            justify-content: center;
+                            margin-bottom: 14px;
+                            cursor: pointer;
+
+                            @media (max-width: 425px) {
+                                justify-content: initial;
+                                margin-bottom: 0px;
+    
+                            }
+                        }
+
+                        .dropdown{
+                            margin: 0px;
+
+                            @media (max-width: 425px) {
+                                // margin-top: 15px;
+                                // margin-bottom: 10px;
+                            }
 
                         }
     
@@ -476,6 +511,11 @@
             .confirm{
                 width: 15%;
                 margin: 0% 1%;
+
+                @media (max-width: 425px) {
+                    width: 100%;
+                    margin: 0%;
+                }
             }
         }
     }

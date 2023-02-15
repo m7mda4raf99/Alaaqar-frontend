@@ -59,19 +59,21 @@
                                 </div>
                                 
                                 <!-- compound -->
-                                <div class="ngSelect compound">
-                                    <div style="display: flex;justify-content: initial;margin-bottom: 14px;">
-                                        <input
+                                <div class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
+                                    <div class="title" >
+                                        <input style="cursor: pointer;"
                                         class="checkbox"
                                         type="checkbox"
                                         [checked]="checkboxVar"
-                                        (change)="checkboxVar = !checkboxVar"/>
-                                        <p style="margin: 0%;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
+                                        (change)="checkboxVar = !checkboxVar; setCompoundLocationNeigbhorhoodDropdown();"/>
+                                        <p [ngStyle]="{'color': colorCompound }" (click)="checkboxVar = !checkboxVar; setCompoundLocationNeigbhorhoodDropdown();" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
 
                                     </div>
                 
-                                    <div class="dropdown">
-                                        <div class="multiselect" [ngStyle]="{'pointer-events': 'none'}" >
+                                    <div class="dropdown" 
+                                    [ngStyle]="{'margin-top': margin_top, 'margin-bottom': margin_bottom}">
+                                        {{ setCompoundLocationNeigbhorhoodDropdown() }}
+                                        <div class="multiselect" [ngStyle]="{'pointer-events': pointerEventsCompound, 'display': displayCompound }" >
                                             <angular2-multiselect 
                                                 [data]="dropdownListCompound" 
                                                 [(ngModel)]="selectedItemCompound" 
@@ -93,14 +95,15 @@
                                 </div>
 
                                 <!-- location -->
-                                <div class="ngSelect location">
-                                    <p class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
+                                <div class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
+                                                                            'background': backgroundLocation }">
+                                    <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
                                     
-                                    <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
-                                    [settings]="settingsLocation"
-                                    (onSelect)="onItemSelectLocation($event)"
-                                    (onDeSelectAll)="onDeSelectAllLocation()">
-                                    </angular2-multiselect>
+                                        <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
+                                        [settings]="settingsLocation"
+                                        (onSelect)="onItemSelectLocation($event)"
+                                        (onDeSelectAll)="onDeSelectAllLocation()">
+                                        </angular2-multiselect>
             
                                     <span *ngIf="selectedLocationNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
             
@@ -110,16 +113,15 @@
                                 </div>
 
                                 <!-- neighborhood -->
-                                <div class="ngSelect neighborhood">
+                                <div class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
                                     <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                                    
-                                    <angular2-multiselect 
-                                        [data]="dropdownListNeighborhood" 
-                                        [(ngModel)]="selectedItemNeighborhood" 
-                                        [settings]="settingsNeigbhorhood"
-                                        (onSelect)="onItemSelectNeighborhood($event)"
-                                        (onDeSelect) =onItemDeSelectNeighborhood($event)>
-                                    </angular2-multiselect>
+                                        <angular2-multiselect 
+                                            [data]="dropdownListNeighborhood" 
+                                            [(ngModel)]="selectedItemNeighborhood" 
+                                            [settings]="settingsNeigbhorhood"
+                                            (onSelect)="onItemSelectNeighborhood($event)"
+                                            (onDeSelect) =onItemDeSelectNeighborhood($event)>
+                                        </angular2-multiselect>
             
                                 </div>
 
