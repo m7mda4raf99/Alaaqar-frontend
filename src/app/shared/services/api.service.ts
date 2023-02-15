@@ -288,8 +288,8 @@ export class ApiService {
   }
   
 
-  public async getArea() : Promise<any> {
-    return await this.SyncClient(`${this.BaseURL}api/getArea`, 'GET',null, null)
+  public async getArea(data: any) : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getArea`, 'GET',data, null)
   }
   public async getAreaAdvisor(data: any) : Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/getAreaAdvisor`, 'GET',data, null)
