@@ -286,9 +286,13 @@ export class ApiService {
   public async unit_types_count_areanew(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/unit_types_count_areanew`, 'GET', data, null)
   }
+  
 
   public async getArea() : Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/getArea`, 'GET',null, null)
+  }
+  public async getAreaAdvisor(data: any) : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getAreaAdvisor`, 'GET',data, null)
   }
 
   public async getUnitType() : Promise<any> {
@@ -300,6 +304,10 @@ export class ApiService {
   }
   public async getCompound(data: any) : Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/getCompound`, 'GET',data, null)
+  }
+
+  public async getLocation(data: any) : Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/getLocation`, 'GET',data, null)
   }
  
   public async getNeig(data: any) : Promise<any> {
