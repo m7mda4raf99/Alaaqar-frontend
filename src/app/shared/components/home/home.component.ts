@@ -212,10 +212,7 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
-
-
     const box=document.getElementById('home')
-    
     
      this.appServiceService.selected_country$.subscribe((res:any) =>{
       this.selected_country = res
@@ -321,22 +318,22 @@ export class HomeComponent implements OnInit {
 
     this.response=  await this.apiService.getsearch(data)
 
-    console.log('response')
-    console.log(this.response)
-    console.log(this.response.data[0]['name_en'])
+    // console.log('response')
+    // console.log(this.response)
+    // console.log(this.response.data[0]['name_en'])
     
     // Compounds
     if(this.response.data[0]['city_id'] && this.response.data[0]['area_id']){
-      console.log('gwa compounds')
+      // console.log('gwa compounds')
       this.search_bar_model.compounds.push(this.response.data[0]['id']) 
 
     } // Neighborhood
     else if(this.response.data[0]['area_id'] && this.response.data[0]['location_id']){
-      console.log('gwa Neighborhood')
+      // console.log('gwa Neighborhood')
       this.search_bar_model.neighborhoods.push(this.response.data[0]['id']) 
     } // Locations
     else if(this.response.data[0]['area_id']){
-      console.log('gwa Location')
+      // console.log('gwa Location')
      this.search_bar_model.locations.push(this.response.data[0]['id']) 
     } // Areas
     else if(this.response.data[0]['city_id']){
@@ -1509,13 +1506,21 @@ export class HomeComponent implements OnInit {
   setPricePlaceHolder() {
     this.search_model.max_price = this.priceMaxRange
     this.search_model.min_price = this.priceMinRange
+    
+    // console.log("this.priceMinRange:", this.priceMinRange)
+
     if (this.priceMinRange === 0 && this.priceMaxRange === '' || this.priceMaxRange === null || this.priceMaxRange === 0) {
       return this.translateService.instant('home.All Prices')
     }
-    if (this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
-    if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
+    
+    if (this.priceMinRange && this.priceMaxRange) { 
+      return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
+    
+    if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { 
+      return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
+    
     if (!this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
-    return this.translateService.instant('home.Select price range')
+      return this.translateService.instant('home.Price')
 
     
   }
@@ -1604,7 +1609,7 @@ export class HomeComponent implements OnInit {
   }
 
   tryItNow(){
-    console.log("this.activeTab try it now: ", this.activeTab)
+    // console.log("this.activeTab try it now: ", this.activeTab)
     this.router.navigate(['/set-priorities'], { queryParams: { type_id: null, propose: this.activeTab === 'rent' ? 1 : 2 } })
   }
 
@@ -1802,7 +1807,9 @@ export class HomeComponent implements OnInit {
   }
   // flag: boolean, min: boolean
 
-  userChangeMin(flag: boolean){    
+  userChangeMin(flag: boolean){  
+    // console.log("min changed") 
+
     if(flag){
       this.minValueInput = this.minValue
       this.priceMinRange = this.minValue
@@ -1817,7 +1824,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  userChangeMax(flag: boolean){    
+  userChangeMax(flag: boolean){   
+    // console.log("max changed") 
     if(flag){
         this.maxValueInput = this.maxValue
         this.priceMaxRange = this.maxValue
@@ -1956,7 +1964,7 @@ async getRealNnew() {
       }
     
       let array = await this.apiService.unit_types_count_areanew(data);
-      console.log("array",array)
+      // console.log("array",array)
       let x =0
       for (const key in array.data) {
         this.Current_unit_count_array2[x].units_count += array.data[key]?.units_count
@@ -1987,7 +1995,7 @@ async getRealNnew() {
   else{
     this.dropRealnew = await this.apiService.getUnitType()
     let values:any[] =Object.values(this.dropRealnew['data']);
-    console.log("real",this.dropRealnew['data'])
+    // console.log("real",this.dropRealnew['data'])
     let array = []
 
     for(let item of values){
@@ -2017,8 +2025,8 @@ async onItemSelectRealNeW(item: any){
      this.search_model.type = realnew
 
   
-   console.log('selectedItemRealNew')
-   console.log(this.selectedItemRealNew)
+  //  console.log('selectedItemRealNew')
+  //  console.log(this.selectedItemRealNew)
   
   // await this.setupUnitTypesCount()
   // await this.setupMinPrice()
@@ -2061,8 +2069,8 @@ async onItemSelectRealNeW(item: any){
        this.search_model.areas = area
 
       await this.getRealNnew()
-     console.log('selectedItemAreaNew')
-     console.log(this.selectedItemAreaNew)
+    //  console.log('selectedItemAreaNew')
+    //  console.log(this.selectedItemAreaNew)
     
     // await this.setupUnitTypesCount()
     // await this.setupMinPrice()

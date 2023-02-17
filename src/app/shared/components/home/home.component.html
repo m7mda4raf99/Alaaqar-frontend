@@ -173,27 +173,18 @@
             </div>
         </div>
 
+        <!-- (What is ALAQAR?)-->
         <div class="col-12 alaqaar-solution">
             <div class="container responsive">
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <div class="video-preview">
-                           
-                            <!-- <div *ngIf="lang === 'ar'">
-                                <video  style="width: 590px;" [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
-                                    <source src="../../assets/images/{{video_src}}" type="video/mp4" />
-                                </video>
-                            </div>
-
-                            <div *ngIf="lang !== 'ar'">
-                                <video  style="width: 660px;" [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
-                                    <source src="../../assets/images/{{video_src}}" type="video/mp4" />
-                                </video>
-                            </div> -->
-
-                            <video  class= "video" [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
+                            <!-- <video  class= "video" [class.video_change]="video_variable" [muted]="true" muted playsinline autoplay controls #videoPlayer>
                                 <source src="../../assets/images/{{video_src}}" type="video/mp4" />
-                            </video>
+                            </video> -->
+
+                            <img src="../../../../assets/images/video.jpg" alt="..."
+                                style="width: 100%; height: 100%;">
                          
                         </div>
                     </div>
@@ -206,19 +197,96 @@
                             </h2>
                         </div>
                         <p class="large-text">{{'solution_text' | translate}}</p>
-                  <button (click)="scroll_to_form()" class="btn button-success more">{{'try_solution' |
+                  <button (click)="tryItNow()" class="btn button-success more">{{'try_solution' |
                             translate}}</button> 
                             
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="row">
-                
-            </div> -->
         </div>
 
-        <!-- Second section (Recently Added)-->
+        <!-- How it works-->
+        <div class="how-it-works">
+            <div class="section-head-center">
+                <h2>
+                    <span class="top"></span>
+                    {{'header.how it works' | translate}}
+                    <span></span>
+                </h2>
+                <p class="description">
+                    {{'home.howItWorks.Its the easiest way to buy sell' | translate}} <br>
+                    {{'home.howItWorks.properties' | translate}}
+                </p>
+            </div>
+            <div class="justify-content-center">
+                <div class="col-xs-12">
+                    <div class="justify-content-center container">
+                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3 card-container">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/search (1)@2x.png" class="card-img-top"
+                                        alt="...">
+    
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Find your perfectly' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3 card-container">
+                            <div class="card">
+                                <span class="icons">
+                                    <!-- <img src="../../../../assets/images/Profile.png" class="card-img-top" alt="..."> -->
+                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
+    
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Reach ready buyers' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.looking for exactly' | translate}} 
+                                    <!-- <br> {{'home.howItWorks.your property' | translate}}  -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3 card-container">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/Calendar.png" class="card-img-top" alt="...">
+    
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Automatically book' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.visits attended by' | translate}}
+                                    <!-- <br> {{'home.howItWorks.your consultants' | translate}}  -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <!-- <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
+    
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Complete your deal' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.with the lowest' | translate}}
+                                        <br> {{'home.howItWorks.cost & effort' | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        
+     
+        <!-- (Recently Added)-->
         <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
             <div class="recently-added">
                 <div class="row justify-content-center">
@@ -231,7 +299,7 @@
                                 {{ 'home.Recently Added.title' | translate}}
                                 <span></span>
                             </h2>
-                            <p class="description">
+                            <p class="description" style="display: none;">
                                 VIt is a long established fact that a reader will be distracted by the<br> readable content of a
                                 page
                                 when looking at its layout
@@ -331,81 +399,7 @@
 
         </div>
         
-        <!-- How it works-->
-        <div class="row how-it-works">
-            <div class="section-head-center">
-                <h2>
-                    <span class="top"></span>
-                    {{'header.how it works' | translate}}
-                    <span></span>
-                </h2>
-                <p class="description">
-                    {{'home.howItWorks.Its the easiest way to buy sell' | translate}} <br>
-                    {{'home.howItWorks.properties' | translate}}
-                </p>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xs-12 col-md-10">
-                    <div class="row justify-content-center">
-                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
-                            <div class="card">
-                                <span class="icons">
-                                    <img src="../../../../assets/images/search (1)@2x.png" class="card-img-top"
-                                        alt="...">
-
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Find your perfectly' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
-                            <div class="card">
-                                <span class="icons">
-                                    <img src="../../../../assets/images/Profile.png" class="card-img-top" alt="...">
-
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Reach ready buyers' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.looking for exactly' | translate}} <br>
-                                        {{'home.howItWorks.your property' | translate}} </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
-                            <div class="card">
-                                <span class="icons">
-                                    <img src="../../../../assets/images/Calendar.png" class="card-img-top" alt="...">
-
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Automatically book' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.visits attended by' | translate}}<br>
-                                        {{'home.howItWorks.your consultants' | translate}} </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
-                            <div class="card">
-                                <span class="icons">
-                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
-
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Complete your deal' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.with the lowest' | translate}}
-                                        <br> {{'home.howItWorks.cost & effort' | translate}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
+ 
         
         <div class="download-app">
 
@@ -438,43 +432,6 @@
                     <img class="iphone-sm" src="../../../../assets/images/Single mockup.png" alt="..." />
                 </div>
             </div>
-        </div>
-
-        <div class="about-alaqaar">
-            <div class="row">
-                <div class="col-xs-12 col-md-11">
-                    <div class="row main-row">
-                        <div class="col-1 .d-none .d-sm-block"> </div>
-                        <div class="col-lg-6 col-xs-12 mt-3 images-sec">
-
-                            {{ print('here image') }}
-                            {{ print(aboutUs) }}
-
-                            <img style="width: 100%;"
-                                src="../../../../assets/images/{{ aboutUs.about_us_image }}" alt="..." />
-                        </div>
-                        <div class="col-lg-5 col-xs-12 mt-3">
-                            <div class="section-head-left">
-                                <div style="background: #ff725f; height: 5px; width: 5px; margin-bottom: 10px;">
-                                </div>
-                                <h2>
-                                    <span class="top"></span>
-                                    <!-- {{'home.About Alaaqar.title' | translate}} -->
-                                    {{ lang === 'en' ? aboutUs.about_us_title_en : aboutUs.about_us_title_ar }}
-                                    <span></span>
-                                </h2>
-                                <div style="background: #ff725f; height: 5px; width: 100px; margin-top: 10px; margin-bottom: 20px;">
-                                </div>
-                                <p class="description col-xs-12 col-lg-10 desc">
-                                    {{ lang === 'en' ? aboutUs.about_us_description_en : aboutUs.about_us_description_ar }}
-
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
         
         <div class="row alaqaar-blogs" *ngIf="blogs && blogs.length > 0">
@@ -599,6 +556,7 @@
 
             </div>
 
+        
         </ng-template>
 
         <ng-template #buyRent let-type="type">
@@ -654,7 +612,8 @@
                             <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
                                 class="btn dropdown-toggle setPriceBtn ngSelect-input"
                                 type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                style="display: flex; justify-content: space-between; align-items: center; width: 100%;
+                                color: #2c2c2c; font-size: .85rem; height: 39px;">
                                 {{setPricePlaceHolder()}}
 
                                 <fa-icon style="position: initial; color: #aaaaaa"  [icon]="faChevronDown"></fa-icon>
@@ -683,7 +642,11 @@
         
                                     <div id="slider">
                                         <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                                        (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)"></ngx-slider>
+                                        (userChange)="userChangeMin(true); userChangeMax(true);"
+                                        ></ngx-slider>
+
+                                        <!-- (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)" -->
+
                                     </div>
         
                                     <div id="textboxes">
@@ -696,7 +659,7 @@
                                                 <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
                                                 placeholder="Min value" ngxNumberFormat="#,###,###,###"
                                                 [allowNegative]="false" type="text"
-                                                (keyup)="userChangeMin(false)"/>
+                                                (change)="userChangeMin(false)"/>
                                             </div>
                                         </div>
                                         
@@ -742,7 +705,7 @@
                    <p style="font-size: larger; font-weight: 700;"> {{'advisor_description2' | translate}}&nbsp;</p> 
                    <p style="font-size: larger;"> {{'advisor_description3' | translate}} </p> -->
 
-                    <p style="font-size: larger; font-weight: 700;text-align: center; margin: 0px">
+                    <p style="font-size: calc(1.075rem + 0.35vw); font-weight: 700;text-align: center; margin: 0px">
                         {{'advisor_description1' | translate}} <span style="color:red"> {{'advisor_description2' | translate}} </span> {{'advisor_description3' | translate}}
 
                     </p>
@@ -752,7 +715,7 @@
 
                 <div class="advisor-button">
                     <button #apply (click)="tryItNow()"
-                    class="btn button-success applyBtn firstbtn" style="height: 50px;"> {{'electronic_consultant' |
+                    class="btn button-success applyBtn firstbtn" style="height: 50px; font-size: x-large;"> {{'electronic_consultant' |
                     translate}}
                     </button>
                 </div>

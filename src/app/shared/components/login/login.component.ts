@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private httpClient: HttpClient) {
       this.activeRouter.queryParams.subscribe(params => {
+        console.log(params.name)
         this.name = JSON.parse(params.name);
       });
       this.activeRouter.queryParams.subscribe(params => {
@@ -96,6 +97,7 @@ export class LoginComponent implements OnInit {
       this.isLoading = true
       const doLogin: any = await this.apiService.login(phoneNumber.substring(1))
       this.isLoading = false
+      console.log("ashraf: ", doLogin?.data?.firstLogin)
       if (doLogin?.data?.firstLogin === 'Registration request') {
         this.registrationRequest = true
         this.phoneForm.get('name')?.setValidators(Validators.required)
@@ -105,6 +107,7 @@ export class LoginComponent implements OnInit {
         if (doLogin?.data?.OTP && doLogin?.data?.OTP === 'resend otp') {
           let resendOtp = await this.apiService.resendOtp({ "phone": this.phoneForm.get('phone')?.value.e164Number.substring(1) })
           if (resendOtp === false) {
+            console.log("error1")
             return this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
           }
         }
@@ -186,10 +189,12 @@ export class LoginComponent implements OnInit {
         'avatar': this.avatarUrl
       }
       const register = await this.apiService.register(obj)
+      console.log(register)
       if (register === false) {
         if (register?.data?.message) {
           return this.notificationService.showError(register.data.message)
         }
+        console.log("error2")
         this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
       } else {
         this.haveOTP = true
@@ -244,6 +249,7 @@ export class LoginComponent implements OnInit {
       this.appService.isLoggedIn$.next(true)
       this.router.navigate(['/home'])
     }else {
+      console.log("error3")
       this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))
     }
     this.spinner.hide()

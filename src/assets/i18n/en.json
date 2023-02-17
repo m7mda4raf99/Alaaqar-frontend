@@ -32,8 +32,7 @@
             "Submit": "Submit",
             "Back":"Back",
             "Next":"Next",
-            "Review":"Review",
-            "Confirm": "Confirm"
+            "Review":"Review"
         }
     },
     "model":{
@@ -97,11 +96,9 @@
         "City": "City",
         "Area": "Area",
         "Neighborhood": "Neighborhood",
-        "Location": "Location",
-        "Compound": "Compound",
         "Real estate type": "Real estate type",
         "Price range": "Price range",
-        "Price range hint": "Minimum price in this",
+        "Price range hint": "Minimum price in this area: ",
         "Select Area": "Select Area",
         "Select Neighborhood": "Select Neighborhood",
         "Select type": "Select type",
@@ -120,11 +117,11 @@
             "listed_on": "Listed on: "
         },
         "Download app": {
-            "title": "Download alaaqar App",
+            "title": "Download al.aaqar App",
             "description": "Use our website or download the app for quick updates on your property! Available for Android and iOS"
         },
         "About Alaaqar": {
-            "title": "About Alaaqar",
+            "title": "About al.aaqar",
             "description": ""
         },
         "Our Blog": {
@@ -134,15 +131,15 @@
             "description3": "or commercial properties."
         },
         "howItWorks":{
-            "Its the easiest way to buy sell":"It's the easiest way to buy, sell, or rent residential or commercial",
-            "properties":"properties!",
+            "Its the easiest way to buy sell":"Buy or rent your suitable property for free",
+            "properties":"Simple and accurate steps that will bring you closer to your goals",
             "Find your perfectly":"Find your perfectly",
-            "matched property":"matched property",
-            "Reach ready buyers":"Reach ready buyers",
-            "looking for exactly":"looking for exactly",
+            "matched property":"al.aaqar offers you enhanced property search experience what ever text search, variables based search or al.aaqar unique AI search engine that takes you in easy and simple steps to tailor your needs to get your perfect property",
+            "Reach ready buyers":"Get matching results",
+            "looking for exactly":"With your choice of any of the previous methods, you will get the units resulting from your search, and one of our real estate consultants will contact you to provide you with the best suggestions without any charges.",
             "your property":"your property",
-            "Automatically book":"Automatically book",
-            "visits attended by":"visits attended by",
+            "Automatically book":"Schedule visits",
+            "visits attended by":"Our real estate consultant will organize appointments, help you make a decision, and discuss with you the best available options matching your needs.",
             "your consultants":"your consultants",
             "Complete your deal":"Complete your deal",
             "with the lowest":"with the lowest",
@@ -240,6 +237,7 @@
         "No result": "No result found.",
         "Add new Property": "Add new Property",
         "List a new Property": "List a new Property",
+        "description": "You can add other options to the search process, we keep all this data if you want to refer to it againYou can add another property to your choices, and get a visiting appointment from here.",
         "View Results":"View Results"
     },
     "myvisits": {
@@ -386,14 +384,15 @@
     "no_properties":"You don't have any properties",
     "list_properties":"List your properties and add their specs to view them here",
     "add_property":"Add new property",
-    "alaqaar_solution":"Alaaqar Solutions",
-    "solution_text":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+    "alaqaar_solution":"What is al.aaqar?",
+    "solution_text":"al.aaqar is the first search engine supported by AI, to find the best options that suit your needs, which saves you a lot of time, effort, and search trouble, as well as a lot of real estate brokers' money, Also If you are a property owner, al.aaqar provides you with the right consumer, which facilitates the sale process and saves time and effort.",
     "try_solution":"Try our solution",
     "search_button":"Quick search",
     "electronic_consultant":"Try it now",
     "advisor_description1": "Try",
-    "advisor_description2": "AL-AAQAR AI Search,",
-    "advisor_description3": "by easy and simple steps you will get your perfect property.",
+    "advisor_description2": "al.aaqar AI Search,",
+    "advisor_description3": "by easy and simple steps you will get your perfect property",
+    "advisor_description": "'Al-AQAR' search engine created with Artificial Intelligence that guides you through easy and simple steps to precisely determine your demands, and this is the most accurate and effective approach to find your perfect property.",
     "sign_up":"Sign up",
     "current_language":"E",
     "no_results":"No Results Found",

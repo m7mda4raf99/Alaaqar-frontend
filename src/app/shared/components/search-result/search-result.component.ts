@@ -164,8 +164,8 @@ export class SearchResultComponent implements OnInit {
       else {
         if(res.data.units && res.data.units.length > 0){
           this.results = res.data.units
-          console.log('results')
-          console.log(this.results)
+          // console.log('results')
+          // console.log(this.results)
         } else {
           this.results = []
         }  
@@ -175,9 +175,9 @@ export class SearchResultComponent implements OnInit {
       this.search_model.offset +=18
     })
 
-    // let results = this.apiService.search(this.search_model)
-    // console.log('search_model')
-    // console.log(results)
+    let results = this.apiService.search(this.search_model)
+    console.log('results')
+    console.log(results)
 
  
 
