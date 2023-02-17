@@ -1328,3 +1328,19 @@ span.dropdown-multiselect--active{
         }
     }
 }
+
+.autocomplete-container {
+    height: initial !important;
+    box-shadow: 0 3px 6px #59595919 !important;
+    border: 1px solid #cbcaca !important;
+}
+
+.autocomplete-container .input-container input {
+    font-size: 0.85rem !important;
+
+}
+
+.autocomplete-container .input-container input::placeholder {
+    color: #2c2c2c !important;
+    // padding: 5% 0%;
+  }
