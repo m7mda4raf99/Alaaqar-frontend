@@ -12,7 +12,8 @@
         </div>
         <div class="col-md-12 col-lg-6 custom-padding home-controls">
             <h1>{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
-            <p #actions class="save">{{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
+            <p #actions class="save" style="padding: 10px 0px 10px 0px;">
+                {{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
 
             <div class="col-md-10 stats">
 
@@ -221,7 +222,7 @@
             <div class="justify-content-center">
                 <div class="col-xs-12">
                     <div class="justify-content-center container">
-                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3 card-container">
+                        <div class="mt-3 card-container">
                             <div class="card">
                                 <span class="icons">
                                     <img src="../../../../assets/images/search (1)@2x.png" class="card-img-top"
@@ -234,7 +235,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3 card-container">
+                        <div class="mt-3 card-container">
                             <div class="card">
                                 <span class="icons">
                                     <!-- <img src="../../../../assets/images/Profile.png" class="card-img-top" alt="..."> -->
@@ -249,7 +250,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-lg-6 col-xl-3 mt-3 card-container">
+                        <div class="mt-3 card-container">
                             <div class="card">
                                 <span class="icons">
                                     <img src="../../../../assets/images/Calendar.png" class="card-img-top" alt="...">
@@ -555,33 +556,40 @@
                 </div>
 
             </div>
-
-        
         </ng-template>
+
 
         <ng-template #buyRent let-type="type">
             <div class="options">
                 <div class="all-options">
                     <div class="ng-autocomplete search_bar">
+                        <!-- [notFoundTemplate]="notFoundTemplate" -->
                         <ng-autocomplete 
-                          [data]="autoComplete"
-                          [searchKeyword]="keyword"
-                          placeholder="{{'buy.Placeholder' | translate}}"
-                          (selected)='selectEvent($event)'
-                          (inputChanged)='onChangeSearch($event)'
-                          (inputFocused)='onFocused($event)'
-                          [itemTemplate]="itemTemplate"
-                          [notFoundTemplate]="notFoundTemplate"
-                          [debounceTime]="200">                                 
+                        [data]="autoComplete"
+                        [searchKeyword]="keyword"
+                        placeholder="{{'buy.Placeholder' | translate}}"
+                        (selected)='selectEvent($event)'
+                        (inputChanged)='onChangeSearch($event)'
+                        (inputFocused)='onFocused($event)'
+                        [itemTemplate]="itemTemplate"
+                        [debounceTime]="200">                                 
                         </ng-autocomplete>
                         
                         <ng-template #itemTemplate let-item>
                         <a [innerHTML]="item.name"></a>
                         </ng-template>
                         
-                        <ng-template #notFoundTemplate let-notFound>
-                        <!-- <div [innerHTML]="notFound"></div> -->
-                        </ng-template>
+                        <!-- <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                        </ng-template> -->
+
+                        <div class="buttons">
+                            <button (click)="search()"
+                                class="btn button-bordered search_button">
+                                <fa-icon [icon]="faSearch"></fa-icon>
+                            </button>
+                            
+                        </div>
                     </div>
 
                     <div class="ngSelect city">
@@ -706,7 +714,7 @@
                    <p style="font-size: larger;"> {{'advisor_description3' | translate}} </p> -->
 
                     <p style="font-size: calc(1.075rem + 0.35vw); font-weight: 700;text-align: center; margin: 0px">
-                        {{'advisor_description1' | translate}} <span style="color:red"> {{'advisor_description2' | translate}} </span> {{'advisor_description3' | translate}}
+                        {{'advisor_description1' | translate}} <span style="color: #fd4c65"> {{'advisor_description2' | translate}} </span> {{'advisor_description3' | translate}}
 
                     </p>
 
@@ -715,7 +723,7 @@
 
                 <div class="advisor-button">
                     <button #apply (click)="tryItNow()"
-                    class="btn button-success applyBtn firstbtn" style="height: 50px; font-size: x-large;"> {{'electronic_consultant' |
+                    class="btn button-success applyBtn firstbtn" style="height: 50px; font-size: larger;"> {{'electronic_consultant' |
                     translate}}
                     </button>
                 </div>

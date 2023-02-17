@@ -155,8 +155,8 @@ export class SearchResultComponent implements OnInit {
       }
     }
     this.spinner.show()
-    console.log('search_model')
-    console.log(this.search_model)
+    // console.log('search_model')
+    // console.log(this.search_model)
     this.apiService.search(this.search_model).then((res: any) => {
       if (isloadMore) {
         this.results = this.results.concat(res.data.units)
@@ -176,8 +176,8 @@ export class SearchResultComponent implements OnInit {
     })
 
     let results = this.apiService.search(this.search_model)
-    console.log('results')
-    console.log(results)
+    // console.log('results')
+    // console.log(results)
 
  
 
@@ -187,8 +187,8 @@ export class SearchResultComponent implements OnInit {
   }
   async filterBy(value: any) {
     this.search_model.offset = 0
-    console.log('value')
-    console.log(value)
+    // console.log('value')
+    // console.log(value)
     this.search_model.column = value
     this.search(false)
    
@@ -245,6 +245,7 @@ export class SearchResultComponent implements OnInit {
     return item.image ? item.image : '../../../../assets/images/empty.jpeg'
   }
   getCriteriaImageSrc(criteria: any) {
+    console.log("criteria: ")
     return this.baseUrl + criteria.icon
   }
   fixedNumber(num: any) {
@@ -313,8 +314,8 @@ export class SearchResultComponent implements OnInit {
     this.search_model['bedroom'] = this.bedroom
     this.search_model['space'] = this.space
     this.search_model['propose'] = this.propose
-    console.log('propose')
-    console.log(this.propose)
+    // console.log('propose')
+    // console.log(this.propose)
     this.search_model['max_price'] = this.priceMaxRange
     this.search_model['min_price'] = this.priceMinRange
     this.search_model
