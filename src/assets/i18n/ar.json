@@ -32,7 +32,8 @@
             "Submit":"إرسال",
             "Back":"رجوع",
             "Next":"القادم",
-            "Review":"مراجعة"
+            "Review":"مراجعة",
+            "Confirm": "أؤكد"
         }
     },
     "model":{
@@ -89,6 +90,8 @@
         "City":"المدينة",
         "Area":"المنطقة",
         "Neighborhood":"الحي",
+        "Location": "الموقع",
+        "Compound": "مُجَمَّع",
         "Real estate type":"نوع العقار",
         "Price range":"متوسط السعر",
         "Price range hint": "السعر الأدنى في هذه المنطقة: ",

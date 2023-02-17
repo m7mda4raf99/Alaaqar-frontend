@@ -32,7 +32,8 @@
             "Submit": "Submit",
             "Back":"Back",
             "Next":"Next",
-            "Review":"Review"
+            "Review":"Review",
+            "Confirm": "Confirm"
         }
     },
     "model":{
@@ -96,6 +97,8 @@
         "City": "City",
         "Area": "Area",
         "Neighborhood": "Neighborhood",
+        "Location": "Location",
+        "Compound": "Compound",
         "Real estate type": "Real estate type",
         "Price range": "Price range",
         "Price range hint": "Minimum price in this area: ",
