@@ -59,7 +59,8 @@
         "instagram": "https://instagram.com/alaaqarapp?igshid=YmMyMTA2M2Y=",
         "twitter": "https://twitter.com/alaaqarapp",
         "youtube": "https://youtube.com/@alaaqar91",
-        "linkedin": "https://www.linkedin.com/mwlite/company/alaaqarapp"
+        "linkedin": "https://www.linkedin.com/mwlite/company/alaaqarapp",
+        "coming_soon": "COMING SOON!"
 
     },
     "Oops": {
@@ -391,9 +392,9 @@
     "solution_text":"al.aaqar is the first search engine supported by AI, to find the best options that suit your needs, which saves you a lot of time, effort, and search trouble, as well as a lot of real estate brokers' money, Also If you are a property owner, al.aaqar provides you with the right consumer, which facilitates the sale process and saves time and effort.",
     "try_solution":"Try our solution",
     "search_button":"Quick search",
-    "electronic_consultant":"Try it now",
-    "advisor_description1": "Try",
-    "advisor_description2": "al.aaqar AI Search,",
+    "electronic_consultant":"TRY IT NOW",
+    "advisor_description1": "try",
+    "advisor_description2": "al.aaqar ai search,",
     "advisor_description3": "by easy and simple steps you will get your perfect property",
     "advisor_description": "'Al-AQAR' search engine created with Artificial Intelligence that guides you through easy and simple steps to precisely determine your demands, and this is the most accurate and effective approach to find your perfect property.",
     "sign_up":"Sign up",
