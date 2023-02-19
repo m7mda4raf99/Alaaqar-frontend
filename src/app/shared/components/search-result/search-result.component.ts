@@ -245,7 +245,7 @@ export class SearchResultComponent implements OnInit {
     return item.image ? item.image : '../../../../assets/images/empty.jpeg'
   }
   getCriteriaImageSrc(criteria: any) {
-    console.log("criteria: ")
+    // console.log("criteria: ")
     return this.baseUrl + criteria.icon
   }
   fixedNumber(num: any) {

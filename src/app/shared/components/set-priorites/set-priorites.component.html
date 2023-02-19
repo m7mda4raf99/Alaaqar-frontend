@@ -228,10 +228,15 @@
 
                             </div>
 
-                            <div class="confirm">
-                                <button #apply
-                                    (click)="SetSearchModelValues(apply);"
+                            <div class="confirm"> 
+                                <button #apply *ngIf="!isConfirmed" 
+                                    (click)="SetSearchModelValues(apply)"
                                     class="btn button-success" style="width: 100%;">{{'button.actions.Confirm' |
+                                    translate}}
+                                </button>
+
+                                <button (click)="edit()" *ngIf="isConfirmed"
+                                    class="btn button-success" style="width: 100%; background: #e6e6e6; color: black;">{{'setPriorities.Edit' |
                                     translate}}
                                 </button>
 

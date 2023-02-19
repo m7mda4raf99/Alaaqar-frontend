@@ -1037,6 +1037,7 @@ export class HomeComponent implements OnInit {
       'offset': 0
     }
     this.apiService.getBlogs(params).subscribe(data => {
+      console.log("blogs: ", data.data)
 
       return this.blogs = data.data
     })

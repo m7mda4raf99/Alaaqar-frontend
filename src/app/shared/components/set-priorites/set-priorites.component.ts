@@ -122,6 +122,7 @@ export class SetPrioritesComponent implements OnInit {
   };
 
   checkboxVar: boolean = false;
+  isConfirmed: boolean = false;
 
   Current_unit_count_array: any = []
   MinPrice:any
@@ -1380,6 +1381,7 @@ export class SetPrioritesComponent implements OnInit {
     }
 
     if(confirmed){
+      this.isConfirmed = true;
       let data: any = {}
 
       data.SelectedRealEstateType = this.selectedItemRealstateType[0].id
@@ -1402,6 +1404,8 @@ export class SetPrioritesComponent implements OnInit {
 
       data.propose = ""+this.proposeID
 
+      console.log("data: ", data)
+
       this.appService.propertyDetails$.next(data)
 
 
@@ -1413,5 +1417,20 @@ export class SetPrioritesComponent implements OnInit {
 
     }
     
+  }
+
+  edit(){
+    this.isConfirmed = false;
+
+    // reset all criteria arrays, buttons
+    this.prioritiesList = {
+      '1': [],
+      '2': [],
+      '3': [],
+    }
+
+    this.criteria = []
+
+    this.activeTab = 1
   }
 }

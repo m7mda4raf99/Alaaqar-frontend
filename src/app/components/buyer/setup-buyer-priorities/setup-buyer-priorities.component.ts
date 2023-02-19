@@ -212,6 +212,9 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
     obj.neighborhoods = propertyValue['selectedNeighborhood'] ? propertyValue['selectedNeighborhood'] : []
     obj.compounds = propertyValue['selectedCompound'] ? propertyValue['selectedCompound'] : []
     obj.propose = propertyValue['propose'] = propertyValue['propose']
+    
+    console.log("obj: ", obj)
+    
     for (const key in formValues) {
       for (const k in formValues[key]) {
         let criteria_id: any
