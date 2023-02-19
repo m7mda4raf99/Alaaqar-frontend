@@ -11,7 +11,7 @@
                     <p>
                         <span></span> {{ activeLang === 'en' ? singleBlog['tag_name_en'] : singleBlog['tag_name_ar']}}
                     </p>
-                    <h2>{{singleBlog['title']}}</h2>
+                    <h2> {{ activeLang === 'en' ? singleBlog['title_en'] : singleBlog['title_ar'] }}</h2>
                     <div class="row card-foot mt-5">
                         <div class="col-xs-12 col-md-6">
                             <div class="row">
@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-12 desc">
                         <p style="color: #707070;">
-                            {{singleBlog['title']}}
+                            {{ activeLang === 'en' ? singleBlog['title_en'] : singleBlog['title_ar'] }}
                         </p>
                         <div>
                             <img src="../../../../assets/images/Ellipse 1264.png" alt="..."/>
@@ -64,10 +64,10 @@
                     </div>
                 </div>
                 <div class="row single-row">
-                    <p class="sec-title"> {{singleBlog['title']}}</p>
+                    <p class="sec-title"> {{ activeLang === 'en' ? singleBlog['title_en'] : singleBlog['title_ar'] }}</p>
                     <div>
-                        <img src="{{baseUrl + singleBlog['image']}}" alt="..."/>
-                        <p class="description" [innerHTML]="singleBlog['description']">
+                        <img src="{{ singleBlog['image'] }}" alt="..."/>
+                        <p class="description" [innerHTML]="activeLang === 'en' ? singleBlog['description_en'] : singleBlog['description_ar'] ">
                             <!-- {{renderText(singleBlog['description'])}} -->
                         </p>
                     </div>

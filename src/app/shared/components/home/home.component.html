@@ -455,10 +455,7 @@
                             <div class="card" (click)="navigateToSingleBlog(card)">
                                 <div style="position: relative;">
                                     <span class="overlay"></span>
-                                    <!-- <img src="{{ BaseURL + card.image }}" class="main-img" alt="..."> -->
-                                    
-                                    <img src="../../../../assets/images/empty.jpeg" class="main-img" alt="...">
-
+                                    <img src="{{ card.image }}" class="main-img" alt="...">
                                 </div>
                                 
                                 <div class="card-body">
@@ -572,7 +569,8 @@
                         (inputChanged)='onChangeSearch($event)'
                         (inputFocused)='onFocused($event)'
                         [itemTemplate]="itemTemplate"
-                        [debounceTime]="200">                                 
+                        [debounceTime]="200"
+                        [focusFirst]="true">                                 
                         </ng-autocomplete>
                         
                         <ng-template #itemTemplate let-item>

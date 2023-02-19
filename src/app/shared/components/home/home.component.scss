@@ -39,7 +39,7 @@
                 }
             }
             @media (max-width: 425px) {
-                margin-top: -215px;
+                margin-top: -240px;
                 text-align: center;
             }
             @media only screen and (min-width: 426px) and (max-width: 768px) {
@@ -268,7 +268,7 @@
             background-size: contain;
             @media (max-width: 425px) {
                 background-size: contain;
-                min-height: 240px;
+                min-height: 280px;
                 filter: brightness(0.6);
             }
             .overlay {
@@ -457,11 +457,11 @@
                     }
 
                     .search_button{
-                        margin-bottom: 15px; 
+                        margin: 0px 15px; 
                         border-radius: 10px;
 
                         @media (max-width: 425px) {
-                            margin: 0px 15px; 
+                            margin: 0px 0px 0px 15px;
                         }
                     }
                 }
@@ -1448,7 +1448,7 @@
         }
 
         .card {
-           
+            transition: all .4s ease;
             border: none;
             border-radius: 20px;
             .card-title {
