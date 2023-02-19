@@ -288,19 +288,37 @@ export class HomeComponent implements OnInit {
         query : this.searchQuery  
       }  
     
+      console.log(this.searchQuery)
       this.doingSearch = true
       this.response=  await this.apiService.getsearch(data)
       this.doingSearch = false
+      console.log('response')
+      console.log(this.response)
+
+      
 
       this.autoComplete = []
 
+
       for(let i = 0; i < 10 && this.response.data[i]; i++){
-        this.autoComplete.push(
-          {
-            id: i+1,
-            name: this.response.data[i]['name_en']
-          }
-        )
+        if(this.isArabic(this.searchQuery)){
+          this.autoComplete.push(
+            {
+              id: i+1,
+              name: this.response.data[i]['name_ar'] 
+            }
+          )
+
+        }else{
+          
+          this.autoComplete.push(
+            {
+              id: i+1,
+              name: this.response.data[i]['name_en'] 
+            }
+          )
+        }
+      
       }
 
       }
@@ -2077,6 +2095,14 @@ async onItemSelectRealNeW(item: any){
     // await this.setupMinPrice()
  
   }
+
+  isArabic(text: any) {
+    var arabic = /[\u0600-\u06FF]/;
+    let result = arabic.test(text);
+    return result;
+  }
+
+
 
 }
 
