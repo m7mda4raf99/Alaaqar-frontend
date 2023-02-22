@@ -1367,3 +1367,26 @@ span.dropdown-multiselect--active{
     color: #2c2c2c !important;
     // padding: 5% 0%;
   }
+
+.single-blog .single-row .description {
+    img{
+        width: -webkit-fill-available;
+        border-radius: 20px;
+    }
+} 
+
+
+
+
+.rtl{
+    .material-icons {
+        font-family: 'Material Icons' !important;
+    }
+
+    .autocomplete-container .input-container .x {
+        left: 10px;
+        right: auto;
+    }
+}
+
+

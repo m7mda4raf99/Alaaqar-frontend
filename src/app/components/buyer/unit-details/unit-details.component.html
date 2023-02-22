@@ -192,8 +192,8 @@
                 translate}}</button>
         </div>
     </ng-template>
-    <ng-template #sellerContent let-c="close" let-d="dismiss">
-        <div class="modal-header">
+    <ng-template #sellerContent  let-c="close" let-d="dismiss">
+        <div class="modal-header" id="sellerContent">
             <div style="width: 100%;">
                 <img src="{{evaluator.avatar ? evaluator.avatar : '../../../../../../assets/images/default.png'}}" alt="..."/>
                 <p>{{evaluator.name}}</p>

@@ -1290,6 +1290,9 @@ export class SetPrioritesComponent implements OnInit {
   displayNeigbhorhood: any
   pointerEventsNeigbhorhood: any
 
+  backgroundFilter: any = 'white'
+  pointerEventsFilter: any = 'initial'
+
   margin_top: any = '15px'
   margin_bottom: any = '10px'
 
@@ -1347,6 +1350,13 @@ export class SetPrioritesComponent implements OnInit {
         this.margin_bottom = '0px'
       }
     }
+
+    if(this.isConfirmed){
+      this.pointerEventsCompound = 'none'
+      this.pointerEventsLocation = 'none'
+      this.pointerEventsNeigbhorhood = 'none'
+    }
+
   }
 
   async SetSearchModelValues(item: any){
@@ -1382,6 +1392,10 @@ export class SetPrioritesComponent implements OnInit {
 
     if(confirmed){
       this.isConfirmed = true;
+      this.backgroundFilter = 'rgb(246, 246, 246)';
+      this.pointerEventsFilter = 'none'
+
+
       let data: any = {}
 
       data.SelectedRealEstateType = this.selectedItemRealstateType[0].id
@@ -1421,6 +1435,9 @@ export class SetPrioritesComponent implements OnInit {
 
   edit(){
     this.isConfirmed = false;
+
+    this.backgroundFilter = 'white'
+    this.pointerEventsFilter = 'initial'
 
     // reset all criteria arrays, buttons
     this.prioritiesList = {

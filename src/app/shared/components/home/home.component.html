@@ -460,27 +460,30 @@
                                 
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}}
+                                        <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
+
+                                        {{lang === 'en' ? card.title_en : card.title_ar }}
+
 
                                         <!-- {{subString(card.title)}} -->
                                     </h5>
                                     
-                                    <span class="location">
-                                        <img src="../../../../assets/images/noun_Location_1911856@2x.png"
-                                            alt="..." />
-                                        {{lang === 'en' ? card.tag.name_en : card.tag.name_ar}}
-                                        <!-- New Alamien -->
-                                    </span>
-
-                                    <span class="sep-width"> </span>
-
-                                    <span class="date">
-                                        <img src="../../../../assets/images/date.png"
-                                            alt="..." />
-
-                                         {{ 'blog.start_date' | translate }}   
-                                         {{card.created_at}}
-                                    </span>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span class="location">
+                                            <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                                alt="..." />
+                                            {{lang === 'en' ? card.tag.name_en : card.tag.name_ar}}
+                                            <!-- New Alamien -->
+                                        </span>
+    
+                                        <span class="date">
+                                            <img src="../../../../assets/images/date.png"
+                                                alt="..." />
+    
+                                             {{ 'blog.start_date' | translate }}   
+                                             {{card.created_at}}
+                                        </span>
+                                    </div>
 
                                     
                                     <!-- <div class="row card-foot">
@@ -582,7 +585,7 @@
                         </ng-template> -->
 
                         <div class="buttons">
-                            <button (click)="search()"
+                            <button (click)="searchKeyword()"
                                 class="btn button-bordered search_button">
                                 <fa-icon [icon]="faSearch"></fa-icon>
                             </button>

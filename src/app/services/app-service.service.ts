@@ -34,6 +34,9 @@ export class AppServiceService {
   addUnitData$ = new BehaviorSubject<any>(<any>({}));
   unitCriteria$ = new BehaviorSubject<any>(<any>({}));
 
+  sellerContent$ = new BehaviorSubject<any>(<any>({}));
+
+
   //notifications
   myNotifications$ = new BehaviorSubject<any>(<any>([]));
   constructor() { }

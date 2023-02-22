@@ -151,6 +151,15 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/sell'], { queryParams: { type_id: this.activeRoute.queryParams['type_id'], propose: this.activeRoute.queryParams['propose']} })
 
       }
+
+      else if(this.activeRoute.queryParams['id'] && this.activeRoute.queryParams['isPublic'] ){
+        this.router.navigate(['/single-property'], { queryParams: { id: this.activeRoute.queryParams['id'], isPublic: this.activeRoute.queryParams['isPublic'], requestVisit: true} })
+      }
+
+      else if(this.activeRoute.queryParams['id'] && this.activeRoute.queryParams['type'] ){
+        this.router.navigate(['/buy/property-details'], { queryParams: { id: this.activeRoute.queryParams['id'], type: this.activeRoute.queryParams['type'], requestVisit: true} })
+      }
+
       else{
         this.location.back()
       }
@@ -188,13 +197,16 @@ export class LoginComponent implements OnInit {
         'email': this.phoneForm.get('email')?.value,
         'avatar': this.avatarUrl
       }
+
+      // console.log("obj: ", obj.avatar)
+
       const register = await this.apiService.register(obj)
-      console.log(register)
+      // console.log(register)
       if (register === false) {
         if (register?.data?.message) {
           return this.notificationService.showError(register.data.message)
         }
-        console.log("error2")
+        // console.log("error2")
         this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
       } else {
         this.haveOTP = true
@@ -220,10 +232,10 @@ export class LoginComponent implements OnInit {
 
 
   async updateProfile() {
-    console.log(this.name)
-    console.log(this.email)
-    console.log(this.phone)
-    console.log(this.avatar)
+    // console.log(this.name)
+    // console.log(this.email)
+    // console.log(this.phone)
+    // console.log(this.avatar)
     this.spinner.show()
     let obj = {
       'phone': this.phone,
@@ -249,7 +261,7 @@ export class LoginComponent implements OnInit {
       this.appService.isLoggedIn$.next(true)
       this.router.navigate(['/home'])
     }else {
-      console.log("error3")
+      // console.log("error3")
       this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))
     }
     this.spinner.hide()

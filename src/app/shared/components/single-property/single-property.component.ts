@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { faAngleRight, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
@@ -10,13 +10,25 @@ import { NgxSpinnerService } from "ngx-spinner"
 import { ApiService } from '../../services/api.service'
 import { environment } from 'src/environments/environment'
 import { TranslateService } from '@ngx-translate/core'
+import { CookieService } from 'ngx-cookie-service';
+
 import 'bootstrap';
+
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 @Component({
   selector: 'app-single-property',
   templateUrl: './single-property.component.html',
   styleUrls: ['./single-property.component.scss']
 })
 export class SinglePropertyComponent implements OnInit {
+  @ViewChild('sellerContent', { read: TemplateRef })
+  sellerContent!: TemplateRef<any>
+
   faChevronDown = faChevronDown
   faChevronUp = faChevronUp
   faAngleLeft = faAngleLeft
@@ -59,8 +71,9 @@ export class SinglePropertyComponent implements OnInit {
   moreData: any = {}
   sliderTags: any = []
   descriptionDisplay: any = 'none'
-
+  
   constructor(
+    private cookieService: CookieService,
     private activeRouter: ActivatedRoute,
     private notificationService: NotificationsService,
     private appServiceService: AppServiceService,
@@ -116,6 +129,10 @@ export class SinglePropertyComponent implements OnInit {
     this.tagLength = this.sliderData.length
     this.spinner.hide()
     this.isLoading = false
+
+    if(activeRoute.queryParams.requestVisit){
+      await this.requestVisit(this.sellerContent)
+    }
   }
   handleSliderNavigation(navigate: string) {
     let index: number = navigate === 'next' ? this.activeIndex + 1 : this.activeIndex - 1
@@ -226,7 +243,7 @@ export class SinglePropertyComponent implements OnInit {
   }
 
   print(data: any){
-    console.log("my data: ", data)
+    // console.log("my data: ", data)
   }
 
   getOptions(data: any) {    
@@ -259,18 +276,38 @@ export class SinglePropertyComponent implements OnInit {
     return this.activeLang === 'en' ? obj.criteria_name_en : obj.criteria_name_ar
   }
   async requestVisit(content: any) {
-    let data = {
-      'unit_id': this.params.id
+    const user = this.cookieService.get('user')
+
+    if (user) {
+      let data = {
+        'unit_id': this.params.id
+      }
+
+      let request = await this.apiService.requestVisit(data)
+
+
+      if (request) {
+        window.dataLayer.push({
+          'event': 'RequestVisitClicked',
+          'user_id': JSON.parse(user).id,
+          'user_name': JSON.parse(user).name,
+          'user_phone': JSON.parse(user).phone,
+        });
+
+        this.evaluator.name = request.data.agent.name
+        this.evaluator.workingHours = request.data.agent.working_hours
+        this.evaluator.avatar = request.data.agent.avatar
+        this.modalService.open(content);
+        // return true
+      }
+    }else{
+      const activeRoute = this.activeRouter.snapshot
+      
+      this.appServiceService.sellerContent$.next(content)
+
+      this.router.navigate(['/login'], { queryParams: { id: activeRoute.queryParams.id, 
+        isPublic: activeRoute.queryParams.isPublic } })
     }
-    let request = await this.apiService.requestVisit(data)
-    if (request) {
-      this.evaluator.name = request.data.agent.name
-      this.evaluator.workingHours = request.data.agent.working_hours
-      this.evaluator.avatar = this.BaseUrl + request.data.agent.avatars_path + request.data.agent.avatar
-      this.modalService.open(content);
-      return true
-    }
-    return false
   }
   navigateToMyVisits() {
     this.modalService.dismissAll()

@@ -178,7 +178,7 @@ export class ApiService {
     return await this.SyncClient(`${this.BaseURL}api/my-unit/${id}`, 'GET', null, null)
   }
   public async getPublicUnit(id: string): Promise<any> {
-    console.log("apiservice: ", id)
+    // console.log("apiservice: ", id)
     return await this.SyncClient(`${this.BaseURL}api/unit/${id}`, 'GET', null, null)
     // return await this.SyncClient(`${this.BaseURL}api/unit/23828`, 'GET', null, null)
 
