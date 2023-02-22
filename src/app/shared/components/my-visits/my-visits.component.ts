@@ -61,7 +61,8 @@ export class MyVisitsComponent implements OnInit {
     this.modalService.open(content);
   }
   setAvatarUrl(item: any) {
-    return this.baseUrl + item.agent_avatar
+    console.log("item: ", item)
+    return item.agent_avatar
   }
   filterVisits(filter: string) {
     return this.items = filter === 'old' ? this.allItems.filter((item: any) => item.apointment_date !== null && item.apointment_date !== undefined) :

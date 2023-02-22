@@ -136,6 +136,7 @@ export class HomeComponent implements OnInit {
   proposeID: number = 2
 
   searchQuery: any;
+  selectedSearchQuery: any;
   response: any; 
   search_bar_model: any = {
     cities: [],
@@ -279,8 +280,6 @@ export class HomeComponent implements OnInit {
     this.isListVisible = false;
   }
 
-  doingSearch: boolean = false
-
   async GetHintSearch() {
 
     if(this.searchQuery !== ""){
@@ -288,14 +287,7 @@ export class HomeComponent implements OnInit {
         query : this.searchQuery  
       }  
     
-      console.log(this.searchQuery)
-      this.doingSearch = true
       this.response=  await this.apiService.getsearch(data)
-      this.doingSearch = false
-      console.log('response')
-      console.log(this.response)
-
-      
 
       this.autoComplete = []
 
@@ -329,55 +321,68 @@ export class HomeComponent implements OnInit {
   }
    
   async Getsearch() {
-    
-    let data={
-      query : this.searchQuery  
-    }  
+    console.log("this.searchQuery: ", this.searchQuery)
 
-    this.response=  await this.apiService.getsearch(data)
+    if(this.selectedSearchQuery){
+      let data={
+        query : this.selectedSearchQuery  
+      }  
+  
+      this.response=  await this.apiService.getsearch(data)
+  
+      // console.log('response')
+      // console.log(this.response)
+      // console.log(this.response.data[0]['name_en'])
+      
+      // Compounds
+      if(this.response.data[0]['city_id'] && this.response.data[0]['area_id']){
+        // console.log('gwa compounds')
+        this.search_bar_model.compounds.push(this.response.data[0]['id']) 
+  
+      } // Neighborhood
+      else if(this.response.data[0]['area_id'] && this.response.data[0]['location_id']){
+        // console.log('gwa Neighborhood')
+        this.search_bar_model.neighborhoods.push(this.response.data[0]['id']) 
+      } // Locations
+      else if(this.response.data[0]['area_id']){
+        // console.log('gwa Location')
+       this.search_bar_model.locations.push(this.response.data[0]['id']) 
+      } // Areas
+      else if(this.response.data[0]['city_id']){
+        this.search_bar_model.areas.push(this.response.data[0]['id']) 
+      } // Cities
+       else{
+        this.search_bar_model.cities.push(this.response.data[0]['id']) 
+  
+      }
+      this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+  
+    }else{
+      this.search_model = {
+        cities: [],
+        areas: [],
+        locations: [],
+        neighborhoods: [],
+        compounds: [],
+        type: [],
+        min_price: null,
+        max_price: null,
+        // propose:'buy'
+      }
 
-    // console.log('response')
-    // console.log(this.response)
-    // console.log(this.response.data[0]['name_en'])
-    
-    // Compounds
-    if(this.response.data[0]['city_id'] && this.response.data[0]['area_id']){
-      // console.log('gwa compounds')
-      this.search_bar_model.compounds.push(this.response.data[0]['id']) 
-
-    } // Neighborhood
-    else if(this.response.data[0]['area_id'] && this.response.data[0]['location_id']){
-      // console.log('gwa Neighborhood')
-      this.search_bar_model.neighborhoods.push(this.response.data[0]['id']) 
-    } // Locations
-    else if(this.response.data[0]['area_id']){
-      // console.log('gwa Location')
-     this.search_bar_model.locations.push(this.response.data[0]['id']) 
-    } // Areas
-    else if(this.response.data[0]['city_id']){
-      this.search_bar_model.areas.push(this.response.data[0]['id']) 
-    } // Cities
-     else{
-      this.search_bar_model.cities.push(this.response.data[0]['id']) 
-
+      this.search()
+      
     }
     
-
-
-
-
- 
-
-   
-    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
-
-
-   }
+  }
   async selectEvent(item: any) {
     // do something with selected item
     this.searchQuery = item['name']
+    this.selectedSearchQuery = this.searchQuery
+  }
+
+  async searchKeyword(){
     await this.Getsearch()
-    
   }
 
   search() {

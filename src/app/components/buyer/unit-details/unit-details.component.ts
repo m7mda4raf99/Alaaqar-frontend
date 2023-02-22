@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -17,12 +17,21 @@ import { CookieService } from 'ngx-cookie-service';
 import { TranslateService } from '@ngx-translate/core';
 import 'bootstrap';
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 @Component({
   selector: 'app-unit-details',
   templateUrl: './unit-details.component.html',
   styleUrls: ['./unit-details.component.scss']
 })
 export class BuyerUnitDetailsComponent implements OnInit {
+  @ViewChild('sellerContent', { read: TemplateRef })
+  sellerContent!: TemplateRef<any>
+  
   faChevronDown = faChevronDown
   faChevronUp = faChevronUp
   faAngleLeft = faAngleLeft
@@ -118,6 +127,11 @@ export class BuyerUnitDetailsComponent implements OnInit {
         }
       ]
     }
+
+    if(snapshot.queryParams.requestVisit){
+      await this.requestVisit(this.sellerContent)
+    }
+
     return this.propertyDetails = unit.data
   }
 
@@ -266,6 +280,9 @@ export class BuyerUnitDetailsComponent implements OnInit {
   }
   async addUnit(content: any) {
     //open(content)
+
+    console.log("add unit clciekd.")
+
     if (this.checkValidUser()) {
       this.spinner.show();
       let unitData = this.unitData
@@ -289,6 +306,8 @@ export class BuyerUnitDetailsComponent implements OnInit {
     }
   }
   async UpdateUnit(content: any) {
+    console.log("UpdateUnit unit clciekd.")
+
     if (this.checkValidUser()) {
       let obj = {
         deletedImages: Array.isArray(this.appServiceService.deletedImages$.value) && this.appServiceService.deletedImages$.value.length > 0 ? this.appServiceService.deletedImages$.value : [''],
@@ -415,19 +434,36 @@ export class BuyerUnitDetailsComponent implements OnInit {
   // }
 
   async requestVisit(content: any) {
-    let data = {
-      'unit_id': this.params.id
+    const user = this.cookieService.get('user')
+
+    if (user) {
+      let data = {
+        'unit_id': this.params.id
+      }
+
+      let request = await this.apiService.requestVisit(data)
+      if (request) {
+        window.dataLayer.push({
+          'event': 'RequestVisitClicked',
+          'user_id': JSON.parse(user).id,
+          'user_name': JSON.parse(user).name,
+          'user_phone': JSON.parse(user).phone,
+        });
+
+        this.evaluator.name = request.data.agent.name
+        this.evaluator.workingHours = request.data.agent.working_hours
+        this.evaluator.avatar = request.data.agent.avatar
+        this.modalService.open(content);
+        // return true
+      }
+    }else{
+      const activeRoute = this.activeRouter.snapshot
+    
+      this.appServiceService.sellerContent$.next(content)
+
+      this.router.navigate(['/login'], { queryParams: { id: activeRoute.queryParams.id, 
+        type: activeRoute.queryParams.type } })
     }
-    let request = await this.apiService.requestVisit(data)
-    if (request) {
-      let agent = request.data.agent
-      this.evaluator.name = agent.name
-      this.evaluator.workingHours = agent.working_hours
-      this.evaluator.avatar = this.BaseUrl + agent.avatars_path + agent.avatar
-      this.open(content)
-      return true
-    }
-    return false
   }
 
   getObjKey(obj: any) {
