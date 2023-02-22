@@ -283,10 +283,6 @@ export class SinglePropertyComponent implements OnInit {
         'unit_id': this.params.id
       }
 
-      console.log("user: ", user)
-
-      console.log("user obj: ", )
-
       let request = await this.apiService.requestVisit(data)
 
 
