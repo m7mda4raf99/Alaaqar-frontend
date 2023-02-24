@@ -75,10 +75,25 @@
                                 </div>
                             </div>
 
+                            <div style="margin-bottom: 20px;">
+                                <div style="display: flex; align-items: center;">
+                                    <p *ngIf="data?.price_to" style="margin: 0px 10px; color: #ff725f;"> {{'propertyDetails.From' | translate}}: </p>
+                                    <p class="price">
+                                        {{numberWithCommas(data?.price ? data.price : '')}} {{'propertyDetails.EGP' | translate}}
+                                    </p>
 
-                            <p class="price">
-                                {{'propertyDetails.EGP' | translate}} {{numberWithCommas(data?.price ? data.price : '')}}
-                            </p>
+                                </div>
+
+                                <div *ngIf="data?.price_to" style="display: flex; align-items: center;">
+                                    <p style="margin: 0px 10px; color: #ff725f;"> {{'propertyDetails.Max Price' | translate}}: </p>
+                                    <p class="price" style="font-size: 20px; font-family: 'Rubik';">
+                                        {{numberWithCommas(data?.price_to ? data.price_to : '')}} {{'propertyDetails.EGP' | translate}} 
+                                    </p>
+
+                                </div>
+
+                            </div>
+                            
                             <div class="location" style="color: #ABABB6;">
                                 <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
                                 {{ print(data) }}

@@ -201,7 +201,12 @@
     },
     "setPriorities":{
         "You can remove or add up to 5 items":"You can remove or add up to 5 items",
-        "Set Priorities":"Set Priorities",
+        "Set Priorities":"Set priorities by al.aaqar electronic advisor",
+        "Set Priorities Button":"Set priorities",
+        "Description": "Simple steps designed professionally and carefully by real estate experts ensure that you enjoy a unique experience in searching for your suitable property, bring you closer to your dreams, and put in front of you the best options for the property you are looking for with ease and accuracy, and the results will be shown to you with a percentage of the appropriate percentage for your choices.",
+        "Hint 1": "SELECT YOUR GEOGRAPHICAL LOCATION AND PROPERTY TYPE",
+        "Hint 2": "IN 3 CONSECUTIVE STEPS, SET YOUR PRIORITIES",
+        "choose compound": "To search for a compound, click here!",
         "Home":"Home",
         "Buy a home":"Buy a home",
         "Set your priorities and drag and drop them from left to right":"Set your priorities and drag and drop them from left to right",
@@ -308,8 +313,9 @@
         "ar Priority":"",
         "Choose Options": "Or choose options",
         "Choose Keywords":"Or search by keywords",
-        "Placeholder": "City, District or Compounds"
-        
+        "Placeholder": "City, District or Compounds",
+        "Text search": "TEXT SEARCH",
+        "Attributes search": "SEARCH WITH ATTRIBUTES"
 
     },
     "propertyDetails":{
@@ -322,6 +328,8 @@
         "Assign to evaluator":"Assign to evaluator",
         "Request a visit":"Request a visit",
         "EGP":"EGP",
+        "From": "From",
+        "Max Price": "To",
         "results match your choices by":"Based on selected Priorities, your results will match your choices by",
         "Results Accuracy": "Results Accuracy",
         "Show more":"Show more"
@@ -401,6 +409,8 @@
     "current_language":"E",
     "no_results":"No Results Found",
     "no_results_text":"We couldn't find what you searched for, Try searching again.",
+    "loading": "LOADING...",
+    "loading_text": "Please wait while the results are being loaded.",
     "no_notification":"You don't have any notifications",
     "sell_rent":"For Sell / Rent",
     "rooms":"rooms",

@@ -71,6 +71,8 @@ export class HomeComponent implements OnInit {
   countries: any = []
   activeCity: number = 1
 
+  quickSearchMargin: any = '0px'
+
   areas = [
     { id: 1, name: "area", disabled: false,units_count:0 }
   ]
@@ -219,11 +221,18 @@ export class HomeComponent implements OnInit {
       this.selected_country = res
     })
     
+    
     this.titleService.setTitle('Alaaqar | Property Finder Online  | Buy And Sell Property In Egypt');
     
     this.metaService.addTags([
       { name: 'description', content: "Alaaqar is a property finder platform online .It's the easiest way to buy, sell, or rent residential or commercial properties. Buy, Sell, or Rent without hassle Online." },
     ]);
+
+    if(window.matchMedia("(min-width: 425px)").matches){
+      this.quickSearchMargin = '0px'
+    }else{
+      this.quickSearchMargin = '20px'
+    }
     
     this.spinner.show()
     
@@ -247,6 +256,7 @@ export class HomeComponent implements OnInit {
     this.getAboutUsHome()
     this.getHomeBlogs()
     this.resetFormData()
+
   }
   
   async setPrice(){
@@ -390,6 +400,23 @@ export class HomeComponent implements OnInit {
   }
 
   print(data:any){
+    // console.log(data)
+  }
+
+  checkDropDown(data: any){
+    console.log("DATA: ", data)
+
+    if(window.matchMedia("(min-width: 425px)").matches){
+      this.quickSearchMargin = '0px'
+    }else{
+      if(data){
+        this.quickSearchMargin = '230px'
+      }else{
+        this.quickSearchMargin = '20px'
+      }
+    }
+
+    // console.log("DATA1: ", data1)
   }
 
   async setupUnitTypesCount() {

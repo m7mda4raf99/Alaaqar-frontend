@@ -7,7 +7,7 @@
             <div class="row justify-content-center">
                 <div class="col-xs-12 col-md-10 ">
                     <p class="title"> {{'setPriorities.Set Priorities' | translate}}</p>
-                    <p class="sm-title"><span class="home-tab" [routerLink]="['/']">{{'setPriorities.Home' | translate}}</span> <span>/ {{'setPriorities.Buy a home' | translate}}</span></p>
+                    <p class="sm-title">{{'setPriorities.Description' | translate}}</p>
                 </div>
             </div>
         </div>
@@ -19,446 +19,462 @@
 
                     <!-- filters  -->
                     <div class="col-xs-12 col-xl-12 filters-list order-1 order-xl-0">
-                        <div class="mt-3 main">
-                            <div class="filters" [ngStyle]="{'background': backgroundFilter, 'pointer-events' : pointerEventsFilter }">
+                        <div style="background-color: #fff; border-radius: 20px; padding: 2% 0%;">
+                            <span style="font-family: cursive; font-weight: bolder; padding: 0px 20px;
+                            display: flex;"> {{'setPriorities.Hint 1' | translate}} </span>
 
-                                <!-- city -->
 
-                                <div class="ngSelect city">
-                                    <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-                                    
-                                    <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
-                                    [settings]="settingsCity"
-                                    (onSelect)="onChangeCity($event)"
-                                    (onDeSelect)="onDeSelectAllCity()"
-                                    (onDeSelectAll)="onDeSelectAllCity()">
-                                    </angular2-multiselect>
-            
-                                    <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-            
-                                </div>
-                                
-                                <div class="separator">
-                                </div>
-                                
-                                <!-- area -->
-
-                                <div *ngIf="selectedItemCity.length > 0" class="ngSelect area">
-                                    <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
-                                    
-                                    <angular2-multiselect [data]="dropdownListArea" [(ngModel)]="selectedItemArea" 
-                                    [settings]="settingsArea"
-                                    (onSelect)="onItemSelectArea($event)"
-                                    (onDeSelect)="onDeSelectAllArea()"
-                                    (onDeSelectAll)="onDeSelectAllArea()">
-                                    </angular2-multiselect>
-            
-                                    <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-            
-                                </div>
-                                
-                                <div *ngIf="selectedItemCity.length > 0" class="separator">
-                                </div>
-                                
-                                <!-- compound -->
-                                <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
-                                    <div class="title" >
-                                        <input style="cursor: pointer;"
-                                        class="checkbox"
-                                        type="checkbox"
-                                        [checked]="checkboxVar"
-                                        (change)="changedCheckBox()"/>
-                                        <p [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
-
-                                    </div>
+                            <div class="mt-3 main">
+                                <div class="filters" [ngStyle]="{'background': backgroundFilter, 'pointer-events' : pointerEventsFilter }">
+    
+                                    <!-- city -->
+    
+                                    <div class="ngSelect city">
+                                        <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
+                                        
+                                        <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
+                                        [settings]="settingsCity"
+                                        (onSelect)="onChangeCity($event)"
+                                        (onDeSelect)="onDeSelectAllCity()"
+                                        (onDeSelectAll)="onDeSelectAllCity()">
+                                        </angular2-multiselect>
                 
-                                    <div class="dropdown" 
-                                    [ngStyle]="{'margin-top': margin_top, 'margin-bottom': margin_bottom}">
-                                        {{ setCompoundLocationNeigbhorhoodDropdown() }}
-                                        <div class="multiselect" [ngStyle]="{'pointer-events': pointerEventsCompound, 'display': displayCompound }" >
-                                            <angular2-multiselect 
-                                                [data]="dropdownListCompound" 
-                                                [(ngModel)]="selectedItemCompound" 
-                                                [settings]="settingsCompound"
-                                                (onSelect)="onItemSelectCompound($event)"
-                                                (onDeSelect) =onItemDeSelectCompound()
-                                                (onDeSelectAll)="onItemDeSelectCompound()">
-                                            </angular2-multiselect>
-                        
+                                        <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                
+                                    </div>
+                                    
+                                    <div class="separator">
+                                    </div>
+                                    
+                                    <!-- area -->
+    
+                                    <div *ngIf="selectedItemCity.length > 0" class="ngSelect area">
+                                        <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+                                        
+                                        <angular2-multiselect [data]="dropdownListArea" [(ngModel)]="selectedItemArea" 
+                                        [settings]="settingsArea"
+                                        (onSelect)="onItemSelectArea($event)"
+                                        (onDeSelect)="onDeSelectAllArea()"
+                                        (onDeSelectAll)="onDeSelectAllArea()">
+                                        </angular2-multiselect>
+                
+                                        <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                
+                                    </div>
+                                    
+                                    <div *ngIf="selectedItemCity.length > 0" class="separator">
+                                    </div>
+                                    
+                                    <!-- compound -->
+                                    <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" 
+                                        class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
+                                        <div class="title" >
+                                            <input style="cursor: pointer;"
+                                            class="checkbox"
+                                            type="checkbox"
+                                            [checked]="checkboxVar"
+                                            (change)="changedCheckBox()"/>
+                                            <p [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
+    
                                         </div>
                     
-                                        <span *ngIf="selectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-                    
-                
-                                    </div>
-                
-                                </div>
-
-                                <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" class="separator">
-                                </div>
-
-                                <!-- location -->
-                                <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
-                                                                            'background': backgroundLocation }">
-                                    <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
-                                    
-                                        <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
-                                        [settings]="settingsLocation"
-                                        (onSelect)="onItemSelectLocation($event)"
-                                        (onDeSelect)="onDeSelectAllLocation()"
-                                        (onDeSelectAll)="onDeSelectAllLocation()">
-                                        </angular2-multiselect>
-            
-                                    <span *ngIf="selectedLocationNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-            
-                                </div>
-
-                                <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="separator">
-                                </div>
-
-                                <!-- neighborhood -->
-                                <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
-                                    <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                                        <angular2-multiselect 
-                                            [data]="dropdownListNeighborhood" 
-                                            [(ngModel)]="selectedItemNeighborhood" 
-                                            [settings]="settingsNeigbhorhood"
-                                            (onSelect)="onItemSelectNeighborhood($event)"
-                                            (onDeSelect) =onItemDeSelectNeighborhood($event)
-                                            (onDeSelectAll) =onItemDeSelectNeighborhood($event)>
-                                        </angular2-multiselect>
-            
-                                </div>
-
-                                <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="separator">
-                                </div>
-
-                                <!-- unit type -->
-
-                                <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="ngSelect realState">
-                                    <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
-                                    
-                                    <angular2-multiselect [data]="dropdownListRealstateType" 
-                                        [(ngModel)]="selectedItemRealstateType" 
-                                        [settings]="settingsUnitType"
-                                        (onSelect)="onItemSelectUnitType($event)">
-                                    </angular2-multiselect>
-            
-                                    <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
-                                        translate}}</span>
-                                </div>
-
-                                <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="separator">
-                                </div>
-                                
-                                <!-- price range -->
-                                <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="ngSelect priceRange">
-                                    <div class="dropdown" ngbDropdown>
-                                        <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
-                                        <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
-                                            class="btn dropdown-toggle setPriceBtn ngSelect-input"
-                                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                                            {{setPricePlaceHolder()}}
-            
-                                            <fa-icon style="position: initial; color: #aaaaaa"  [icon]="faChevronDown"></fa-icon>
-            
-                                        </button>
-            
-                                        <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                                            (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
-                                            
-                                            <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
-                    
-                                            </app-price-range-slider> -->
-                    
-                                            <div id="price_range">
-                                                <div id="Price_range_q">
-                                                    {{'home.Price range' | translate}}
-                                                </div>
-                    
-                                                <div style="display: flex;">
-                                                    <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
-                    
-                                                    <div id="Price_range_hint">
-                                                        {{'home.Price range hint' | translate}} {{ minPriceText }}: {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
-                                                    </div>
-                                                </div>
-                    
-                                                <div id="slider">
-                                                    <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                                                    (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)"></ngx-slider>
-                                                </div>
-                    
-                                                <div id="textboxes">
-                          
-                                                    <div id="from">
-                                                        {{activeLang === 'en' ? 'From' : 'من'}}
+                                        <div class="dropdown" 
+                                        [ngStyle]="{'margin-top': margin_top, 'margin-bottom': margin_bottom}">
+                                            {{ setCompoundLocationNeigbhorhoodDropdown() }}
+                                            <div class="multiselect" [ngStyle]="{'pointer-events': pointerEventsCompound, 'display': displayCompound }" >
+                                                <angular2-multiselect 
+                                                    [data]="dropdownListCompound" 
+                                                    [(ngModel)]="selectedItemCompound" 
+                                                    [settings]="settingsCompound"
+                                                    (onSelect)="onItemSelectCompound($event)"
+                                                    (onDeSelect) =onItemDeSelectCompound()
+                                                    (onDeSelectAll)="onItemDeSelectCompound()">
+                                                </angular2-multiselect>
                             
-                                                        <div id="fromTextbox">
-                                                  
-                                                            <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
-                                                            placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                                            [allowNegative]="false" type="text"
-                                                            (keyup)="userChangeMin(false)"/>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div id="to">
-                                                        {{activeLang === 'en' ? 'To' : 'إلى'}}
-                                                      
-                                                        <div id="fromTextbox">
-                                                  
-                                                            <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
-                                                            placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                                            [allowNegative]="false" type="text"
-                                                            (keyup)="userChangeMax(false)"/>
-                                                        </div>
-                                                    </div>
-                                                
-                                                  </div>
-                    
                                             </div>
-                                          
-                                        </ul>
+                        
+                                            <span *ngIf="selectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                                            
+                                            <span (click)="changedCheckBox()" class="hint" *ngIf="!checkboxVar">{{'setPriorities.choose compound' | translate}}</span>
+
+                    
+                                        </div>
                     
                                     </div>
+    
+                                    <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" class="separator">
+                                    </div>
+    
+                                    <!-- location -->
+                                    <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
+                                                                                'background': backgroundLocation }">
+                                        <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
+                                        
+                                            <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
+                                            [settings]="settingsLocation"
+                                            (onSelect)="onItemSelectLocation($event)"
+                                            (onDeSelect)="onDeSelectAllLocation()"
+                                            (onDeSelectAll)="onDeSelectAllLocation()">
+                                            </angular2-multiselect>
+                
+                                        <span *ngIf="selectedLocationNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                
+                                    </div>
+    
+                                    <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="separator">
+                                    </div>
+    
+                                    <!-- neighborhood -->
+                                    <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
+                                        <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                                            <angular2-multiselect 
+                                                [data]="dropdownListNeighborhood" 
+                                                [(ngModel)]="selectedItemNeighborhood" 
+                                                [settings]="settingsNeigbhorhood"
+                                                (onSelect)="onItemSelectNeighborhood($event)"
+                                                (onDeSelect) =onItemDeSelectNeighborhood($event)
+                                                (onDeSelectAll) =onItemDeSelectNeighborhood($event)>
+                                            </angular2-multiselect>
+                
+                                    </div>
+    
+                                    <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="separator">
+                                    </div>
+    
+                                    <!-- unit type -->
+    
+                                    <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="ngSelect realState">
+                                        <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+                                        
+                                        <angular2-multiselect [data]="dropdownListRealstateType" 
+                                            [(ngModel)]="selectedItemRealstateType" 
+                                            [settings]="settingsUnitType"
+                                            (onSelect)="onItemSelectUnitType($event)">
+                                        </angular2-multiselect>
+                
+                                        <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
+                                            translate}}</span>
+                                    </div>
+    
+                                    <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="separator">
+                                    </div>
                                     
+                                    <!-- price range -->
+                                    <div *ngIf="selectedItemCompound.length > 0 || selectedItemLocation.length > 0" class="ngSelect priceRange">
+                                        <div class="dropdown" ngbDropdown>
+                                            <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
+                                            <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
+                                                class="btn dropdown-toggle setPriceBtn ngSelect-input"
+                                                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                                {{setPricePlaceHolder()}}
+                
+                                                <fa-icon style="position: initial; color: #aaaaaa"  [icon]="faChevronDown"></fa-icon>
+                
+                                            </button>
+                
+                                            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                                                (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
+                                                
+                                                <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
+                        
+                                                </app-price-range-slider> -->
+                        
+                                                <div id="price_range">
+                                                    <div id="Price_range_q">
+                                                        {{'home.Price range' | translate}}
+                                                    </div>
+                        
+                                                    <div style="display: flex;">
+                                                        <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
+                        
+                                                        <div id="Price_range_hint">
+                                                            {{'home.Price range hint' | translate}} {{ minPriceText }}: {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div id="slider">
+                                                        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                                                        (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)"></ngx-slider>
+                                                    </div>
+                        
+                                                    <div id="textboxes">
+                              
+                                                        <div id="from">
+                                                            {{activeLang === 'en' ? 'From' : 'من'}}
+                                
+                                                            <div id="fromTextbox">
+                                                      
+                                                                <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
+                                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                                [allowNegative]="false" type="text"
+                                                                (keyup)="userChangeMin(false)"/>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div id="to">
+                                                            {{activeLang === 'en' ? 'To' : 'إلى'}}
+                                                          
+                                                            <div id="fromTextbox">
+                                                      
+                                                                <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
+                                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                                [allowNegative]="false" type="text"
+                                                                (keyup)="userChangeMax(false)"/>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                      </div>
+                        
+                                                </div>
+                                              
+                                            </ul>
+                        
+                                        </div>
+                                        
+                                    </div>
+    
                                 </div>
-
+    
+                                <div class="confirm"> 
+                                    <button #apply *ngIf="!isConfirmed" 
+                                        (click)="SetSearchModelValues(apply)"
+                                        class="btn button-success" style="width: 100%;">{{'button.actions.Confirm' |
+                                        translate}}
+                                    </button>
+    
+                                    <button (click)="edit()" *ngIf="isConfirmed"
+                                        class="btn button-success" style="width: 100%; background: #e6e6e6; color: black;">{{'setPriorities.Edit' |
+                                        translate}}
+                                    </button>
+    
+                                </div>
                             </div>
 
-                            <div class="confirm"> 
-                                <button #apply *ngIf="!isConfirmed" 
-                                    (click)="SetSearchModelValues(apply)"
-                                    class="btn button-success" style="width: 100%;">{{'button.actions.Confirm' |
-                                    translate}}
-                                </button>
-
-                                <button (click)="edit()" *ngIf="isConfirmed"
-                                    class="btn button-success" style="width: 100%; background: #e6e6e6; color: black;">{{'setPriorities.Edit' |
-                                    translate}}
-                                </button>
-
-                            </div>
                         </div>
                     </div>
                     <!-- priorites-list -->
                     <div class="col-xs-12 col-xl-12 priorites-list order-1 order-xl-0" id="confirm">
-                        <div class="mt-3 main">
+                        <div style="background-color: #fff; border-radius: 20px; padding: 2% 0%;">
 
-                            <!-- --------------------high------------------ -->
+                            <span style="font-family: cursive; font-weight: bolder; padding: 0px 20px;
+                            display: flex;"> {{'setPriorities.Hint 2' | translate}} </span>
 
-                            <!-- high priority header  -->
-                            <div style="display: flex;
-                            justify-content: space-between;
-                            margin: 0% 5%;
-                            align-items: baseline;">
-                                <div>
-                                    <p class="priority-header high">{{'setPriorities.High priority' | translate}}</p>
-                                    <p>{{'setPriorities.Select High priority' | translate}}</p>
+                            <div class="mt-3 main" style="margin: 0px !important;">
+
+                                <!-- --------------------high------------------ -->
+
+                                <!-- high priority header  -->
+                                <div style="display: flex;
+                                justify-content: space-between;
+                                margin: 0% 5%;
+                                align-items: baseline;">
+                                    <div>
+                                        <p class="priority-header high">{{'setPriorities.High priority' | translate}}</p>
+                                        <p>{{'setPriorities.Select High priority' | translate}}</p>
+                                    </div>
+
+                                    <div>
+                                        <button *ngIf="activeTab === 1" [disabled]='isDoneDimmed(1)' class="btn done" (click)="onClickDone(1); ">{{'setPriorities.Done' | translate}}</button>
+                                        <button *ngIf="activeTab != 1" class="btn edit" (click)="onClickEdit(1)">{{'setPriorities.Edit' | translate}}</button>
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <button *ngIf="activeTab === 1" [disabled]='isDoneDimmed(1)' class="btn done" (click)="onClickDone(1); ">{{'setPriorities.Done' | translate}}</button>
-                                    <button *ngIf="activeTab != 1" class="btn edit" (click)="onClickEdit(1)">{{'setPriorities.Edit' | translate}}</button>
-                                </div>
-                            </div>
-
-                            <!-- high priorites -->
-                            <div *ngIf="activeTab === 1" class="row margin_all">
-                                <!-- [class.selected]="item.selected === true" -->
-                                <div class="mt-3 custom-element" *ngFor="let item of getCriterias(1)">
-                                    
-                                    <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 1'>
-                                        <div class="insert">
-                                            <!-- <fa-icon [icon]="faCheckSquare"></fa-icon> -->
-                                            <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
-                                        </div>
+                                <!-- high priorites -->
+                                <div *ngIf="activeTab === 1" class="row margin_all">
+                                    <!-- [class.selected]="item.selected === true" -->
+                                    <div class="mt-3 custom-element" *ngFor="let item of getCriterias(1)">
                                         
-                                        <span class="icon">
-                                            <!-- *ngIf='item.selected === false' -->
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{activeLang === 'en' ?  item.name_en :  item.name_ar}}
-                                        </span>
-                                    </div>
-
-                                    <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 1'>
-                                        <div class="delete">
-                                            <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
+                                        <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 1'>
+                                            <div class="insert">
+                                                <!-- <fa-icon [icon]="faCheckSquare"></fa-icon> -->
+                                                <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
+                                            </div>
+                                            
+                                            <span class="icon">
+                                                <!-- *ngIf='item.selected === false' -->
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{activeLang === 'en' ?  item.name_en :  item.name_ar}}
+                                            </span>
                                         </div>
 
-                                        <span class="icon">
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{ activeLang === 'en' ? item.name_en : item.name_ar}}
-                                        </span>
+                                        <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 1'>
+                                            <div class="delete">
+                                                <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
+                                            </div>
+
+                                            <span class="icon">
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{ activeLang === 'en' ? item.name_en : item.name_ar}}
+                                            </span>
+                                        </div>
                                     </div>
+
                                 </div>
 
-                            </div>
-
-                            <div *ngIf="activeTab != 1" class="margin_all">
-                                <!-- {{ scroll(mid) }} -->
-                                <div class="margin_item" *ngFor="let item of prioritiesList['1']">
-                        
-                                    <div class="box preview">
-                                        <span class="icon">
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{ activeLang === 'en' ? item.name_en : item.name_ar}}
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
+                                <div *ngIf="activeTab != 1" class="margin_all">
+                                    <!-- {{ scroll(mid) }} -->
+                                    <div class="margin_item" *ngFor="let item of prioritiesList['1']">
                             
-                            <!-- --------------------medium------------------ -->
-
-                            <!-- medium priority header  -->
-                            <div style="display: flex;
-                            justify-content: space-between;
-                            margin: 0% 5%;
-                            align-items: baseline;">
-                                <div>
-                                    <p class="priority-header medium">{{'setPriorities.Medium priority' | translate}}</p>
-                                    <p>{{'setPriorities.Select Medium priority' | translate}}</p>
-                                </div>
-
-                                <div>
-                                    <button *ngIf="activeTab === 2 || isEmpty(2)" [disabled]='isDoneDimmed(2)' class="btn done" (click)="onClickDone(2)">{{'setPriorities.Done' | translate}}</button>
-                                    <button *ngIf="activeTab != 2  && !isEmpty(2)" class="btn edit" (click)="onClickEdit(2)">{{'setPriorities.Edit' | translate}}</button>
-                                </div>
-                            </div>
-
-                            <!-- medium priorites -->
-                            <div *ngIf="activeTab === 2" class="row margin_all">
-                                <!-- [class.selected]="item.selected === true" -->
-                                <div class="mt-3 custom-element" *ngFor="let item of getCriterias(2)">
-                                    
-                                    <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 2'>
-                                        <div class="insert">
-                                            <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
+                                        <div class="box preview">
+                                            <span class="icon">
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{ activeLang === 'en' ? item.name_en : item.name_ar}}
+                                            </span>
                                         </div>
+                                    </div>
+
+                                </div>
+                                
+                                <!-- --------------------medium------------------ -->
+
+                                <!-- medium priority header  -->
+                                <div style="display: flex;
+                                justify-content: space-between;
+                                margin: 0% 5%;
+                                align-items: baseline;">
+                                    <div>
+                                        <p class="priority-header medium">{{'setPriorities.Medium priority' | translate}}</p>
+                                        <p>{{'setPriorities.Select Medium priority' | translate}}</p>
+                                    </div>
+
+                                    <div>
+                                        <button *ngIf="activeTab === 2 || isEmpty(2)" [disabled]='isDoneDimmed(2)' class="btn done" (click)="onClickDone(2)">{{'setPriorities.Done' | translate}}</button>
+                                        <button *ngIf="activeTab != 2  && !isEmpty(2)" class="btn edit" (click)="onClickEdit(2)">{{'setPriorities.Edit' | translate}}</button>
+                                    </div>
+                                </div>
+
+                                <!-- medium priorites -->
+                                <div *ngIf="activeTab === 2" class="row margin_all">
+                                    <!-- [class.selected]="item.selected === true" -->
+                                    <div class="mt-3 custom-element" *ngFor="let item of getCriterias(2)">
                                         
-                                        <span class="icon">
-                                            <!-- *ngIf='item.selected === false' -->
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{activeLang === 'en' ?  item.name_en :  item.name_ar}}
-                                        </span>
-                                    </div>
-
-                                    <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 2'>
-                                        <div class="delete">
-                                            <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
+                                        <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 2'>
+                                            <div class="insert">
+                                                <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
+                                            </div>
+                                            
+                                            <span class="icon">
+                                                <!-- *ngIf='item.selected === false' -->
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{activeLang === 'en' ?  item.name_en :  item.name_ar}}
+                                            </span>
                                         </div>
 
-                                        <span class="icon">
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{ activeLang === 'en' ? item.name_en : item.name_ar}}
-                                        </span>
-                                    </div>
-                                </div>
+                                        <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 2'>
+                                            <div class="delete">
+                                                <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
+                                            </div>
 
-                            </div>
-
-                            <div *ngIf="activeTab != 2" class="margin_all">
-                                <div class="margin_item" *ngFor="let item of prioritiesList['2']">
-                        
-                                    <div class="box preview">
-                                        <span class="icon">
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{ activeLang === 'en' ? item.name_en : item.name_ar}}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- --------------------low------------------ -->
-
-                           <!-- low priority header  -->
-                            <div style="display: flex;
-                            justify-content: space-between;
-                            margin: 0% 5%;
-                            align-items: baseline;">
-                                <div>
-                                    <p class="priority-header low">{{'setPriorities.Low priority' | translate}}</p>
-                                    <p>{{'setPriorities.Select Low priority' | translate}}</p>
-                                </div>
-
-                                <div>
-                                    <button *ngIf="activeTab === 3 || isEmpty(3)" [disabled]='isDoneDimmed(3)' class="btn done" (click)="onClickDone(3)">{{'setPriorities.Done' | translate}}</button>
-                                    <button *ngIf="activeTab != 3  && !isEmpty(3)" class="btn edit" (click)="onClickEdit(3)">{{'setPriorities.Edit' | translate}}</button>
-
-                                </div>
-                            </div>
-
-                           <!-- low priorites -->
-                            <div *ngIf="activeTab === 3" class="row margin_all">
-                                <!-- [class.selected]="item.selected === true" -->
-                                <div class="mt-3 custom-element" *ngFor="let item of getCriterias(3)">
-                                    
-                                    <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 3'>
-                                        <div class="insert">
-                                            <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
-
+                                            <span class="icon">
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{ activeLang === 'en' ? item.name_en : item.name_ar}}
+                                            </span>
                                         </div>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="activeTab != 2" class="margin_all">
+                                    <div class="margin_item" *ngFor="let item of prioritiesList['2']">
+                            
+                                        <div class="box preview">
+                                            <span class="icon">
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{ activeLang === 'en' ? item.name_en : item.name_ar}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- --------------------low------------------ -->
+
+                            <!-- low priority header  -->
+                                <div style="display: flex;
+                                justify-content: space-between;
+                                margin: 0% 5%;
+                                align-items: baseline;">
+                                    <div>
+                                        <p class="priority-header low">{{'setPriorities.Low priority' | translate}}</p>
+                                        <p>{{'setPriorities.Select Low priority' | translate}}</p>
+                                    </div>
+
+                                    <div>
+                                        <button *ngIf="activeTab === 3 || isEmpty(3)" [disabled]='isDoneDimmed(3)' class="btn done" (click)="onClickDone(3)">{{'setPriorities.Done' | translate}}</button>
+                                        <button *ngIf="activeTab != 3  && !isEmpty(3)" class="btn edit" (click)="onClickEdit(3)">{{'setPriorities.Edit' | translate}}</button>
+
+                                    </div>
+                                </div>
+
+                            <!-- low priorites -->
+                                <div *ngIf="activeTab === 3" class="row margin_all">
+                                    <!-- [class.selected]="item.selected === true" -->
+                                    <div class="mt-3 custom-element" *ngFor="let item of getCriterias(3)">
                                         
-                                        <span class="icon">
-                                            <!-- *ngIf='item.selected === false' -->
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{activeLang === 'en' ?  item.name_en :  item.name_ar}}
-                                        </span>
-                                    </div>
+                                        <div class="box notClicked" (click)="selectItem(item)" *ngIf='item.selectedPriority != 3'>
+                                            <div class="insert">
+                                                <img class="toggle" src="../../../../assets/images/not_checked.png" alt="..." />
 
-                                    <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 3'>
-                                        <div class="delete">
-                                            <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
+                                            </div>
+                                            
+                                            <span class="icon">
+                                                <!-- *ngIf='item.selected === false' -->
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{activeLang === 'en' ?  item.name_en :  item.name_ar}}
+                                            </span>
                                         </div>
 
-                                        <span class="icon">
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{ activeLang === 'en' ? item.name_en : item.name_ar}}
-                                        </span>
+                                        <div class="box clicked" (click)="deSelectItem(item)" *ngIf='item.selectedPriority === 3'>
+                                            <div class="delete">
+                                                <img class="toggle" src="../../../../assets/images/checked.png" alt="..." />
+                                            </div>
+
+                                            <span class="icon">
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{ activeLang === 'en' ? item.name_en : item.name_ar}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="activeTab != 3" class="margin_all">
+                                    <div class="margin_item" *ngFor="let item of prioritiesList['3']">
+                            
+                                        <div class="box preview">
+                                            <span class="icon">
+                                                <img  src="{{baseUrl + item.icon}}" alt="..."/>
+                                            </span>
+                                            <span class="text">
+                                                {{ activeLang === 'en' ? item.name_en : item.name_ar}}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
-
-                            <div *ngIf="activeTab != 3" class="margin_all">
-                                <div class="margin_item" *ngFor="let item of prioritiesList['3']">
-                        
-                                    <div class="box preview">
-                                        <span class="icon">
-                                            <img  src="{{baseUrl + item.icon}}" alt="..."/>
-                                        </span>
-                                        <span class="text">
-                                            {{ activeLang === 'en' ? item.name_en : item.name_ar}}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
                     <div style="display: flex; justify-content: end; ">
                         <div class="responsive">
-                            <button [disabled]='validateNext()' style="display: block;max-width: 100%;width: 100%;" class="btn button-success more" (click)="doSearch()">{{'setPriorities.Set Priorities' | translate}}</button>
+                            <button [disabled]='validateNext()' style="display: block;max-width: 100%;width: 100%;" class="btn button-success more" (click)="doSearch()">{{'setPriorities.Set Priorities Button' | translate}}</button>
 
                         </div>
                     </div>

@@ -98,12 +98,12 @@ export class SinglePropertyComponent implements OnInit {
         // console.log("activeRoute:", activeRoute.queryParams.id.length)
         const data = await this.getPublicPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
-        // console.log("data1: ", data)
+        console.log("data1: ", this.data)
       } else {
         this.isPublic = false
         const data = await this.getPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
-        // console.log("data2: ", this.data)
+        console.log("data2: ", this.data)
       }
     }
     this.sliderTags = []

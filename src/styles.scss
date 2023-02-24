@@ -1076,7 +1076,7 @@ a{
 
 // buy, rent, sell, rental components
 .home .first-sec .search-sec .ngSelect.priceRange{
-        min-width: 17% !important;
+        min-width: 20% !important;
 }
 
 .home .first-sec .search-sec .ngSelect.main{
@@ -1299,12 +1299,22 @@ span.dropdown-multiselect--active{
     box-shadow: 0 10px 6px #59595919 !important;
 }
 
-.ng-autocomplete {
-    width: 100%!important;
-    
-    // @media (max-width: 425px) {
-    //     width: 100% !important;
-    // }
+.ltr{
+    .ng-autocomplete {
+        width: 100%!important;
+        
+        // @media (max-width: 425px) {
+        //     width: 100% !important;
+        // }
+        margin-right: 15px;
+    }
+}
+
+.rtl{
+    .ng-autocomplete {
+        width: 100%!important;
+        margin-left: 15px;
+    }
 }
 
 .ng-select .ng-select-container .ng-value-container .ng-input>input {

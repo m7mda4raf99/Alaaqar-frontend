@@ -24,6 +24,8 @@ export class ResultsComponent implements OnInit {
   params = this.activatedRoute.snapshot.queryParams
   activeLang: any = ''
   results = []
+  isLoading: boolean = true;
+
   constructor(
     private router: Router,
     private notificationsService: NotificationsService,
@@ -36,6 +38,8 @@ export class ResultsComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.isLoading = true;
+
     if (this.params.id) {
       this.spinner.show()
       let body = {
@@ -49,7 +53,8 @@ export class ResultsComponent implements OnInit {
       }
       this.spinner.hide()
       this.results = results.data
-      console.log("results",this.results)
+      // console.log("results",this.results)
+      this.isLoading = false;
 
     } else {
       this.router.navigate(['/home'])
@@ -162,5 +167,9 @@ export class ResultsComponent implements OnInit {
   }
   setDate(date: any){
     return "Listed on " + date.substring(0, 10)
+  }
+
+  print(data: any){
+    console.log(data)
   }
 }

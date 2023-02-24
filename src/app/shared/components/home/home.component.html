@@ -562,150 +562,160 @@
         <ng-template #buyRent let-type="type">
             <div class="options">
                 <div class="all-options">
-                    <div class="ng-autocomplete search_bar">
-                        <!-- [notFoundTemplate]="notFoundTemplate" -->
-                        <ng-autocomplete 
-                        [data]="autoComplete"
-                        [searchKeyword]="keyword"
-                        placeholder="{{'buy.Placeholder' | translate}}"
-                        (selected)='selectEvent($event)'
-                        (inputChanged)='onChangeSearch($event)'
-                        (inputFocused)='onFocused($event)'
-                        [itemTemplate]="itemTemplate"
-                        [debounceTime]="200"
-                        [focusFirst]="true">                                 
-                        </ng-autocomplete>
-                        
-                        <ng-template #itemTemplate let-item>
-                        <a [innerHTML]="item.name"></a>
-                        </ng-template>
-                        
-                        <!-- <ng-template #notFoundTemplate let-notFound>
-                        <div [innerHTML]="notFound"></div>
-                        </ng-template> -->
+                    <div class="text_search">
+                        <span style="font-family: cursive; font-weight: bolder;"> {{'buy.Text search' | translate}} </span>
 
-                        <div class="buttons">
-                            <button (click)="searchKeyword()"
-                                class="btn button-bordered search_button">
-                                <fa-icon [icon]="faSearch"></fa-icon>
-                            </button>
+                        <div style="display: flex; align-items: center; margin-top: 10px;">
+
+                            <ng-autocomplete 
+                            [data]="autoComplete"
+                            [searchKeyword]="keyword"
+                            placeholder="{{'buy.Placeholder' | translate}}"
+                            (selected)='selectEvent($event)'
+                            (inputChanged)='onChangeSearch($event)'
+                            (inputFocused)='onFocused($event)'
+                            [itemTemplate]="itemTemplate"
+                            [debounceTime]="200"
+                            [focusFirst]="true">                                 
+                            </ng-autocomplete>
+                            
+                            <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.name"></a>
+                            </ng-template>
+                            
+                            <!-- <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                            </ng-template> -->
+
+                            <div class="buttons">
+                                <button (click)="searchKeyword()"
+                                    class="btn button-bordered search_button">
+                                    <fa-icon [icon]="faSearch"></fa-icon>
+                                </button>
+                                
+                            </div>
                             
                         </div>
+
                     </div>
 
-                    <div class="ngSelect city">
-                        <angular2-multiselect [data]="dropdownListAreaNew" 
-                            [(ngModel)]="selectedItemAreaNew" 
-                            [settings]="settingsAreaNew" 
-                            (onSelect)="onItemSelectAreaNeW($event)" (onDeSelect) =onItemDeSelectArea($event)
-                            (onDeSelectAll)="onDeSelectAllArea()"
-                            >
-                        </angular2-multiselect>
-        
-                        <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-                    </div>
-            
-                    <div class="ngSelect realState">                
-                        <angular2-multiselect [data]="dropdownListRealNew" [(ngModel)]="selectedItemRealNew" 
-                            [settings]="settingsRealNew"
-                            (onSelect)="onItemSelectRealNeW($event)">
-                        </angular2-multiselect>
+                    <div class="text_attributes">
+                        <span style="font-family: cursive; font-weight: bolder;"> {{'buy.Attributes search' | translate}} </span>
 
-
-                        <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
-                            translate}}</span>
-                    </div>
-        
-                    <div class="ngSelect priceRange">
-                        <div class="dropdown" ngbDropdown>
-                            <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
-                                class="btn dropdown-toggle setPriceBtn ngSelect-input"
-                                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                style="display: flex; justify-content: space-between; align-items: center; width: 100%;
-                                color: #2c2c2c; font-size: .85rem; height: 39px;">
-                                {{setPricePlaceHolder()}}
-
-                                <fa-icon style="position: initial; color: #aaaaaa"  [icon]="faChevronDown"></fa-icon>
-
-                            </button>
-
-                            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                                (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
-                                
-                                <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
-        
-                                </app-price-range-slider> -->
-        
-                                <div id="price_range">
-                                    <div id="Price_range_q">
-                                        {{'home.Price range' | translate}}
-                                    </div>
-        
-                                    <div style="display: flex;">
-                                        <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
-        
-                                        <div id="Price_range_hint">
-                                            {{'home.Price range hint' | translate}} {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
-                                        </div>
-                                    </div>
-        
-                                    <div id="slider">
-                                        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                                        (userChange)="userChangeMin(true); userChangeMax(true);"
-                                        ></ngx-slider>
-
-                                        <!-- (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)" -->
-
-                                    </div>
-        
-                                    <div id="textboxes">
-              
-                                        <div id="from">
-                                            {{lang === 'en' ? 'From' : 'من'}}
+                        <div class="attributes">
+                            <div class="ngSelect city">
+                                <angular2-multiselect [data]="dropdownListAreaNew" 
+                                    [(ngModel)]="selectedItemAreaNew" 
+                                    [settings]="settingsAreaNew" 
+                                    (onSelect)="onItemSelectAreaNeW($event)" (onDeSelect) =onItemDeSelectArea($event)
+                                    (onDeSelectAll)="onDeSelectAllArea()"
+                                    >
+                                </angular2-multiselect>
                 
-                                            <div id="fromTextbox">
-                                      
-                                                <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
-                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                                [allowNegative]="false" type="text"
-                                                (change)="userChangeMin(false)"/>
-                                            </div>
-                                        </div>
+                                <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                            </div>
+                    
+                            <div class="ngSelect realState">                
+                                <angular2-multiselect [data]="dropdownListRealNew" [(ngModel)]="selectedItemRealNew" 
+                                    [settings]="settingsRealNew"
+                                    (onSelect)="onItemSelectRealNeW($event)">
+                                </angular2-multiselect>
+        
+        
+                                <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
+                                    translate}}</span>
+                            </div>
+                
+                            <div class="ngSelect priceRange">
+                                <div class="dropdown" ngbDropdown (openChange)="checkDropDown($event)">
+                                    <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
+                                        class="btn dropdown-toggle setPriceBtn ngSelect-input"
+                                        type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                                        style="display: flex; justify-content: space-between; align-items: center; width: 100%;
+                                        color: #2c2c2c; font-size: .85rem; height: 39px;">
+                                        {{setPricePlaceHolder()}}
+        
+                                        <fa-icon style="position: initial; color: #aaaaaa"  [icon]="faChevronDown"></fa-icon>
+        
+                                    </button>
+        
+                                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                                        (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 15px, 0px);">
                                         
-                                        <div id="to">
-                                            {{lang === 'en' ? 'To' : 'إلى'}}
-                                          
-                                            <div id="fromTextbox">
-                                      
-                                                <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
-                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                                [allowNegative]="false" type="text"
-                                                (keyup)="userChangeMax(false)"/>
+                                        <div id="price_range">
+                                            <div id="Price_range_q">
+                                                {{'home.Price range' | translate}}
                                             </div>
+                
+                                            <div style="display: flex;">
+                                                <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
+                
+                                                <div id="Price_range_hint">
+                                                    {{'home.Price range hint' | translate}} {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
+                                                </div>
+                                            </div>
+                
+                                            <div id="slider">
+                                                <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                                                (userChange)="userChangeMin(true); userChangeMax(true);"
+                                                ></ngx-slider>
+        
+                                                <!-- (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)" -->
+        
+                                            </div>
+                
+                                            <div id="textboxes">
+                      
+                                                <div id="from">
+                                                    {{lang === 'en' ? 'From' : 'من'}}
+                        
+                                                    <div id="fromTextbox">
+                                              
+                                                        <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
+                                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                        [allowNegative]="false" type="text"
+                                                        (change)="userChangeMin(false)"/>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div id="to">
+                                                    {{lang === 'en' ? 'To' : 'إلى'}}
+                                                  
+                                                    <div id="fromTextbox">
+                                              
+                                                        <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
+                                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                        [allowNegative]="false" type="text"
+                                                        (keyup)="userChangeMax(false)"/>
+                                                    </div>
+                                                </div>
+                                            
+                                              </div>
+                
                                         </div>
-                                    
-                                      </div>
-        
+                                      
+                                    </ul>
+                
                                 </div>
-                              
-                            </ul>
-        
-                        </div>
-                        
-                    </div>
-                </div>
+                                
+                            </div>
 
-                <div class="ngSelect compound">
-                    <div class="buttons" style="width: 100%;">
-                        <button (click)="search()"
-                            class="btn button-success applyBtn button-bordered">{{'search_button' |
-                            translate}}
-                        </button>
-                        
-                    </div>
-
-                </div>
+                            <div class="ngSelect compound" [ngStyle]="{'margin-top': quickSearchMargin}">
+                                <div class="buttons" style="width: 100%; margin: 0px 15px;">
+                                    <button (click)="search()"
+                                        class="btn button-success applyBtn button-bordered">{{'search_button' |
+                                        translate}}
+                                    </button>
+                                    
+                                </div>
+            
+                            </div>
     
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
             <div class="ngSelect actions">
