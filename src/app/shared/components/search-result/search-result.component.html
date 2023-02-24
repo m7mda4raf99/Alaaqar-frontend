@@ -261,11 +261,23 @@
             </div>
            
            
-            <div *ngIf="results.length == 0">
+            <div *ngIf="results.length == 0 && isLoading">
                 <div class="no-data">
                     <div class="no-data__icon">
 
                         <img src="../../assets/images/no-data.png"/>
+                    </div>
+                    <h4 style="color: #fd4965;margin:0;">{{'loading' | translate}}</h4>
+                    <p>{{'loading_text' | translate}}</p>
+                    
+                </div>
+            </div>
+
+            <div *ngIf="results.length == 0 && !isLoading">
+                <div class="no-data">
+                    <div class="no-data__icon">
+
+                        <img src="../../assets/images/no_results.jpg"/>
                     </div>
                     <h4 style="color: #fd4965;margin:0;">{{'no_results' | translate}}</h4>
                     <p>{{'no_results_text' | translate}}</p>

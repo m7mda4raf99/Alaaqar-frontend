@@ -171,6 +171,11 @@ export class BuyerUnitDetailsComponent implements OnInit {
   getPrice() {
     return this.propertyDetails?.price ? this.propertyDetails.price : 0
   }
+
+  getPriceTo() {
+    return this.propertyDetails?.price_to ? this.propertyDetails.price_to : null
+  }
+
   getPropose() {
     let str = String(this.propertyDetails['propose'])
     return str.toUpperCase()

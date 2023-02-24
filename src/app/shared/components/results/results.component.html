@@ -105,11 +105,34 @@
 
                 </div>
             </div>
-            <div class="row" *ngIf="!results.length">
-                <div class="alert alert-light" role="alert">
-                    {{'myunits.No result' | translate}}
+            
+            {{ print(results) }}
+            {{ print(isLoading) }}
+
+            <div *ngIf="results.length == 0 && isLoading">
+                <div class="no-data">
+                    <div class="no-data__icon">
+
+                        <img src="../../assets/images/no-data.png"/>
+                    </div>
+                    <h4 style="color: #fd4965;margin:0;">{{'loading' | translate}}</h4>
+                    <p>{{'loading_text' | translate}}</p>
+                    
                 </div>
             </div>
+
+            <div *ngIf="results.length == 0 && !isLoading">
+                <div class="no-data">
+                    <div class="no-data__icon">
+
+                        <img src="../../assets/images/no_results.jpg"/>
+                    </div>
+                    <h4 style="color: #fd4965;margin:0;">{{'no_results' | translate}}</h4>
+                    <p>{{'no_results_text' | translate}}</p>
+                    
+                </div>
+            </div>
+            
             <div class="row justify-content-center" *ngIf="results.length && results.length > 5">
                 <button class="btn button-success more" (click)="showMore()">
                     <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
@@ -120,6 +143,8 @@
                 </button>
 
             </div>
+
+        
         </div>
     </div>
 </div>

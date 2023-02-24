@@ -79,9 +79,25 @@
                                     <span class="score">{{getScore(params['score'])}}%</span>
                                 </div>
                             </div>
-                            <p class="price">
-                                {{'propertyDetails.EGP' | translate}} {{numberWithCommas(getPrice())}} 
-                            </p>
+                        
+                            <div style="margin-bottom: 20px;">
+                                <div style="display: flex; align-items: center;">
+                                    <p *ngIf="getPriceTo()" style="margin: 0px 10px; color: #ff725f;"> {{'propertyDetails.From' | translate}}: </p>
+                                    <p class="price">
+                                        {{numberWithCommas(getPrice())}} {{'propertyDetails.EGP' | translate}}
+                                    </p>
+
+                                </div>
+
+                                <div *ngIf="getPriceTo()" style="display: flex; align-items: center;">
+                                    <p style="margin: 0px 10px; color: #ff725f;"> {{'propertyDetails.Max Price' | translate}}: </p>
+                                    <p class="price" style="font-size: 20px; font-family: 'Rubik';">
+                                        {{numberWithCommas(getPriceTo())}} {{'propertyDetails.EGP' | translate}}
+                                    </p>
+
+                                </div>
+
+                            </div>
                             <div class="row">
                                 <span class="location" style="color: #ABABB6;">
                                     <img width="22px" src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>

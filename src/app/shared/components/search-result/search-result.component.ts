@@ -74,6 +74,7 @@ export class SearchResultComponent implements OnInit {
 
   divStyle: number = 0;
   display:any = 'none'
+  isLoading: boolean = true;
 
   changeFilter(){
     if(this.display === 'none'){
@@ -117,6 +118,8 @@ export class SearchResultComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.isLoading = true
+
     if(window.matchMedia("(min-width: 425px)").matches){
       this.display = 'flex'
     }
@@ -155,6 +158,7 @@ export class SearchResultComponent implements OnInit {
       }
     }
     this.spinner.show()
+
     // console.log('search_model')
     // console.log(this.search_model)
     this.apiService.search(this.search_model).then((res: any) => {
@@ -173,6 +177,7 @@ export class SearchResultComponent implements OnInit {
       }
       this.spinner.hide()
       this.search_model.offset +=18
+      this.isLoading = false
     })
 
     let results = this.apiService.search(this.search_model)
