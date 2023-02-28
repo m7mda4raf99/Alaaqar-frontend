@@ -7,6 +7,8 @@ import { ApiService } from '../../services/api.service';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AppServiceService } from '../../../services/app-service.service';
+import { faUser, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-single-blog',
@@ -14,17 +16,26 @@ import { AppServiceService } from '../../../services/app-service.service';
   styleUrls: ['./single-blog.component.scss']
 })
 export class SingleBlogComponent implements OnInit {
+  faPhone = faPhone
+  faUser = faUser
   faWhatsappSquare = faWhatsapp
   baseUrl = environment.baseUrl
   activeLang = ''
   singleBlog: any = {}
+  response_status: boolean = true
+  form_name: any = ""
+  form_phone: any = ""
+  isValidName: boolean = true
+  isValidPhone: boolean = true
+
   sub = new Subscription()
   constructor(
     private activatedRoute: ActivatedRoute, 
     private apiService:ApiService,
     private notificationsService: NotificationsService, 
     private spinner: NgxSpinnerService,
-    private appService : AppServiceService) {
+    private appService : AppServiceService,
+    public modalService: NgbModal) {
     let routeParams = this.activatedRoute.snapshot.queryParams
     if (routeParams.id) { 
       this.getSingleBlogs(routeParams.id)
@@ -80,5 +91,54 @@ export class SingleBlogComponent implements OnInit {
     div.innerHTML = str;
     let text = div.textContent || div.innerText || "";
     return text
+  }
+
+  view(){
+    const url = this.singleBlog['button_link']
+    window.open(url, '_blank')
+  }
+
+  changeName(){
+    this.isValidName = true
+  }
+
+  changePhone(){
+    this.isValidPhone = true
+  }
+
+  async requestForm(content: any){
+    if(this.form_name.length === 0){
+      this.isValidName = false
+    } 
+    
+    if(this.form_phone.length === 0){
+      this.isValidPhone = false
+    }
+    
+    if(this.isValidName && this.isValidPhone){
+      let data = {
+        name: this.form_name,
+        phone: this.form_phone,
+        blog_name: this.singleBlog['blog_name']
+      }
+  
+      this.spinner.show()
+      let response = await this.apiService.formsubmit(data);
+      this.spinner.hide()
+  
+      console.log('blog response: ', response)
+  
+      if(response.message === 'Form submitted successfully'){
+        this.response_status = true
+      }else{
+        this.response_status = false
+      }
+  
+      this.modalService.open(content);
+
+      this.form_name = ""
+      this.form_phone = ""
+    }
+    
   }
 }

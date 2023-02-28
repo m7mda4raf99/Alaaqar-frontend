@@ -158,7 +158,14 @@
             "View":"View"
         },
         "no blogs":"No blogs yet.",
-        "start_date": "Start Date: "
+        "start_date": "Start Date: ",
+        "view": "For more project units",
+        "form": "We are delighted to assist you and provide more information about the project and unit details. Please leave your information and we will contact you.",
+        "success": "Success!",
+        "success_message": "Your form was successfully submitted. We will try to contact you as soon as possible.",
+        "fail": "Failed!",
+        "fail_message": "Unfortunately, an error has occurred. Please try submitting the form again." 
+    
     },
     "aboutus": {
         "title": "About us",

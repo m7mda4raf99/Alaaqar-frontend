@@ -1133,7 +1133,7 @@ export class HomeComponent implements OnInit {
         tab: this.activeTab
       }
       
-      this.dropCity=await this.apiService.getCity(data);
+      this.dropCity= await this.apiService.getCity(data);
       let values:any[] =Object.values(this.dropCity['data']);
       let array = []
   
@@ -1820,7 +1820,8 @@ export class HomeComponent implements OnInit {
     return text.length && text.length > 30 ? text.substring(0, 30) + '...' : text
   }
   navigateToSingleBlog(item: any) {
-    this.router.navigate(['/single-blog'], { queryParams: { id: item.id } })
+    console.log("blog item: ", item)
+    this.router.navigate(['/single-blog'], { queryParams: { id: item.id, name: item.blog_name } })
   }
   getOptionIcon(item: any) {
     return this.BaseURL + item.icon
