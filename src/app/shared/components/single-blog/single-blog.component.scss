@@ -154,4 +154,115 @@
             }
         }
 
+        .actions{
+            // background-color: #fff;
+            // border-radius: 20px;
+            // box-shadow: 0 3px 6px #59595919;
+            // padding: 30px 70px;
+            margin: 0px 0px 40px 0px;
+
+            display: flex;
+            justify-content: space-between;
+
+            @media (max-width:425px){
+                display: block;
+                // padding: 30px;
+            }
+              
+            input {
+                border-radius: 10px;
+                border: 1px solid #ccc;
+                height: 50px;
+                padding: 15px 50px;
+                width: 100%;
+            }
+
+            fa-icon{
+                position: absolute;
+                left: 6%;
+                top: 15%;
+                color: #fc6573;
+                font-size: 25px;
+            }
+
+            .view{
+                background: white;
+                // width: 20%;
+                border-radius: 20px;
+                box-shadow: 0 3px 6px #59595919;
+                padding: 25px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+
+                .view_button{
+                    width: 100%; 
+                    font-size: larger;
+                    height: 50px;
+                    margin-top: 20px;
+    
+                    @media (max-width:425px){
+                        width: 100%; 
+                        margin: 20px 0px;
+                    }
+                }
+            }
+
+            .form{
+                // width: 75%;
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 3px 6px #59595919;
+                padding: 25px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+
+                @media (max-width:425px){
+                    margin: 20px 0px;
+                }
+
+                .form_input{
+                    margin-top: 20px;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .request_button{
+                        height: 50px; 
+                        font-size: larger; 
+                        width: 25%;
+        
+                        @media (max-width:425px){
+                            width: 100%; 
+                            margin: 20px 0px;
+                        }
+                    }
+        
+                    .input_text{
+                        position: relative;
+        
+                        @media (max-width:425px){
+                            margin: 20px 0px;
+        
+                        }
+
+                        span{
+                            font-size: 10px;
+                            color: red;
+                            margin-top: 0px;
+                            display: inherit;
+                            margin: 0px 10px;
+                        }
+                    }
+
+                    @media (max-width:425px){
+                        display: block;
+
+                    }
+
+                }
+            }
+              
+        }
+
     }

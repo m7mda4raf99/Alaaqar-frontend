@@ -393,4 +393,22 @@
             }
         }
     }
+
+    .single-blog .actions .view{
+        margin-left: 20px;
+        margin-right: 0px;
+
+        @media (max-width: 425px) {
+            margin-left: 0px;
+        }
+    }
+    
+    .single-blog .actions .form{
+        margin-right: 20px;
+        margin-left: 0px;
+
+        @media (max-width: 425px) {
+            margin-right: 0px;
+        }
+    }
 }

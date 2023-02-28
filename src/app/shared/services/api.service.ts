@@ -332,6 +332,10 @@ export class ApiService {
   public getUnitOptions(id: any) {
     return this.AsyncClient(`${this.BaseURL}api/unit_options/${id}`, 'GET')
   }
+  
+  public async formsubmit(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/formsubmit`, 'POST', null, data)
+  }
 
   // public login() {
   //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')

@@ -270,7 +270,7 @@ ng-otp-input {
 
 .modal {
     overflow: visible;
-    top: 30%;
+    top: 25%;
 
     .modal-content {
         border-radius: 15px;
@@ -1315,6 +1315,11 @@ span.dropdown-multiselect--active{
         width: 100%!important;
         margin-left: 15px;
     }
+
+    .single-blog .actions fa-icon {
+        right: 6%;
+        left: auto !important;
+    }
 }
 
 .ng-select .ng-select-container .ng-value-container .ng-input>input {
@@ -1399,4 +1404,21 @@ span.dropdown-multiselect--active{
     }
 }
 
+.single-blog .actions .view{
+    margin-right: 20px;
+    margin-left: 0px;
+
+    @media (max-width: 425px) {
+        margin-right: 0px;
+    }
+}
+
+.single-blog .actions .form{
+    margin-left: 20px;
+    margin-right: 0px;
+
+    @media (max-width: 425px) {
+        margin-left: 0px;
+    }
+}
 

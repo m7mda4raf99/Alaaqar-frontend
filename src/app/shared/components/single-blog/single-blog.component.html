@@ -4,6 +4,7 @@
 </ngx-spinner>
 <div class="container single-blog">
     <div class="sub-head"> </div>
+    
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-xs-12 col-md-10 main-content">
@@ -71,8 +72,72 @@
                             <!-- {{renderText(singleBlog['description'])}} -->
                         </p>
                     </div>
+
+                    <div class="col-xs-12 actions">
+                        <div *ngIf="singleBlog['isView'] && singleBlog['isView'] === '1'" class="view">
+                            <span style="font-family: 'Rubik-bold'; font-weight: bolder; width: max-content;"> {{'blog.view' | translate}} </span>
+
+                            <button (click)="view()"
+                                class="btn button-bordered view_button">
+                                {{'blog.sub.View' | translate}}
+                            </button>
+                        </div>
+                        
+
+                        <div *ngIf="singleBlog['isForm'] && singleBlog['isForm'] === '1'" class="form">
+                            <span style="font-family: 'Rubik-bold'; font-weight: bolder;"> {{'blog.form' | translate}} </span>
+
+                            <div class="form_input">
+                                <div class="input_text">
+                                    <input [(ngModel)]="form_name" (input)="changeName()" type="text" placeholder="{{'contactus.Name' | translate}}">
+                                    <fa-icon [icon]="faUser"></fa-icon>
+                                    <span *ngIf="!isValidName"> {{'validation.This Filed Is Required!' | translate}} </span>
+                                </div>
+        
+                                <div class="input_text">
+                                    <input [(ngModel)]="form_phone" (input)="changePhone()" type="text" placeholder="{{'contactus.Phone' | translate}}">
+                                    <fa-icon [icon]="faPhone"></fa-icon>
+                                    <span *ngIf="!isValidPhone"> {{'validation.This Filed Is Required!' | translate}} </span>
+                                </div>
+        
+                                <button (click)="requestForm(alert)"
+                                    class="btn button-success applyBtn request_button"> 
+                                    <!-- {{'electronic_consultant' |  translate}} -->
+                                    {{ activeLang === 'en' ? singleBlog.button_name_en : singleBlog.button_name_ar }}
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <ng-template #alert let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                <p *ngIf="response_status" style="font-family: 'Rubik-medium';color: #ff725f;">
+                    {{ 'blog.success' |  translate }}
+                </p>
+
+                <p *ngIf="!response_status" style="font-family: 'Rubik-medium';color: #ff725f;">
+                    {{ 'blog.fail' |  translate }}
+                </p>
+            </div>
+        </div>
+        <div class="modal-body">
+            <p *ngIf="response_status" style="text-align: center;">
+                {{ 'blog.success_message' |  translate }}
+            </p>
+
+            <p *ngIf="!response_status" style="text-align: center;">
+                {{ 'blog.fail_message' |  translate }}
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="modalService.dismissAll()">{{'button.actions.Done' |
+                translate}}</button>
+        </div>
+    </ng-template>
 </div>
