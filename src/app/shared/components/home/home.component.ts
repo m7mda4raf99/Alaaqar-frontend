@@ -230,7 +230,7 @@ export class HomeComponent implements OnInit {
       { name: 'description', content: "Alaaqar is a property finder platform online .It's the easiest way to buy, sell, or rent residential or commercial properties. Buy, Sell, or Rent without hassle Online." },
     ]);
 
-    if(window.matchMedia("(min-width: 425px)").matches){
+    if(window.matchMedia("(min-width: 450px)").matches){
       this.quickSearchMargin = '0px'
     }else{
       this.quickSearchMargin = '20px'
@@ -408,7 +408,7 @@ export class HomeComponent implements OnInit {
   checkDropDown(data: any){
     console.log("DATA: ", data)
 
-    if(window.matchMedia("(min-width: 425px)").matches){
+    if(window.matchMedia("(min-width: 450px)").matches){
       this.quickSearchMargin = '0px'
     }else{
       if(data){

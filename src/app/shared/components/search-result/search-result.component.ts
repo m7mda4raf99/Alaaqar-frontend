@@ -124,7 +124,7 @@ export class SearchResultComponent implements OnInit {
   async ngOnInit() {
     this.isLoading = true
 
-    if(window.matchMedia("(min-width: 425px)").matches){
+    if(window.matchMedia("(min-width: 450px)").matches){
       this.display = 'flex'
     }
     

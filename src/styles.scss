@@ -103,7 +103,7 @@ h2 {
     // padding-top: 100px;
     padding-bottom: 15px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 450px) {
         padding-bottom: 0px;
     }
 
@@ -410,7 +410,7 @@ nz-progress {
         width: 70px !important;
         height: 70px !important;
 
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             width: 65px !important;
             height: 65px !important;
         }
@@ -785,7 +785,7 @@ nz-progress {
     display: flex;
     align-items: center;
 
-    @media (max-width:425px){
+    @media (max-width:450px){
         font-size: 20px;
     }
     span{
@@ -795,7 +795,7 @@ nz-progress {
         display: inline-flex;
         margin: 0 15px;
 
-        @media (max-width:425px){
+        @media (max-width:450px){
             font-size: 13px;
         }
     
@@ -850,7 +850,7 @@ nz-progress {
     background: #f7f7f7;
     padding-top: 100px;
 
-    @media (max-width:425px){
+    @media (max-width:450px){
         padding-top: 30px;
     }
 
@@ -876,7 +876,7 @@ nz-progress {
         top: 60px;
         width: 43%;
 
-        @media (max-width:425px){
+        @media (max-width:450px){
             position: initial;
             width: 100%;
         }
@@ -884,7 +884,7 @@ nz-progress {
     }
 
     .responsive{
-        @media (max-width:425px){
+        @media (max-width:450px){
             padding: 0px !important;
         }
     }
@@ -935,7 +935,7 @@ nz-progress {
             position: absolute;
             right: 50%;
 
-            @media (max-width:425px){
+            @media (max-width:450px){
                 position: initial;
                 width: 100%;
             }
@@ -964,7 +964,7 @@ a{
         padding-top: 190px;
     }
 }
-@media (max-width:425px){
+@media (max-width:450px){
     body{
         padding-top: 80px;
     }
@@ -1048,7 +1048,7 @@ a{
 .dropdown-list{
     width: max-content !important;
 
-    @media (max-width:425px) {
+    @media (max-width:450px) {
         width: 90% !important;
     }
 }
@@ -1251,7 +1251,7 @@ span.dropdown-multiselect--active{
     justify-content: space-between !important;
     align-items: center !important;
 
-    @media (max-width:425px) {
+    @media (max-width:450px) {
         border: 1px solid #d9d3d3;
         border-radius: 10px;    
 
@@ -1307,7 +1307,7 @@ span.dropdown-multiselect--active{
     .ng-autocomplete {
         width: 100%!important;
         
-        // @media (max-width: 425px) {
+        // @media (max-width: 450px) {
         //     width: 100% !important;
         // }
         margin-right: 15px;
@@ -1355,7 +1355,7 @@ span.dropdown-multiselect--active{
         border-radius: 10px;
         box-shadow: 0 3px 6px #59595919;
 
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             border: 0px solid #cbcaca;
         }
     }
@@ -1365,7 +1365,7 @@ span.dropdown-multiselect--active{
         border-radius: 10px;
         box-shadow: 0 3px 6px #59595919;
 
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             border: 0px solid #cbcaca;
         }
     }
@@ -1412,7 +1412,7 @@ span.dropdown-multiselect--active{
     margin-right: 20px;
     margin-left: 0px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 450px) {
         margin-right: 0px;
     }
 }
@@ -1421,7 +1421,7 @@ span.dropdown-multiselect--active{
     margin-left: 20px;
     margin-right: 0px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 450px) {
         margin-left: 0px;
     }
 }
@@ -1433,7 +1433,7 @@ span.dropdown-multiselect--active{
         max-width: fit-content;
         margin: 3rem 20rem;
 
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             top: 10%;
             margin: 3rem 0rem;
         }
@@ -1443,7 +1443,7 @@ span.dropdown-multiselect--active{
         height: 400px;
         overflow: auto;
 
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             height: 320px;
         }
     }
@@ -1451,7 +1451,7 @@ span.dropdown-multiselect--active{
     .modal-footer{
         padding: 0.75rem 10rem;
 
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             padding: 0.75rem 0rem;
         }
 
@@ -1466,7 +1466,7 @@ nav{
     .ngx-pagination {
         margin: 50px;
 
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             margin: 25px;
         }
 
