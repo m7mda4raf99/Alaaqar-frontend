@@ -4,14 +4,14 @@
     width: initial;
     cursor: pointer;
 
-    @media (max-width: 425px) {
+    @media (max-width: 450px) {
         width: 100%;
     }
 
     .filter-button{
         display: none;
     
-        @media (max-width: 425px) {
+        @media (max-width: 450px) {
             display: flex;
             justify-content: space-between;
             margin: 0% 1%;
@@ -208,7 +208,7 @@
                 right: 32%;
             }
 
-            @media (max-width: 425px) {
+            @media (max-width: 450px) {
                 right: 32%;
             }
 
@@ -297,7 +297,7 @@ fa-icon {
     display: flex;
     // margin-top: 20px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 450px) {
         // margin-top: 0px;
     }
 
@@ -394,7 +394,7 @@ fa-icon {
                     width: 95%;
                 }
 
-                @media (max-width: 425px) {
+                @media (max-width: 450px) {
                     width: 100%;
                 }
 
@@ -457,7 +457,7 @@ fa-icon {
                 border-top-right-radius: 0;
                 border-top-left-radius: 0;
                 z-index: 1002;
-                @media (max-width: 425px) {
+                @media (max-width: 450px) {
                     width: 340px;
                 }
             }

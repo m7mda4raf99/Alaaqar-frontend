@@ -31,26 +31,26 @@
                }
 
                .card-foot{
-                @media (max-width:425px) {
+                @media (max-width:450px) {
                     margin: 0px !important;
                 }
 
                 .date{
-                    @media (max-width:425px) {
+                    @media (max-width:450px) {
                         margin: 25px 0px 25px 0px;
                     }
     
                 }
 
                 .links{
-                    @media (max-width:425px) {
+                    @media (max-width:450px) {
                         padding: 0px;
                     }
 
 
                     .social-links {
 
-                        @media (max-width:425px) {
+                        @media (max-width:450px) {
                             display: flex;
                             justify-content: center;
                         }
@@ -144,7 +144,7 @@
                     height: auto;
                 }
 
-                @media (max-width:425px) {
+                @media (max-width:450px) {
                     width: -webkit-fill-available;
                 }
             }
@@ -164,7 +164,7 @@
             display: flex;
             justify-content: space-between;
 
-            @media (max-width:425px){
+            @media (max-width:450px){
                 display: block;
                 // padding: 30px;
             }
@@ -201,7 +201,7 @@
                     height: 50px;
                     margin-top: 20px;
     
-                    @media (max-width:425px){
+                    @media (max-width:450px){
                         width: 100%; 
                         margin: 20px 0px;
                     }
@@ -218,7 +218,7 @@
                 flex-direction: column;
                 justify-content: space-evenly;
 
-                @media (max-width:425px){
+                @media (max-width:450px){
                     margin: 20px 0px;
                 }
 
@@ -232,7 +232,7 @@
                         font-size: larger; 
                         width: 25%;
         
-                        @media (max-width:425px){
+                        @media (max-width:450px){
                             width: 100%; 
                             margin: 20px 0px;
                         }
@@ -241,7 +241,7 @@
                     .input_text{
                         position: relative;
         
-                        @media (max-width:425px){
+                        @media (max-width:450px){
                             margin: 20px 0px;
         
                         }
@@ -255,7 +255,7 @@
                         }
                     }
 
-                    @media (max-width:425px){
+                    @media (max-width:450px){
                         display: block;
 
                     }
