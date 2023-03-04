@@ -337,6 +337,10 @@ export class ApiService {
     return await this.SyncClient(`${this.BaseURL}api/formsubmit`, 'POST', null, data)
   }
 
+  public checkoccurrence(data: any): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/checkoccurrence`, 'POST', null, data)
+  }
+
   // public login() {
   //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
   // }

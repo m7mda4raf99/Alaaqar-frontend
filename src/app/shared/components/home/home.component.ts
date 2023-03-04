@@ -19,7 +19,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Console } from 'console'
 import { Options } from '@angular-slider/ngx-slider'
 import { faExclamationCircle, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-home',
@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('dropdownMenuButton1') dropdownMenuButton1!: ElementRef
 
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
+  @ViewChild('alert') alert: any;
 
   faExclamationCircle = faExclamationCircle
   faChevronDown = faChevronDown
@@ -176,7 +177,8 @@ export class HomeComponent implements OnInit {
     private translateService: TranslateService,
     private metaService: Meta,
     private titleService: Title,
-    private http:HttpClient
+    private http:HttpClient,
+    public modalService: NgbModal
     ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
@@ -1664,7 +1666,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/set-priorities'], { queryParams: { type_id: null, propose: this.activeTab === 'rent' ? 1 : 2 } })
   }
 
-  submit(data: any) {
+  async submit(data: any) {
     const user = this.cookieService.get('user')
 
     if (user) {
@@ -1747,8 +1749,19 @@ export class HomeComponent implements OnInit {
         // data['selectedCountry'] = selectedCountryId[0]
         
 	      if ((this.activeTab === 'sell' || this.activeTab === 'rental')&& this.isLoggedIn) {
-          this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
-        
+          let request = {
+            id: JSON.parse(user)['id']
+          }
+
+          this.spinner.show()
+          let response = await this.apiService.checkoccurrence(request)
+          this.spinner.hide()
+
+          if(response.data){
+            this.modalService.open(this.alert);
+          }else{
+            this.router.navigate(['/sell'], { queryParams: { type_id: data.SelectedRealEstateType, propose: this.activeTab === 'rental' ? 1 : 2 } })
+          }
         }
         
         else if((this.activeTab === 'sell' || this.activeTab === 'rental') && !this.isLoggedIn){
@@ -1771,6 +1784,12 @@ export class HomeComponent implements OnInit {
 
     }
   }
+
+  routeToHome(){
+    // this.router.navigate(['/home'])
+    this.modalService.dismissAll()
+  }
+
   async toggleFavorite(item: any) {
     let hasError: boolean = false
     if (item.isFavorite === true) {
@@ -2002,7 +2021,7 @@ async getRealNnew() {
     {id: 19, name_en: 'Medical', name_ar: 'طبي', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
     {id: 20, name_en: 'Land', name_ar: 'أرض', category_id: 3, category_name_en: 'Other',category_name_ar:'اخرى',units_count: 0},
     {id: 21, name_en: 'Studio', name_ar: 'ستوديو', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-    {id: 22, name_en: 'Penthouse', name_ar: 'بنتهاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+    // {id: 22, name_en: 'Penthouse', name_ar: 'بنتهاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
     {id: 23, name_en: 'Roof', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
   ]
 

@@ -1,6 +1,6 @@
 <div class="container-fluied property-details">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
-        <p style="color: white"> Loading... </p>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+        <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
     </ngx-spinner>
 
     <div class="row justify-content-center" style="margin: 0;">
@@ -206,12 +206,30 @@
                 {{'model.one of our agents will contact you' | translate}} <br><b
                     style="color: #FD4964;">{{evaluator.workingHours}}</b>
             </p>
+
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-save" (click)="navigateToMyUnits()">{{'button.actions.Done' |
+            <button type="button" class="btn btn-save" (click)="readTermsConditions()">{{'button.actions.Terms' |
                 translate}}</button>
         </div>
     </ng-template>
+    
+    <ng-template #terms_conditions let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                   <p style="font-family: Rubik-medium;
+                   color: #ff725f;"> {{'signIn.Instruction' | translate}} </p>
+            </div>
+        </div>
+        <div class="modal-body">
+                <p class="description" [innerHTML]="activeLang === 'en' ? terms.terms_conditions_en : terms.terms_conditions_ar"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="navigateToMyUnits()">{{'signIn.Agree' |
+                translate}}</button>
+        </div>
+    </ng-template>
+    
     <ng-template #sellerContent let-c="close" let-d="dismiss">
         <div class="modal-header">
             <div style="width: 100%;">

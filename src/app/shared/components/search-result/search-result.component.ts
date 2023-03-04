@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Item } from 'angular2-multiselect-dropdown';
 import { unwatchFile } from 'fs';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -75,6 +76,9 @@ export class SearchResultComponent implements OnInit {
   divStyle: number = 0;
   display:any = 'none'
   isLoading: boolean = true;
+
+  page?: number = 1;
+  totalItems: number = 400;
 
   changeFilter(){
     if(this.display === 'none'){
@@ -145,7 +149,20 @@ export class SearchResultComponent implements OnInit {
     this.getUnitTypes()    
   }
 
-  async search(isloadMore?: boolean) {
+  onPageChange(pageNumber: number) {
+    console.log("offset")
+    console.log(this.search_model.offset)
+    console.log('event')
+    console.log(pageNumber)
+    this.search_model.flag = false
+    this.search_model.offset = (pageNumber-1) * 18
+    this.search(true,pageNumber)
+    // this.page = pageNumber;
+    
+  
+  }
+
+  async search(isloadMore?: boolean, pageNumber?: number) {
     let arr = ['cities','neighborhood','type']
     for(let i=0;i<arr.length;i++){
       if(!Array.isArray(this.search_model[arr[i]])){
@@ -163,7 +180,8 @@ export class SearchResultComponent implements OnInit {
     // console.log(this.search_model)
     this.apiService.search(this.search_model).then((res: any) => {
       if (isloadMore) {
-        this.results = this.results.concat(res.data.units)
+        this.results = res.data.units
+        this.page = pageNumber
       } 
       else {
         if(res.data.units && res.data.units.length > 0){
@@ -180,11 +198,7 @@ export class SearchResultComponent implements OnInit {
       this.isLoading = false
     })
 
-    let results = this.apiService.search(this.search_model)
-    // console.log('results')
-    // console.log(results)
-
- 
+    // let results = this.apiService.search(this.search_model)
 
   }
   async showMore() {
@@ -308,8 +322,19 @@ export class SearchResultComponent implements OnInit {
     return Math.round(num)
   }
   navigateToItemDetails(item: any) {
-    this.router.navigate(['buy/property-details'], { queryParams: { id: item.unit_id, type: 'buy', score: item.score } })
+    // this.router.navigate(['buy/property-details'], { queryParams: { id: item.unit_id, type: 'buy', score: item.score } })
+    
+    const urlTree = this.router.createUrlTree(['buy/property-details'], { queryParams: { id: item.unit_id, type: 'buy', score: item.score } });
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
   }
+
+  openNewWindow(event: MouseEvent, item: any) {
+    // if (event.button === 1) {
+    //   window.open('/item/' + item.id, '_blank');
+    // }
+  }
+
 
 
   //// search form filers

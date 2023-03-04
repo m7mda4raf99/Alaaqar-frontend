@@ -270,7 +270,11 @@ ng-otp-input {
 
 .modal {
     overflow: visible;
-    top: 25%;
+    // top: 25%;
+
+    .modal-dialog{
+        top: 25%;
+    }
 
     .modal-content {
         border-radius: 15px;
@@ -304,7 +308,7 @@ ng-otp-input {
 
     .btn-save {
         color: #ff725f;
-        width: 40%;
+        // width: 40%;
         border-radius: 10px;
         background-color: #fff;
         border: 1px solid #ff725f;
@@ -1422,3 +1426,52 @@ span.dropdown-multiselect--active{
     }
 }
 
+
+.my-class {
+    .modal-dialog { 
+        top: 0%;
+        max-width: fit-content;
+        margin: 3rem 20rem;
+
+        @media (max-width: 425px) {
+            top: 10%;
+            margin: 3rem 0rem;
+        }
+    }  
+
+    .modal-body{
+        height: 400px;
+        overflow: auto;
+
+        @media (max-width: 425px) {
+            height: 320px;
+        }
+    }
+
+    .modal-footer{
+        padding: 0.75rem 10rem;
+
+        @media (max-width: 425px) {
+            padding: 0.75rem 0rem;
+        }
+
+    }
+    
+  }
+
+nav{
+    display: flex;
+    justify-content: center;
+
+    .ngx-pagination {
+        margin: 50px;
+
+        @media (max-width: 425px) {
+            margin: 25px;
+        }
+
+        .current{
+            background: #174D46;
+        }
+    }
+}  

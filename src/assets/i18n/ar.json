@@ -33,7 +33,8 @@
             "Back":"رجوع",
             "Next":"القادم",
             "Review":"مراجعة",
-            "Confirm": "تأكيد"
+            "Confirm": "تأكيد",
+            "Terms": "اقرأ الشروط والأحكام"
         }
     },
     "model":{
@@ -317,7 +318,10 @@
         "Choose Keywords":"أو ابحث بكلمات مفتاحية",
         "Placeholder": "المدينة أو الحي أو الكمبوندات",
         "Text search": "بحث نصي",
-        "Attributes search": "بحث بالمتغيرات"
+        "Attributes search": "بحث بالمتغيرات",
+        "fail": "!نأسف",
+        "fail_message": ".لقد وصلت للحد الاقصى للوحدات المضافة المسموحة لك",
+        "fail_button": "حسنا"
 
     },
     "propertyDetails":{
@@ -378,6 +382,8 @@
         "Re-send code":"اعادة ارسال الرمز",
         "Name":"الاسم",
         "I agree the website":"اوافق على ",
+        "Agree": "اوافق",
+        "Instruction": ".يرجى قراءة الشروط والأحكام بعناية والموافقة عليها من أجل المتابعة",
         "terms & conditions":"الشروط والاحكام",
         "and":"و",
         "Privacy policy":"سياسة الاستخدام للموقع",

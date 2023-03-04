@@ -74,7 +74,8 @@ import { AvatarModule } from 'ngx-avatar';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/can-deactivate.guard';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     PriceRangeSliderComponent  
   ],
   imports: [
+    PaginationModule.forRoot(),
+    NgxPaginationModule,
     AutocompleteLibModule,
     AngularMultiSelectModule,
     AvatarModule,
