@@ -12,12 +12,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { TranslateService } from '@ngx-translate/core';
 import { faTimes, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-setup-seller-priorities',
   templateUrl: './setup-seller-priorities.component.html',
   styleUrls: ['./setup-seller-priorities.component.scss']
 })
+
+
 export class SetupSellerPrioritiesComponent implements OnInit {
   @ViewChild('myaccordion', { static: true })
   protected accordion!: NgbAccordion;
@@ -34,7 +37,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     private cookieService: CookieService,
     private spinner: NgxSpinnerService,
     private activeRouter: ActivatedRoute,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public modalService: NgbModal
   ) {
     this.spinner.show();
     this.sub1 = this.appService.lang$.subscribe(val => {
@@ -142,6 +146,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
     }
     this.setupNotCompletedSell()
+
     this.spinner.hide();
   }
   public hasUnsavedChanges(): boolean {

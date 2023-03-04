@@ -1058,7 +1058,7 @@ export class SetPrioritesComponent implements OnInit {
       {id: 19, name_en: 'Medical', name_ar: 'طبي', category_id: 2, category_name_en: 'Commercial',category_name_ar:'تجاري',units_count: 0},
       {id: 20, name_en: 'Land', name_ar: 'أرض', category_id: 3, category_name_en: 'Other',category_name_ar:'اخرى',units_count: 0},
       {id: 21, name_en: 'Studio', name_ar: 'ستوديو', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
-      {id: 22, name_en: 'Penthouse', name_ar: 'بنتهاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      // {id: 22, name_en: 'Penthouse', name_ar: 'بنتهاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
       {id: 23, name_en: 'Roof', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
     ]
   

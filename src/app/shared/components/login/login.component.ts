@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { ApiService } from '../../services/api.service'
@@ -9,14 +9,19 @@ import { AppServiceService } from '../../../services/app-service.service'
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { NgxSpinnerService } from "ngx-spinner"
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('alert') alert: any;
+  @ViewChild('terms_conditions') terms_conditions: any;
+
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
@@ -26,6 +31,8 @@ export class LoginComponent implements OnInit {
   registrationRequest: boolean = false
   invalidPTO: boolean = false
   isLoading: boolean = false
+  checkboxTerms: boolean = false
+
   phoneForm = new FormGroup({
     phone: new FormControl('', [Validators.required]),
     name: new FormControl(''),
@@ -41,8 +48,13 @@ export class LoginComponent implements OnInit {
   email:any
   phone:any
   avatar:any
+  lang: string = ''
+
 
   activeRoute: any
+
+  terms: any = {}
+  sub1 = new Subscription()
 
   constructor(
     private apiService: ApiService,
@@ -55,7 +67,8 @@ export class LoginComponent implements OnInit {
     private location: Location,
     private translateService: TranslateService,
     private spinner: NgxSpinnerService,
-    private httpClient: HttpClient) {
+    private httpClient: HttpClient,
+    public modalService: NgbModal) {
       this.activeRouter.queryParams.subscribe(params => {
         console.log(params.name)
         this.name = JSON.parse(params.name);
@@ -69,20 +82,28 @@ export class LoginComponent implements OnInit {
       this.activeRouter.queryParams.subscribe(params => {
         this.avatar = JSON.parse(params.avatar);
       });
+
+      this.sub1 = this.appService.lang$.subscribe(async val => {
+        this.lang = val;
+      })
      }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (this.activeRouter.snapshot.queryParams && this.activeRouter.snapshot.queryParams.fLogin == 'true') {
       this.firstLogin = true
     }
-    // console.log(this.name)
-    // console.log(this.email)
-    // console.log(this.phone)
-    // console.log(this.avatar)
 
-     this.activeRoute = this.activeRouter.snapshot
-    console.log('queryParams')
-    console.log(this.activeRoute.queryParams)
+    let data = await this.apiService.termsAndConditions()
+    this.terms = data.data
+
+    this.activeRoute = this.activeRouter.snapshot
+  }
+
+  routeToHome(){
+    // this.router.navigate(['/home'])
+    console.log("done pressedddd")
+    this.modalService.dismissAll()
+
   }
 
   changePreferredCountries() {
@@ -122,6 +143,9 @@ export class LoginComponent implements OnInit {
     return true
   }
   async verifyOtp() {
+
+    this.spinner.show()
+
     let obj = {
       'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
       'otp': this.otpValue
@@ -148,7 +172,22 @@ export class LoginComponent implements OnInit {
       //await this.updateProfile()
       this.notificationService.showSuccess('Success login !')
      if(this.activeRoute.queryParams['type_id'] && this.activeRoute.queryParams['propose'] ){
-        this.router.navigate(['/sell'], { queryParams: { type_id: this.activeRoute.queryParams['type_id'], propose: this.activeRoute.queryParams['propose']} })
+        
+      // let data = {
+          //   id: JSON.parse(user)['id']
+          // }
+
+          // let response = await this.apiService.userUnits(data)
+
+          // if(response){
+          //   modal.show()
+          // }
+          if(false){
+            // console.log(this.alert)
+            this.modalService.open(this.alert);
+          }else{
+            this.router.navigate(['/sell'], { queryParams: { type_id: this.activeRoute.queryParams['type_id'], propose: this.activeRoute.queryParams['propose']} })
+          }
 
       }
 
@@ -165,8 +204,9 @@ export class LoginComponent implements OnInit {
       }
       
       // this.firstLogin ? this.location.back() : this.router.navigate(['/home'])
-      
     }
+
+    this.spinner.hide()
   }
   async resendOtp() {
     this.isLoading = true
@@ -217,8 +257,37 @@ export class LoginComponent implements OnInit {
     }
     this.isLoading = false
   }
-  acceptTermsConditions(e: any) {
-    return this.agreeTermsAndConditions = e.target.checked ? true : false
+
+  checkboxClick(){
+    if(this.checkboxTerms){
+      this.checkboxTerms = false
+      this.agreeTermsAndConditions = false
+    }else{
+      this.modalService.open(this.terms_conditions, { windowClass: 'my-class' })
+    }
+  }
+
+  acceptTermsConditions() {
+    this.checkboxTerms = true
+    this.agreeTermsAndConditions = true
+    this.modalService.dismissAll()
+    // if(e.target.checked){
+    //   this.modalService.open(this.terms_conditions, 
+    //     {
+    //         windowClass: 'my-class'
+    //     })
+    //     this.agreeTermsAndConditions = false
+    //     this.checkboxTerms = true
+
+    // }else{
+    //   this.checkboxTerms = false
+    //   this.agreeTermsAndConditions = false
+    // }
+
+    // console.log("terms2: ", this.checkboxTerms)
+
+    
+    // return this.agreeTermsAndConditions
   }
   navigateToTermsConditions(){
     const url = this.router.serializeUrl(this.router.createUrlTree(['/terms-condition']));

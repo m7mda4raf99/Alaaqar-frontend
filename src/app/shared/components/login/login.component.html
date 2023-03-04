@@ -86,13 +86,16 @@
                                         <input formControlName="email" type="email" class="form-control" id="email"
                                             aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Email' | translate}}">
                                     </div>
-                                    <div class="form-check mt-2">
-                                        <input mdbCheckbox class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckDefault" (change)="acceptTermsConditions($event)" />
-                                        <label class="form-check-label terms-agreement" for="flexCheckDefault">
-                                            {{'signIn.I agree the website' | translate}} <a routerLink='/login'
-                                                (click)="navigateToTermsConditions()">{{'signIn.terms & conditions' | translate}}</a> {{'signIn.and' | translate}}
-                                            <a routerLink='/login' (click)="navigateToPrivacyPolicy()">{{'signIn.Privacy
+                                    <!-- (change)="acceptTermsConditions($event)"  -->
+                                    <div style="cursor: pointer;" (click)="checkboxClick()" class="form-check mt-2">
+                                        <input [disabled]="!checkboxTerms" style="pointer-events: none;" mdbCheckbox class="form-check-input" type="checkbox" value="" [checked]="checkboxTerms"
+                                            id="flexCheckDefault" />
+                                        <label style="cursor: pointer;" class="form-check-label terms-agreement" for="flexCheckDefault">
+                                            {{'signIn.I agree the website' | translate}} 
+                                            <!-- routerLink='/login' (click)="navigateToTermsConditions()" -->
+                                            <a >{{'signIn.terms & conditions' | translate}}</a> {{'signIn.and' | translate}}
+                                                <!-- routerLink='/login' (click)="navigateToPrivacyPolicy()" -->
+                                            <a >{{'signIn.Privacy
                                                 policy' | translate}}</a>.
                                         </label>
                                     </div>
@@ -121,4 +124,36 @@
 
         </div>
     </div>
+
+    <ng-template #alert let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                   <p style="    font-family: Rubik-medium;
+                   color: #ff725f;"> {{ 'blog.success' |  translate }} </p>
+            </div>
+        </div>
+        <div class="modal-body">
+                <p> {{ 'blog.success_message' |  translate }} </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="routeToHome()">{{'button.actions.Done' |
+                translate}}</button>
+        </div>
+    </ng-template>
+
+    <ng-template #terms_conditions let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                   <p style="font-family: Rubik-medium;
+                   color: #ff725f;"> {{'signIn.Instruction' | translate}} </p>
+            </div>
+        </div>
+        <div class="modal-body">
+                <p class="description" [innerHTML]="lang === 'en' ? terms.terms_conditions_en : terms.terms_conditions_ar"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="acceptTermsConditions()">{{'signIn.Agree' |
+                translate}}</button>
+        </div>
+    </ng-template>
 </div>

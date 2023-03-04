@@ -190,7 +190,7 @@
             </div>
             
             <div class="row mt-3 results" *ngIf="results.length > 0">
-                <div *ngFor="let item of results" class="col-xs-12 col-sm-6 col-xl-4">
+                <div *ngFor="let item of results | paginate: { itemsPerPage: 18, currentPage: page,totalItems: total_search_count }" class="col-xs-12 col-sm-6 col-xl-4">
                     <div class="card mb-3">
                         <div class="row g-0 card-content">
                             <div class="col-12" style="position: relative;">
@@ -202,7 +202,7 @@
                                 <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
                                     src="../../../../assets/images/Path 165.png" alt="..." />
                                 <img style="cursor: pointer;height: 230px;" (click)="navigateToItemDetails(item)"
-                                    src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                                (auxclick)="openNewWindow($event, item)" src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
                             </div>
                             <div class="col-md-12">
                                 <div class="card-body" style="cursor: pointer;" (click)="navigateToItemDetails(item)">
@@ -284,8 +284,9 @@
                     
                 </div>
             </div>
+
             
-            <div class="row justify-content-center" *ngIf="results.length && results.length < total_search_count">
+            <!-- <div class="row justify-content-center" *ngIf="results.length && results.length < total_search_count">
                 <button class="btn button-success more" (click)="showMore()">
                     <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
                     <span *ngIf="loadMore">
@@ -294,8 +295,12 @@
                     </span>
                 </button>
 
-            </div>
+            </div> -->
+
         </div>
+
+        <pagination-controls (pageChange)="onPageChange($event)" [(ngModel)]="page" ></pagination-controls>
+
     </div>
 </div>
 

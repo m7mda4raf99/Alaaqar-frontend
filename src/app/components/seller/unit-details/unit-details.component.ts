@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +22,8 @@ import 'bootstrap';
   styleUrls: ['./unit-details.component.scss']
 })
 export class UnitDetailsComponent implements OnInit {
+  @ViewChild('terms_conditions') terms_conditions: any;
+
   faAngleLeft = faAngleLeft
   faAngleRight = faAngleRight
   BaseUrl = environment.baseUrl
@@ -55,6 +57,9 @@ export class UnitDetailsComponent implements OnInit {
   propertyImages: any
   unitData: any
   unitCriteria: any = this.appServiceService.unitCriteria$.value
+
+  terms: any = {}
+
   constructor(
     private activeRouter: ActivatedRoute,
     private router: Router,
@@ -82,7 +87,7 @@ export class UnitDetailsComponent implements OnInit {
     config.readonly = true;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // console.log("this.propertyData: ", this.propertyData)
 
     // if(this.propertyImages['Initial']){
@@ -166,12 +171,19 @@ export class UnitDetailsComponent implements OnInit {
     this.tagLength = this.data.length
     this.spinner.hide();
 
-    
-
-    
+    let data = await this.apiService.termsAndConditions()
+    this.terms = data.data
+  
   }
   getViewName(value: any) {
     return this.activeLang === 'en' ? value.name_en : value.name_ar
+  }
+
+  readTermsConditions(){
+    this.modalService.dismissAll()
+
+    this.modalService.open(this.terms_conditions, { windowClass: 'my-class' })
+
   }
 
   print(data: any){

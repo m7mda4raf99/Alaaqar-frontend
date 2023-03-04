@@ -1,8 +1,6 @@
 <div *ngIf="selected_country != 'saudi'" class="container-fluid home">
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
-
-
     </ngx-spinner>
 
     <!-- First section (Find Your Perfect Future Home)-->
@@ -891,6 +889,22 @@
             </div>
 
 
+        </ng-template>
+
+        <ng-template #alert let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <div style="width: 100%;">
+                       <p style="    font-family: Rubik-medium;
+                       color: #ff725f;"> {{ 'buy.fail' |  translate }} </p>
+                </div>
+            </div>
+            <div class="modal-body">
+                    <p style="text-align: center;"> {{ 'buy.fail_message' |  translate }} </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save" (click)="routeToHome()">{{'buy.fail_button' |
+                    translate}}</button>
+            </div>
         </ng-template>
     </div>
 </div>

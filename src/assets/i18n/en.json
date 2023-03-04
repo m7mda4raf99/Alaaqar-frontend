@@ -33,13 +33,14 @@
             "Back":"Back",
             "Next":"Next",
             "Review":"Review",
-            "Confirm": "Confirm"
+            "Confirm": "Confirm",
+            "Terms": "Read terms and conditions"
         }
     },
     "model":{
         "one of our agents will contact you":"One of our agents will contact you during official working hours from",
         "one of our agents will contact you soon":"One of our agents will contact you soon"
-    },
+        },
     "footer": {
         "Services": "Services",
         "Important Links": "Important Links",
@@ -322,7 +323,10 @@
         "Choose Keywords":"Or search by keywords",
         "Placeholder": "City, District or Compounds",
         "Text search": "TEXT SEARCH",
-        "Attributes search": "SEARCH WITH ATTRIBUTES"
+        "Attributes search": "SEARCH WITH ATTRIBUTES",
+        "fail": "Sorry!",
+        "fail_message": "You have reached the maximum number of units allowed for you.",
+        "fail_button": "Okay"
 
     },
     "propertyDetails":{
@@ -382,6 +386,8 @@
         "Re-send code":"Re-send code",
         "Name":"Name",
         "I agree the website":"I agree the website",
+        "Agree": "Agree",
+        "Instruction": "Kindly read the terms and conditions carefully and agree to proceed.",
         "terms & conditions":"terms & conditions",
         "and":"and",
         "Privacy policy":"Privacy policy",
