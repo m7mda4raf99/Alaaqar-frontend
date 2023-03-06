@@ -163,7 +163,11 @@ export class ResultsComponent implements OnInit {
     return Math.round(num)
   }
   navigateToItemDetails(item: any) {
-    this.router.navigate(['buy/property-details'], { queryParams: { id: item.unit_id, type: 'buy', score: item.score } })
+    // this.router.navigate(['buy/property-details'], { queryParams: { id: item.unit_id, type: 'buy', score: item.score } })
+    
+    const urlTree = this.router.createUrlTree(['buy/property-details'], { queryParams: { id: item.unit_id, type: 'buy', score: item.score } });
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
   }
   setDate(date: any){
     return "Listed on " + date.substring(0, 10)

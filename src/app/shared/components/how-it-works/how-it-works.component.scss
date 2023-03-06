@@ -9,6 +9,7 @@ $active_background: transparent linear-gradient(180deg, #fd4965 0%, #fd7363 100%
 
     .switcher {
         background-color: #f7f7f7;
+        display: flex;
         // padding: 5px;
         border-radius: 20px;
         .switch-tab {
