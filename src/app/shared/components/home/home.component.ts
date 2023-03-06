@@ -1827,7 +1827,11 @@ export class HomeComponent implements OnInit {
     return '--'
   }
   navigateToSingleItem(item: any) {
-    this.router.navigate(['single-property'], { queryParams: { id: item.unit_id, isPublic: true } })
+    // this.router.navigate(['single-property'], { queryParams: { id: item.unit_id, isPublic: true } })
+
+    const urlTree = this.router.createUrlTree(['single-property'], { queryParams: { id: item.unit_id, isPublic: true } });
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
   }
   getPropose(item: any) {
     return this.lang === 'en' ? item?.propose_en.toUpperCase() : item?.propose_ar.toUpperCase()
@@ -1839,8 +1843,11 @@ export class HomeComponent implements OnInit {
     return text.length && text.length > 30 ? text.substring(0, 30) + '...' : text
   }
   navigateToSingleBlog(item: any) {
-    console.log("blog item: ", item)
-    this.router.navigate(['/single-blog'], { queryParams: { id: item.id, name: item.blog_name } })
+    // this.router.navigate(['/single-blog'], { queryParams: { id: item.id, name: item.blog_name } })
+
+    const urlTree = this.router.createUrlTree(['/single-blog'], { queryParams: { id: item.id, name: item.blog_name } });
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
   }
   getOptionIcon(item: any) {
     return this.BaseURL + item.icon

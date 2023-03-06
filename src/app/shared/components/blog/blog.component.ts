@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Subscription } from 'rxjs';
+import { AppServiceService } from 'src/app/services/app-service.service';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../../services/api.service'
 
@@ -16,12 +18,20 @@ export class BlogComponent implements OnInit {
   blogs: any[] = []
   loadMore: Boolean = false
   limit: number = 0
+  sub1 = new Subscription()
+  lang: string = ''
+
   constructor(
     private router: Router,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
+    private appServiceService: AppServiceService,
     private metaService: Meta,
-    private titleService: Title) { }
+    private titleService: Title) {
+      this.sub1 = this.appServiceService.lang$.subscribe(val => {
+        this.lang = val
+      })
+     }
   ngOnInit(): void {
     this.titleService.setTitle('Blogs | Buy Apartment Mountain View | Buy and Rent North Coast');
     this.metaService.addTags([
@@ -33,7 +43,11 @@ export class BlogComponent implements OnInit {
   }
 
   navigateToSingleBlog(item: any) {
-    this.router.navigate(['/single-blog'], { queryParams: { id: item.id } })
+    // this.router.navigate(['/single-blog'], { queryParams: { id: item.id } })
+
+    const urlTree = this.router.createUrlTree(['/single-blog'], { queryParams: { id: item.id } });
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
   }
 
   getHomeBlogs() {

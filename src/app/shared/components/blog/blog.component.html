@@ -21,18 +21,35 @@
                                 style="border-top-right-radius: 20px;" alt="...">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title" [innerHTML]="">{{item.title | translate}}</h5>
+                            <h5 class="card-title" [innerHTML]="">{{item.title_en | translate}}</h5>
                             
-                            <div class="row card-foot">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="location">
+                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                        alt="..." />
+                                    {{lang === 'en' ? item.tag.name_en : item.tag.name_ar}}
+                                    <!-- New Alamien -->
+                                </span>
+
+                                <span class="date">
+                                    <img src="../../../../assets/images/date.png"
+                                        alt="..." />
+
+                                     {{ 'blog.start_date' | translate }}   
+                                     {{item.created_at}}
+                                </span>
+                            </div>
+
+                            <!-- <div class="row card-foot">
                                 <div class="col">
                                     <img src="../../../../assets/images/Calendar copy.png" alt="..."/>
                                     {{item.created_at}}
                                 </div>
-                                <!-- <div class="col">
+                                <div class="col">
                                     <img src="../../../../assets/images/Show.png" alt="..."/>
                                     {{item.views}} View
-                                </div> -->
-                            </div>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
