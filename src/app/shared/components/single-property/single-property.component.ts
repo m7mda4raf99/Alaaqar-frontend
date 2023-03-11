@@ -70,7 +70,7 @@ export class SinglePropertyComponent implements OnInit {
   isPublic: boolean = false
   moreData: any = {}
   sliderTags: any = []
-  descriptionDisplay: any = 'none'
+  descriptionDisplay: any = 'initial'
   
   constructor(
     private cookieService: CookieService,
@@ -248,15 +248,27 @@ export class SinglePropertyComponent implements OnInit {
 
   getOptions(data: any) {    
     if (data.criterias !== undefined) {
+      console.log("data ashraf: ", data)
       if(data['name_en'] === 'Interior'){
         let arr = []
         for(let item of data.criterias){
-          if(item['criteria_name_en'] != 'Unit Title' && item['criteria_name_en'] != 'Write a unique description'){
+          if(item['criteria_name_en'] != 'Unit Title' && item['criteria_name_en'] != 'Write a unique description'
+           && item['options'].length > 0){
             arr.push(item)
           }
         }
         data.criterias = arr
       }
+      else{
+        let arr = []
+        for(let item of data.criterias){
+          if(item['options'].length > 0){
+            arr.push(item)
+          }
+        }
+        data.criterias = arr
+      }
+
       return data?.criterias ? data.criterias : []
     }
   }

@@ -209,9 +209,19 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  addProperty(){
+    
+  }
 
-  transform_language(event:any){
-    this.selectedLang(event.toUpperCase())
+  transform_language(){
+    let event = ''
+    if(this.activeLang === 'EN' || this.activeLang.title === 'EN'){
+      event = 'AR'
+    }else{
+      event = 'EN'
+    }
+
+    this.selectedLang(event)
   }
 
 

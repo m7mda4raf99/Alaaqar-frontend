@@ -32,7 +32,9 @@
     src: url("./app/shared/assets/fonts/Rubik/static/Rubik-Medium.ttf");
 }
 
-$gradient_bg: transparent linear-gradient(180deg, #fd4965 0%, #fd7363 100%) 0% 0% no-repeat padding-box;
+// $gradient_bg: transparent linear-gradient(180deg, #fd4965 0%, #fd7363 100%) 0% 0% no-repeat padding-box;
+$gradient_bg: #184d47;
+
 
 body {
     font-family: Rubik;
@@ -140,7 +142,7 @@ h2 {
 }
 
 .section-head-left {
-    >span {
+    span {
         width: 87px;
         display: block;
         height: 6px;
@@ -389,8 +391,8 @@ ng-otp-input {
 }
 
 .form-check-input:checked {
-    background-color: #fe5d64;
-    border-color: #fd5764;
+    background-color: #184d47;
+    border-color: #184d47;
 }
 
 .form-select:focus {
@@ -679,7 +681,7 @@ nz-progress {
 .form-control:focus {
     color: #212529;
     background-color: #fff;
-    border-color: #ff725f;
+    border-color: #184d47;
     outline: 0;
     box-shadow: 0 0 0 0.1rem rgb(255 114 95 / 40%);
     outline-color: transparent;
@@ -838,11 +840,11 @@ nz-progress {
 
 .button-bordered,.rtl .button-bordered{
     background: white;
-    border:2px solid #fd5a65;
-    color: #fd5a65;
+    border:2px solid #184d47;
+    color: #184d47;
     &:hover{
-        background: rgba(253,90,101,0.25);
-        color: #fd5a65;
+        background: #89b7b1;
+        color: white;
     }
 }
 
@@ -966,7 +968,7 @@ a{
 }
 @media (max-width:450px){
     body{
-        padding-top: 80px;
+        padding-top: 70px;
     }
 }
 
@@ -1310,14 +1312,14 @@ span.dropdown-multiselect--active{
         // @media (max-width: 450px) {
         //     width: 100% !important;
         // }
-        margin-right: 15px;
+        // margin-right: 15px;
     }
 }
 
 .rtl{
     .ng-autocomplete {
         width: 100%!important;
-        margin-left: 15px;
+        // margin-left: 15px;
     }
 
     .single-blog .actions fa-icon {
@@ -1335,9 +1337,9 @@ span.dropdown-multiselect--active{
 }
 
 .autocomplete-container {
-    border-radius: 10px !important;
-    .input-container input {
-        border-radius: 10px !important;
+    border-radius: 25px 0px 0px 25px!important;
+        .input-container input {
+        border-radius: 25px !important;
 
     }
 }
@@ -1374,11 +1376,22 @@ span.dropdown-multiselect--active{
 .autocomplete-container {
     height: initial !important;
     box-shadow: 0 3px 6px #59595919 !important;
-    border: 1px solid #cbcaca !important;
+    // border: 1px solid white !important;
+}
+
+.autocomplete-container .suggestions-container {
+    border-radius: 25px !important;
 }
 
 .autocomplete-container .input-container input {
-    font-size: 0.85rem !important;
+    font-size: calc(0.6rem + 0.8vw) !important;
+    border-radius: 25px 0px 0px 25px !important;
+    height: 60px !important;
+
+    @media (max-width: 450px) {
+        font-size: calc(0.8rem + 1vw) !important;
+        height: 50px !important;
+    }
 
 }
 
@@ -1475,3 +1488,14 @@ nav{
         }
     }
 }  
+
+
+.app-header__signup .icon{
+    margin-right: 5px;
+    margin-left: 0px;
+}
+
+.autocomplete-container .suggestions-container .complete-selected {
+    background-color: #d2e9e6 !important;
+    border-radius: 25px !important;
+}

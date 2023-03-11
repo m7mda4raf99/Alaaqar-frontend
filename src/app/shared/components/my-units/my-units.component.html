@@ -22,7 +22,7 @@
                                 <option value="Unpublished">{{'myunits.My Unpublished' | translate}}</option>
                             </select>
                         </div>
-                        <div class="col-6" style="position: relative;">
+                        <div class="col-6" style="position: relative; display: none">
                             <select [(ngModel)]="view" class="form-select list form-select-lg mb-3 float-end"
                                 aria-label=".form-select-lg example">
 
@@ -38,7 +38,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-lg-8">
-                    <div class="row">
+                    <div >
                         <div class="row justify-content-center mt-3 results" *ngIf="activeSection === 'property' && items.length > 0">
                             <!-- property tab tab-->
                             <div class="row" >
@@ -56,13 +56,28 @@
                                                 <div class="card-body" style="cursor: pointer;">
                                                     <div class="row">
                                                         <div class="col">
+                                                            <h6>
+                                                                {{ returnTitle(item.value) }}
+                                                            </h6>
                                                             <h5 class="card-title">
                                                                 {{numberWithCommas(returnPrice(item.value))}} EGP </h5>
-                                                            <span class="location">
-                                                                <img
-                                                                    src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
-                                                                {{returnLocation(item.value)}}
-                                                            </span>
+                                                            
+
+                                                            <div class="space-between">
+                                                                <span class="location">
+                                                                    <img
+                                                                        src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..."/>
+                                                                    {{returnLocation(item.value)}}
+                                                                </span>
+        
+                                                                <span class="date">
+                                                                    <img src="../../../../assets/images/date.png"
+                                                                        alt="..." />
+                                                                        {{ 'home.Recently Added.listed_on' | translate }}   
+        
+                                                                        {{ returnDate(item.value) }}
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-text">
@@ -73,7 +88,7 @@
                                                                 <!-- <div *ngIf="i < 4"> -->
                                                                 <img class="img-icon" src="{{returnIconPath(c.value)}}"
                                                                     alt=".." />
-                                                                <p> {{returnOptionsName(c.value)}}</p>
+                                                                {{returnOptionsName(c.value)}}
 
                                                                 <!-- </div> -->
                                                             </div>

@@ -79,14 +79,20 @@ export class FavouritesComponent implements OnInit {
   }
   async toggleFavorite(item: any) {
     let hasError: boolean = false
+
+    this.spinner.show() 
+
     if (item.isFavorite === true) {
       if (await this.apiService.removeFromFavorite({ 'unit_id': item.unit_id }) == false) { hasError = true }
-      // item.unit_id
+      // item.unit_i
       console.log('this.results', this.results)
       this.results = this.results.filter((val: any) => val.unit_id !== item.unit_id)
     } else {
       if (await this.apiService.addToFavorite({ 'unit_id': item.unit_id }) == false) { hasError = true }
     }
+
+    this.spinner.hide() 
+
     if (!hasError) {
       item.isFavorite = !item.isFavorite
       let message = item.isFavorite ? this.translateService.instant('alerts.Added to favorite') : this.translateService.instant('alerts.remove from favorite')
@@ -113,5 +119,9 @@ export class FavouritesComponent implements OnInit {
       // }
 
     }
+  }
+
+  setDate(date: any){
+    return date.substring(0, 10)
   }
 }

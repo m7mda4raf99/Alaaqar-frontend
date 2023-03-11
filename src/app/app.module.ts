@@ -76,6 +76,8 @@ import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgImageSliderModule } from 'ng-image-slider';
+
 
 @NgModule({
   declarations: [
@@ -115,6 +117,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PriceRangeSliderComponent  
   ],
   imports: [
+    // NgImageSliderModule,
     PaginationModule.forRoot(),
     NgxPaginationModule,
     AutocompleteLibModule,
@@ -156,7 +159,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxNumberFormatModule,
     NgxSpinnerModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgxSliderModule
+    NgxSliderModule,
+    NgImageSliderModule 
   ],
   providers: [PostService, CanDeactivateGuard,AppServiceService,CookieService, {
     provide : HTTP_INTERCEPTORS,

@@ -84,6 +84,7 @@
     .button-success {
         color: #fff;
         border: none;
+        background: #184d47;
         &:hover {
             color: #fff;
             opacity: .9;
@@ -410,5 +411,19 @@
         @media (max-width: 450px) {
             margin-right: 0px;
         }
+    }
+
+    .app-header__signup .icon{
+        margin-left: 5px;
+        margin-right: 0px;
+    }
+
+    .autocomplete-container .input-container input {
+        border-radius: 0px 25px 25px 0px !important;
+    
+    }
+
+    .home .first-sec .main-home .search-section .search-button{
+        border-radius: 25px 0px 0px 25px !important;
     }
 }

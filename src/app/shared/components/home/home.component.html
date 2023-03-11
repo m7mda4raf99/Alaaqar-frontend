@@ -8,7 +8,89 @@
         
         <div class="col-md-12 col-lg-6 image-sec d-block d-lg-none sm-bg">
         </div>
-        <div class="col-md-12 col-lg-6 custom-padding home-controls">
+
+        <div class="col-md-12 main-home">
+            <img class="main-image" src="../../assets/images/main_photo.jpg" alt="...">
+            <h1 >{{'home.Find Your Perfect' | translate}} {{'home.Future Home' | translate}}</h1>
+
+            <div class="search-section">
+
+                <ng-autocomplete 
+                [data]="autoComplete"
+                [searchKeyword]="keyword"
+                placeholder="{{'buy.Placeholder' | translate}}"
+                (selected)='selectEvent($event)'
+                (inputChanged)='onChangeSearch($event)'
+                (inputFocused)='onFocused($event)'
+                [itemTemplate]="itemTemplate"
+                [debounceTime]="200"
+                [focusFirst]="true">                                 
+                </ng-autocomplete>
+                
+                <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.name"></a>
+                </ng-template>
+                
+                <!-- <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+                </ng-template> -->
+
+                <div class="buttons">
+                    <button (click)="searchKeyword()"
+                        class="btn button-bordered search-button">
+                        <fa-icon [icon]="faSearch"></fa-icon>
+                    </button>
+                    
+                </div>
+                
+            </div>
+
+            <div class="other-options">
+
+                <div class="each-option" (click)="scroll(how_it_works)">
+                    <img class="image-options" src="../../assets/images/how_it_works.png" alt="...">
+                    <div class="text-options"> how <br> it works</div>
+                </div>
+
+                <div class="separators" > </div>
+
+                <div class="each-option" (click)="tryItNow()">
+                    <img class="image-options" src="../../assets/images/advisor.png" alt="...">
+                    <div class="text-options"> electronic <br> advisor</div>
+                </div>
+
+                <div class="separators" > </div>
+                
+                <div class="each-option" (click)="scroll(download_app)">
+                    <img class="image-options" src="../../assets/images/mobile.png" alt="...">
+                    <div class="text-options"> 
+
+                        <img src="../../assets/images/logo_header.png"/>
+
+                        mobile app
+
+                        <div style="    display: flex;
+                        padding: 5px 5px;
+                        color: white;
+                        align-content: center;
+                        justify-content: center;
+                        background: #184d47;
+                        border-radius: 5px;
+                        font-size: 9px;
+                        width: fit-content;">
+                            
+                        {{'footer.coming_soon' | translate}}
+                            <!-- {{'header.Add property' | translate}} -->
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-12 col-lg-6 custom-padding home-controls"  style="display: none;">
             <h1>{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
             <p #actions class="save" style="padding: 10px 0px 10px 0px;">
                 {{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
@@ -146,11 +228,12 @@
             <div class="col-2"></div>
 
 
-        </div>
-        <div class="col-md-12 col-lg-6 image-sec d-none d-lg-block">
+        </div>                               
+                                        <!-- d-lg-block -->
+        <div class="col-md-12 col-lg-6 image-sec d-none">
             <span class="overlay"></span>
         </div>
-        <div class="col-md-11 col-sm-12 search-sec">
+        <div class="col-md-11 col-sm-12 search-sec" style="display: none;">
             <div *ngIf="activeTab === 'buy'" class="buyRent-row">
                 <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'buy'}">
                 </ng-container>
@@ -173,7 +256,7 @@
         </div>
 
         <!-- (What is ALAQAR?)-->
-        <div class="col-12 alaqaar-solution">
+        <div class="col-12 alaqaar-solution" style="display: none;">
             <div class="container responsive">
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
@@ -204,61 +287,195 @@
             </div>
         </div>
 
-        <!-- How it works-->
-        <div class="how-it-works">
+         <!-- (Featured Units)-->
+         <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
+            <div class="recently-added">
+                <div class="row justify-content-center">
+
+                    <div class="col-xs-12 col-sm-10">
+
+                        <div class="section-head-center">
+                            <h2>
+                                <span class="top"></span>
+                                {{ 'home.Featured Units.title' | translate}}
+                                <span></span>
+                            </h2>
+                            <p class="description">
+                                VIt is a long established fact that a reader will be distracted by the<br> readable content of a
+                                page
+                                when looking at its layout
+                            </p>
+                        </div>
+                        
+                        <div class="row mt-3 results" >
+                            <div *ngFor="let item of recentlyAdded" class="col-xs-12 col-sm-6 col-xl-4 hover">
+                                {{ print(item) }}
+                                <div class="card mb-3">
+                                    <div class="row g-0 card-content">
+                                        <div class="col-12" style="position: relative;">
+                                            <!-- <span class="bage">{{getPropose(item)}}</span>
+                                            <span (click)="navigateToSingleItem(item)" class="overlay"
+                                                style="border-radius: 20px;"></span>
+                                            <img src="{{item['image'] ? item['image']  : '../../../../assets/images/empty.jpeg'}}"
+                                                class="img-fluid back-img" alt="..."> -->
+        
+                                            <span (click)="navigateToSingleItem(item)" class="overlay"></span>
+                                            
+                                            <span style="cursor: pointer;" (click)="navigateToSingleItem(item)"
+                                                class="bage">{{getPropose(item)}}</span>
+                                            <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                                src="../../../../assets/images/Path 165 copy.png" alt="..." />
+                                            <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                                src="../../../../assets/images/Path 165.png" alt="..." />
+                                            <img style="cursor: pointer;height: 230px;" (click)="navigateToSingleItem(item)"
+                                                src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                                        
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="card-body" style="cursor: pointer;" (click)="navigateToSingleItem(item)">
+                                                
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6>
+                                                            {{ item['title'] }}
+                                                        </h6>
+                                                        
+                                                        <h5 class="card-title">
+                                                            {{'propertyDetails.EGP' | translate}}
+                                                            <!-- <br> -->
+                                                            {{ numberWithCommas(item['price'])}}
+                                                        </h5>
+                                                        
+                                                        <div class="space-between">
+                                                            <span class="location" >
+                                                                <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                                                    alt="..." />
+                                                                {{lang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                                            </span>
+    
+                                                            <span class="date">
+                                                                <img src="../../../../assets/images/date.png"
+                                                                    alt="..." />
+                                                                    {{ 'home.Featured Units.listed_on' | translate }}   
+    
+                                                                    {{ setDate(item['created_at']) }}
+                                                            </span>
+                                                        </div>
+
+                                                      
+                                                    </div>
+                                                    <!-- <div class="col-4 float-end" style="position: relative;">
+                                                        <nz-progress class="float-end" nzType="circle"
+                                                            [nzPercent]="getScore(item['score'])"
+                                                            [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                                        </nz-progress>
+                                                        <span class="score">{{getScore(item['score'])}}%</span>
+                                                    </div> -->
+            
+                                                </div>
+                                                <div class="card-text">
+                                                    <div class="space-between">
+                                                        <div class="desc" *ngFor="let c of getItemCriteria(item['criteria']) | slice:0:4">
+                                                            <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
+                                                            {{getCriteriaOptions(c)}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </div>
+        
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Top Developers-->
+        <div class="top-developers">
             <div class="section-head-center">
                 <h2>
                     <span class="top"></span>
-                    {{'header.how it works' | translate}}
+                    {{'home.top_developers' | translate}}
                     <span></span>
                 </h2>
                 <p class="description">
-                    {{'home.howItWorks.Its the easiest way to buy sell' | translate}} <br>
-                    {{'home.howItWorks.properties' | translate}}
+                    
                 </p>
             </div>
             <div class="justify-content-center">
                 <div class="col-xs-12">
-                    <div class="justify-content-center container">
-                        <div class="mt-3 card-container">
-                            <div class="card">
-                                <span class="icons">
-                                    <img src="../../../../assets/images/search (1)@2x.png" class="card-img-top"
-                                        alt="...">
-    
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Find your perfectly' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p>
+                    <div class="col-sm-10 justify-content-center container">
+                        <div style="display: flex; width: 100%;">
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_developers[0]['img'] }}" class="card-img-top"
+                                            alt="...">
+        
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_developers[0]['name_en'] : top_developers[0]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_developers[1]['img'] }}" class="card-img-top"
+                                            alt="...">
+        
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_developers[1]['name_en'] : top_developers[1]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-3 card-container">
-                            <div class="card">
-                                <span class="icons">
-                                    <!-- <img src="../../../../assets/images/Profile.png" class="card-img-top" alt="..."> -->
-                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
-    
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Reach ready buyers' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.looking for exactly' | translate}} 
-                                    <!-- <br> {{'home.howItWorks.your property' | translate}}  -->
-                                    </p>
+                        <div style="display: flex; width: 100%;">
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_developers[2]['img'] }}" class="card-img-top"
+                                            alt="...">
+        
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_developers[2]['name_en'] : top_developers[2]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-3 card-container">
-                            <div class="card">
-                                <span class="icons">
-                                    <img src="../../../../assets/images/Calendar.png" class="card-img-top" alt="...">
-    
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Automatically book' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.visits attended by' | translate}}
-                                    <!-- <br> {{'home.howItWorks.your consultants' | translate}}  -->
-                                    </p>
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_developers[3]['img'] }}" class="card-img-top"
+                                            alt="...">
+        
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_developers[3]['name_en'] : top_developers[3]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -283,10 +500,164 @@
             </div>
         </div>
 
+        <!-- How it works-->
+        <div #how_it_works class="how-it-works">
+            <div class="section-head-center">
+                <h2>
+                    <span class="top"></span>
+                    {{'header.how it works' | translate}}
+                    <span></span>
+                </h2>
+                <p class="description">
+                    {{'home.howItWorks.Its the easiest way to buy sell' | translate}} <br>
+                    {{'home.howItWorks.properties' | translate}}
+                </p>
+            </div>
+            <div class="justify-content-center">
+                <div class="col-xs-12">
+                    <div class="justify-content-center container">
+                        <!-- <ng-image-slider #nav
+                            [images]="imageObject"
+                            [infinite]="false"
+                            [autoSlide]="1"
+                            [imageSize]="{width: '25%', height: 200}"
+                            slideImage="1">
+                        </ng-image-slider> -->
+
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Searched Areas-->
+        <div class="top-searched-areas">
+            <div class="section-head-center">
+                <h2>
+                    <span class="top"></span>
+                    {{'home.top_searched_areas' | translate}}
+                    <span></span>
+                </h2>
+                <p class="description">
+                    
+                </p>
+            </div>
+            <div class="justify-content-center">
+                <div class="col-xs-12">
+                    <div class="col-sm-10 justify-content-center container">
+                        <div style="display: flex; width: 100%;">
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_searched_areas[0]['img'] }}" class="card-img-top"
+                                            alt="...">
         
-     
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_searched_areas[0]['name_en'] : top_searched_areas[0]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_searched_areas[1]['img'] }}" class="card-img-top"
+                                            alt="...">
+        
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_searched_areas[1]['name_en'] : top_searched_areas[1]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_searched_areas[2]['img'] }}" class="card-img-top"
+                                            alt="...">
+        
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_searched_areas[2]['name_en'] : top_searched_areas[2]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 card-container">
+                                <div class="card">
+                                    <span class="icons">
+                                        <img src="{{ top_searched_areas[3]['img'] }}" class="card-img-top"
+                                            alt="...">
+        
+                                    </span>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{lang === 'en' ? top_searched_areas[3]['name_en'] : top_searched_areas[3]['name_ar'] }}
+                                        </h5>
+                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <!-- <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
+                            <div class="card">
+                                <span class="icons">
+                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
+    
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{'home.howItWorks.Complete your deal' | translate}}</h5>
+                                    <p class="card-text">{{'home.howItWorks.with the lowest' | translate}}
+                                        <br> {{'home.howItWorks.cost & effort' | translate}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Searched Areas-->
+        <div class="share-your-quests">
+            <div class="justify-content-center">
+                <div class="col-xs-12">
+                    <div class="col-sm-10 justify-content-center container">
+                        <!-- <img src="../../../../assets/images/share_your_quests.png" alt="..." />   -->
+                        
+                        <div class="section-head-center quest">
+                            <h2>
+                                <span class="top"></span>
+                                {{'home.share_your_quests' | translate}}
+                                <span></span>
+                            </h2>
+                            <p class="description">
+                                {{'home.share_your_quests_description' | translate}}
+                            </p>
+
+                            <button (click)="share_your_quests()">{{'quest_button' |  translate}}
+                            </button>             
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        
         <!-- (Recently Added)-->
-        <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
+        <div *ngIf="recentlyAdded && recentlyAdded.length > 0" style="display: none;">
             <div class="recently-added">
                 <div class="row justify-content-center">
 
@@ -397,12 +768,12 @@
             </div>
 
         </div>
-        
- 
-        
-        <div class="download-app">
+            
+        <div #download_app class="download-app">
 
-            <div>
+            <div style="    display: flex;
+            flex-direction: column;
+            justify-content: space-between;">
                 <div class="section-head-left" style="margin: 0% 5%;">
                     <h2>
                         <span class="top"></span>
@@ -413,7 +784,7 @@
                         {{'home.Download app.description' | translate}}
                     </p>
                 </div>
-                <div class="left-sec">
+                <div class="left-sec" style="margin: 0% 5%;">
                     <div class="downlaod">
                         <img (click)="navigateToAppStore()" src="../../../../assets/images/ios.png"
                             alt="..." />
@@ -909,6 +1280,6 @@
 </div>
 
 <div *ngIf="selected_country == 'saudi'" class="coming-soon">
-    <img src="../../assets/images/logo-header.svg"/>
+    <img src="../../assets/images/logo_header.png"/>
     <h1>{{'coming_soon' | translate}}</h1>
 </div>

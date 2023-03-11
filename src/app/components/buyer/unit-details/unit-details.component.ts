@@ -66,7 +66,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
   tagLength: number = 0
   activeIndex: number = 0
   unitCriteria: any = this.appServiceService.unitCriteria$.value
-  descriptionDisplay: any = 'none'
+  descriptionDisplay: any = 'initial'
 
   constructor(private activeRouter: ActivatedRoute,
     private router: Router,
@@ -153,7 +153,17 @@ export class BuyerUnitDetailsComponent implements OnInit {
       if(data['name_en'] === 'Interior'){
         let arr = []
         for(let item of data.criterias){
-          if(item['criteria_name_en'] != 'Unit Title' && item['criteria_name_en'] != 'Write a unique description'){
+          if(item['criteria_name_en'] != 'Unit Title' && item['criteria_name_en'] != 'Write a unique description'
+          && item['options'].length > 0){
+            arr.push(item)
+          }
+        }
+        data.criterias = arr
+      }
+      else{
+        let arr = []
+        for(let item of data.criterias){
+          if(item['options'].length > 0){
             arr.push(item)
           }
         }

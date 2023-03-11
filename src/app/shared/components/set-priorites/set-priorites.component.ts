@@ -1299,7 +1299,7 @@ export class SetPrioritesComponent implements OnInit {
   setCompoundLocationNeigbhorhoodDropdown(){
 
     // laptop
-    if(window.matchMedia("(min-width: 425px)").matches){
+    if(window.matchMedia("(min-width: 450px)").matches){
       this.displayCompound = 'initial'
       this.displayLocation = 'block'
       this.displayNeigbhorhood = 'block'
