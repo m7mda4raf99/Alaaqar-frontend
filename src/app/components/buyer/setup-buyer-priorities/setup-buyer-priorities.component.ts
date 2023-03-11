@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbPanelChangeEvent, NgbAccordionConfig, NgbAccordion, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PrioritiesService } from '../../../services/priorities.service'
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ignoreWhiteSpaces } from '../../../utils/index'
 import { CdkStepper } from '@angular/cdk/stepper';
 
@@ -33,7 +33,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
   constructor(
     config: NgbAccordionConfig,
     private prioritiesService: PrioritiesService,
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     private router: Router,
     public appService: AppServiceService,
     private modalService: NgbModal,
@@ -58,9 +58,9 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
           
           // if (priority === '4') { this.appService.priorityFour$.next(this.priorities[priority]) }
           
-          let control = this.prioritiesService.prioriesForm.get(priority) as FormGroup
+          let control = this.prioritiesService.prioriesForm.get(priority) as UntypedFormGroup
           for (const c in this.priorities[priority]) {
-            control.addControl(this.priorities[priority][c].name_en, new FormControl('', Validators.required))
+            control.addControl(this.priorities[priority][c].name_en, new UntypedFormControl('', Validators.required))
           }
         }
       }

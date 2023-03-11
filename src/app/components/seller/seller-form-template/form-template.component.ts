@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { PrioritiesService } from '../../../services/priorities.service';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Subscription } from 'rxjs';
@@ -22,9 +22,9 @@ export class SellFormTemplateComponent implements OnInit {
   @ViewChild('file') file!: ElementRef
   faTimes = faTimes
   faTrash = faTrash
-  public stepForm!: FormGroup;
+  public stepForm!: UntypedFormGroup;
   public ashraf: any;
-  public imagesForm: FormGroup = new FormGroup({
+  public imagesForm: UntypedFormGroup = new UntypedFormGroup({
   });;
   baseUrl = environment.baseUrl
   params = this.activatedRoute.snapshot.queryParams
@@ -66,7 +66,7 @@ export class SellFormTemplateComponent implements OnInit {
         this.imgTags = val.data
 
         val.data.forEach((element: any) => {
-          this.imagesForm.addControl(this.activeLang === 'en' ? element.name_en : element.name_ar, new FormControl('', Validators.required))
+          this.imagesForm.addControl(this.activeLang === 'en' ? element.name_en : element.name_ar, new UntypedFormControl('', Validators.required))
           
           if(element.name_en != 'Master Plan'){          
               this.imageTags.push({'name_en': element.name_en, 'name_ar': element.name_ar})
@@ -95,7 +95,7 @@ export class SellFormTemplateComponent implements OnInit {
                 this.myFiles[key].push(this.dataURLtoFile(image, `img-${i}`))
               });
             }
-            let uploads = this.prioritiesService?.sellerForm.get('4') as FormGroup
+            let uploads = this.prioritiesService?.sellerForm.get('4') as UntypedFormGroup
 
             // console.log('uploads1: ', uploads)
 
@@ -164,7 +164,7 @@ export class SellFormTemplateComponent implements OnInit {
   async setupFormCriteria() {
     this.sub1 = this.appService.activeTab$.subscribe(value => {
       this.ashraf = this.prioritiesService?.sellerForm.get(value)
-      this.stepForm = this.prioritiesService?.sellerForm.get(value) as FormGroup
+      this.stepForm = this.prioritiesService?.sellerForm.get(value) as UntypedFormGroup
       switch (value) {
         case '2':
           this.sub = this.appService.tabTwo$.subscribe(val => this.formData = val)

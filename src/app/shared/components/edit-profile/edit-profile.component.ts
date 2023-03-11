@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
@@ -16,11 +16,11 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-  phoneForm = new FormGroup({
-    phone: new FormControl(''),
-    name: new FormControl(''),
-    email:new FormControl(''),
-    avatar: new FormControl(''),
+  phoneForm = new UntypedFormGroup({
+    phone: new UntypedFormControl(''),
+    name: new UntypedFormControl(''),
+    email:new UntypedFormControl(''),
+    avatar: new UntypedFormControl(''),
   });
   filedata: any
   avatarUrl: any

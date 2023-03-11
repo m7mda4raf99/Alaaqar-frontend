@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { faUser, faEnvelope, faPhoneAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { ApiService } from '../../services/api.service';
@@ -22,7 +22,7 @@ export class ContactUsComponent implements OnInit {
   faMapMarkerAlt = faMapMarkerAlt
   contacts: any = {}
   constructor(
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     private apiService: ApiService,
     private notificationService: NotificationsService,
     private router: Router,
@@ -31,10 +31,10 @@ export class ContactUsComponent implements OnInit {
     private metaService: Meta,
     private titleService: Title) { }
   contactForm: any = this.formBuilder.group({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl(''),
-    phone: new FormControl('', [Validators.required]),
-    message: new FormControl('', [Validators.required]),
+    name: new UntypedFormControl('', [Validators.required]),
+    email: new UntypedFormControl(''),
+    phone: new UntypedFormControl('', [Validators.required]),
+    message: new UntypedFormControl('', [Validators.required]),
   })
   ngOnInit(): void {
     this.titleService.setTitle('Contact us for Property Finder in Egypt.');
