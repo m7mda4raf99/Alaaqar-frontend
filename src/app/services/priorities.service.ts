@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, UntypedFormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class PrioritiesService {
-  constructor(public formBuilder: FormBuilder) { }
+  constructor(public formBuilder: UntypedFormBuilder) { }
   BuyerPriority$ = new BehaviorSubject<any>(<any>({}));
   SellerPriority$ = new BehaviorSubject<any>(<any>({}));
   defaultFourm =  this.formBuilder.group({

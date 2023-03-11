@@ -9,7 +9,7 @@ import { NgxSpinnerService } from "ngx-spinner"
 import { ApiService } from '../../services/api.service'
 import { TranslateService } from '@ngx-translate/core'
 import { environment } from 'src/environments/environment'
-import { FormBuilder } from '@angular/forms'
+import { UntypedFormBuilder } from '@angular/forms'
 import { Title, Meta } from '@angular/platform-browser'
 import { json } from 'stream/consumers'
 import { HttpClient } from '@angular/common/http'
@@ -219,7 +219,7 @@ export class HomeComponent implements OnInit {
     private prioritiesService: PrioritiesService,
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     private translateService: TranslateService,
     private metaService: Meta,
     private titleService: Title,

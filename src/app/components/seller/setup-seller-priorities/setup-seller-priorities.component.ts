@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { PrioritiesService } from '../../../services/priorities.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
@@ -365,14 +365,14 @@ export class SetupSellerPrioritiesComponent implements OnInit {
           }
           // console.log("this.data2: ", this.data)
 
-          let control = this.prioritiesService.sellerForm.get(k) as FormGroup
+          let control = this.prioritiesService.sellerForm.get(k) as UntypedFormGroup
 
           // console.log("control: ", control)
 
           if (Object.keys(control.controls).length === 0) {
             for (const c in this.data[k]) {
               // console.log("criteria name: ", this.data[k][c].name_en)
-              control.addControl(this.data[k][c].name_en, new FormControl('', Validators.required))
+              control.addControl(this.data[k][c].name_en, new UntypedFormControl('', Validators.required))
             }
           }
         }
@@ -466,13 +466,13 @@ export class SetupSellerPrioritiesComponent implements OnInit {
 
             this.appService.tabFour$.next(this.data[k])
           }
-          let control = this.prioritiesService.sellerForm.get(k) as FormGroup
+          let control = this.prioritiesService.sellerForm.get(k) as UntypedFormGroup
           if (Object.keys(control.controls).length === 0) {
             for (const c in this.data[k]) {
               if (this.data[k][c].name_en !== 'Unit photos') {
-                control.addControl(this.data[k][c].name_en, new FormControl('', Validators.required))
+                control.addControl(this.data[k][c].name_en, new UntypedFormControl('', Validators.required))
               } else {
-                control.addControl(this.data[k][c].name_en, new FormControl(''))
+                control.addControl(this.data[k][c].name_en, new UntypedFormControl(''))
               }
             }
           }

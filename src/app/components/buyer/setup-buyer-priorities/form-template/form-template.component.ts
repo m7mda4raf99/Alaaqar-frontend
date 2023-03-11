@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { PrioritiesService } from '../../../../services/priorities.service';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./form-template.component.scss']
 })
 export class FormTemplateComponent implements OnInit {
-  public stepForm!: FormGroup;
+  public stepForm!: UntypedFormGroup;
   util = util
   sub = new Subscription()
   sub1 = new Subscription()
@@ -25,7 +25,7 @@ export class FormTemplateComponent implements OnInit {
     this.sub2 = this.appService.lang$.subscribe(val => this.activeLang = val)
     this.sub1 = this.appService.activeTab$.subscribe(value => {
       this.activeTab = value
-      this.stepForm = this.prioritiesService?.prioriesForm.get(value) as FormGroup
+      this.stepForm = this.prioritiesService?.prioriesForm.get(value) as UntypedFormGroup
       switch (value) {
         case '2':
           this.sub = this.appService.priorityTwo$.subscribe(val => this.formData = val)
