@@ -4,7 +4,7 @@
             <div class="responsive">
                 <div class="image">
                     <span class="logo">
-                        <img src="../../../../assets/images/alaaqar_img.png" alt="..." />
+                        <img src="../../../../assets/images/logo_header.png" alt="..." />
 
                     </span>
                     
@@ -56,7 +56,9 @@
                     <h3 style="margin-bottom: 0px;"> {{'home.Download app.title' | translate}} </h3>
                     
                     <div class="row left-sec justify-content-center">
-                        <div class="col downlaod" style="margin: 5% 0%;">
+                        <div class="col downlaod" style="margin: 5% 0%; display: flex;
+                        flex-direction: column;
+                        align-items: center;">
                             <div style="display: flex; justify-content: center;">
                                 <!-- (click)="navigateToAppStore()" -->
                                 <img src="../../../../assets/images/ios.png"
@@ -66,7 +68,20 @@
                                     alt="..." />
                             </div>
 
-                            <p style="color: #fd4c65; font-size: larger; font-weight: 700; margin: 5%;"> {{'footer.coming_soon' | translate}} </p>
+                            <!-- <p style="color: #fd4c65; font-size: larger; font-weight: 700; margin: 5%;"> {{'footer.coming_soon' | translate}} </p> -->
+                            <div style="    display: flex;
+                            padding: 5px 5px;
+                            color: white;
+                            align-content: center;
+                            justify-content: center;
+                            background: #184d47;
+                            border-radius: 5px;
+                            margin: 5% 0%;
+                            width: fit-content;">
+                                
+                            {{'footer.coming_soon' | translate}}
+                                <!-- {{'header.Add property' | translate}} -->
+                            </div>
                         </div>
 
                         <div class="col downlaod" style="display: none;">

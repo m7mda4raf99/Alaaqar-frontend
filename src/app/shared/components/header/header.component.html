@@ -112,31 +112,58 @@
                     <div *ngIf="pressedProfile" class="responsive" style="background-color: #d5d5d5; width: 100%; height: 0.5px; margin-top: 15px;"> </div>
                     <div *ngIf="!pressedProfile" class="responsive" style="background-color: #d5d5d5; width: 100%; height: 1px;"> </div>
 
+                    <!-- Buy -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        false}">
+                        <!-- routerLink='/home' -->
+                        <a >{{'header.Buy' | translate}}</a>
+                    </li>
+
+                    <!-- Rent -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        true}">
+                        <!-- routerLink='/blog' -->
+                        <a >{{'header.Rent' | translate}}</a>
+                    </li>
+                    <!-- Commercial -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        true}">
+                        <!-- routerLink='/how-it-works' -->
+                        <a >{{'header.Commercial' | translate}}</a>
+                    </li>
+
+                    <div style="margin-right: 40px;" class="app-header__signup" (click)="addProperty()" >
+                        <span class="icon">
+                            <img src="../../assets/images/buildings.png" />
+                        </span>
+                        {{'header.Add property' | translate}}
+                    </div>
+
                     <!-- Home -->
-                    <li style="margin-top: 15px;" (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <!-- <li style="margin-top: 15px;" (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         false}">
                         <a routerLink='/home'>{{'header.tab_home' | translate}}</a>
-                    </li>
+                    </li> -->
                     <!-- Blog -->
-                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <!-- <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <a routerLink='/blog'>{{'header.blog' | translate}}</a>
-                    </li>
+                    </li> -->
                     <!-- How it works -->
-                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <!-- <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <a routerLink='/how-it-works'>{{'header.how it works' | translate}}</a>
-                    </li>
+                    </li> -->
                     <!-- About us -->
-                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <!-- <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <a routerLink='/about'>{{'header.about_us' | translate}}</a>
-                    </li>
+                    </li> -->
                     <!-- Contact us -->
-                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <!-- <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <a routerLink='/contact'>{{'header.contact_us' | translate}}</a>
-                    </li>
+                    </li> -->
                     <!-- Select country -->
                     <li class="responsive" style="padding: 5px 0px;" >
 
@@ -164,14 +191,14 @@
                     <li class="responsive" style="padding: 5px 10px 0px;">
                         <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" 
                         style="display: flex; align-items: center;"
-                        (click)="transform_language('en'); expand_collapse($event)">
+                        (click)="transform_language(); expand_collapse($event)">
                             <span style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
                             <small style="margin: 0px 2px;">ENGLISH</small>
                         </div>
                         
                         <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " 
                         style="display: flex; align-items: center;"
-                        (click)="transform_language('ar'); expand_collapse($event)">
+                        (click)="transform_language(); expand_collapse($event)">
                             <span style="padding: 3px 10px !important; background: #ababb6; cursor: pointer; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
                             <small style="margin: 0px 2px;">عربي</small>
                         </div>
@@ -239,7 +266,7 @@
         </nav>
         <div class="app-header__logo">
             <a routerLink='/home'>
-                <img src="../../assets/images/logo-header.svg" />
+                <img src="../../assets/images/logo_header.png" />
             </a>
         </div>
         <div class="app-header__user" >
@@ -269,30 +296,16 @@
             </div>
             
             <div class="app-header__options">
-                <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'">
-                    <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
-                        <span class="icon">
-                            <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
-                                <path d="M0 0h48v48h-48z" fill="none" />
-                            </svg>
-                        </span>
-                        {{'sign_up' | translate}}
-                    </div>
-                </div>
     
-                <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN'">
-                    <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
-                        <span class="icon">
-                            <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
-                                <path d="M0 0h48v48h-48z" fill="none" />
-                            </svg>
-                        </span>
-                        {{'sign_up' | translate}}
-                    </div>
+                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
+                    <span class="icon">
+                        <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
+                            <path d="M0 0h48v48h-48z" fill="none" />
+                        </svg>
+                    </span>
+                    {{'sign_up' | translate}}
                 </div>
                 
                 <div *ngIf="isLoggedIn" class="app-header__profile"  style="display:flex; margin-left: 10px; margin-right: 10px; position: relative; ">
@@ -403,18 +416,21 @@
                     </ng-template>
                 </div>
             
+                <div class="app-header__signup" (click)="transform_language()" >
+                    {{'language' | translate}}
+                </div>
                 
-                <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="display: flex; align-items: center; cursor: pointer; "
-                (click)="transform_language('en')">
+                <!-- <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" style="display: flex; align-items: center; cursor: pointer; "
+                (click)="transform_language()">
                     <small style="margin: 0px 2px;">ENGLISH</small>
                     <span  style="padding: 3px 10px !important; background: #ababb6; color: white; border-radius: 20%; margin: 0px 2px;">E</span>
                 </div>
                 
                 <div *ngIf="activeLang.title === 'EN' || activeLang === 'EN' " style="display: flex; align-items: center; cursor: pointer; "
-                (click)="transform_language('ar')">
+                (click)="transform_language()">
                     <small style="margin: 0px 2px;">عربي</small>
                     <span  style="padding: 3px 10px !important; background: #ababb6; color: white ; border-radius: 20%; margin: 0px 2px;">ع</span>
-                </div>
+                </div> -->
 
                 <ng-select [items]="cities3"
                     bindLabel="name"
@@ -425,11 +441,11 @@
             
                     <ng-template ng-label-tmp let-item="item">
                         <img height="20" width="20"  [src]="item.avatar"/>
-                        <b>{{item.name|translate}}</b> 
-                        </ng-template>
-                        <ng-template ng-option-tmp let-item="item" let-index="index">
-                        <img height="15" width="15" [src]="item.avatar"/>
-                        <b>{{item.name|translate}}</b>
+                        <!-- <b>{{item.name|translate}}</b>  -->
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                        <img height="20" width="20" [src]="item.avatar"/>
+                        <!-- <b>{{item.name|translate}}</b> -->
                     </ng-template>
         
                 </ng-select>

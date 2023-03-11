@@ -57,12 +57,18 @@ export class MyUnitsComponent implements OnInit {
   visits: any = {}
   Uncompleteditems: any = {}
   async ngOnInit() {
+    if(window.matchMedia("(min-width: 450px)").matches){
+      this.view = 'grid'
+    }else{
+      this.view = 'list'
+    }
     this.spinner.show()
     await this.getUncompletedUnits()
     await this.getUnits()
     this.spinner.hide()
     this.isLoading = false
     await this.getInquiry()
+
   }
   ngOnDestroy() {
     this.sub1.unsubscribe()
@@ -123,6 +129,7 @@ export class MyUnitsComponent implements OnInit {
     let units = await this.apiService.getMyUnits(bodyData)
     if (units !== false) {
       this.items = this.items && this.items && this.items.length > 0 ? this.items.concat(units.data) : units.data
+      console.log("items: ", this.items)
     } else {
       this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))
     }
@@ -207,6 +214,14 @@ export class MyUnitsComponent implements OnInit {
     return this.activeLang === 'en' ? data?.area_name_en : data?.area_name_ar
   }
 
+  returnDate(data : any){
+    return this.setDate(data?.created_at)
+  }
+
+  returnTitle(data : any){
+    return data?.title
+  }
+
   returnCriteria(data: any) {
     return data.criteria
   }
@@ -224,7 +239,11 @@ export class MyUnitsComponent implements OnInit {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   navigateToSingleUnit(unit: any) {
-    this.router.navigate(['single-property'], { queryParams: { id: unit.unit_id } })
+    // this.router.navigate(['single-property'], { queryParams: { id: unit.unit_id } })
+
+    const urlTree = this.router.createUrlTree(['single-property'], { queryParams: { id: unit.unit_id } });
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
   }
   addUnit() {
     this.router.navigate(['/home'], { queryParams: { q: 'sell' } })
@@ -272,5 +291,9 @@ export class MyUnitsComponent implements OnInit {
   }
   navigateToInquiryDetails(Inquiry: any) {
     this.router.navigate(['/results'], { queryParams: { id: Inquiry.inquiry_id, type: 'buy' } })
+  }
+
+  setDate(date: any){
+    return date?.substring(0, 10)
   }
 }

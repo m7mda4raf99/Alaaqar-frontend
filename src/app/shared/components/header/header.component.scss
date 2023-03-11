@@ -1,5 +1,5 @@
-$active_color: #fa5664;
-$active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%) 0% 0% no-repeat padding-box;
+$active_color: #184d47;
+$active_background: #184d47;
 
 .mydropdown.dropdown-menu.show{
 
@@ -47,7 +47,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
         flex-grow: 1;
         width: 100%;
         padding: 0 15px;
-        min-height: 80px;
+        min-height: 70px;
         max-height: 80px;
         justify-content: space-between;
         position: relative;
@@ -109,7 +109,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
                     display: flex;
                     position: relative;
                     top: 4px;
-                    font-size: 14px;
+                    font-size: 18px;
                 }
                 &.active{
                     border-bottom: 4px solid $active_color;
@@ -117,7 +117,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
                         background: $active_color;
                     }
                     a{
-                        color: black;
+                        color: #184d47;
                     }
                     
                 }
@@ -135,7 +135,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
             .direction{
                 display: flex;
                 flex-direction: row;
-                align-items: end;
+                align-items: center;
 
                 .responsive{
                     display: none;
@@ -153,16 +153,30 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
         right: 0;
         top: 0;
         width: 160px;
+
+        @media (max-width: 450px) {
+            display: flex;
+            height: fit-content;
+            margin: auto;
+            position: initial;
+            width: initial;
+        }
+
         a{
             display: flex;
             height: 100%;
             align-items: center;
+            
             img{
-                // height: 50px;
-                position: relative;
-                top: 6px;
-                width: 100%;
+                width: 160px;
             }
+            @media (max-width: 450px) {
+                img{
+                    width: 125px;
+                }
+            }
+            
+
         }
     }
     &__user{
@@ -226,7 +240,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
     }
     &__signup{
         display: flex;
-        padding: 8px 15px;
+        padding: 7px 13px;
         margin: 0px 5px;
         // width: 124px;
         // height: 40px;
@@ -240,7 +254,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
         font-size: 14px;
         .icon{
             display: inline-flex;
-            margin: 0px 5px;
+            // margin: 0px 5px;
             svg{
                 fill: white;
                 width: 20px;
@@ -352,7 +366,7 @@ $active_background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%
 ng-select{
     border:1px solid #eee;
     display: flex;
-    min-width: 160px;
+    width: min-content;
     border-radius: 5px;
     padding: 0 5px;
     position: relative;
@@ -442,7 +456,7 @@ ng-select{
             }
             &.active{
                 left: 0;
-                top: 80px;
+                top: 70px;
             }
         }
         &__collapse{

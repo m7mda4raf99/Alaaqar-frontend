@@ -8,6 +8,10 @@
         "about_us": "About us",
         "contact_us": "Contact us",
         "Notifications": "Notifications",
+        "Buy": "Buy",
+        "Rent": "Rent",
+        "Commercial": "Commercial",
+        "Add property": "Add property",
         "Profile": {
             "edit": "Edit profile",
             "Favorites": "Favorites",
@@ -121,6 +125,10 @@
             "title": "Recently Added",
             "listed_on": "Listed on: "
         },
+        "Featured Units": {
+            "title": "Featured Units",
+            "listed_on": "Listed on: "
+        },
         "Download app": {
             "title": "Download al.aaqar App",
             "description": "Use our website or download the app for quick updates on your property! Available for Android and iOS"
@@ -149,7 +157,12 @@
             "Complete your deal":"Complete your deal",
             "with the lowest":"with the lowest",
             "cost & effort":"cost & effort"
-        }
+        },
+        "top_searched_areas": "Top searched areas",
+        "top_developers": "Top developers",
+        "share_your_quests": "Share your quests",
+        "share_your_quests_description": "'al.aaqar' search engine designed with AI that takes you in easy and simple steps to determine your needs accurately, and this is the most accurate and effective way to get your perfect property."
+
     },
     "blog": {
         "title": "Blog",
@@ -254,7 +267,7 @@
         "No result": "No result found.",
         "Add new Property": "Add new Property",
         "List a new Property": "List a new Property",
-        "description": "You can add other options to the search process, we keep all this data if you want to refer to it againYou can add another property to your choices, and get a visiting appointment from here.",
+        "description": "You can add other options to the search process, we keep all this data if you want to refer to it again. You can add another property to your choices, and get a visiting appointment from here.",
         "View Results":"View Results"
     },
     "myvisits": {
@@ -413,12 +426,14 @@
     "solution_text":"al.aaqar is the first search engine supported by AI, to find the best options that suit your needs, which saves you a lot of time, effort, and search trouble, as well as a lot of real estate brokers' money, Also If you are a property owner, al.aaqar provides you with the right consumer, which facilitates the sale process and saves time and effort.",
     "try_solution":"Try our solution",
     "search_button":"Quick search",
+    "quest_button": "Share your quests",
     "electronic_consultant":"TRY IT NOW",
     "advisor_description1": "try",
     "advisor_description2": "al.aaqar ai search,",
     "advisor_description3": "by easy and simple steps you will get your perfect property",
     "advisor_description": "'Al-AQAR' search engine created with Artificial Intelligence that guides you through easy and simple steps to precisely determine your demands, and this is the most accurate and effective approach to find your perfect property.",
     "sign_up":"Sign up",
+    "language": "عربي",
     "current_language":"E",
     "no_results":"No Results Found",
     "no_results_text":"We couldn't find what you searched for, Try searching again.",

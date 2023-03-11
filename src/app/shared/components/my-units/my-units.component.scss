@@ -155,9 +155,8 @@
     .results {
         background-color: #F7F7F7;
         .bage {
-            width: 120px;
-            height: 40px;
-            background: transparent linear-gradient(180deg, rgba(253, 73, 101, 1) 0%, rgba(253, 115, 99, 1) 100%) 0% 0% no-repeat padding-box;
+            width: 100px;
+            background: transparent linear-gradient(180deg,#fd4965 0%,#fd7363 100%) 0% 0% no-repeat padding-box;
             position: absolute;
             display: inline-block;
             text-align: center;
@@ -166,6 +165,9 @@
             left: 15px;
             color: #fff;
             top: 15px;
+            font-size: 13px;
+            line-height: 17px;
+            padding-bottom: 7px;
             #mainApp.rtl & {
                 left: auto;
                 right: 10px;
@@ -186,6 +188,31 @@
         .card {
             border:none;
             border-radius: 20px;
+
+
+            &:hover {
+                cursor: pointer;
+                .card-title {
+                    color: #f55441;
+                }
+                box-shadow: 8px 3px 30px;
+                transition: 0.3s;
+            }
+            .space-between{
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            .date {
+                display: inline-block;
+                font-size: 14px;
+                color: #ababb6;
+                padding-bottom: 10px;
+                img {
+                    width: 15px;
+                    margin-right: 3px;
+                }
+            }
             .img-fluid {
                 border-radius: 10px;
                 border-bottom-left-radius: 0;
@@ -195,7 +222,7 @@
             }
             .card-title {
                 font-family: 'Rubik-bold';
-                font-size: 30px;
+                font-size: 22px;
                 span {
                     color: #FF725F;
                     font-size: 13px;
@@ -232,6 +259,10 @@
             }
         }
         .card-body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-around;
             .percent {
                 border-radius: 50%;
                 padding: 4px;

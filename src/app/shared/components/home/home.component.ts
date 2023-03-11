@@ -162,6 +162,52 @@ export class HomeComponent implements OnInit {
 
   checkboxVar: boolean = false;
 
+  top_searched_areas = [
+    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.png'},
+    { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.png'},
+    { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/new_cairo.png'},
+    { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.png'}
+  ]
+
+  top_projects = [
+    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/new_capital.png', 'developer_img': '../../../../assets/images/new_capital.png'},
+    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/new_capital.png', 'developer_img': '../../../../assets/images/new_capital.png'},
+    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/new_capital.png', 'developer_img': '../../../../assets/images/new_capital.png'},
+  ]
+
+  top_developers = [
+    { 'name_en': 'Palm Hills', 'name_ar': 'بالم هيلز', 'img': '../../../../assets/images/palm_hills.png'},
+    { 'name_en': 'Emaar Misr', 'name_ar': 'اعمار مصر', 'img': '../../../../assets/images/emaar_misr.png'},
+    { 'name_en': 'Orascom', 'name_ar': 'أوراسكوم', 'img': '../../../../assets/images/orascom.png'},
+    { 'name_en': 'Sodic', 'name_ar': 'سوديك', 'img': '../../../../assets/images/sodic.png'}
+  ]
+
+  imageObject = [
+    {
+      image: '../../../../assets/images/buy 1.png',
+      thumbImage: '../../../../assets/images/buy 1.png',
+    },
+    {
+      image: '../../../../assets/images/buy 2.png',
+      thumbImage: '../../../../assets/images/buy 2.png',
+    },
+    {
+      image: '../../../../assets/images/buy 3.png',
+      thumbImage: '../../../../assets/images/buy 3.png',
+    },
+    {
+      image: '../../../../assets/images/buy 4.png',
+      thumbImage: '../../../../assets/images/buy 4.png',
+    },
+    {
+      image: '../../../../assets/images/buy 5.png',
+      thumbImage: '../../../../assets/images/buy 5.png',
+    },
+    {
+      image: '../../../../assets/images/buy 6.png',
+      thumbImage: '../../../../assets/images/buy 6.png',
+    },
+  ]
 
   constructor(
     //header:HeaderComponent,
@@ -188,6 +234,23 @@ export class HomeComponent implements OnInit {
       this.getNeig(false)
       this.getAreaLocations(false)
       this.getCompound(false)
+
+      if(this.lang === 'en'){
+        this.autoComplete = [
+          { id: 1, name: 'Cairo' },
+          { id: 2, name: 'Al Giza' },
+          { id: 3, name: 'Alexandria' },
+          { id: 4, name: 'Al Suez' }
+        ]
+      }else{
+        this.autoComplete = [
+          { id: 1, name: 'القاهرة' },
+          { id: 2, name: 'الجيزة' },
+          { id: 3, name: 'الاسكندريه' },
+          { id: 4, name: 'السويس' }
+        ]
+      }
+
       // this.getTypes()
       if (val.toUpperCase() === 'AR') {
         this.defaultSelectedArea = 'اختار المنطقة'
@@ -210,6 +273,7 @@ export class HomeComponent implements OnInit {
         this.setMultiSelection('buy')
       }
     })
+
   }
 
   scroll(el: HTMLElement) {
@@ -1792,11 +1856,17 @@ export class HomeComponent implements OnInit {
 
   async toggleFavorite(item: any) {
     let hasError: boolean = false
+
+    this.spinner.show()
+
     if (item.isFavorite === true) {
       if (await this.apiService.removeFromFavorite({ 'unit_id': item.unit_id }) == false) { hasError = true }
     } else {
       if (await this.apiService.addToFavorite({ 'unit_id': item.unit_id }) == false) { hasError = true }
     }
+
+    this.spinner.hide()
+
     if (!hasError) {
       item.isFavorite = !item.isFavorite
       let message = item.isFavorite ? this.translateService.instant('alerts.Added to favorite') : this.translateService.instant('alerts.remove from favorite')
@@ -1945,8 +2015,29 @@ export class HomeComponent implements OnInit {
   async onChangeSearch(val: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
-    this.searchQuery = val
-    await this.GetHintSearch()
+
+    if(val === ''){
+      if(this.lang === 'en'){
+        this.autoComplete = [
+          { id: 1, name: 'Cairo' },
+          { id: 2, name: 'Al Giza' },
+          { id: 3, name: 'Alexandria' },
+          { id: 4, name: 'Al Suez' }
+        ]
+      }else{
+        this.autoComplete = [
+          { id: 1, name: 'القاهرة' },
+          { id: 2, name: 'الجيزة' },
+          { id: 3, name: 'الاسكندريه' },
+          { id: 4, name: 'السويس' }
+        ]
+      }
+    }
+
+    else{
+      this.searchQuery = val
+      await this.GetHintSearch()
+    }
 
   }
   
@@ -2159,6 +2250,10 @@ async onItemSelectRealNeW(item: any){
     var arabic = /[\u0600-\u06FF]/;
     let result = arabic.test(text);
     return result;
+  }
+
+  share_your_quests(){
+
   }
 
 
