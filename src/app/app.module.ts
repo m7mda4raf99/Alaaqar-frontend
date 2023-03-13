@@ -74,6 +74,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/can-deactivate.guard';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { CountryPopupComponent } from './country-popup/country-popup.component';
 
 
 @NgModule({
@@ -111,7 +112,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     FavouritesComponent,
     SearchResultComponent,
     ItemCardComponent,
-    PriceRangeSliderComponent  
+    PriceRangeSliderComponent,
+    CountryPopupComponent  
   ],
   imports: [
     AutocompleteLibModule,

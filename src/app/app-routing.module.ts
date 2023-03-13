@@ -25,9 +25,11 @@ import { PrivacyPolicyComponent } from './shared/components/privacy-policy/priva
 import { FavouritesComponent } from './shared/components/favourites/favourites.component'
 import { SearchResultComponent } from './shared/components/search-result/search-result.component';
 import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/can-deactivate.guard';
+import { CountryPopupComponent } from './country-popup/country-popup.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, },
+  { path: 'country-popup', component: CountryPopupComponent, },
   { path: 'visits', component: MyVisitsComponent, canActivate: [AuthGuard] },
   { path: 'units', component: MyUnitsComponent, canActivate: [AuthGuard]  },
   { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]  },

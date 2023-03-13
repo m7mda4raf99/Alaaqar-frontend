@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, HostListener } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, HostListener, TemplateRef } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { of, Subscription } from 'rxjs'
 import { AppServiceService } from '../../../services/app-service.service'
@@ -19,7 +19,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Console } from 'console'
 import { Options } from '@angular-slider/ngx-slider'
 import { faExclamationCircle, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,8 @@ import { faExclamationCircle, faChevronDown, faSearch } from '@fortawesome/free-
   //encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
+  @ViewChild("content", { static: true })
+  CountryPop!: ElementRef
   @ViewChild('minPrice') minPrice!: ElementRef
   @ViewChild('maxPrice') maxPrice!: ElementRef
   @ViewChild('apply') apply!: ElementRef
@@ -158,8 +161,15 @@ export class HomeComponent implements OnInit {
 
   checkboxVar: boolean = false;
 
+  Country: any;
+  EgyptSaudia = [
+    { name: 'Egypt', flagUrl: 'https://www.countryflags.io/eg/flat/64.png' },
+    { name: 'Saudi Arabia', flagUrl: 'https://www.countryflags.io/sa/flat/64.png' }
+  ];
+
 
   constructor(
+    public modalService: NgbModal,
     //header:HeaderComponent,
     private cookieService: CookieService,
     private appServiceService: AppServiceService,
@@ -212,6 +222,7 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
+    
     const box=document.getElementById('home')
     
      this.appServiceService.selected_country$.subscribe((res:any) =>{
@@ -224,28 +235,46 @@ export class HomeComponent implements OnInit {
       { name: 'description', content: "Alaaqar is a property finder platform online .It's the easiest way to buy, sell, or rent residential or commercial properties. Buy, Sell, or Rent without hassle Online." },
     ]);
     
-    this.spinner.show()
+    const selectedCountry = this.cookieService.get('selectedCountry');
+    console.log('selectedCountry')
+    console.log(selectedCountry)
+ //   if (selectedCountry) {
+      this.spinner.show()
     
-    await this.setPrice()
-    await this.getNewArea()
-    await this.getRealNnew()
-    await this.getCity(true)
-    //await this.getAreaLocations(true)
-    this.setMultiSelection('buy')
-    // this.getUnitTypes()
-    // await this.setupUnitTypesCount()
-    // await this.setupMinPrice()
+      await this.setPrice()
+      await this.getNewArea()
+      await this.getRealNnew()
+      await this.getCity(true)
+      //await this.getAreaLocations(true)
+      this.setMultiSelection('buy')
+      // this.getUnitTypes()
+      // await this.setupUnitTypesCount()
+      // await this.setupMinPrice()
+  
+      this.spinner.hide()
+  
+      if (!this.recentlyAdded.length) {
+        await this.getRecentlyAdded()
+      }
+      this.getHomeAboutSectionData()
+      this.getFooterContact()
+      this.getAboutUsHome()
+      this.getHomeBlogs()
+      this.resetFormData()
+    // }
+    // else{
+    //  this.modalService.open(this.CountryPop);
+      //this.router.navigate(['/country-popup']);
+  //  }
+  
+  }
 
-    this.spinner.hide()
 
-    if (!this.recentlyAdded.length) {
-      await this.getRecentlyAdded()
-    }
-    this.getHomeAboutSectionData()
-    this.getFooterContact()
-    this.getAboutUsHome()
-    this.getHomeBlogs()
-    this.resetFormData()
+  selectCountry(country: string) {
+    this.Country = country;
+    this.cookieService.set('Country', this.Country);
+    this.modalService.dismissAll()
+   // this.router.navigate(['/home']);
   }
   
   async setPrice(){
@@ -1629,7 +1658,9 @@ export class HomeComponent implements OnInit {
 
   tryItNow(){
     // console.log("this.activeTab try it now: ", this.activeTab)
-    this.router.navigate(['/set-priorities'], { queryParams: { type_id: null, propose: this.activeTab === 'rent' ? 1 : 2 } })
+    // this.router.navigate(['/set-priorities'], { queryParams: { type_id: null, propose: this.activeTab === 'rent' ? 1 : 2 } })
+
+    this.modalService.open(this.CountryPop);
   }
 
   submit(data: any) {

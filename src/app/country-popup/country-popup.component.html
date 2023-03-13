@@ -1,0 +1,13 @@
+  <div class="country-popup">
+    <h2>Select your country:</h2>
+    <div class="country-list">
+      <div class="country-item" (click)="selectCountry('Egypt')" [class.selected]="selectedCountry === 'Egypt'">
+        <img src="https://www.countryflags.io/EG/flat/64.png">
+        <span>Egypt</span>
+      </div>
+      <div class="country-item" (click)="selectCountry('Saudi Arabia')" [class.selected]="selectedCountry === 'Saudi Arabia'">
+        <img src="https://www.countryflags.io/SA/flat/64.png">
+        <span>Saudi Arabia</span>
+      </div>
+    </div>
+  </div>

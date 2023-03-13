@@ -1,5 +1,44 @@
 .home {
 
+    .country-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 20px;
+        z-index: 9999;
+      }
+      
+      .country-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      
+      .country-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      
+      .country-item img {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 10px;
+      }
+      
+      .country-item.selected {
+        border: 1px solid blue;
+      }
+
     
     @media screen and (max-width: 1440px) {
         body {
