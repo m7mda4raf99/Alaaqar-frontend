@@ -171,23 +171,30 @@ export class LoginComponent implements OnInit {
       this.appService.isLoggedIn$.next(true)
       //await this.updateProfile()
       this.notificationService.showSuccess('Success login !')
-     if(this.activeRoute.queryParams['type_id'] && this.activeRoute.queryParams['propose'] ){
-        
-      // let data = {
-          //   id: JSON.parse(user)['id']
-          // }
+     if(this.activeRoute.queryParams['type_id'] && this.activeRoute.queryParams['propose']){
+          const user = this.cookieService.get('user')
 
-          // let response = await this.apiService.userUnits(data)
-
-          // if(response){
-          //   modal.show()
-          // }
-          if(false){
-            // console.log(this.alert)
-            this.modalService.open(this.alert);
-          }else{
-            this.router.navigate(['/sell'], { queryParams: { type_id: this.activeRoute.queryParams['type_id'], propose: this.activeRoute.queryParams['propose']} })
+          let request = {
+            id: JSON.parse(user)['id']
           }
+    
+          this.spinner.show()
+          let response = await this.apiService.checkoccurrence(request)
+          this.spinner.hide()
+    
+          if(response.data){
+            this.modalService.open(this.alert);
+            this.router.navigate(['/home'])
+          }else{
+            this.router.navigate(['/sell'], { queryParams: { type_id: 1, propose: 2 } })
+        }
+
+          // if(false){
+          //   // console.log(this.alert)
+          //   this.modalService.open(this.alert);
+          // }else{
+          //   this.router.navigate(['/sell'], { queryParams: { type_id: this.activeRoute.queryParams['type_id'], propose: this.activeRoute.queryParams['propose']} })
+          // }
 
       }
 

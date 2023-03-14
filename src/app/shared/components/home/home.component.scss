@@ -31,7 +31,7 @@
 
             @media (max-width: 450px) {
                 margin-top: -240px;
-                height: 370px;
+                height: 360px;
             }
             
             .main-image{
@@ -113,6 +113,10 @@
 
                     .image-options{
                         width: 60px;
+
+                        @media (max-width: 450px) {
+                            width: 45px;
+                        }
                     }
 
                     .text-options{
@@ -1800,10 +1804,14 @@
     }
     .how-it-works {
         background-color: #f7f7f7;
-        padding: 50px 0px;
+        display: flex;
+        justify-content: space-between;
+        padding: 50px 130px 25px 130px;
+        align-items: center;
 
         @media (max-width: 450px) {
-            padding: 25px 0px;
+            padding: 25px;
+            flex-direction: column;
         }
 
         .container{
@@ -1868,8 +1876,70 @@
             }
         }
         
+        .switcher {
+            background-color: #f7f7f7;
+            display: flex;
+            // padding: 5px;
+            border-radius: 20px;
+
+            @media (max-width: 1024px) {
+                width: 100%;
+            }
+
+            .switch-tab {
+                font-family: "Rubik-medium";
+                font-size: 13px;
+                padding: 9px 7px;
+                color: #a9a9a9;
+                margin: 2px;
+                border-radius: 20px;
+                border: 1px solid #f7f7f7;
+                @media (max-width: 1024px) {
+                    font-size: 12px;
+                }
+                &.left {
+                    background: linear-gradient(to right, #e7e7e7 50%, rgb(253, 73, 101) 50%) left;
+                    background-size: 200%;
+                }
+                &.right {
+                    background: linear-gradient(to left, #e7e7e7 50%, rgb(253, 73, 101) 50%) right;
+                    background-size: 200%;
+                }
+                @media (max-width: 768px) {
+                    font-size: 10px;
+                }
+                &.active {
+                    color: #fff;
+                    transition: all 0.4s ease-out;
+                    transition: color 0.5s ease-in-out;
+                    -webkit-transition: all 0.4s ease-out;
+                    -webkit-transition: color 0.5s ease-in-out;
+                    background: #184d47;
+    
+    
+                    &.left {
+                        background-position: right;
+                        height: fit-content;
+                    }
+                    &.right {
+                        background-position: left;
+                        height: fit-content;
+                    }
+                }
+            }
+        }
         
     }
+
+    .image-slider{
+        padding: 0px 135px 50px 135px;
+        background: #f7f7f7;
+
+        @media (max-width: 450px) {
+            padding: 0px 10px 25px 10px;
+        }
+    }
+
     .top-searched-areas {
         background-color: #f7f7f7;
         padding: 50px 0px;
@@ -2296,11 +2366,20 @@
     }
 
     .alaqaar-blogs{
-        padding: 50px 0;
+        padding: 50px 135px;
         background-color: #f7f7f7;
 
         @media (max-width: 450px) {
             padding: 25px 0px;
+        }
+
+        .section-body{
+            display: flex;
+            flex-direction: row;
+
+            @media (max-width: 450px) {
+                flex-direction: column;
+            }
         }
 
         .card{
@@ -2308,12 +2387,113 @@
             padding: 10px;
             cursor: pointer;
             height: 100%;
+            margin: 0px 10px;
+
+            &:hover {
+                cursor: pointer;
+                .card-title {
+                    color: #f55441;
+                }
+
+                box-shadow: 8px 3px 30px;
+                transition: 0.3s;
+            }
 
             .card-body{
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 padding: 1rem 1rem 0 1rem;
+            }
+        }
+
+        
+        .location {
+            display: inline-block;
+            font-size: 14px;
+            color: #ababb6;
+            padding-bottom: 10px;
+            // margin-right: 15px;
+            // margin-left: 15px;
+            img {
+                width: 8px;
+                margin-right: 3px;
+            }
+
+            @media (max-width: 450px) {
+                font-size: 12px;
+            }
+        }
+        
+        .sep-width{
+            display: inline-block;
+            width: 15px;
+        }
+
+        .date {
+            display: inline-block;
+            font-size: 14px;
+            color: #ababb6;
+            padding-bottom: 10px;
+            img {
+                width: 15px;
+                margin-right: 3px;
+            }
+
+            @media (max-width: 450px) {
+                font-size: 12px;
+            }
+        }
+    
+        
+    }
+
+    .top-projects{
+        padding: 50px 135px;
+        background-color: #f7f7f7;
+
+        @media (max-width: 450px) {
+            padding: 25px 0px;
+        }
+
+        .section-body{
+            display: flex;
+            flex-direction: row;
+
+            @media (max-width: 450px) {
+                flex-direction: column;
+            }
+        }
+
+        .card{
+            border-radius: 20px;
+            padding: 10px;
+            cursor: pointer;
+            height: 100%;
+            margin: 0px 10px;
+
+            &:hover {
+                cursor: pointer;
+                .card-title {
+                    color: #f55441;
+                }
+
+                box-shadow: 8px 3px 30px;
+                transition: 0.3s;
+            }
+
+            .card-body{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 1rem 1rem 0 1rem;
+            }
+
+            .main-img {
+                border-top-left-radius: 20px;
+                max-width: 100%;
+                width: 100%;
+                height: 200px;
             }
         }
 

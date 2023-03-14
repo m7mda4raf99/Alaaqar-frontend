@@ -116,20 +116,20 @@
                     <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         false}">
                         <!-- routerLink='/home' -->
-                        <a >{{'header.Buy' | translate}}</a>
+                        <a routerLink='/home' [queryParams]="{q: 'buy'}">{{'header.Buy' | translate}}</a>
                     </li>
 
                     <!-- Rent -->
                     <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <!-- routerLink='/blog' -->
-                        <a >{{'header.Rent' | translate}}</a>
+                        <a routerLink='/home' [queryParams]="{q: 'rent'}">{{'header.Rent' | translate}}</a>
                     </li>
                     <!-- Commercial -->
                     <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <!-- routerLink='/how-it-works' -->
-                        <a >{{'header.Commercial' | translate}}</a>
+                        <a routerLink='/home' [queryParams]="{q: 'commercial'}">{{'header.Commercial' | translate}}</a>
                     </li>
 
                     <div style="margin-right: 40px;" class="app-header__signup" (click)="addProperty()" >
@@ -454,6 +454,22 @@
         <!-- </div> -->
 
     </div>
+
+    <ng-template #alert let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                   <p style="    font-family: Rubik-medium;
+                   color: #184d47;"> {{ 'buy.fail' |  translate }} </p>
+            </div>
+        </div>
+        <div class="modal-body">
+                <p style="text-align: center;"> {{ 'buy.fail_message' |  translate }} </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="routeToHome()">{{'buy.fail_button' |
+                translate}}</button>
+        </div>
+    </ng-template>
 
 </div>
 

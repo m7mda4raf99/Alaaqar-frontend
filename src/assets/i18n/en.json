@@ -106,6 +106,7 @@
         "Location": "Location",
         "Compound": "Compound",
         "Real estate type": "Real estate type",
+        "Propose": "Proposal",
         "Price range": "Price range",
         "Price range hint": "Minimum price in this area: ",
         "Select Area": "Select Area",
@@ -142,6 +143,9 @@
             "description1": "Read up on articles about the real estate market",
             "description2": "as well as tips and tricks on buying, selling, and renting apartments, houses",
             "description3": "or commercial properties."
+        },
+        "Top projects": {
+            "title": "Top projects"
         },
         "howItWorks":{
             "Its the easiest way to buy sell":"Buy or rent your suitable property for free",
@@ -299,6 +303,9 @@
     "no notifications":"No notifications yet."
     },
     "sell": {
+        "location": "SELECT YOUR GEOGRAPHICAL LOCATION",
+        "type": "SELECT YOUR PROPERTY TYPE AND PRICE",
+        "hint": "SELL / RENT MY PROPERTY",
         "options": "options",
         "sub": {
             "Home": "Home",
@@ -410,8 +417,8 @@
     "howItWorks":{
         "How it works":"How it works",
         "Home":"Home",
-        "a Buyer Tenant":"I'm a Buyer/Tenant",
-        "a Seller Landlord":"I'm a Seller/Landlord"
+        "a Buyer Tenant":"For Buyer/Tenant",
+        "a Seller Landlord":"For Seller/Landlord"
     },
     "search":{
         "title":"Search results",

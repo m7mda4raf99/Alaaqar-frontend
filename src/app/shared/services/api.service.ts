@@ -341,6 +341,10 @@ export class ApiService {
     return this.SyncClient(`${this.BaseURL}api/checkoccurrence`, 'POST', null, data)
   }
 
+  public getAllGeographicalLocations(): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/newGeographical`, 'GET')
+  }
+
   // public login() {
   //   return this.AsyncClient(`${this.BaseURL}api/unit_types`, 'GET')
   // }

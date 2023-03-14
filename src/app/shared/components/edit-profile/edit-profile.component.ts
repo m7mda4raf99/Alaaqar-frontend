@@ -8,7 +8,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { ApiService } from '../../services/api.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-edit-profile',

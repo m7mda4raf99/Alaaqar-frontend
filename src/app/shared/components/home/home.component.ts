@@ -20,6 +20,7 @@ import { Console } from 'console'
 import { Options } from '@angular-slider/ngx-slider'
 import { faExclamationCircle, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -162,6 +163,10 @@ export class HomeComponent implements OnInit {
 
   checkboxVar: boolean = false;
 
+  switcher: any = 'buyer'
+  buyer: string = 'buyer'
+  seller: any = 'seller'
+
   top_searched_areas = [
     { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.png'},
     { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.png'},
@@ -170,9 +175,9 @@ export class HomeComponent implements OnInit {
   ]
 
   top_projects = [
-    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/new_capital.png', 'developer_img': '../../../../assets/images/new_capital.png'},
-    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/new_capital.png', 'developer_img': '../../../../assets/images/new_capital.png'},
-    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/new_capital.png', 'developer_img': '../../../../assets/images/new_capital.png'},
+    { 'name_en': 'Palm Hills New Cairo', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/palm_hills_project.jpg', 'developer_img': '../../../../assets/images/palm_hills.png', 'location_en': 'New Cairo', 'location_ar': 'القاهرة الجديدة'},
+    { 'name_en': 'Belle Vie', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/emaar_project.png', 'developer_img': '../../../../assets/images/emaar_misr.png', 'location_en': 'New Cairo', 'location_ar': 'القاهرة الجديدة'},
+    { 'name_en': 'Sodic East', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/sodic_project.png', 'developer_img': '../../../../assets/images/sodic.png', 'location_en': 'New Cairo', 'location_ar': 'القاهرة الجديدة'},
   ]
 
   top_developers = [
@@ -182,7 +187,7 @@ export class HomeComponent implements OnInit {
     { 'name_en': 'Sodic', 'name_ar': 'سوديك', 'img': '../../../../assets/images/sodic.png'}
   ]
 
-  imageObject = [
+  buyImages = [
     {
       image: '../../../../assets/images/buy 1.png',
       thumbImage: '../../../../assets/images/buy 1.png',
@@ -206,6 +211,25 @@ export class HomeComponent implements OnInit {
     {
       image: '../../../../assets/images/buy 6.png',
       thumbImage: '../../../../assets/images/buy 6.png',
+    },
+  ]
+
+  sellImages = [
+    {
+      image: '../../../../assets/images/sell 1.png',
+      thumbImage: '../../../../assets/images/sell 1.png',
+    },
+    {
+      image: '../../../../assets/images/sell 2.png',
+      thumbImage: '../../../../assets/images/sell 2.png',
+    },
+    {
+      image: '../../../../assets/images/sell 3.png',
+      thumbImage: '../../../../assets/images/sell 3.png',
+    },
+    {
+      image: '../../../../assets/images/sell 4.png',
+      thumbImage: '../../../../assets/images/sell 4.png',
     },
   ]
 
@@ -278,6 +302,10 @@ export class HomeComponent implements OnInit {
 
   scroll(el: HTMLElement) {
     el.scrollIntoView();
+  }
+
+  onChangeSwitcher(){
+    console.log(this.switcher)
   }
 
   async ngOnInit() {
@@ -2256,6 +2284,13 @@ async onItemSelectRealNeW(item: any){
 
   }
 
+  navigateToSingleProject(item: any){
+
+  }
+
+  navigateToSingleDeveloper(item: any){
+    
+  }
 
 
 }

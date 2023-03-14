@@ -128,7 +128,7 @@ export class UnitDetailsComponent implements OnInit {
       let i = Number(key) - 1
       // console.log("i: ", i)
       
-      if (i !== NaN && i < 3) {
+      if (!Number.isNaN(i) && i < 3) {
         propertyData.optionsView.push({
           name_en: parents[i].name_en,
           name_ar: parents[i].name_ar,
@@ -424,28 +424,34 @@ export class UnitDetailsComponent implements OnInit {
     this.router.navigate(['/visits'])
   }
   getSelectedCompound() {
-    if (this.propertyData?.selectedCompoundObj?.length != 0) {
-      return this.activeLang === 'en' ? this.propertyData?.selectedCompoundObj[0]?.name_en + ", ": this.propertyData?.selectedCompoundObj[0]?.name_ar + ", "
+    if(this.propertyData?.selectedCompoundObj){
+      if (this.propertyData?.selectedCompoundObj?.length != 0) {
+        return this.activeLang === 'en' ? this.propertyData?.selectedCompoundObj[0]?.name_en + ", ": this.propertyData?.selectedCompoundObj[0]?.name_ar + ", "
+      }
     }
     return ''
   }
   getSelectedNeighborhood() {
-    if (this.propertyData?.selectedNeighborhoodObj?.length != 0) {
-      return this.activeLang === 'en' ? this.propertyData?.selectedNeighborhoodObj[0]?.name_en + ", ": this.propertyData?.selectedNeighborhoodObj[0]?.name_ar + ", "
+    if(this.propertyData?.selectedNeighborhoodObj){
+      if (this.propertyData?.selectedNeighborhoodObj?.length != 0) {
+        return this.activeLang === 'en' ? this.propertyData?.selectedNeighborhoodObj[0]?.name_en + ", ": this.propertyData?.selectedNeighborhoodObj[0]?.name_ar + ", "
+      }
     }
     return ''
   }
 
   getSelectedLocation() {
-    if (this.propertyData?.selectedLocationObj?.length != 0) {
-      return this.activeLang === 'en' ? this.propertyData?.selectedLocationObj[0]?.name_en + ", ": this.propertyData?.selectedLocationObj[0]?.name_ar + ", "
+    if(this.propertyData?.selectedLocationObj){
+      if (this.propertyData?.selectedLocationObj?.length != 0) {
+        return this.activeLang === 'en' ? this.propertyData?.selectedLocationObj[0]?.name_en + ", ": this.propertyData?.selectedLocationObj[0]?.name_ar + ", "
+      }
     }
     return ''
   }
 
   getSelectedArea() {
-    if (this.propertyData?.selectedLocationObj?.length != 0) {
-      return this.activeLang === 'en' ? this.propertyData?.selectedLocationObj[0]?.area_en + ", ": this.propertyData?.selectedLocationObj[0]?.area_ar + ", "
+    if (this.propertyData?.selectedAreaObj?.length != 0) {
+      return this.activeLang === 'en' ? this.propertyData?.selectedAreaObj[0]?.name_en + ", ": this.propertyData?.selectedAreaObj[0]?.name_ar + ", "
     }
     return ''
   }

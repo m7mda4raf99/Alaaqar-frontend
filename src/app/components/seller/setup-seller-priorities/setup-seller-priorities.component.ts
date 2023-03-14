@@ -46,6 +46,15 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       if (this.criteriaParent && this.criteriaParent.length > 0) {
         this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
       }
+
+      this.setMultiSelection()
+      this.putCity(false)
+      this.putUnitType(false)
+      this.getNewArea(false)
+      this.getCompound(false)
+      this.getLocation(false)
+      this.getNeig(false)
+
     })
     this.sub2 = this.prioritiesService.SellerPriority$.subscribe(val => {
       this.priorities = val
@@ -53,7 +62,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     })
     this.sub3 = this.appService.propertyDetails$.subscribe(val => {
       if (!Object.keys(val).length) {
-        this.router.navigate(['/home'])
+        // this.router.navigate(['/home'])
       }
       this.propertyDetailsData = val
       //  console.log('propertyDetailsData')
@@ -107,6 +116,10 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     options: []
   }
 
+  isAttributesSet: boolean = false
+
+  locations: any
+
   removeImgDuplicate(){
     let obj:any = {}
 
@@ -142,10 +155,18 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     if (activeRoute.queryParams && activeRoute.queryParams.edit && activeRoute.queryParams.id) {
       await this.fetchEditData(activeRoute.queryParams.id)
     } else {
-      await this.setupFormCriteria()
-      this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
+      // await this.setupFormCriteria()
+      // this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
     }
     this.setupNotCompletedSell()
+
+    this.setMultiSelection()
+
+    this.locations = await this.apiService.getAllGeographicalLocations();
+    this.locations = this.locations.data
+    
+    this.putCity(true)
+    this.putUnitType(true)
 
     this.spinner.hide();
   }
@@ -260,8 +281,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   async setupFormCriteria() {
     if (this.params.type_id && this.params.propose) {
       let data = {
-        type_id: this.params['type_id'],
-        propose: this.params['propose']
+        type_id: this.search_model.SelectedRealEstateType,
+        propose: this.search_model.propose
       }
       if (!this.criteria) {
         this.criteria = await this.getCriteria(data)
@@ -745,4 +766,971 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     }
     return this.translateService.instant('sell.options') + ' ' + this.ArCriteriaParent[this.activeTab - 1]
   }
+
+  dropdownListCity: any = [];
+  dropdownListArea: any = [];
+  dropdownListCompound: any = [];
+  dropdownListLocation: any = [];
+  dropdownListNeighborhood: any = [];
+  dropdownListRealstateType: any = [];
+  dropdownListPropose: any = [];
+  
+  selectedItemCity: any = [];
+  selectedItemArea: any = [];
+  selectedItemNeighborhood: any = [];
+  selectedItemCompound: any = [];
+  selectedItemLocation: any = [];
+  SelectedRealEstateType: any = [];
+  selectedItemPropose: any = [];
+
+  price: any = ""
+
+  settingsArea = {};
+  settingsNeigbhorhood = {};
+  settingsCompound = {};
+  settingsLocation = {};
+  settingsCity = {};
+  settingsUnitType = {};
+  settingsPropose = {};
+
+  SelectedRealEstateTypeNotValid: boolean = false
+  selectedProposeNotValid: boolean = false
+  SelectedNeighborhoodNotValid: boolean = false
+  selectedCompoundNotValid: boolean = false
+  selectedLocationNotValid: boolean = false
+  selectedCityNotValid: boolean = false
+  selectedAreaNotValid: boolean = false
+  PriceNotValid: boolean = false
+
+  activeCity: number = 1
+  proposeID: number = 2
+
+  checkboxVar: boolean = false;
+
+  selectedAreaObj: any = []
+
+  Comp: any = []
+  Neigh: any = []
+
+  setMultiSelection(){
+    this.settingsCity = { 
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "City" : "المدينة",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      allowSearchFilter: false,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+
+    this.settingsArea = { 
+          singleSelection: true, 
+          text: this.activeLang === 'en' ? "Area" : "المنطقة",
+          searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+          noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+          enableSearchFilter: true,
+          // groupBy: "areaName",
+          selectGroup: false,
+          // badgeShowLimit: 1,
+          allowSearchFilter: false,
+          // limitSelection: 1,
+          enableFilterSelectAll: false,
+          showCheckbox: false,
+          position: 'bottom', autoPosition: false,
+          searchAutofocus: false
+    };  
+
+    this.settingsLocation = { 
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "Location" : "الموقع",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      // groupBy: "locationName",
+      selectGroup: false,
+      // badgeShowLimit: 1,
+      allowSearchFilter: false,
+      // limitSelection: 1,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+
+    this.settingsCompound = { 
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "Compound" : "الكومباوند",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      // groupBy: "compoundName",
+      // badgeShowLimit: 1,
+      allowSearchFilter: false,
+      // limitSelection: 1,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+    
+    this.settingsNeigbhorhood = { 
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "Neighborhood" : "الحي",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      // groupBy: "neiName",
+      // badgeShowLimit: 1,
+      allowSearchFilter: false,
+      // limitSelection: 1,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    };  
+
+    this.settingsUnitType = {
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "Type" : "نوع العقار",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      allowSearchFilter: false,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    }
+
+    this.settingsPropose = {
+      singleSelection: true, 
+      text: this.activeLang === 'en' ? "Propose" : "عرض",
+      searchPlaceholderText: this.activeLang === 'en' ? "Search" : "بحث",
+      noDataLabel: this.activeLang === 'en' ? "No Data Available" : "لا توجد بيانات متاحة",
+      enableSearchFilter: true,
+      allowSearchFilter: false,
+      enableFilterSelectAll: false,
+      showCheckbox: false,
+      position: 'bottom', autoPosition: false,
+      searchAutofocus: false
+    }
+
+    if(this.activeLang === 'en'){
+      this.dropdownListPropose = [ { id: 2, itemName: "Sell" }, { id: 1, itemName: "Rent out" } ] 
+    }else{
+      this.dropdownListPropose = [ { id: 2, itemName: "بيع" }, { id: 1, itemName: "تأجير" } ] 
+    }
+
+  }
+
+  putCity(isChanged: boolean){
+    if(isChanged){
+      this.selectedCityNotValid = false
+      this.selectedItemCity = []
+      this.dropdownListCity = []
+
+      let values : any [] = Object.values(this.locations['cities'][0]);
+
+      for(let item of values){
+  
+        let name = ''
+
+        name = this.activeLang === 'en' ? item.name_en : item.name_ar
+
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+        }
+  
+        this.dropdownListCity.push(obj)
+      }
+      
+    }else{
+      let array = []
+  
+      for(let item of this.dropdownListCity){
+
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar
+        }
+  
+        array.push(obj)
+      }
+  
+      this.dropdownListCity = array
+
+      array = []
+  
+      for(let item of this.selectedItemCity){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+        }
+  
+        array.push(obj)
+      }
+  
+      this.selectedItemCity = array
+
+    }
+  }
+
+  putUnitType(isChanged: boolean){
+    if(isChanged){
+      this.SelectedRealEstateTypeNotValid = false 
+      
+      this.dropdownListRealstateType = []
+
+      let values : any [] = Object.values(this.locations['types'][0]);
+
+      for(let item of values){
+        if(item.id != 23){
+          let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+
+          let obj = {
+            id: item.id,
+            itemName: name,
+            name_en: item.name_en,
+            name_ar: item.name_ar,
+          }
+    
+          this.dropdownListRealstateType.push(obj)
+      }
+    }
+      
+    }else{
+      let array = []
+  
+      for(let item of this.dropdownListRealstateType){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+  
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar
+        }
+  
+        array.push(obj)
+      }
+  
+      this.dropdownListRealstateType = array
+
+      array = []
+  
+      for(let item of this.SelectedRealEstateType){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+        }
+  
+        array.push(obj)
+      }
+  
+      this.SelectedRealEstateType = array
+
+    }
+  }
+
+  async onChangeCity(city: any) {
+    this.selectedCityNotValid = false
+    this.selectedAreaNotValid = false
+    this.selectedLocationNotValid = false
+    this.selectedCompoundNotValid = false
+    this.SelectedNeighborhoodNotValid = false
+
+    city = city['id']
+    this.selectedItemArea = []
+    this.selectedItemCompound = []
+    this.selectedItemLocation = []
+    this.selectedItemNeighborhood = []
+    this.activeCity = city
+    // this.search_model.cities = [this.activeCity]
+    this.getNewArea(true)
+    // this.getCompound()
+  }
+
+  onDeSelectAllCity(){
+    this.selectedItemArea = []
+    this.selectedItemNeighborhood = []
+    this.selectedItemCompound = []
+    // this.search_model.cites = []
+    this.checkboxVar = false
+  }
+
+  ///////////////////area/////////////
+  getNewArea(isChanged: boolean) {
+    if(isChanged){
+      this.selectedAreaNotValid = false
+
+      let city_id = this.selectedItemCity[0].id
+    
+      let values : any [] = Object.values(this.locations['areas'][0]);
+
+      values = values.filter(area => area.city_id === city_id)
+
+      this.dropdownListArea = []
+
+      for(let item of values){
+        let obj = {
+          id: item.id,
+          itemName: this.activeLang === 'en' ? item.name_en : item.name_ar,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          areaName: this.activeLang === 'en' ? 'Area' : 'المنطقة' 
+        }
+
+        this.dropdownListArea.push(obj)
+      }
+    }else{
+      let array = []
+  
+      for(let item of this.dropdownListArea){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+      
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar
+        }
+  
+        array.push(obj)
+      }
+  
+      this.dropdownListArea = array
+
+      array = []
+  
+      for(let item of this.selectedItemArea){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+        
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+        }
+  
+        array.push(obj)
+      }
+  
+      this.selectedItemArea = array
+    }
+  }
+  
+  onItemSelectArea(item: any){
+    this.selectedAreaNotValid = false
+    this.selectedItemCompound = []
+    this.selectedItemLocation = []
+    this.selectedItemNeighborhood = []
+
+    this.getCompound(true)
+    this.getLocation(true)
+  }
+
+  onItemDeSelectArea(item: any){
+    let area: any = []
+    let location: any = []
+    this.selectedAreaObj = []
+
+    for (let item of this.selectedItemArea) {
+      location.push(item['id'])
+
+      if(!area.includes(item['areaID'])){
+        area.push(item['areaID'])
+        this.selectedAreaObj.push({
+          id: item['areaID'],
+          name: item['areaName'],
+          // disabled: false,
+          // units_count: 0,
+        })
+        
+      }
+    }
+
+    // this.search_model.areas = area
+    // this.search_model.locations = location
+
+    if(item['itemName']==="Compounds" || item['itemName']==="كومباند"){
+      for (let i = 0; i < this.dropdownListCompound.length; i++) {
+        if(this.dropdownListCompound[i]['areaID']==item['areaID']){
+            this.dropdownListCompound.splice(i, 1);
+            i-- 
+          }
+      }
+
+      for (let i = 0; i < this.selectedItemCompound.length; i++) {
+        if(this.selectedItemCompound[i]['areaID']==item['areaID']){
+            this.selectedItemCompound.splice(i, 1);
+            i-- 
+          }
+      }
+
+      if(this.dropdownListCompound.length === 0){
+        this.checkboxVar = false
+      }
+      
+      for (let i = 0; i < this.Comp.length; i++) {
+        if(this.Comp[i]==item['areaID']){
+          this.Comp.splice(i, 1);
+          i-- 
+        }
+      }
+    }else{
+      for (let i = 0; i < this.dropdownListNeighborhood.length; i++) {
+        if(this.dropdownListNeighborhood[i]['locationID']==item['id']){
+          this.dropdownListNeighborhood.splice(i, 1);
+          i-- 
+        }
+      }
+
+      for (let i = 0; i < this.selectedItemNeighborhood.length; i++) {
+        if(this.selectedItemNeighborhood[i]['locationID']==item['id']){
+          this.selectedItemNeighborhood.splice(i, 1);
+          i-- 
+        }
+      }
+
+      for (let i = 0; i < this.Neigh.length; i++) {
+        if(this.Neigh[i]==item['id']){
+          this.Neigh.splice(i, 1);
+          i-- 
+        }
+      }
+    }
+
+  }
+
+  async onDeSelectAllArea(){
+    this.checkboxVar = false
+    this.selectedItemNeighborhood = []
+    this.selectedItemCompound = []
+    this.dropdownListNeighborhood = []
+    this.dropdownListCompound = []
+    // this.search_model.areas = []
+    // this.search_model.locations = []
+    // await this.setupUnitTypesCount()
+  }
+
+  // --------- location ----------
+  async getLocation(isChanged: boolean){
+    if(isChanged){
+      this.selectedLocationNotValid = false
+      this.dropdownListLocation = []
+
+      let area_id = this.selectedItemArea[0].id
+
+      let values:any[] =Object.values(this.locations['locations'][0]);
+
+      values = values.filter(location => location.area_id === area_id)    
+
+      for(let item of values){
+        if(item.name_en.toLowerCase() != "compounds" && item.name_en.toLowerCase() != "compound"){
+          let name = this.activeLang === 'en' ? item.name_en: item.name_ar
+       
+          let obj = {
+            id: item.id,
+            itemName: name,
+            name_en: item.name_en,
+            name_ar: item.name_ar,
+            area_id: item.area_id,
+          }
+          this.dropdownListLocation.push(obj)
+        }
+      }
+  
+  
+    }else{
+      let array = []
+  
+      for(let item of this.dropdownListLocation){
+        if(item.name_en != "Compounds"){
+          let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+       
+          let obj = {
+            id: item.id,
+            itemName: name,
+            name_en: item.name_en,
+            name_ar: item.name_ar,
+            area_id: item.area_id,
+          }
+          array.push(obj)
+        }
+      }
+  
+      this.dropdownListLocation = array
+  
+      array = []
+  
+      for(let item of this.selectedItemLocation){
+        if(item.name_en != "Compounds"){
+          let name = ''
+          name = this.activeLang === 'en' ? item.name_en: item.name_ar
+       
+          let obj = {
+            id: item.id,
+            itemName: name,
+            name_en: item.name_en,
+            name_ar: item.name_ar,
+            area_id: item.area_id,
+          }
+          array.push(obj)
+        }
+      }
+  
+      this.selectedItemLocation = array
+    }
+  
+  }
+  async onItemSelectLocation(item: any){
+    this.selectedLocationNotValid = false
+
+    this.getNeig(true)
+  }
+
+  onDeSelectAllLocation(){
+    this.selectedItemNeighborhood = []
+    this.dropdownListNeighborhood = []
+  }
+
+
+  // NEIHGBORHOOD
+  async onItemSelectNeighborhood(item: any){
+    this.SelectedNeighborhoodNotValid = false
+    // this.search_model.neighborhoods = []
+
+    for(let item of this.selectedItemNeighborhood){
+      // this.search_model.neighborhoods.push(item.id)
+    }
+    // await this.setupUnitTypesCount()
+    // await this.setupMinPrice()
+  }
+
+  onItemDeSelectNeighborhood(item: any){
+    // this.search_model.neighborhoods = []
+
+    for(let item of this.selectedItemNeighborhood){
+      // this.search_model.neighborhoods.push(item.id)
+    }
+  }
+
+  // UNIT TYPE
+  onItemSelectUnitType(item: any){
+    this.SelectedRealEstateTypeNotValid = false
+    
+    // this.search_model.type = [this.SelectedRealEstateType[0]['id']]
+    //  this.setupMinPrice()
+
+  }
+
+  // Proposal
+  onItemSelectPropose(item: any){
+    this.selectedProposeNotValid = false
+  }
+
+  // COMPOUND
+  onItemSelectCompound(item: any){
+    this.selectedCompoundNotValid = false
+  }
+
+  onItemDeSelectCompound(){
+
+  }
+
+  // async onItemDeSelectCompound(item: any){
+  //   // this.search_model.compounds = []
+
+  //   for(let item of this.selectedItemCompound){
+  //     // this.search_model.compounds.push(item.id)
+  //   }
+  //   // await this.setupUnitTypesCount()
+  // }
+
+  // PRICE
+  onChangePrice(){
+    this.PriceNotValid = false
+  }
+
+  getCompound(isChanged: boolean){
+    if(isChanged){
+      this.selectedCompoundNotValid = false
+      
+      let area_id = this.selectedItemArea[0].id
+
+      let values:any[] =Object.values(this.locations['compounds'][0]);
+
+      values = values.filter(compound => compound.area_id === area_id)
+
+      this.dropdownListCompound = []
+    
+      for(let item of values){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+       
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          area_id: item.area_id,
+          compoundName: this.activeLang === 'en' ? "Compound" : "كومباوند",
+        }
+        this.dropdownListCompound.push(obj)
+      }
+    
+    }else{
+      let array = []
+  
+      for(let item of this.dropdownListCompound){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+        
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          area_id: item.area_id,
+          compoundName: this.activeLang === 'en' ? "Compound" : "كومباوند",
+        }
+        array.push(obj)
+      }
+  
+      this.dropdownListCompound = array
+  
+      array = []
+  
+      for(let item of this.selectedItemCompound){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+        
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          area_id: item.area_id,
+          compoundName: this.activeLang === 'en' ? "Compound" : "كومباوند",
+        }
+        array.push(obj)
+      }
+  
+      this.selectedItemCompound = array
+    }
+  
+  }
+
+  getNeig(isChangedArea: boolean){
+    if(isChangedArea){
+      this.SelectedNeighborhoodNotValid = false
+      this.dropdownListNeighborhood = []
+
+      let location_id = this.selectedItemLocation[0].id
+
+      let values:any[] =Object.values(this.locations['neighborhoods'][0]);
+
+      values = values.filter(neighborhood => neighborhood.location_id === location_id)  
+      for(let item of values){
+        let name = this.activeLang === 'en' ? item.name_en: item.name_ar
+        
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          location_id: item.location_id,
+          neiName: this.activeLang === 'en' ? "Neighborhood" : "الحي"
+        }
+        this.dropdownListNeighborhood.push(obj)
+      }  
+    }else{
+      let array = []
+  
+      for(let item of this.dropdownListNeighborhood){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+        
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          location_id: item.location_id,
+          neiName: this.activeLang === 'en' ? "Neighborhood" : "الحي"
+        }
+        array.push(obj)
+      }
+  
+      this.dropdownListNeighborhood = array
+  
+      array = []
+  
+      for(let item of this.selectedItemNeighborhood){
+        let name = this.activeLang === 'en' ? item.name_en : item.name_ar
+        
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          location_id: item.location_id,
+          neiName: this.activeLang === 'en' ? "Neighborhood" : "الحي",
+        }
+        array.push(obj)
+      }
+  
+      this.selectedItemNeighborhood = array
+  
+    }
+  
+  }
+
+  isLoggedIn: boolean = false
+
+  changedCheckBox(){
+    if(this.checkboxVar){
+      this.checkboxVar = false
+      this.selectedItemCompound = []
+      this.selectedCompoundNotValid = false
+    }else{
+      this.checkboxVar = true
+      this.selectedItemLocation = []
+      this.selectedItemNeighborhood = []
+      this.selectedLocationNotValid = false
+      this.SelectedNeighborhoodNotValid = false
+    }
+
+    this.setCompoundLocationNeigbhorhoodDropdown()
+  }
+
+  displayCompound: any
+  pointerEventsCompound: any
+  colorCompound: any = '#2c2c2c'
+  backgroundCompound: any = 'transparent'
+
+  displayLocation: any
+  pointerEventsLocation: any
+  colorLocation: any = '#2c2c2c'
+  backgroundLocation: any = 'transparent'
+
+  displayNeigbhorhood: any
+  pointerEventsNeigbhorhood: any
+
+  backgroundFilter: any = 'white'
+  pointerEventsFilter: any = 'initial'
+
+  margin_top: any = '0px'
+  margin_bottom: any = '10px'
+
+  isConfirmed: boolean = false;
+
+  setCompoundLocationNeigbhorhoodDropdown(){
+
+    // laptop
+    if(window.matchMedia("(min-width: 450px)").matches){
+      this.displayCompound = 'initial'
+      this.displayLocation = 'block'
+      this.displayNeigbhorhood = 'block'
+      
+      // checkbox is pressed
+      if(this.checkboxVar){
+        this.pointerEventsCompound = 'initial'
+        this.pointerEventsLocation = 'none'
+        this.pointerEventsNeigbhorhood = 'none'
+        this.colorCompound = '#2c2c2c'
+        this.colorLocation = '#bfbfbf'
+        this.backgroundCompound = 'transparent'
+        this.backgroundLocation = '#f6f6f6'
+
+      }else{
+        this.pointerEventsCompound = 'none'
+        this.pointerEventsLocation = 'initial'
+        this.pointerEventsNeigbhorhood = 'initial'
+        this.colorCompound = '#bfbfbf'
+        this.colorLocation = '#2c2c2c'
+        this.backgroundCompound = '#f6f6f6'
+        this.backgroundLocation = 'transparent'
+      }
+    }
+    // responsive
+    else{
+      this.pointerEventsCompound = 'initial'
+      this.pointerEventsLocation = 'initial'
+      this.pointerEventsNeigbhorhood = 'initial'
+      this.backgroundCompound = 'transparent'
+      this.backgroundLocation = 'transparent'
+      
+      // checkbox is pressed
+      if(this.checkboxVar){
+        this.displayCompound = 'initial'
+        this.displayLocation = 'none'
+        this.displayNeigbhorhood = 'none'
+        this.colorCompound = '#2c2c2c'
+        this.margin_top = '15px'
+        this.margin_bottom = '10px'
+
+      }else{
+        this.displayCompound = 'none'
+        this.displayLocation = 'block'
+        this.displayNeigbhorhood = 'block'
+        this.colorCompound = '#bfbfbf'
+        this.margin_top = '0px'
+        this.margin_bottom = '0px'
+      }
+    }
+
+    if(this.isConfirmed){
+      this.pointerEventsCompound = 'none'
+      this.pointerEventsLocation = 'none'
+      this.pointerEventsNeigbhorhood = 'none'
+    }
+
+  }
+
+  search_model: any = {}
+
+  async SetSearchModelValues(item: any){
+    let confirmed = true
+
+    if(this.selectedItemCity.length === 0){
+      this.selectedCityNotValid = true
+    }
+
+    else if(this.selectedItemArea.length === 0){
+      this.selectedAreaNotValid = true
+    }
+
+    else if(this.checkboxVar && this.selectedItemCompound.length === 0){
+      this.selectedCompoundNotValid = true
+    }
+
+    else if(!this.checkboxVar && this.selectedItemLocation.length === 0){
+      this.selectedLocationNotValid = true
+    }
+
+    if(this.SelectedRealEstateType.length === 0){
+      this.SelectedRealEstateTypeNotValid = true
+    }
+
+    if(this.selectedItemPropose.length === 0){
+      this.selectedProposeNotValid = true
+    }
+
+    if(this.price === ""){
+      this.PriceNotValid = true
+    }
+
+    if(this.selectedCityNotValid || this.selectedAreaNotValid || 
+      (this.checkboxVar && this.selectedCompoundNotValid) ||
+      (!this.checkboxVar && this.selectedLocationNotValid) ||
+      this.SelectedRealEstateTypeNotValid  ||
+      this.selectedProposeNotValid || 
+      this.PriceNotValid
+      ){
+      confirmed = false
+    }
+
+    if(confirmed){
+      this.isConfirmed = true;
+      this.backgroundFilter = 'rgb(246, 246, 246)';
+      this.pointerEventsFilter = 'none'
+
+      this.search_model.defaultCountry = this.selectedItemCity[0]['itemName']
+      this.search_model.selectedCountry = {
+        id: this.selectedItemCity[0]['id'],
+        name: this.selectedItemCity[0]['itemName'],
+        name_ar: this.selectedItemCity[0]['name_ar'],
+        // units_count: 0
+      }
+      this.search_model.selectedCountryId = this.selectedItemCity[0]['id']
+
+      this.search_model.selectedAreaObj = []
+      this.search_model.selectedAreaObj.push({
+        id: this.selectedItemArea[0]['id'],
+        name: this.selectedItemArea[0]['itemName'],
+        name_en: this.selectedItemArea[0]['name_en'],
+        name_ar: this.selectedItemArea[0]['name_ar']
+
+      })
+
+      this.search_model.SelectedRealEstateType = this.SelectedRealEstateType[0].id
+      this.search_model.selectedCountryId = this.selectedItemCity[0].id
+      this.search_model.priceMinRange = Number(this.price)
+      this.search_model.priceMaxRange = Number(this.price)
+      this.search_model.selectedArea = [this.selectedItemArea[0].id]
+
+      if(this.selectedItemLocation.length > 0){
+        this.search_model.selectedLocation = [this.selectedItemLocation[0].id]
+
+        this.search_model.selectedLocationObj = []
+
+        this.search_model.selectedLocationObj.push({
+          id: this.selectedItemLocation[0]['id'],
+          name_en: this.selectedItemLocation[0]['name_en'],
+          name_ar: this.selectedItemLocation[0]['name_ar']
+        })
+
+      }
+
+      if(this.selectedItemCompound.length > 0){
+        this.search_model.selectedCompound = [this.selectedItemCompound[0].id]
+
+        this.search_model.selectedCompoundObj = []
+
+        this.search_model.selectedCompoundObj.push({
+          id: this.selectedItemCompound[0]['id'],
+          name_en: this.selectedItemCompound[0]['name_en'],
+          name_ar: this.selectedItemCompound[0]['name_ar']
+        })
+
+      }
+
+      if(this.selectedItemNeighborhood.length > 0){
+        this.search_model.selectedNeighborhood = [this.selectedItemNeighborhood[0].id]
+
+        this.search_model.selectedNeighborhoodObj = []
+
+        this.search_model.selectedNeighborhoodObj.push({
+          id: this.selectedItemNeighborhood[0]['id'],
+          name_en: this.selectedItemNeighborhood[0]['name_en'],
+          name_ar: this.selectedItemNeighborhood[0]['name_ar']
+        })
+
+      }
+
+      this.search_model.propose = "" + this.selectedItemPropose[0].id
+
+      console.log("data: ", this.search_model)
+
+      this.appService.propertyDetails$.next(this.search_model)
+
+
+      this.spinner.show()
+      await this.setupFormCriteria()
+      this.ArCriteriaParent = this.translateCriteriaParent(this.criteriaParent)
+      this.spinner.hide()
+
+      this.isAttributesSet = true
+
+      this.scroll(item)
+
+    }
+    
+  }
+
 }
