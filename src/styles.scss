@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/scss/bootstrap";
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/@ng-select/ng-select/themes/default.theme.css";
 // @import "~@ng-multiselect-dropdown/ng-multiselect-dropdown/themes/default.theme.css";
 
 @import "./styles.rtl.scss";
@@ -169,7 +169,8 @@ h2 {
 
     &:hover {
         color: #fff;
-        opacity: 0.9;
+        opacity: 0.7;
+        background: $gradient_bg;
     }
 
     &.more {
@@ -309,17 +310,17 @@ ng-otp-input {
     }
 
     .btn-save {
-        color: #ff725f;
+        color: #184d47;
         // width: 40%;
         border-radius: 10px;
         background-color: #fff;
-        border: 1px solid #ff725f;
+        border: 1px solid #184d47;
         margin: 0 auto;
         margin-bottom: 20px;
         height: 45px;
 
         &:hover {
-            color: #ff725f;
+            background: #62a49c;
         }
     }
 
@@ -1499,3 +1500,31 @@ nav{
     background-color: #d2e9e6 !important;
     border-radius: 25px !important;
 }
+
+.ng-image-slider .ng-image-slider-container .main .next, .ng-image-slider .ng-image-slider-container .main .prev {
+    color: white !important;
+    background: #FD4965 !important;
+    font-size: 30px !important;
+    line-height: 35px !important;
+}
+
+.ng-image-slider .ng-image-slider-container .main .main-inner{
+    transition: all 0.5s ease-in-out 0s !important;
+}
+
+.sellRental-row .clear-all{
+    display: none !important;
+}
+
+.dropdown-list ul li label{
+    cursor: pointer !important;
+}
+
+.dropdown-list ul :hover{
+    background: #d1e9e5 !important;
+}
+
+.button:disabled{
+    background-color: #62a49c !important;
+}
+

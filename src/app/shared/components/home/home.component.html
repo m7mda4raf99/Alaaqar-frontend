@@ -287,6 +287,64 @@
             </div>
         </div>
 
+        <!-- Top Projects -->
+        <div class="top-projects">
+            <div class="section-head-center">
+                <h2>
+                    <span class="top"></span>
+                    {{'home.Top projects.title' | translate}}
+                    <span></span>
+                </h2>
+               
+            </div>
+
+            <div class="section-body">
+                <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of top_projects">
+                    <div class="card" (click)="navigateToSingleProject(card)">
+                        <div style="position: relative;">
+                            <span class="overlay"></span>
+                            <img src="{{ card.project_img }}" class="main-img" alt="...">
+                        </div> 
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
+                                {{lang === 'en' ? card.name_en : card.name_ar }}                                
+                            </h5>
+                            
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="location">
+                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                        alt="..." />
+                                    {{lang === 'en' ? card.location_en : card.location_en}}
+                                    <!-- New Alamien -->
+                                </span>
+
+                                <!-- <span class="date">
+                                    <img src="../../../../assets/images/date.png"
+                                        alt="..." />
+
+                                        {{ 'blog.start_date' | translate }}   
+                                        {{card.created_at}}
+                                </span> -->
+                            </div>
+
+                            
+                            <!-- <div class="row card-foot">
+                                <div class="col">
+                                    <img src="../../../../assets/images/Calendar copy.png" alt="..." />
+                                    Start Date: {{card.created_at}}
+                                </div>
+                                <div class="col">
+                                    <img src="../../../../assets/images/Show.png" alt="..."/>
+                                    {{card.views}} View
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
          <!-- (Featured Units)-->
          <div *ngIf="recentlyAdded && recentlyAdded.length > 0">
             <div class="recently-added">
@@ -417,7 +475,7 @@
                     <div class="col-sm-10 justify-content-center container">
                         <div style="display: flex; width: 100%;">
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div class="card" (click)="navigateToSingleProject(0)">
                                     <span class="icons">
                                         <img src="{{ top_developers[0]['img'] }}" class="card-img-top"
                                             alt="...">
@@ -432,7 +490,7 @@
                                 </div>
                             </div>
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div class="card" (click)="navigateToSingleProject(1)">
                                     <span class="icons">
                                         <img src="{{ top_developers[1]['img'] }}" class="card-img-top"
                                             alt="...">
@@ -449,7 +507,7 @@
                         </div>
                         <div style="display: flex; width: 100%;">
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div class="card" (click)="navigateToSingleProject(2)">
                                     <span class="icons">
                                         <img src="{{ top_developers[2]['img'] }}" class="card-img-top"
                                             alt="...">
@@ -464,7 +522,7 @@
                                 </div>
                             </div>
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div class="card" (click)="navigateToSingleProject(3)">
                                     <span class="icons">
                                         <img src="{{ top_developers[3]['img'] }}" class="card-img-top"
                                             alt="...">
@@ -502,7 +560,7 @@
 
         <!-- How it works-->
         <div #how_it_works class="how-it-works">
-            <div class="section-head-center">
+            <div class="section-head-left">
                 <h2>
                     <span class="top"></span>
                     {{'header.how it works' | translate}}
@@ -513,21 +571,24 @@
                     {{'home.howItWorks.properties' | translate}}
                 </p>
             </div>
-            <div class="justify-content-center">
-                <div class="col-xs-12">
-                    <div class="justify-content-center container">
-                        <!-- <ng-image-slider #nav
-                            [images]="imageObject"
-                            [infinite]="false"
-                            [autoSlide]="1"
-                            [imageSize]="{width: '25%', height: 200}"
-                            slideImage="1">
-                        </ng-image-slider> -->
 
-                    </div>
-    
-                </div>
+            <div class="btn-group btn-group-toggle switcher" ngbRadioGroup name="radioBasic"
+                    (change)="onChangeSwitcher()" [(ngModel)]="switcher">
+                <label ngbButtonLabel class="switch-tab left" [class.active]="switcher == 'buyer'">
+                    <input hidden ngbButton type="radio" value="buyer"> {{'howItWorks.a Buyer Tenant' | translate}}
+                </label>
+                <label ngbButtonLabel class="switch-tab right" [class.active]="switcher == 'seller'">
+                    <input hidden ngbButton type="radio" [value]="seller"> {{'howItWorks.a Seller Landlord' | translate}}
+                </label>
             </div>
+        </div>
+
+        <div class="image-slider">
+            <ng-image-slider *ngIf="switcher === 'buyer'" [images]="buyImages"
+            [imageSize]="{width: 340, height: 495}" #nav></ng-image-slider>
+
+            <ng-image-slider *ngIf="switcher === 'seller'" [images]="sellImages"
+            [imageSize]="{width: 340, height: 495}" #nav></ng-image-slider>
         </div>
 
         <!-- Top Searched Areas-->
@@ -656,7 +717,7 @@
             </div>
         </div>
         
-        <!-- (Recently Added)-->
+        <!-- Recently Added-->
         <div *ngIf="recentlyAdded && recentlyAdded.length > 0" style="display: none;">
             <div class="recently-added">
                 <div class="row justify-content-center">
@@ -769,6 +830,7 @@
 
         </div>
             
+        <!-- Download App-->
         <div #download_app class="download-app">
 
             <div style="    display: flex;
@@ -804,82 +866,78 @@
             </div>
         </div>
         
-        <div class="row alaqaar-blogs" *ngIf="blogs && blogs.length > 0">
+        <!-- Blogs -->
+        <div class="alaqaar-blogs" *ngIf="blogs && blogs.length > 0">
             <div class="section-head-center">
                 <h2>
                     <span class="top"></span>
                     {{'home.Our Blog.title' | translate}}
                     <span></span>
                 </h2>
-                <p class="description">
+                <p class="description" style="padding: 0px 10px;">
                     {{'home.Our Blog.description1' | translate}},<br>{{'home.Our Blog.description2' |
                     translate}},<br>{{'home.Our Blog.description3' | translate}}
                 </p>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-xs-12 col-sm-10">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of blogs">
-                            <div class="card" (click)="navigateToSingleBlog(card)">
-                                <div style="position: relative;">
-                                    <span class="overlay"></span>
-                                    <img src="{{ card.image }}" class="main-img" alt="...">
-                                </div> 
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
+            <div class="section-body">
+                <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of blogs">
+                    <div class="card" (click)="navigateToSingleBlog(card)">
+                        <div style="position: relative;">
+                            <span class="overlay"></span>
+                            <img src="{{ card.image }}" class="main-img" alt="...">
+                        </div> 
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
 
-                                        {{lang === 'en' ? card.title_en : card.title_ar }}
+                                {{lang === 'en' ? card.title_en : card.title_ar }}
 
 
-                                        <!-- {{subString(card.title)}} -->
-                                    </h5>
-                                    
-                                    <div style="display: flex; justify-content: space-between;">
-                                        <span class="location">
-                                            <img src="../../../../assets/images/noun_Location_1911856@2x.png"
-                                                alt="..." />
-                                            {{lang === 'en' ? card.tag.name_en : card.tag.name_ar}}
-                                            <!-- New Alamien -->
-                                        </span>
-    
-                                        <span class="date">
-                                            <img src="../../../../assets/images/date.png"
-                                                alt="..." />
-    
-                                             {{ 'blog.start_date' | translate }}   
-                                             {{card.created_at}}
-                                        </span>
-                                    </div>
+                                <!-- {{subString(card.title)}} -->
+                            </h5>
+                            
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="location">
+                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                        alt="..." />
+                                    {{lang === 'en' ? card.tag.name_en : card.tag.name_ar}}
+                                    <!-- New Alamien -->
+                                </span>
 
-                                    
-                                    <!-- <div class="row card-foot">
-                                        <div class="col">
-                                            <img src="../../../../assets/images/Calendar copy.png" alt="..." />
-                                            Start Date: {{card.created_at}}
-                                        </div>
-                                        <div class="col">
-                                            <img src="../../../../assets/images/Show.png" alt="..."/>
-                                            {{card.views}} View
-                                        </div>
-                                    </div> -->
+                                <span class="date">
+                                    <img src="../../../../assets/images/date.png"
+                                        alt="..." />
+
+                                        {{ 'blog.start_date' | translate }}   
+                                        {{card.created_at}}
+                                </span>
+                            </div>
+
+                            
+                            <!-- <div class="row card-foot">
+                                <div class="col">
+                                    <img src="../../../../assets/images/Calendar copy.png" alt="..." />
+                                    Start Date: {{card.created_at}}
                                 </div>
-                            </div>
+                                <div class="col">
+                                    <img src="../../../../assets/images/Show.png" alt="..."/>
+                                    {{card.views}} View
+                                </div>
+                            </div> -->
                         </div>
-                        <div class="col-12">
-                            <div class="row">
-                                <!-- <button (click)="navigateToBlogs()"
-                                    class="btn button-success more">{{'button.actions.More' | translate}}
-                                </button> -->
+                    </div>
+                </div>
+                <div class="">
+                    <div class="row">
+                        <!-- <button (click)="navigateToBlogs()"
+                            class="btn button-success more">{{'button.actions.More' | translate}}
+                        </button> -->
 
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
 
         <ng-template #buyRentSearch let-type="type">
             <div class="ngSelect search_textbox">

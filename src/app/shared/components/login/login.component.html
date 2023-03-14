@@ -41,7 +41,7 @@
                                         {{'signIn.Please Enter a valid phone number' | translate}}
                                     </div>
 
-                                    <button type="submit" class="btn submit-btn button-success" [disabled]="isLoading"
+                                    <button type="submit" class="submit-btn button-success" [disabled]="isLoading"
                                         (click)="getOtP()">
                                         <span *ngIf="!isLoading">{{'signIn.Request OTP' | translate}}</span>
                                         <span *ngIf="isLoading">
@@ -60,7 +60,7 @@
                                     </ng-otp-input>
                                     <p *ngIf="invalidPTO" style="text-align: center;color: red;">{{'signIn.Invalid OTP, Please try again' | translate}} </p>
                                     <button (click)="verifyOtp()" [disabled]="validateOTP()" type="submit"
-                                        class="btn submit-btn button-success">{{'signIn.Submit' | translate}} </button>
+                                        class="submit-btn button-success">{{'signIn.Submit' | translate}} </button>
                                     <div class="resendOtp">
                                         <p> {{'signIn.Did ont receive any code' | translate}}</p>
                                         <span (click)="resendOtp()">{{'signIn.Re-send code' | translate}}</span>
@@ -99,7 +99,7 @@
                                                 policy' | translate}}</a>.
                                         </label>
                                     </div>
-                                    <button type="submit" class="btn submit-btn button-success"
+                                    <button type="submit" class="submit-btn button-success"
                                         [disabled]="isLoading || !agreeTermsAndConditions" (click)="Register()">
                                         <span *ngIf="!isLoading">{{'signIn.Login' | translate}}</span>
                                         <span *ngIf="isLoading">
@@ -129,14 +129,14 @@
         <div class="modal-header">
             <div style="width: 100%;">
                    <p style="    font-family: Rubik-medium;
-                   color: #ff725f;"> {{ 'blog.success' |  translate }} </p>
+                   color: #184d47;"> {{ 'buy.fail' |  translate }} </p>
             </div>
         </div>
         <div class="modal-body">
-                <p> {{ 'blog.success_message' |  translate }} </p>
+                <p> {{ 'buy.fail_message' |  translate }} </p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-save" (click)="routeToHome()">{{'button.actions.Done' |
+            <button type="button" class="btn-save" (click)="routeToHome()">{{'button.actions.Done' |
                 translate}}</button>
         </div>
     </ng-template>
@@ -145,14 +145,14 @@
         <div class="modal-header">
             <div style="width: 100%;">
                    <p style="font-family: Rubik-medium;
-                   color: #ff725f;"> {{'signIn.Instruction' | translate}} </p>
+                   color: #184d47;"> {{'signIn.Instruction' | translate}} </p>
             </div>
         </div>
         <div class="modal-body">
                 <p class="description" [innerHTML]="lang === 'en' ? terms.terms_conditions_en : terms.terms_conditions_ar"></p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-save" (click)="acceptTermsConditions()">{{'signIn.Agree' |
+            <button type="button" class="btn-save" (click)="acceptTermsConditions()">{{'signIn.Agree' |
                 translate}}</button>
         </div>
     </ng-template>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AppServiceService } from '../../../services/app-service.service'
 import { faUser, faEllipsisV, faSignOutAlt, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../../services/api.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,8 @@ import { NotificationsService } from 'src/app/services/notifications.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild('alert') alert: any;
+
   faChevronDown = faChevronDown
   faChevronUp = faChevronUp
   faUSer = faUser
@@ -55,6 +58,7 @@ export class HeaderComponent implements OnInit {
     private cookieService: CookieService,
     public modalService: NgbModal,
     private apiService: ApiService,
+    private spinner: NgxSpinnerService,
     private notificationsService: NotificationsService,
     private _ElementRef:ElementRef) {
     const currentLang = localStorage.getItem('lang')
@@ -209,8 +213,32 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  addProperty(){
-    
+  routeToHome(){
+    // this.router.navigate(['/home'])
+    this.modalService.dismissAll()
+  }
+
+  async addProperty(){
+    const user = this.cookieService.get('user')
+
+    if(user){
+      let request = {
+        id: JSON.parse(user)['id']
+      }
+
+      this.spinner.show()
+      let response = await this.apiService.checkoccurrence(request)
+      this.spinner.hide()
+
+      if(response.data){
+        this.modalService.open(this.alert);
+      }else{
+        this.router.navigate(['/sell'], { queryParams: { type_id: 1, propose: 2 } })
+      }
+    }else{
+      this.router.navigate(['/login'], { queryParams: { type_id: 1, propose: 2 } })
+    }
+
   }
 
   transform_language(){

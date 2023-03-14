@@ -660,130 +660,131 @@ export class SetPrioritesComponent implements OnInit {
     }
   }
 
-    ///////////cityyy///////////////////
-    async getCity(isChanged: boolean){
-      if(isChanged){
-        this.selectedItemCity = []
-  
-        let data = {
-          xd:this.proposeID,
-          tab: this.proposeID === 1 ? 'rent' : 'buy'
-        }
-        
-        this.dropdownListCity=await this.apiService.getCity(data);
-        let values:any[] =Object.values(this.dropdownListCity['data']);
-        let array = []
-    
-        for(let item of values){
-    
-          let name = ''
-  
-            name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
-         
-  
-          let obj = {
-            id: item.id,
-            itemName: name,
-            name_en: item.name_en,
-            name_ar: item.name_ar,
-            units_count: item.units_count
-          }
-    
-          array.push(obj)
-        }
-    
-        this.dropdownListCity = array
-        
-        // this.selectedItemCity.push(this.dropdownListCity[0])
-        // this.search_model.cities = [this.activeCity]
-        
-        
-        // for(let item of this.dropdownListCity){
-        //   if(item['id']==1){
-        //     this.selectedItemCity.push(item)
-        //   }
-        // }
-  
-      }else{
-        let array = []
-    
-        for(let item of this.dropdownListCity){
-  
-          let name = ''
-  
-          if(this.activeTab === 'buy' || this.activeTab === 'rent'){
-            name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
-          }else{
-            name = this.activeLang === 'en' ? item.name_en : item.name_ar
-          }
-  
-          let obj = {
-            id: item.id,
-            itemName: name,
-            name_en: item.name_en,
-            name_ar: item.name_ar,
-            units_count: item.units_count
-          }
-    
-          array.push(obj)
-        }
-    
-        this.dropdownListCity = array
-  
-        array = []
-    
-        for(let item of this.selectedItemCity){
-          let name = ''
-  
-          if(this.activeTab === 'buy' || this.activeTab === 'rent'){
-            name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
-          }else{
-            name = this.activeLang === 'en' ? item.name_en : item.name_ar
-          }
-  
-          let obj = {
-            id: item.id,
-            itemName: name,
-            name_en: item.name_en,
-            name_ar: item.name_ar,
-            units_count: item.units_count
-          }
-    
-          array.push(obj)
-        }
-    
-        this.selectedItemCity = array
-  
+  ///////////cityyy///////////////////
+  async getCity(isChanged: boolean){
+    if(isChanged){
+      this.selectedItemCity = []
+
+      let data = {
+        xd:this.proposeID,
+        tab: this.proposeID === 1 ? 'rent' : 'buy'
       }
-    }
-  
-    ///////////////////area/////////////
-    async getNewArea() {
-      let data ={
-          id:this.selectedItemCity[0].id,
-            }
-  
-      this.dropdownListArea = await this.apiService.getAreaAdvisor(data)
-      let values:any[] =Object.values(this.dropdownListArea['data']);
+      
+      this.dropdownListCity=await this.apiService.getCity(data);
+      // console.log(this.dropdownListCity['data'])
+      let values:any[] =Object.values(this.dropdownListCity['data']);
       let array = []
   
       for(let item of values){
   
+        let name = ''
+
+          name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        
+
         let obj = {
           id: item.id,
-          itemName: this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")",
+          itemName: name,
           name_en: item.name_en,
           name_ar: item.name_ar,
-          units_count: item.units_count,
-          areaName: this.activeLang === 'en' ? 'Area' : 'المنطقة' 
-  
+          units_count: item.units_count
         }
   
         array.push(obj)
       }
   
-      this.dropdownListArea = array
+      this.dropdownListCity = array
+      
+      // this.selectedItemCity.push(this.dropdownListCity[0])
+      // this.search_model.cities = [this.activeCity]
+      
+      
+      // for(let item of this.dropdownListCity){
+      //   if(item['id']==1){
+      //     this.selectedItemCity.push(item)
+      //   }
+      // }
+
+    }else{
+      let array = []
   
+      for(let item of this.dropdownListCity){
+
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.activeLang === 'en' ? item.name_en : item.name_ar
+        }
+
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+  
+        array.push(obj)
+      }
+  
+      this.dropdownListCity = array
+
+      array = []
+  
+      for(let item of this.selectedItemCity){
+        let name = ''
+
+        if(this.activeTab === 'buy' || this.activeTab === 'rent'){
+          name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
+        }else{
+          name = this.activeLang === 'en' ? item.name_en : item.name_ar
+        }
+
+        let obj = {
+          id: item.id,
+          itemName: name,
+          name_en: item.name_en,
+          name_ar: item.name_ar,
+          units_count: item.units_count
+        }
+  
+        array.push(obj)
+      }
+  
+      this.selectedItemCity = array
+
+    }
+  }
+  
+  ///////////////////area/////////////
+  async getNewArea() {
+    let data ={
+        id:this.selectedItemCity[0].id,
+          }
+
+    this.dropdownListArea = await this.apiService.getAreaAdvisor(data)
+    let values:any[] =Object.values(this.dropdownListArea['data']);
+    let array = []
+
+    for(let item of values){
+
+      let obj = {
+        id: item.id,
+        itemName: this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")",
+        name_en: item.name_en,
+        name_ar: item.name_ar,
+        units_count: item.units_count,
+        areaName: this.activeLang === 'en' ? 'Area' : 'المنطقة' 
+
+      }
+
+      array.push(obj)
+    }
+
+    this.dropdownListArea = array
+
   }
   
   ///////////////////compound////////////
@@ -893,7 +894,6 @@ export class SetPrioritesComponent implements OnInit {
             name_en: item.name_en,
             name_ar: item.name_ar,
             areaID: item.areaID,
-            compoundName: this.activeLang === 'en' ? "Compound" : "كومباوند",
             units_count: item.units_count
           }
           array.push(obj)
@@ -905,7 +905,7 @@ export class SetPrioritesComponent implements OnInit {
     }else{
       let array = []
   
-      for(let item of this.dropdownListCompound){
+      for(let item of this.dropdownListLocation){
         if(item.name_en != "Compounds"){
           let name = ''
           name = this.activeLang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")"
@@ -916,7 +916,6 @@ export class SetPrioritesComponent implements OnInit {
             name_en: item.name_en,
             name_ar: item.name_ar,
             areaID: item.areaID,
-            compoundName: this.activeLang === 'en' ? "Compound" : "كومباوند",
             units_count: item.units_count
           }
           array.push(obj)
@@ -938,7 +937,6 @@ export class SetPrioritesComponent implements OnInit {
             name_en: item.name_en,
             name_ar: item.name_ar,
             areaID: item.areaID,
-            compoundName: this.activeLang === 'en' ? "Compound" : "كومباوند",
             units_count: item.units_count
           }
           array.push(obj)
