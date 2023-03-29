@@ -1,0 +1,180 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+  <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+</ngx-spinner>
+
+<div class="container--fluid priorities-form">
+    <div class="sub-head" >
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-xs-12 col-md-10 ">
+            <p class="title"> {{'quest.title' | translate}} </p>
+            <p class="sm-title"><span class="home-tab" [routerLink]="['/']">{{'sell.sub.Home' | translate}}</span> <span> / {{'quest.route' | translate}}</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid quest">
+      <div class="row justify-content-center " style="background-color: #F7F7F7;">
+        <div class="col-xs-12 col-md-10 main-content">
+          <div class="row">
+            <div class="col-xs-12 col-xl-10 priorites-list">
+              <div #holder class="col holder mt-3">
+                <div class="head-section"> 
+                  <div> {{'quest.basic_data' | translate}} </div>
+
+                  <div class="head-body">
+                    <div class="title"> {{'quest.looking' | translate}} 
+                    
+                    <div style="display: flex;">
+                        <label (click)="setPropose(1)" [class.filled]="checkPropose(1)" class="btn-primarys">
+                          {{'quest.Buy' | translate}} 
+                        </label>
+
+                        <label (click)="setPropose(2)" [class.filled]="checkPropose(2)" class="btn-primarys">
+                          {{'quest.Rent' | translate}} 
+                      </label>
+                    </div>
+
+                    </div>
+
+                    <div class="title"> {{'quest.property' | translate}} 
+
+                      <div style="display: flex;">
+                        <label (click)="setType(1)" [class.filled]="checkType(1)" class="btn-primarys">
+                          {{'quest.Residential' | translate}} 
+                        </label>
+
+                        <label (click)="setType(2)" [class.filled]="checkType(2)" class="btn-primarys">
+                          {{'quest.Commercial' | translate}} 
+                        </label>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="head-section"> 
+                  {{'quest.Location Details' | translate}} 
+
+                  <div class="head-body">
+                    <div class="title"> {{'quest.location' | translate}} 
+                      <div class="location">
+                        <div class="city">                        
+                          <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
+                          [settings]="settingsCity"
+                          (onSelect)="onChangeCity()">
+                          </angular2-multiselect>
+                
+                        </div>
+            
+                        <div *ngIf="dropdownListArea.length > 0 && selectedItemCity.length > 0" class="city">                          
+                          <angular2-multiselect [data]="dropdownListArea" [(ngModel)]="selectedItemArea" 
+                          [settings]="settingsArea">
+                          </angular2-multiselect>
+          
+                        </div>
+
+                        <label style="display: flex; align-items: center; margin: 10px 10px;">
+                          <input style="margin: 10px;" [(ngModel)]="compound" type="checkbox" data-toggle="toggle">
+                          {{'home.Compound' | translate}} 
+                        </label>
+
+                      </div>
+
+                    </div>
+
+                    <div class="title"> {{'quest.price' | translate}} 
+
+                      <div class="ngSelect price">
+                        <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
+                       
+                        <!-- <div class="price-input inline">
+                           
+
+                            
+                        </div> -->
+
+                        <div class="name">
+                          <div class="title"> {{'quest.Min' | translate}} 
+                            <input class="ngSelect-input" [(ngModel)]="min_price" placeholder="{{'quest.Min Price' | translate}}"
+                            [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />    
+                          </div>
+    
+                          <div class="title"> {{'quest.Max' | translate}} 
+                            <input class="ngSelect-input" [(ngModel)]="max_price" placeholder="{{'quest.Max Price' | translate}}"
+                            [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+    
+                          </div>
+                        </div>
+                            
+                    </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="head-section"> 
+                  {{'quest.Your Details' | translate}} 
+
+                  <div class="head-body">
+                    <div class="name">
+                      <div class="title"> {{'quest.name' | translate}} 
+                        <input class="ngSelect-input" [(ngModel)]="full_name" type="text"/>                        
+
+                      </div>
+
+                      <div class="title phone"> {{'quest.Mobile Number' | translate}} 
+                        <!-- <input class="ngSelect-input" [(ngModel)]="phone" placeholder="e.g 01234567890"
+                        type="text"/> -->
+                        <form #f="ngForm" [formGroup]="phoneForm">
+                          <ngx-intl-tel-input style="display: block;width: 100%; padding: 10px;" [cssClass]="'custom'"
+                                              [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                                              [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                              [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Egypt"
+                                              [maxLength]="10" [phoneValidation]="true"
+                                              [separateDialCode]="separateDialCode"
+                                              [numberFormat]="PhoneNumberFormat.National" name="phone"
+                                              formControlName="phone" customPlaceholder = "123 456 7891">
+                            </ngx-intl-tel-input>
+                        </form>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                
+                <div style="display: flex; justify-content: center;">
+                  <button #apply (click)="submitQuest()" class="btn button-success applyBtn continueBtn mb-3">{{'signIn.Submit' |translate}}</button>
+                </div>
+
+              </div>
+            </div>
+          </div>  
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <ng-template #alert let-c="close" let-d="dismiss">
+      <div [class.rtl]="activeLang != 'en'">
+          <div class="modal-header">
+              <h4 class="modal-title" id="modal-title">{{ alert_header }} </h4>
+          </div>
+          <div class="modal-body">
+            <p><strong> {{ alert_message }} </strong></p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" (click)="dismiss()" class="btn btn-danger">{{'alert.ok' |
+                  translate}}</button>
+          </div>
+
+      </div>
+    </ng-template>
+
+</div>

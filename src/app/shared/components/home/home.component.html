@@ -303,7 +303,7 @@
                     <div class="card" (click)="navigateToSingleProject(card)">
                         <div style="position: relative;">
                             <span class="overlay"></span>
-                            <img src="{{ card.project_img }}" class="main-img" alt="...">
+                            <img src="{{ card.image }}" class="main-img" alt="...">
                         </div> 
                         <div class="card-body">
                             <h5 class="card-title">
@@ -315,7 +315,7 @@
                                 <span class="location">
                                     <img src="../../../../assets/images/noun_Location_1911856@2x.png"
                                         alt="..." />
-                                    {{lang === 'en' ? card.location_en : card.location_en}}
+                                    {{lang === 'en' ? card.area_en : card.area_ar}}
                                     <!-- New Alamien -->
                                 </span>
 
@@ -475,9 +475,9 @@
                     <div class="col-sm-10 justify-content-center container">
                         <div style="display: flex; width: 100%;">
                             <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleProject(0)">
+                                <div class="card" (click)="navigateToSingleDeveloper(0)">
                                     <span class="icons">
-                                        <img src="{{ top_developers[0]['img'] }}" class="card-img-top"
+                                        <img src="{{ top_developers[0]['image'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -490,9 +490,9 @@
                                 </div>
                             </div>
                             <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleProject(1)">
+                                <div class="card" (click)="navigateToSingleDeveloper(1)">
                                     <span class="icons">
-                                        <img src="{{ top_developers[1]['img'] }}" class="card-img-top"
+                                        <img src="{{ top_developers[1]['image'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -507,9 +507,9 @@
                         </div>
                         <div style="display: flex; width: 100%;">
                             <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleProject(2)">
+                                <div class="card" (click)="navigateToSingleDeveloper(2)">
                                     <span class="icons">
-                                        <img src="{{ top_developers[2]['img'] }}" class="card-img-top"
+                                        <img src="{{ top_developers[2]['image'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -522,9 +522,9 @@
                                 </div>
                             </div>
                             <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleProject(3)">
+                                <div class="card" (click)="navigateToSingleDeveloper(3)">
                                     <span class="icons">
-                                        <img src="{{ top_developers[3]['img'] }}" class="card-img-top"
+                                        <img src="{{ top_developers[3]['image'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -608,7 +608,7 @@
                     <div class="col-sm-10 justify-content-center container">
                         <div style="display: flex; width: 100%;">
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div (click)="clickTopSearchedArea(0)" class="card">
                                     <span class="icons">
                                         <img src="{{ top_searched_areas[0]['img'] }}" class="card-img-top"
                                             alt="...">
@@ -623,7 +623,7 @@
                                 </div>
                             </div>
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div (click)="clickTopSearchedArea(1)" class="card">
                                     <span class="icons">
                                         <img src="{{ top_searched_areas[1]['img'] }}" class="card-img-top"
                                             alt="...">
@@ -640,7 +640,7 @@
                         </div>
                         <div style="display: flex; width: 100%;">
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div (click)="clickTopSearchedArea(2)" class="card">
                                     <span class="icons">
                                         <img src="{{ top_searched_areas[2]['img'] }}" class="card-img-top"
                                             alt="...">
@@ -655,7 +655,7 @@
                                 </div>
                             </div>
                             <div class="mt-3 card-container">
-                                <div class="card">
+                                <div (click)="clickTopSearchedArea(3)" class="card">
                                     <span class="icons">
                                         <img src="{{ top_searched_areas[3]['img'] }}" class="card-img-top"
                                             alt="...">

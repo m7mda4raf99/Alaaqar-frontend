@@ -239,7 +239,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
       }
     }
 
-    // console.log("obj: ", obj)
+    console.log("obj: ", obj)
 
     let addInquiry = await this.addInquiry(obj)
     if (addInquiry === false) {

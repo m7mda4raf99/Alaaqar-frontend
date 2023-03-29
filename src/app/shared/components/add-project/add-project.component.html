@@ -1,0 +1,139 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+    <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+</ngx-spinner>
+  
+<div #developersDiv class="add-project">
+    <div class="container--fluid priorities-form">
+        <div class="sub-head" >
+          <div class="container-fluid">
+            <div class="row justify-content-center container-fluid-again">
+              <div class="col-xs-12 col-md-10 main-header">
+                <p class="title"> {{'developer.addProject' | translate}} </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row justify-content-center " style="background-color: #F7F7F7;">
+            <div class="col-md-8 main-content">
+                <div class="col-xs-12 priorites-list">
+                  <div #holder class="col holder">
+                    <div class="register">
+                      <form #f="ngForm" [formGroup]="projectForm" style="display: flex; flex-direction: column;">
+                        <div class="inputs">
+                          <div class="each-input upload">
+                            <div class="each-upload logo">
+                              <label for="validationCustom01" class="form-label">{{'developer.upload_logo' | translate}}</label>
+                              <input hidden #fileLogo   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEventLogo($event)" />
+                              <span class="avatar">
+                                  <img (click)="fileLogo.click()" class="main-img" src="{{setLogoSrc()}}" alt="..."/>
+                                  <img (click)="fileLogo.click()" class="icon"
+                                      src="../../../../assets/images/Path 9801.png" alt="..."/>
+                              </span>
+                            </div>
+                            
+                            
+                          </div>
+                          <div class="each-input">
+                              <label for="validationCustom01" class="form-label">{{'developer.project_name_en' | translate}}</label>
+                              <input formControlName="project_name_en" type="text" class="form-control" id="project_name_en"
+                                  aria-describedby="inputGroupPrepend" placeholder="{{'developer.project_name_en' | translate}}">
+                          </div>
+                          <div class="each-input">
+                              <label for="validationCustom01" class="form-label">{{'developer.project_name_ar' | translate}}</label>
+                              <input formControlName="project_name_ar" type="email" class="form-control" id="project_name_ar"
+                                  aria-describedby="inputGroupPrepend" placeholder="{{'developer.project_name_ar' | translate}}">
+                          </div>
+                          
+                          <!-- city  -->
+                          <div class="each-input">
+                            <label for="validationCustom01" class="form-label">{{'home.City' | translate}}</label>
+                            <angular2-multiselect 
+                            formControlName="city" class="form-control dropdown" id="city" aria-describedby="inputGroupPrepend"
+                            [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
+                              [settings]="settingsCity"
+                              (onSelect)="onChangeCity($event)"
+                              (onDeSelect)="onDeSelectAllCity()"
+                              (onDeSelectAll)="onDeSelectAllCity()">
+                            </angular2-multiselect>
+                          </div>
+
+                          <!-- area -->
+                          <div class="each-input">
+                            <label for="validationCustom01" class="form-label">{{'home.Area' | translate}}</label>
+                            <angular2-multiselect 
+                            formControlName="area" class="form-control dropdown" id="area" aria-describedby="inputGroupPrepend"
+                            [data]="dropdownListArea" [(ngModel)]="selectedItemArea" 
+                              [settings]="settingsArea">
+                            </angular2-multiselect>
+                          </div>
+                          
+                          <div class="each-input description">
+                              <label for="validationCustom01" class="form-label">{{'developer.address' | translate}}</label>
+                              <input formControlName="address" type="text" class="form-control" id="address"
+                                  aria-describedby="inputGroupPrepend" placeholder="{{'developer.address' | translate}}">
+                          </div>
+
+                          <div class="each-input description">
+                              <label for="validationCustom01" class="form-label">{{'signIn.Description' | translate}}</label>
+                              <textarea style="height: 100px;" formControlName="description" type="text" class="form-control" id="description"
+                                  aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Description' | translate}}">
+                              </textarea>
+                          </div>
+
+                          <div class="each-input upload">
+                            <div class="each-upload">
+                              <div style="display: flex; justify-content: space-around;">
+                                <label for="validationCustom01" class="form-label">{{'developer.upload_photos' | translate}}</label>
+                                <img *ngIf="photosURLs.length > 0" (click)="filePhotos.click()" style="background-color: #99B2AF;
+                                padding: 7px; cursor: pointer;
+                                border-radius: 50%;
+                                width: 35px;
+                                height: 35px;"
+                                      src="../../../../assets/images/Path 9801.png" alt="..."/>
+                              </div>
+                              <input hidden #filePhotos   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEventPhotos($event)" multiple/>
+                              <span *ngIf="photosURLs.length === 0" class="avatar">
+                                  <img (click)="filePhotos.click()" class="main-img" src="../../../../assets/images/project_photos.jpg" alt="..."/>
+                                  <img (click)="filePhotos.click()" class="icon"
+                                      src="../../../../assets/images/Path 9801.png" alt="..."/>
+                              </span>
+
+                              <span class="avatar project-photo">
+                                <img *ngFor="let photo of photosURLs" class="project-photo" src="{{ photo['image'] }}" alt="..."/>
+                              </span>
+                            </div>
+
+                            <div class="each-upload">
+                              <div style="display: flex; justify-content: space-around;">
+                                <label for="validationCustom01" class="form-label">{{'developer.upload_masterplan' | translate}}</label>
+                              </div>  
+                              <input hidden #fileMasterplan   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEventMasterplan($event)" />
+                              <span class="avatar">
+                                  <img (click)="fileMasterplan.click()" class="main-img" src="{{setMasterPlanSrc()}}" alt="..."/>
+                                  <img (click)="fileMasterplan.click()" class="icon"
+                                      src="../../../../assets/images/Path 9801.png" alt="..."/>
+                              </span>
+                            </div>
+                            
+                            
+                          </div>
+
+                        </div>
+                        
+                        <button style="margin-top: 5%" type="submit" class="submit-btn button-success" (click)="addProject()">
+                            <span>{{'developer.button' | translate}}</span>
+                        </button>
+                      </form>
+                    </div>
+          
+                  </div>
+                </div>
+            </div>
+          </div>
+    
+        </div>
+    
+    </div>
+</div>

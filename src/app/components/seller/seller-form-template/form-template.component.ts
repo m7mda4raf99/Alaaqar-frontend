@@ -695,6 +695,7 @@ export class SellFormTemplateComponent implements OnInit {
   printO(data: any, key: any) {
   }
 
+
   filterTitleDescription(data: any[]){
     if(Array.isArray(data) && data.length > 0){
       return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');

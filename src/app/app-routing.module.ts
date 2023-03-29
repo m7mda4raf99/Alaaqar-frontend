@@ -25,6 +25,14 @@ import { PrivacyPolicyComponent } from './shared/components/privacy-policy/priva
 import { FavouritesComponent } from './shared/components/favourites/favourites.component'
 import { SearchResultComponent } from './shared/components/search-result/search-result.component';
 import { CanDeactivateGuard } from './components/seller/setup-seller-priorities/can-deactivate.guard';
+import { QuestComponent } from './quest/quest.component';
+import { DevelopersComponent } from './shared/components/developers/developers.component';
+import { LoginDeveloperComponent } from './shared/components/login-developer/login-developer.component';
+import { SingleDeveloperComponent } from './shared/components/single-developer/single-developer.component';
+import { SingleProjectComponent } from './shared/components/single-project/single-project.component';
+import { AddProjectComponent } from './shared/components/add-project/add-project.component';
+import { AddUnitComponent } from './shared/components/add-unit/add-unit.component';
+import { ElectronicAdvisorComponent } from './shared/components/electronic-advisor/electronic-advisor.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, },
@@ -50,6 +58,14 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]  },
   { path: 'favorites', component: FavouritesComponent, canActivate: [AuthGuard]  },
   { path: 'search-result', component: SearchResultComponent, },
+  { path: 'quest', component: QuestComponent, },
+  { path: 'developers', component: DevelopersComponent, },
+  { path: 'login-developer', component: LoginDeveloperComponent, },
+  { path: 'single-developer', component: SingleDeveloperComponent, },
+  { path: 'single-project', component: SingleProjectComponent, },
+  { path: 'add-project', component: AddProjectComponent, },
+  { path: 'add-unit', component: AddUnitComponent, },
+  { path: 'electronic-advisor', component: ElectronicAdvisorComponent, },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: OopsComponent }
 ];

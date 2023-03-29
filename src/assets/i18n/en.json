@@ -11,6 +11,7 @@
         "Buy": "Buy",
         "Rent": "Rent",
         "Commercial": "Commercial",
+        "Developers": "Developers",
         "Add property": "Add property",
         "Profile": {
             "edit": "Edit profile",
@@ -38,7 +39,8 @@
             "Next":"Next",
             "Review":"Review",
             "Confirm": "Confirm",
-            "Terms": "Read terms and conditions"
+            "Terms": "Read terms and conditions",
+            "Back to main search": "Back to main search"
         }
     },
     "model":{
@@ -74,11 +76,21 @@
     },
     "error": {
         "someThing went Wrong": "Something went wrong. Please try again or contact your administrator if problem persists.",
-        "session expired, please login again to continue":"session expired, please login again to continue!",
-        "login to continue":"Please login to continue!"
+        "session expired, please login again to continue":"Session expired, please login again to continue!",
+        "login to continue":"Please login to continue!",
+        "developer": "This action can not be taken as you are logged in as a developer!",
+        "developer_user": "This action can not be taken as you are logged in as a user!",
+        "developer_registration": "All of your company's data is required!",
+        "addProject": "All of your project's data is required!",
+        "addUnit": "All of your unit's data is required!",
+        "addUnit area": "Please choose a city with an available district!",
+        "location": "Please make sure to select your location.",
+        "choose_priority": "Please make sure to select at least one priority.",
+        "set_priority": "Please make sure to set all chosen priorities."
     },
     "success":{
-        "Your message has been sent successfully!":"Your message has been sent successfully!"
+        "Your message has been sent successfully!":"Your message has been sent successfully!",
+        "Project added successfully": "Project added successfully!"
     },
     "validation": {
         "This Filed Is Required!": "This field is required!"
@@ -116,7 +128,7 @@
         "Select city": "Select City",
         "All Prices":"All Prices",
         "Max Price": "Max Price",
-        "Min Price": "Min Price",
+        "Min Price": "Min Price",    
         "any price": "any price",
         "Price": "Price",
         "description":"Write a unique description",
@@ -167,6 +179,32 @@
         "share_your_quests": "Share your quests",
         "share_your_quests_description": "'al.aaqar' search engine designed with AI that takes you in easy and simple steps to determine your needs accurately, and this is the most accurate and effective way to get your perfect property."
 
+    },
+    "quest":{
+        "title":"Share your requirements!",
+        "route": "Quest",
+        "basic_data": "Basic Details",
+        "Buy": "Buy",
+        "Rent": "Rent",
+        "Residential": "Residential",
+        "Commercial": "Commercial",
+        "Location Details": "Location Details",
+        "Your Details": "Your Details",
+        "looking" : "Looking for a property to",
+        "property" : "Choose property type",
+        "location": "Choose the desired geographical location",
+        "price": "Choose the desired price",
+        "name": "Full Name",
+        "Mobile Number": "Mobile Number",
+        "Min": "Min",
+        "Max": "Max",
+        "Min Price": "0 EGP",
+        "Max Price": "100,000,000 EGP"
+    },
+    "alert":{
+       "failed": "Failed",
+       "ok": "OKAY",
+       "fields": "Please make sure to fill all fields." 
     },
     "blog": {
         "title": "Blog",
@@ -232,6 +270,7 @@
         "Hint 1": "SELECT YOUR GEOGRAPHICAL LOCATION AND PROPERTY TYPE",
         "Hint 2": "IN 3 CONSECUTIVE STEPS, SET YOUR PRIORITIES",
         "choose compound": "To search for a compound, click here!",
+        "select compound": "To select a compound, click here!",
         "Home":"Home",
         "Buy a home":"Buy a home",
         "Set your priorities and drag and drop them from left to right":"Set your priorities and drag and drop them from left to right",
@@ -412,7 +451,12 @@
         "and":"and",
         "Privacy policy":"Privacy policy",
         "Login":"Login",
-        "Email":"Email"
+        "Email":"Email",
+        "Company Name EN": "Company Name (EN)",
+        "Company Name AR": "Company Name (AR)",
+        "Website": "Website",
+        "Company Location": "Company Location",
+        "Description": "Description"
     },
     "howItWorks":{
         "How it works":"How it works",
@@ -423,6 +467,53 @@
     "search":{
         "title":"Search results",
         "count":"Properties"
+    },
+    "developer":{
+        "Im a developer": "I'm a developer",
+        "companies": "companies",
+        "Projects_header": "projects",
+        "Projects": "Projects",
+        "Overview": "Overview",
+        "addProject": "Add new project",
+        "addUnit": "Add new unit",
+        "Units_header": "units",
+        "Units": "Units",
+        "description": "Description",
+        "masterplan": "Master Plan",
+        "project_name_en": "Project Name (EN)",
+        "project_name_ar": "Project Name (AR)",
+        "address": "Address",
+        "upload_photos": "Upload project photos",
+        "upload_masterplan": "Upload master plan",
+        "upload_logo": "Upload project logo",
+        "button": "Add",
+        "upload_unit_photos": "Upload unit photos",
+        "upload_unit_masterplan": "Upload unit master plans",
+        "no description": "No description found.",
+        "no projects": "No projects found.",
+        "no units": "No units found.",
+        "developer no projects1": "You don't have any projects.",
+        "developer no projects2": "List your projects and add their units to view them.",
+        "developer no units1": "You don't have any units.",
+        "developer no units2": "List your units and add their specs to view them."
+
+
+    },
+    "advisor":{
+        "title": "Electronic Advisor",
+        "description": "Simple steps designed by real estate experts to ensure getting your suitable property, and the results will be shown to you with a relevance score. This journey will take around 4-7 min.",
+        "journey": "The journey will be in 3 consecutive steps, based on the importance of your priorities.",
+        "priority_description": "In the following steps, you will prioritise your property search in two phases based on importance, with the first stage regarded as most important and the second stage being the least important.",
+        "choose_top_priority": "Choose your top priorities in selecting a property from the list below.",
+        "choose_low_priority": "Choose your low priorities in selecting a property from the list below.",
+        "set_top_priority": "Set your top priorities.",
+        "set_low_priority": "Set your low priorities.",
+        "location": "Please select your location.",
+        "price": "Please select your price range.",
+        "min": "Minimum",
+        "max": "Maximum",
+        "top": "Top priorities",
+        "low": "Low priorities"
     },
     "no_visits":"Visits you've completed with our consultants will appear here.",
     "finding_property":"Find your matching property",
