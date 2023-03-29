@@ -221,6 +221,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/buy/property-details'], { queryParams: { id: this.activeRoute.queryParams['id'], type: this.activeRoute.queryParams['type'], requestVisit: true} })
       }
 
+      else if(this.activeRoute.queryParams['advisor']){
+        this.router.navigate(['electronic-advisor'], { queryParams: { loggedIn: true } })
+      }
+
       else{
         this.location.back()
       }

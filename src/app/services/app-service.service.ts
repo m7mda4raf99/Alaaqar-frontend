@@ -19,6 +19,7 @@ export class AppServiceService {
   priorityThree$ = new BehaviorSubject<any>(<any>({}));
   priorityFour$ = new BehaviorSubject<any>(<any>({}));
   tempInquiryObj$ = new BehaviorSubject<any>(<any>({}));
+  loggedInAdvisor$ = new BehaviorSubject<any>(<any>({}));
 
   //seller
   tabOne$ = new BehaviorSubject<any>(<any>({}));

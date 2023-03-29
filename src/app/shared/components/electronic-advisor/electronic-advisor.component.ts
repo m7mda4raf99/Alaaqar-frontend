@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { ApiService } from '../../services/api.service';
 import { environment } from 'src/environments/environment';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import * as util from '../../../utils/index';
 import { PrioritiesService } from 'src/app/services/priorities.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { TranslateService } from '@ngx-translate/core'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-electronic-advisor',
@@ -20,6 +21,8 @@ export class ElectronicAdvisorComponent {
   util = util
 
   constructor(
+    private activeRouter: ActivatedRoute,
+    private cookieService: CookieService,
     private router: Router,
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
@@ -27,6 +30,7 @@ export class ElectronicAdvisorComponent {
     private prioritiesService: PrioritiesService,
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
+    public formBuilder: UntypedFormBuilder
     ) {
       this.sub1 = this.appServiceService.lang$.subscribe(async val => {
         this.lang = val
@@ -90,8 +94,30 @@ export class ElectronicAdvisorComponent {
   activeTab: any = 1
 
   async ngOnInit() {
-    
-  }
+    if(this.activeRouter.snapshot.queryParams.loggedIn) {
+      this.sub2 = this.appServiceService.loggedInAdvisor$.subscribe(async value => {
+        let obj = value
+
+        let addInquiry = await this.addInquiry(obj)
+
+        if (addInquiry === false) {
+          this.appServiceService.tempInquiryObj$.next(obj)
+        }
+      })
+      
+    } 
+
+    this.prioritiesService.prioriesForm =  this.formBuilder.group({
+      '1': this.formBuilder.group({
+      }),
+      '2': this.formBuilder.group({
+      }),
+      '3': this.formBuilder.group({
+      }),
+      '4': this.formBuilder.group({
+      }),
+    })
+  } 
 
   setMultiSelection(){
     this.settingsCity = { 
@@ -485,7 +511,7 @@ export class ElectronicAdvisorComponent {
 
   async doneSettingPriorities(){
     let obj: any = {
-      // type_id: '',
+      type_id: '',
       propose: '',
       min_price: '',
       max_price: '',
@@ -530,12 +556,19 @@ export class ElectronicAdvisorComponent {
       }
     }
 
-    let addInquiry = await this.addInquiry(obj)
+    const user = this.cookieService.get('user')
 
-    if (addInquiry === false) {
-      this.appServiceService.tempInquiryObj$.next(obj)
+    if (!user) {
+      this.appServiceService.loggedInAdvisor$.next(obj)
+      this.router.navigate(['login'], { queryParams: { advisor: true } })  
     }
+    else{
+      let addInquiry = await this.addInquiry(obj)
 
+      if (addInquiry === false) {
+        this.appServiceService.tempInquiryObj$.next(obj)
+      }
+    }
   }
 
   async addInquiry(inquiryData: any) {

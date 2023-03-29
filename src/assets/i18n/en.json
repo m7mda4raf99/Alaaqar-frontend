@@ -381,6 +381,10 @@
         "Choose Options": "Or choose options",
         "Choose Keywords":"Or search by keywords",
         "Placeholder": "City, District or Compounds",
+        "Placeholder Buy": "Buy in city, district or compounds",
+        "Placeholder Rent": "Rent in city, district or compounds",
+        "Placeholder Commercial": "Commercial in city, district or compounds",
+
         "Text search": "TEXT SEARCH",
         "Attributes search": "SEARCH WITH ATTRIBUTES",
         "fail": "Sorry!",

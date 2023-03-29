@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { ApiService } from '../../services/api.service'
 import { CookieService } from 'ngx-cookie-service';
+import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-single-developer',
@@ -22,6 +23,7 @@ export class SingleDeveloperComponent {
     private router: Router,
     private cookieService: CookieService,
     private activeRouter: ActivatedRoute,
+    private translateService: TranslateService,
     ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
@@ -107,7 +109,7 @@ export class SingleDeveloperComponent {
 
   page?: number = 1;
 
-  switcher: any = 'projects'
+  switcher: any = 'overview'
   isDeveloperLoggedIn: boolean = false
 
   async ngOnInit() {
@@ -140,7 +142,7 @@ export class SingleDeveloperComponent {
 
     // console.log("dummy: ", this.developer)
 
-    // console.log("backend: ", response.data)
+    console.log("backend: ", response.data)
 
     this.developer = response.data
 
@@ -175,6 +177,15 @@ export class SingleDeveloperComponent {
 
     scroll(el: HTMLElement) {
     el.scrollIntoView();
+  }
+
+  renderString(str: any) {
+    if(!str || str === ''){
+      str = this.translateService.instant('developer.no description')
+    }
+    var div = document.getElementById('description')
+    // console.log("x: ", div)
+    div!.innerHTML = str?.trim();
   }
 
   navigateToSingleProject(item: any){

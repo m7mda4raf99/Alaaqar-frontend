@@ -61,17 +61,17 @@
                           </label>
                         </div>
                         <div class="carousel-cell">
-                          <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'visit_requests'">
+                          <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'visit_requests'">
                             <input hidden ngbButton type="radio" value="visit_requests"> Visit Requests
                           </label>
                         </div>
                         <div class="carousel-cell">
-                          <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'reviews'">
+                          <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'reviews'">
                             <input hidden ngbButton type="radio" value="reviews"> Reviews
                           </label>
                         </div>
                         <div class="carousel-cell">
-                          <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'pending_reviews'">
+                          <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'pending_reviews'">
                             <input hidden ngbButton type="radio" value="pending_reviews"> Pending Reviews
                           </label>
                         </div>
@@ -88,13 +88,13 @@
                         <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'projects'">
                           <input hidden ngbButton type="radio" value="projects"> {{'developer.Projects' | translate}}
                         </label>
-                        <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'visit_requests'">
+                        <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'visit_requests'">
                           <input hidden ngbButton type="radio" value="visit_requests"> Visit Requests
                         </label>
-                        <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'reviews'">
+                        <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'reviews'">
                           <input hidden ngbButton type="radio" value="reviews"> Reviews
                         </label>
-                        <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'pending_reviews'">
+                        <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'pending_reviews'">
                           <input hidden ngbButton type="radio" value="pending_reviews"> Pending Reviews
                         </label>
     
@@ -105,11 +105,25 @@
                   <div class="col-xs-12 priorites-list">
                     <div #holder class="col holder">
                       
-                      <div *ngIf="switcher === 'overview'">
+                      <div *ngIf="switcher === 'overview'" class="container-fluied property-details">
+                        <div class="row" style="margin: 0px 15px;">
+                            <div class="col-xs-12 col-md-10 main-row">
+                                
+                                <!-- description -->
+                                <div class="row details col-lg-10">
+                                    <span class="head-description"> {{'developer.description' | translate}} </span>
 
+                                    {{renderString(developer['description'])}}
+                                    <span id="description" class="sub-head-description"> </span>
+
+                                </div>
+  
+                            </div>
+                        </div>
+  
                       </div>
 
-
+                      <!-- no project found -->
                       <div *ngIf="switcher === 'projects' && (developer['projects'] === undefined || developer['projects'].length === 0)" class="cards-holder">
                         <div class="card-container">
                           <img class="not-found-image" src="../../../../assets/images/no_projects_units.png" alt="...">
@@ -128,6 +142,7 @@
                         </div>
                       </div>
             
+                      <!-- projects found -->
                       <div *ngIf="switcher === 'projects' && developer['projects'] && developer['projects'].length > 0" class="cards-holder">
             
                         <div *ngFor="let project of developer['projects'] | paginate: { itemsPerPage: 24, currentPage: page,totalItems: developer['projects_count'] }" class="card-container">
