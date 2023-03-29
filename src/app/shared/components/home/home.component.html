@@ -18,7 +18,7 @@
                 <ng-autocomplete 
                 [data]="autoComplete"
                 [searchKeyword]="keyword"
-                placeholder="{{'buy.Placeholder' | translate}}"
+                placeholder="{{ autoComplete_placeholder }}"
                 (selected)='selectEvent($event)'
                 (inputChanged)='onChangeSearch($event)'
                 (inputFocused)='onFocused($event)'

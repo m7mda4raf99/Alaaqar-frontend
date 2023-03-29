@@ -573,6 +573,10 @@ nz-progress {
             color: #2c2c2c;
             border-color: #184d47;
         }
+
+        &:hover{
+            border-color: #a9a9a9;
+        }
     }
 
     //    .btn-primary:focus{
@@ -1581,4 +1585,24 @@ nav{
     @media (max-width: 450px) {
         width: 85% !important;
     }
+}
+
+.mck-box-top {
+    background: #184d47 !important;
+}
+
+.mck-title {
+    background: #184d47 !important;
+}
+
+.mck-box .mck-box-title,.mck-box div {
+    background: #184d47 !important;
+}
+
+::ng-deep .mck-box .mck-box-title,.mck-box div {
+    background: #184d47 !important;
+}
+
+::ng-deep .mck-title {
+    background: #184d47 !important;
 }

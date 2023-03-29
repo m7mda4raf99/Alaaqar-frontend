@@ -67,7 +67,6 @@
         }
     }
 
-
     .main-content {
         padding: 0;
 
@@ -106,7 +105,7 @@
                 }
     
                 .switch-tab {
-                    pointer-events: none;
+                    // pointer-events: none;
                     font-family: "Rubik-medium";
                     font-size: 13px;
                     padding: 10px 15px;
@@ -679,6 +678,89 @@
             &:hover{
                 background: #f46b80;
             }
+        }
+    }
+
+    .property-details{
+
+        .main-row{
+            margin: 0px;
+            padding: 0px;
+    
+            // .carousel .switcher .count{
+            //     left: 10px;
+
+            //     @media (max-width: 450px) {
+            //         left: -5px;
+            //     }
+            // }
+
+            // .carousel {
+            //     @media (max-width: 450px) {
+            //         height: 235px;
+            //     }
+            
+            //     .carousel-item img{
+            //         @media (max-width: 450px) {
+            //             height: 235px;
+            //         }
+            //     }
+            // }
+
+            // .images{
+            //     @media (max-width: 450px) {
+            //         padding: 15px 0px;
+            //     }
+            // }
+    
+            .details{
+                margin: 10px 0px !important;
+
+                // @media (max-width: 450px) {
+                //     margin: 10px 0!important;
+                // }
+
+                .head-description{
+                    font-size: 22.5px;
+                    font-weight: 700;
+                    padding: 10px;
+                }
+
+                .sub-head-description{
+                    width: 100% !important;
+                    padding: 0px 30px !important;
+
+                    @media (max-width: 450px) {
+                        padding: 0px 10px !important;
+                    }
+                }
+
+                // &.masterplan{
+                //     background: transparent;
+
+                //     @media (max-width: 450px) {
+                //         padding: 0px;
+                //     }
+
+                //     .sub-head-description{
+                //         background: white;
+                //         border-radius: 30px;
+                //         width: fit-content;
+                //         height: fit-content;
+                //         padding: 20px;
+
+                //         @media (max-width: 450px) {
+                //             padding: 15px;
+                //         }
+
+                //         img{
+                //             border-radius: 20px;
+                //             width: -webkit-fill-available;
+                //         }
+                //     }
+                // }
+            }
+    
         }
     }
 }

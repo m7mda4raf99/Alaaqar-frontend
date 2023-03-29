@@ -139,10 +139,12 @@
 
                               <!-- description -->
                               <div class="row details col-lg-10">
-                                  <span class="head-description"> {{'developer.description' | translate}} </span>
-                                  <span *ngIf="project['description'] && project['description'] != ''" class="sub-head-description"> {{ project['description'] }} </span>
-                                  <span *ngIf="!project['description'] || project['description'] === ''" class="sub-head-description"> {{ 'developer.no description' | translate }}  </span>
-                              </div>
+                                <span class="head-description"> {{'developer.description' | translate}} </span>
+
+                                {{renderString(project['description'])}}
+                                <span id="description" class="sub-head-description"> </span>
+
+                            </div>
 
                               <!-- master plan -->
                               <div class="row details masterplan col-lg-10">

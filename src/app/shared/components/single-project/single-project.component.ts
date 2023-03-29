@@ -379,6 +379,15 @@ export class SingleProjectComponent {
     el.scrollIntoView();
   }
 
+  renderString(str: any) {
+    if(!str || str === ''){
+      str = this.translateService.instant('developer.no description')
+    }
+    var div = document.getElementById('description')
+    // console.log("x: ", div)
+    div!.innerHTML = str?.trim();
+  }
+
   navigateToSingleProject(item: any){
     const urlTree = this.router.createUrlTree(['/single-project'], { queryParams: { id: item } });
     const url = this.router.serializeUrl(urlTree);

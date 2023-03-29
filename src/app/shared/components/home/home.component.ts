@@ -167,6 +167,8 @@ export class HomeComponent implements OnInit {
   buyer: string = 'buyer'
   seller: any = 'seller'
 
+  autoComplete_placeholder: any = ''
+
   top_searched_areas = [
     { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.png', 'area_id': 7},
     { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.png', 'area_id': 9},
@@ -285,6 +287,9 @@ export class HomeComponent implements OnInit {
         this.defaultSelectedNeighborhood = 'Select Neighborhood'
         this.defaultSelectedRealEstateType = 'Select Type'
       }
+
+      this.setAutocompletePlaceholder()
+
     }
     )
     this.sub2 = this._activatedRoute.queryParams.subscribe(params => {
@@ -296,8 +301,33 @@ export class HomeComponent implements OnInit {
         this.setActiveTab('buy')
         this.setMultiSelection('buy')
       }
+
+      this.setAutocompletePlaceholder()
+
     })
 
+  }
+
+  setAutocompletePlaceholder(){
+    if(this.activeTab === 'commercial'){
+      if(this.lang === 'en'){
+        this.autoComplete_placeholder = "Commercial in city, district or compounds"
+      }else{
+        this.autoComplete_placeholder = "تجاري في مدينة، حي أو كمبوندات"
+      }
+    }else if(this.activeTab === 'rent'){
+      if(this.lang === 'en'){
+        this.autoComplete_placeholder = "Rent in city, district or compounds"
+      }else{
+        this.autoComplete_placeholder = "استأجر في مدينة، حي أو كمبوندات"
+      }
+    }else{
+      if(this.lang === 'en'){
+        this.autoComplete_placeholder = "Buy in city, district or compounds"
+      }else{
+        this.autoComplete_placeholder = "اشترى في مدينة، حي أو كمبوندات"
+      }
+    }
   }
 
   scroll(el: HTMLElement) {
@@ -411,6 +441,25 @@ export class HomeComponent implements OnInit {
     this.getHomeBlogs()
     this.resetFormData()
 
+    this.chat()
+
+  }
+
+  chat(){
+    (function(d, m){
+      var kommunicateSettings: any = {"appId":"291b5743d8de72feca0622c537146bc42","popupWidget":true,"automaticChatOpenOnNavigation":true};
+      var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+      s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+      var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+      (window as any).kommunicate = m; m._globals = kommunicateSettings;
+
+      kommunicateSettings.onInit = function() {
+        var css = ".mck-title { background: #184d47;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #184d47 !important; } .mck-msg-left .mck-msg-box{ background: #e7edec !important; } .km-cta-multi-button-container button.km-cta-button { color: #184d47 !important; border-color: #184d47 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #184d47 !important; border-color: #184d47 !important; } .mck-form-template-container button{ color: #184d47 !important; border-color: #184d47 !important; } .km-custom-widget-background-color { background: #184d47 !important; }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
+        (window as any).Kommunicate.customizeWidgetCss(css); // use window.Kommunicate for ReactJs
+    };
+
+    })(document, (window as any).kommunicate || {});
+    
   }
 
   async getTopHome(){
