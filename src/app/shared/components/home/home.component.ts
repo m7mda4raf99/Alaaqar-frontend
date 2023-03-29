@@ -168,23 +168,23 @@ export class HomeComponent implements OnInit {
   seller: any = 'seller'
 
   top_searched_areas = [
-    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.png'},
-    { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.png'},
-    { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/new_cairo.png'},
-    { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.png'}
+    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.png', 'area_id': 7},
+    { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.png', 'area_id': 9},
+    { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/new_cairo.png', 'area_id': 4},
+    { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.png', 'area_id': 11}
   ]
 
   top_projects = [
-    { 'name_en': 'Palm Hills New Cairo', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/palm_hills_project.jpg', 'developer_img': '../../../../assets/images/palm_hills.png', 'location_en': 'New Cairo', 'location_ar': 'القاهرة الجديدة'},
-    { 'name_en': 'Belle Vie', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/emaar_project.png', 'developer_img': '../../../../assets/images/emaar_misr.png', 'location_en': 'New Cairo', 'location_ar': 'القاهرة الجديدة'},
-    { 'name_en': 'Sodic East', 'name_ar': 'العاصمة الجديدة', 'project_img': '../../../../assets/images/sodic_project.png', 'developer_img': '../../../../assets/images/sodic.png', 'location_en': 'New Cairo', 'location_ar': 'القاهرة الجديدة'},
+    { 'id': 1,'name_en': 'Palm Hills New Cairo', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/palm_hills_project.jpg', 'developer_img': '../../../../assets/images/palm_hills.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
+    { 'id': 2,'name_en': 'Belle Vie', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/emaar_project.png', 'developer_img': '../../../../assets/images/emaar_misr.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
+    { 'id': 3,'name_en': 'Sodic East', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/sodic_project.png', 'developer_img': '../../../../assets/images/sodic.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
   ]
 
-  top_developers = [
-    { 'name_en': 'Palm Hills', 'name_ar': 'بالم هيلز', 'img': '../../../../assets/images/palm_hills.png'},
-    { 'name_en': 'Emaar Misr', 'name_ar': 'اعمار مصر', 'img': '../../../../assets/images/emaar_misr.png'},
-    { 'name_en': 'Orascom', 'name_ar': 'أوراسكوم', 'img': '../../../../assets/images/orascom.png'},
-    { 'name_en': 'Sodic', 'name_ar': 'سوديك', 'img': '../../../../assets/images/sodic.png'}
+  top_developers: any = [
+    { 'id': 1, 'name_en': 'Palm Hills', 'name_ar': 'بالم هيلز', 'image': '../../../../assets/images/palm_hills.png'},
+    { 'id': 2, 'name_en': 'Emaar Misr', 'name_ar': 'اعمار مصر', 'image': '../../../../assets/images/emaar_misr.png'},
+    { 'id': 3, 'name_en': 'Orascom', 'name_ar': 'أوراسكوم', 'image': '../../../../assets/images/orascom.png'},
+    { 'id': 4, 'name_en': 'Sodic', 'name_ar': 'سوديك', 'image': '../../../../assets/images/sodic.png'}
   ]
 
   buyImages = [
@@ -308,7 +308,65 @@ export class HomeComponent implements OnInit {
     console.log(this.switcher)
   }
 
+  isLoggedInDeveloper(){
+    const developer = this.cookieService.get('developer')
+    
+    if (developer) {
+      this.notificationsService.showError(this.translateService.instant('error.developer'))
+      
+      this.router.navigate(['/single-developer'])
+    }
+  }
+
+  clickTopSearchedArea(area: any){
+    let city_id: any
+
+    switch(this.top_searched_areas[area]['area_id']){
+      case 4:
+        city_id = 1
+        break;
+      case 7:
+        city_id = 1
+        break;
+      case 9:
+        city_id = 2
+        break;
+      case 11:
+          city_id = 5
+          break;
+    }
+
+    this.search_model = {
+      cities: [1],
+      areas: [],
+      locations: [],
+      neighborhoods: [],
+      compounds: [],
+      type: [],
+      min_price: null,
+      max_price: null,
+      propose: 'buy'
+    }
+
+    this.search_bar_model = {
+      cities: [city_id],
+      areas: [this.top_searched_areas[area]['area_id']],
+      locations: [],
+      neighborhoods: [],
+      compounds: [],
+      type: [],
+      min_price: null,
+      max_price: null,
+      propose: this.activeTab === 'rent' ? 'rental' : 'sell',
+      hint: this.selectedSearchQuery
+    }
+
+    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+  }
+
   async ngOnInit() {
+    this.isLoggedInDeveloper()
+    
     const box=document.getElementById('home')
     
      this.appServiceService.selected_country$.subscribe((res:any) =>{
@@ -330,15 +388,17 @@ export class HomeComponent implements OnInit {
     
     this.spinner.show()
     
-    await this.setPrice()
-    await this.getNewArea()
-    await this.getRealNnew()
-    await this.getCity(true)
+    // await this.setPrice()
+    // await this.getNewArea()
+    // await this.getRealNnew()
+    // await this.getCity(true)
     //await this.getAreaLocations(true)
-    this.setMultiSelection('buy')
+    // this.setMultiSelection('buy')
     // this.getUnitTypes()
     // await this.setupUnitTypesCount()
     // await this.setupMinPrice()
+
+    await this.getTopHome()
 
     this.spinner.hide()
 
@@ -351,6 +411,18 @@ export class HomeComponent implements OnInit {
     this.getHomeBlogs()
     this.resetFormData()
 
+  }
+
+  async getTopHome(){
+    let response = await this.apiService.getTopHome()
+
+    this.top_developers = response.data['developers']
+
+    this.top_projects = response.data['projects']
+
+    // this.recentlyAdded = response.data['units']
+
+    console.log("getTopHome: ", response)
   }
   
   async setPrice(){
@@ -425,19 +497,33 @@ export class HomeComponent implements OnInit {
   }
    
   async Getsearch() {
-    console.log("this.searchQuery: ", this.searchQuery)
 
     if(this.selectedSearchQuery){
       let data={
         query : this.selectedSearchQuery  
       }  
-  
-      this.response=  await this.apiService.getsearch(data)
-  
-      // console.log('response')
-      // console.log(this.response)
-      // console.log(this.response.data[0]['name_en'])
       
+      this.spinner.show()
+
+      this.response=  await this.apiService.getsearch(data)
+      
+      this.search_bar_model = {
+        cities: [],
+        areas: [],
+        locations: [],
+        neighborhoods: [],
+        compounds: [],
+        type: [],
+        min_price: null,
+        max_price: null,
+        propose: this.activeTab === 'rent' ? 'rental' : 'sell',
+        hint: this.selectedSearchQuery
+      }
+
+      if(this.activeTab === 'commercial'){
+        this.search_model.type = [14, 15, 16, 17, 18, 19]
+      }
+
       // Compounds
       if(this.response.data[0]['city_id'] && this.response.data[0]['area_id']){
         // console.log('gwa compounds')
@@ -459,6 +545,7 @@ export class HomeComponent implements OnInit {
         this.search_bar_model.cities.push(this.response.data[0]['id']) 
   
       }
+
       this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
   
     }else{
@@ -471,7 +558,11 @@ export class HomeComponent implements OnInit {
         type: [],
         min_price: null,
         max_price: null,
-        // propose:'buy'
+        propose: this.activeTab === 'rent' ? 'rental' : 'sell'
+      }
+
+      if(this.activeTab === 'commercial'){
+        this.search_model.type = [14, 15, 16, 17, 18, 19]
       }
 
       this.search()
@@ -1207,6 +1298,8 @@ export class HomeComponent implements OnInit {
     let recentlyAdded = await this.apiService.getRecentlyAdded(headers)
     this.recentlyAdded = recentlyAdded.data
 
+    console.log("this.recentlyAdded: ", this.recentlyAdded)
+
     return true
   }
 
@@ -1755,7 +1848,7 @@ export class HomeComponent implements OnInit {
 
   tryItNow(){
     // console.log("this.activeTab try it now: ", this.activeTab)
-    this.router.navigate(['/set-priorities'], { queryParams: { type_id: null, propose: this.activeTab === 'rent' ? 1 : 2 } })
+    this.router.navigate(['/electronic-advisor'])
   }
 
   async submit(data: any) {
@@ -2044,6 +2137,8 @@ export class HomeComponent implements OnInit {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
 
+    this.selectedSearchQuery = val
+
     if(val === ''){
       if(this.lang === 'en'){
         this.autoComplete = [
@@ -2281,17 +2376,16 @@ async onItemSelectRealNeW(item: any){
   }
 
   share_your_quests(){
-
+    this.router.navigate(['/quest'])
   }
 
   navigateToSingleProject(item: any){
-
+    this.router.navigate(['single-project'], { queryParams: { id: item.id } })
   }
 
-  navigateToSingleDeveloper(item: any){
-    
+  navigateToSingleDeveloper(item: number){
+    this.router.navigate(['single-developer'], { queryParams: { id: this.top_developers[item].id } })
   }
-
 
 }
 

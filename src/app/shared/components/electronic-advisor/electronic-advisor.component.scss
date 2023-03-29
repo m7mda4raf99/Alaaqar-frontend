@@ -1,0 +1,597 @@
+@import "../../../../unit-details.scss";
+
+.electronic-advisor{
+    .sub-head{
+        background: url("../../../../assets/images/project.png") 0% 0% !important;
+        height: 360px !important;
+
+        @media (max-width: 450px) {
+            background-size: cover !important;
+            height: auto!important;
+        }
+
+        .container-fluid{
+            height: 100% !important;
+
+            .container-fluid-again{
+                height: 100% !important;
+
+                .main-header{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding: 0;
+                }
+            }
+        }
+        
+
+        .title{
+            font-size: 24px !important;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .bar{
+            display: flex; 
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            background: #184d47;
+            opacity: 0.8;
+            margin: 30px;
+
+            .section-head-center {
+                color: white;
+
+                span{
+                    background: white;
+                }
+            }
+
+            h6{
+                color: white;
+                padding: 10px 160px;
+                text-align: center;
+
+                @media (max-width: 450px) {
+                    padding: 10px 20px;
+                }
+                
+            }
+
+            @media (max-width: 450px) {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+                padding: 10px 0px;
+            }
+
+        
+        }
+    }
+    
+    .main-content {
+        padding: 0;
+
+        @media (max-width: 450px) {
+            // margin-top: -50px;
+        }
+
+        .property-details{
+            .main-row{
+                margin: -265px 0px 0px 0px;
+                padding: 0px;
+        
+                @media (max-width: 450px) {
+                    margin: 0px;
+                }
+
+                .details{
+                    margin: 30px 0px !important;
+    
+                    @media (max-width: 450px) {
+                        margin: 20px 0!important;
+                    }
+    
+                    .head-description{
+                        font-size: 22.5px;
+                        font-weight: 500;
+                        padding: 25px;
+                        text-align: center;
+
+                        @media (max-width: 450px) {
+                            padding: 0px;
+                        }
+                    }
+
+                    .location{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 25px 0px;
+
+                        span{
+                            font-size: 18px;
+                        }
+
+                        .dropdown{
+                            display: flex;
+                            width: 100%;
+                            justify-content: center;
+                            padding: 30px 0px;
+
+                            @media (max-width: 450px) {
+                                flex-direction: column;
+                                align-items: center;
+                            }
+
+                            .each-dropdown{
+                                border: 1px solid #ced4da;
+                                border-radius: 10px;
+                                width: 15%;
+                                margin: 0px 10px;
+                                height: 38px;
+
+                                @media (max-width: 450px) {
+                                    width: 90%;
+                                    margin: 10px 0px;
+                                }
+                            }
+                        }
+
+                        .location_preview{
+                            display: flex;
+
+                            .location_card{
+                                width: fit-content;
+                                background: #e1eceb;
+                                padding: 10px 30px;
+                                margin: 10px 15px;
+                                border-radius: 10px;
+                                border: 1px solid #184d47;
+
+                                @media (max-width: 450px) {
+                                    padding: 10px 20px;
+                                }
+                                
+                            }
+                        }
+                    }
+
+                    .price{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 25px 0px;
+
+                        span{
+                            font-size: 18px;
+                        }
+
+                        .inputs{
+                            display: flex;
+                            width: 100%;
+                            justify-content: center;
+                            padding: 30px 0px;
+
+                            @media (max-width: 450px) {
+                                flex-direction: column;
+                                align-items: center;
+                            }
+
+                            .each-input{
+                                border: 1px solid #ced4da;
+                                border-radius: 10px;
+                                width: 15%;
+                                margin: 0 10px;
+                                height: 38px;
+                                padding: 10px;
+
+                                @media (max-width: 450px) {
+                                    width: 90%;
+                                    margin: 10px 0px;
+                                }
+                            }
+                        }
+
+                        .price_preview{
+                            display: flex;
+                            align-items: center;
+
+                            .price_card{
+                                width: fit-content;
+                                background: #e1eceb;
+                                padding: 10px 30px;
+                                margin: 10px 20px;
+                                border-radius: 10px;
+                                border: 1px solid #184d47;
+                            }
+                        }
+                    }
+    
+                    .priorites-list {
+                        .custom-element {
+                            @media (min-width: 1024px) {
+                                width: 12%;
+                            }
+                            @media (max-width: 450px) {
+                                width: 33%;
+                                padding: 5px;
+                            }
+                            @media only screen and (min-width: 768px) and (max-width: 1024px) {
+                                width: 20.87%;
+                            }
+                            &.selected {
+                                display: none;
+                            }
+                        }
+                        .main {
+                            background-color: #fff;
+                            border-radius: 20px;
+                            padding-bottom: 40px;
+                            @media (min-width: 1024px) {
+                                //height: 720px;
+                            }
+                            p {
+                                color: #2c2c2c;
+                                font-size: 15px;
+                
+                                @media (max-width: 450px) {
+                                    font-size: 13px;
+                                }
+                
+                            }
+                            .priority-header{
+                                font-size: 18px;
+                                font-weight: bold;
+                                padding-top: 30px;
+                
+                                .high{
+                                    color: #28B446;
+                                }
+                                .medium{
+                                    color: #EDA90A;
+                                }
+                                .low{
+                                    color: #FD4965;
+                                }
+                            }
+                
+                            .priority-header.high{
+                                color: #28B446;
+                            }
+                            .priority-header.medium{
+                                color: #EDA90A;
+                            }
+                            .priority-header.low{
+                                color: #FD4965;
+                            }
+                
+                            .done{
+                                display: block;
+                                max-width: 100%;
+                                width: 100%;
+                                color: #FD4965;
+                                margin-top: 25%;
+                                background-color: #f7e6e9;
+                            }
+                
+                            .edit{
+                                display: block;
+                                max-width: 100%;
+                                width: 100%;
+                                color: black;
+                                margin-top: 25%;
+                                background-color: #E6E6E6;
+                            }
+                
+                            .box.notClicked{
+                                background-color: #f7f7f7;
+                                max-width: 170px;
+                                height: 110px;
+                                border: 1px solid #f7f7f7;
+                                border-radius: 10px;
+                                text-align: center;
+                                margin: auto;
+                                cursor: pointer;
+                                @media (max-width: 450px) {
+                                    max-width: 114px;
+                                    // height: 95px;
+                                }
+                
+                                .toggle{
+                                    width: 22px;
+                                    height: 22px;
+                                    margin: 10px 10px 0px 10px;
+                
+                                    @media (max-width: 450px) {
+                                        width: 18px;
+                                        height: 18px;
+                                        margin: 6px 6px 0;
+                                    }
+                                }
+                
+                                .icon {
+                                    display: inline-block;
+                                    // width: 40px;
+                                    // height: 40px;
+                                    vertical-align: text-bottom;
+                                    // margin-top: 15px;
+                                    background-color: #f7f7f7;
+                                    border-radius: 10px;
+                                    img {
+                                        display: inline-block;
+                                        width: 45px;
+                
+                                        // padding: 9px 5px;
+                                    }
+                                    @media only screen and (min-width: 768px) and (max-width: 1350px) {
+                                        margin-top: 10px;
+                                    }
+                                }
+                
+                                .text {
+                                    color: #a9a9a9;
+                                    font-size: 13px;
+                                    display: block;
+                                    padding: 5px 0px 0px 0px;
+                                    @media only screen and (min-width: 768px) and (max-width: 1440px) {
+                                        font-size: 14px;
+                                        //    display: block;
+                                    }
+                                    @media (max-width: 450px) {
+                                        font-size: 12px;
+                                    }
+                                }
+                
+                                .insert {
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    margin-bottom: -5px;
+                
+                                    @media (max-width: 450px) {
+                                        margin-bottom: 0px;
+                                    }
+                                    fa-icon {
+                                        color: #cecece;
+                                    }
+                                }
+                            }
+                
+                            .box.clicked{
+                                max-width: 170px;
+                                height: 110px;
+                                border: 1px solid #184D47;
+                                border-radius: 10px;
+                                text-align: center;
+                                margin: auto;
+                                background-color: #184d471a;
+                                cursor: pointer;
+                
+                                @media (max-width: 450px) {
+                                    max-width: 114px;
+                                    // height: 95px;
+                                }
+                
+                                .toggle{
+                                    width: 22px;
+                                    height: 22px;
+                                    margin: 10px 10px 0px 10px;
+                
+                                    @media (max-width: 450px) {
+                                        width: 18px;
+                                        height: 18px;
+                                        margin: 6px 6px 0;
+                                    }
+                                }
+                
+                    
+                                .icon {
+                                    display: inline-block;
+                                    // width: 40px;
+                                    // height: 40px;
+                                    vertical-align: text-bottom;
+                                    // margin-top: 15px;
+                                    background-color: #f7f7f7;
+                                    border-radius: 10px;
+                                    img {
+                                        display: inline-block;
+                                        width: 45px;
+                
+                                        // padding: 9px 5px;
+                                    }
+                                    @media only screen and (min-width: 768px) and (max-width: 1350px) {
+                                        margin-top: 10px;
+                                    }
+                                    
+                                }
+                                .text {
+                                    color: #a9a9a9;
+                                    font-size: 13px;
+                                    display: block;
+                                    padding: 5px 0px 0px 0px;
+                                    @media only screen and (min-width: 768px) and (max-width: 1440px) {
+                                        font-size: 14px;
+                                        //    display: block;
+                                    }
+                                    @media (max-width: 450px) {
+                                        font-size: 12px;
+                                    }
+                                }
+                
+                                .delete {
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    margin-bottom: -5px;
+                
+                                    @media (max-width: 450px) {
+                                        margin-bottom: 0px;
+                                    }
+                                    // margin: 0px 5px 0px 5px;
+                                    fa-icon {
+                                        // font-size: 12px;
+                                    }
+                                }
+                            }
+                
+                            .box.preview{
+                                max-width: 170px;
+                                border: 1px solid #f7f7f7;
+                                border-radius: 5px;
+                                text-align: center;
+                                margin: auto;
+                                background-color: #f7f7f7;
+                                display: flex;
+                                height: fit-content;
+                                width: fit-content;
+                                align-items: center;
+                                padding: 0px 5px;
+                
+                                @media (max-width: 450px) {
+                                    // max-width: 114px;
+                                }
+                
+                                .icon {
+                                    display: inline-block;
+                                    // margin: 5px;
+                                    // width: 40px;
+                                    // height: 40px;
+                                    vertical-align: text-bottom;
+                                    // margin-top: 15px;
+                                    background-color: #f7f7f7;
+                                    border-radius: 10px;
+                                    img {
+                                        display: inline-block;
+                                        width: 45px;
+                
+                                        // padding: 9px 5px;
+                                    }
+                                    @media only screen and (min-width: 768px) and (max-width: 1350px) {
+                                        margin-top: 10px;
+                                    }
+                                    
+                                }
+                                .text {
+                                    margin: 5px;
+                                    color: #a9a9a9;
+                                    font-size: 13px;
+                                    display: block;
+                                    width: max-content;
+                                    @media only screen and (min-width: 768px) and (max-width: 1440px) {
+                                        font-size: 14px;
+                                        //    display: block;
+                                    }
+                                    @media (max-width: 450px) {
+                                        font-size: 14px;
+                                    }
+                                }
+                
+                                .delete {
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    margin-bottom: -5px;
+                                    // margin: 0px 5px 0px 5px;
+                                    fa-icon {
+                                        // font-size: 12px;
+                                    }
+                                }
+                            }
+                        }
+                
+                        .margin_all{
+                            margin: 0% 4%;
+                            justify-content: center;
+                            // display: flex;
+                            // flex-wrap: wrap;
+                
+                            @media (max-width: 450px) {
+                                margin: 0% 1%;
+                            }
+                
+                            .form-stepper{
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+
+                                form{
+                                    width: 100%;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    justify-content: center;
+
+                                    @media (max-width: 450px) {
+                                        flex-direction: column;
+                                    }
+
+                                    .margin_item{
+                                        margin: 2%;
+                                        width: 29%;
+
+                                        @media (max-width: 450px) {
+                                            margin: 5% 0%;
+                                            width: 100%;
+                                        }
+                                    }
+                                }
+                                
+                            }
+                
+                        }
+                    }
+
+                }
+        
+            }
+        }
+
+    }
+
+    .button-holder{
+        justify-content: center;
+
+        @media (max-width: 450px) {
+            // background: white;
+            width: 100%;
+            display: flex;
+            // position: fixed;
+            bottom: 0px;
+            z-index: 9999;
+        }
+
+        .back{
+            background: transparent;
+            border: 1px solid white;
+
+            &:hover{
+                background: #53856e;
+            }
+        }
+
+        button{
+            margin: 0px 20px;
+            padding: 10px 25px;
+            background: #fd4965;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+    
+            @media (max-width: 450px) {
+                padding: 10px 15px;
+                margin: 10px;
+                font-size: 14px;
+                // width: 100%;
+            }
+    
+            &:hover{
+                background: #f46b80;
+            }
+        }
+    }
+
+}
+
+
+

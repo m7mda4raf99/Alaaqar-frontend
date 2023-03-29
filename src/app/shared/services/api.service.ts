@@ -94,12 +94,32 @@ export class ApiService {
     })
   }
 
+
+  // -------------------------------- DEVELOPER ----------------------------
+
+  public async loginDeveloper(phone: string): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/loginDeveloper`, 'POST', null, { phone })
+  }
+  public async createDeveloper(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/createDeveloper`, 'POST', null, data)
+  }
+  public async resendOTPDeveloper(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/resendOTPDeveloper`, 'POST', null, data)
+  }
+  public async verfiyOtpDeveloper(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/verfiyOtpDeveloper`, 'POST', null, data)
+  }
+  public async logoutDeveloper(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/logoutDeveloper`, 'POST', null, data)
+  }
+
+  // -------------------------------- USER ----------------------------
+
   public async login(phone: string): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/login`, 'POST', null, { phone })
   }
-
-  public async register(data: any): Promise<any> {
-    return await this.SyncClient(`${this.BaseURL}api/registration`, 'POST', null, data)
+  public async createUser(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/createUser`, 'POST', null, data)
   }
   public async resendOtp(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/resendotp`, 'POST', null, data)
@@ -157,6 +177,10 @@ export class ApiService {
 
   public async getImageTags(): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}/api/image_tags`, 'GET')
+  }
+
+  public async getTopHome(): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}/api/getTopHome`, 'GET')
   }
 
   public async addUnit(data: any): Promise<any> {
@@ -343,6 +367,30 @@ export class ApiService {
 
   public getAllGeographicalLocations(): Promise<any> {
     return this.SyncClient(`${this.BaseURL}api/newGeographical`, 'GET')
+  }
+
+  public getCitiesAreas(): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/getCitiesAreas`, 'GET')
+  }
+
+  public getDevelopers(data: any): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/getDevelopers`, 'GET', data, null)
+  }
+
+  public getDeveloper(data: any): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/getDeveloper`, 'GET', data, null)
+  }
+
+  public getProject(data: any): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/getProject`, 'GET', data, null)
+  }
+
+  public getUnits(data: any): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/getUnits`, 'GET', data, null)
+  }
+
+  public async addProject(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/addproject`, 'POST', null, data)
   }
 
   // public login() {

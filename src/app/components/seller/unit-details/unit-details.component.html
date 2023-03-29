@@ -209,23 +209,7 @@
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-save" (click)="readTermsConditions()">{{'button.actions.Terms' |
-                translate}}</button>
-        </div>
-    </ng-template>
-    
-    <ng-template #terms_conditions let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <div style="width: 100%;">
-                   <p style="font-family: Rubik-medium;
-                   color: #ff725f;"> {{'signIn.Instruction' | translate}} </p>
-            </div>
-        </div>
-        <div class="modal-body">
-                <p class="description" [innerHTML]="activeLang === 'en' ? terms.terms_conditions_en : terms.terms_conditions_ar"></p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-save" (click)="navigateToMyUnits()">{{'signIn.Agree' |
+            <button type="button" class="btn btn-save" (click)="navigateToMyUnits()">{{'button.actions.Done' |
                 translate}}</button>
         </div>
     </ng-template>

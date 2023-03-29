@@ -1,0 +1,420 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+    <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+</ngx-spinner>
+  
+<div #developersDiv class="add-project">
+    <div class="container--fluid priorities-form">
+        <div class="sub-head" >
+          <div class="container-fluid">
+            <div class="row justify-content-center container-fluid-again">
+              <div class="col-xs-12 col-md-10 main-header">
+                <p class="title"> {{'developer.addUnit' | translate}} </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row justify-content-center " style="background-color: #F7F7F7;">
+            <div class="col-md-10 main-content">
+                <div class="col-xs-12 priorites-list">
+                  <div #holder class="col holder">
+                    <div *ngIf="!isAttributesSet" class="sellRental-row">
+                        <div class="options">
+          
+                          <span class="hint"> {{ 'sell.location' | translate }}</span>
+          
+                          <div class="each-option">
+                            <div class="ngSelect main">
+                              <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
+                              
+                              <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
+                              [settings]="settingsCity"
+                              (onSelect)="onChangeCity($event)"
+                              (onDeSelect)="onDeSelectAllCity()"
+                              (onDeSelectAll)="onDeSelectAllCity()">
+                              </angular2-multiselect>
+              
+                              <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+              
+                            </div>
+              
+                            <div *ngIf="dropdownListArea.length > 0" class="separator">
+              
+                            </div>
+              
+                            <!-- area -->
+                
+                            <div *ngIf="dropdownListArea.length > 0 && selectedItemCity.length > 0" class="ngSelect area">
+                              <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+                              
+                              <angular2-multiselect [data]="dropdownListArea" [(ngModel)]="selectedItemArea" 
+                              [settings]="settingsArea"
+                              (onSelect)="onItemSelectArea($event)"
+                              (onDeSelect)="onDeSelectAllArea()"
+                              (onDeSelectAll)="onDeSelectAllArea()">
+                              </angular2-multiselect>
+          
+                              <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+          
+                            </div>
+                          
+                            <div *ngIf="dropdownListArea.length > 0 && selectedItemCity.length > 0 && (dropdownListCompound.length > 0 || dropdownListLocation.length > 0)" class="separator">
+                            </div>
+                
+                            <!-- compound -->
+                            <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" 
+                              class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
+                              <div style="padding: 10px; cursor: pointer;">
+                                  <input style="cursor: pointer;"
+                                  class="checkbox"
+                                  type="checkbox"
+                                  [checked]="checkboxVar"
+                                  (change)="changedCheckBox()"/>
+                                  <p [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
+          
+                              </div>
+          
+                              <div class="dropdown" 
+                              [ngStyle]="{'margin-top': margin_top, 'margin-bottom': margin_bottom}">
+                                  {{ setCompoundLocationNeigbhorhoodDropdown() }}
+                                  <div class="multiselect" [ngStyle]="{'pointer-events': pointerEventsCompound, 'display': displayCompound }" >
+                                      <angular2-multiselect 
+                                          [data]="dropdownListCompound" 
+                                          [(ngModel)]="selectedItemCompound" 
+                                          [settings]="settingsCompound"
+                                          (onSelect)="onItemSelectCompound($event)"
+                                          (onDeSelect) = "onItemDeSelectCompound()"
+                                          (onDeSelectAll)="onItemDeSelectCompound()">
+                                      </angular2-multiselect>
+                  
+                                  </div>
+              
+                                  <span *ngIf="selectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                                  
+                                  <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar">{{'setPriorities.select compound' | translate}}</span>
+          
+          
+                              </div>
+          
+                            </div>
+          
+                            <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0 && dropdownListLocation.length > 0" class="separator">
+                            </div>
+          
+                            <!-- location -->
+                            <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
+                                                                        'background': backgroundLocation }">
+                                <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
+                                
+                                    <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
+                                    [settings]="settingsLocation"
+                                    (onSelect)="onItemSelectLocation($event)"
+                                    (onDeSelect)="onDeSelectAllLocation()"
+                                    (onDeSelectAll)="onDeSelectAllLocation()">
+                                    </angular2-multiselect>
+          
+                                <span *ngIf="selectedLocationNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+          
+                            </div>
+          
+                            <div *ngIf="dropdownListNeighborhood.length > 0" class="separator">
+                            </div>
+                
+                            <!-- neighborhood -->
+                            <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
+                              <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                                  <angular2-multiselect 
+                                      [data]="dropdownListNeighborhood" 
+                                      [(ngModel)]="selectedItemNeighborhood" 
+                                      [settings]="settingsNeigbhorhood"
+                                      (onSelect)="onItemSelectNeighborhood($event)"
+                                      (onDeSelect) =onItemDeSelectNeighborhood($event)
+                                      (onDeSelectAll) =onItemDeSelectNeighborhood($event)>
+                                  </angular2-multiselect>
+          
+                            </div>
+          
+                          </div>
+          
+                        </div>
+          
+                        <div class="options">
+                          <span class="hint"> {{ 'sell.type' | translate }}</span>
+                          
+                          <div class="each-option">
+                            <div class="ngSelect realState">
+                              <p class="lable d-none d-lg-block">{{'home.Propose' | translate}}</p>
+                              
+                              <angular2-multiselect [data]="dropdownListPropose" [(ngModel)]="selectedItemPropose" 
+                                  [settings]="settingsPropose"
+                                  (onSelect)="onItemSelectPropose($event)">
+                              </angular2-multiselect>
+              
+                              <span *ngIf="selectedProposeNotValid">{{'validation.This Filed Is Required!' |
+                                  translate}}</span>
+                            </div>
+          
+                            <div class="separator">
+              
+                            </div>
+          
+                            <div class="ngSelect realState">
+                              <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+                              
+                              <angular2-multiselect [data]="dropdownListRealstateType" [(ngModel)]="SelectedRealEstateType" 
+                                  [settings]="settingsUnitType"
+                                  (onSelect)="onItemSelectUnitType($event)">
+                              </angular2-multiselect>
+              
+                              <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
+                                  translate}}</span>
+                            </div>
+              
+                            <div class="separator">
+              
+                            </div>
+              
+                            <div class="ngSelect price">
+                                <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
+                                <div class="price-input">
+                                    <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
+                                        translate}}</label>
+                                    <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
+                                        [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                                </div>
+            
+                                <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |
+                                    translate}}</span>
+                                    
+                            </div>
+                          </div>
+                        </div>
+          
+                        <div class="ngSelect submit_buttons">
+                            <button #apply
+                                (click)="SetSearchModelValues(developersDiv)"
+                                class="btn button-success applyBtn continueBtn float-end mb-3">{{'button.actions.Apply & Continue' |
+                                translate}}</button>
+                        </div>
+                    </div>
+          
+                    <div *ngIf="isAttributesSet" class="form-stepper form-seller">
+
+                        <div class="form-seller-2" *ngFor="let formData of dataArray"> 
+
+                            <!-- Title/Description -->
+                            <div class="largest-width" *ngFor="let criteria of filterTitleDescription(formData); let index = index;">
+                                
+                                <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
+                                    <span *ngIf="criteria.name_en !== 'Unit Title' &&
+                                                criteria.name_en !== 'Write a unique description'"> 
+                                        
+                                        <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
+                                        {{getKeyName(criteria.name_en, formData)}}
+                                </p>
+
+                                <!-- <span *ngIf="isInvalid(criteria)" class="required"> * </span> -->
+
+                                
+                                <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
+                                    <ng-container
+                                    [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'text' ?  text : large_text"                        
+                                    [ngTemplateOutletContext]="{key: index}">
+                                    </ng-container>
+                                </div>
+                
+
+                                <ng-template #text let-key="key">
+                                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                                        <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Title' | translate}}"
+                                            (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:48px; border-radius: 15px;" class="form-control inputPlaceholder"
+                                            type="text" min="0" />
+                                    </div>
+                                </ng-template>
+
+                                <ng-template #large_text let-key="key">
+                                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+
+                                        <textarea [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Description' | translate}}"
+                                            (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:120px; border-radius: 15px;" class="form-control inputPlaceholder"
+                                            type="text" min="0"> </textarea>
+                                    </div>
+                                </ng-template>
+                            </div>
+
+                            <!-- Others -->
+                            <div class="larger-width" *ngFor="let criteria of filterOther(formData); let index = index;">
+            
+                                <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
+                                    <span *ngIf="criteria.name_en !== 'Unit Title' &&
+                                                criteria.name_en !== 'Write a unique description' &&
+                                                criteria.icon !== 'upload.svg'"> 
+                                        
+                                        <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
+                                        {{getKeyName(criteria.name_en, formData)}}
+                                </p>
+                                
+                                <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
+                                    <ng-container
+                                    [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'dropdownSelect' ? dropdownSelect : 
+                                    getType(formData, criteria.name_en) === 'inputNumber' ?  inputNumber : 
+                                    multiSelectCheckbox"                        
+                                    
+                                    [ngTemplateOutletContext]="{key: index}">
+                                    </ng-container>
+                                </div>
+                            
+                                
+                                <ng-template #multiSelectCheckbox let-key="key">
+                                    <div class="col-6 mb-2"
+                                        *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+                                                                    
+                                        <input ng-change="false"
+                                            (change)="setupFormControlValue($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
+                                            mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i" autocomplete="off" />
+                                        <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
+                                            [for]="criteria.name_en + i">
+                                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                                        </label>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template #radioButton let-key="key">
+                                    <div class="col-6 mb-2 btn-group"
+                                        *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+                                        <input mdbRadio type="radio" class="btn-check-" [id]="criteria.name_en + i" autocomplete="off"
+                                            [checked]="checkIsSelected(criteria.name_en, sValue.id) !== -1" [value]="sValue.id" />
+                                        <label [class.filled]="checkIsSelected(criteria.name_en, sValue.id) !== -1" class="btn btn-primary"
+                                            [for]="criteria.name_en + i">
+                                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                                        </label>
+                                    </div>
+                                </ng-template>
+                                
+                                <ng-template #dropdownSelect let-key="key">
+                                    <div class="col-6 mb-2"
+                                        *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+                                        
+
+                                        <input ng-change="false"
+                                            (change)="setSingleSelect($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
+                                            mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i" autocomplete="off" />
+                                        <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
+                                            [for]="criteria.name_en + i">
+                                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                                        </label>
+                                    </div>
+                                </ng-template>
+                                
+                                <ng-template #inputNumber let-key="key">
+                                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+ 
+                                        <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Enter value' | translate}}"
+                                            (keyup)="onInputNumberChange(criteria.name_en,$event)" 
+                                            (change)="onInputNumberChange(criteria.name_en,$event)"
+                                            style="height:48px" class="form-control mt-3 inputPlaceholder"
+                                            type="number" min="0" />
+                                    </div>
+                                </ng-template>
+
+                            </div>
+
+                            <!-- Upload photos -->
+                            <div class="large-width upload">
+                    
+                                <div class="each-upload">
+                                    <div style="display: flex; justify-content: space-around;">
+                                        <label for="validationCustom01" class="form-label">{{'developer.upload_unit_photos' | translate}}</label>
+                                        <img *ngIf="photosURLs.length > 0" (click)="filePhotos.click()" style="background-color: #99B2AF;
+                                        padding: 7px; cursor: pointer;
+                                        border-radius: 50%;
+                                        width: 35px;
+                                        height: 35px;"
+                                                src="../../../../assets/images/Path 9801.png" alt="..."/>
+                                    </div>
+                                    
+                                    <input hidden #filePhotos   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEventPhotos($event)" multiple/>
+                                    
+                                    <span *ngIf="photosURLs.length === 0" class="avatar">
+                                        <img (click)="filePhotos.click()" class="main-img" src="../../../../assets/images/unit_logo.png" alt="..."/>
+                                        <img (click)="filePhotos.click()" class="icon"
+                                            src="../../../../assets/images/Path 9801.png" alt="..."/>
+                                    </span>
+    
+                                    <span class="avatar project-photo">
+                                        <img *ngFor="let photo of photosURLs" class="project-photo" src="{{ photo['image'] }}" alt="..."/>
+                                    </span>
+                                </div>
+    
+                                <div class="each-upload">
+                                    <div style="display: flex; justify-content: space-around;">
+                                        <label for="validationCustom01" class="form-label">{{'developer.upload_unit_masterplan' | translate}}</label>
+                                        <img *ngIf="masterplanURLs.length > 0" (click)="fileMasterplans.click()" style="background-color: #99B2AF;
+                                        padding: 7px; cursor: pointer;
+                                        border-radius: 50%;
+                                        width: 35px;
+                                        height: 35px;"
+                                                src="../../../../assets/images/Path 9801.png" alt="..."/>
+                                    </div>
+                                    
+                                    <input hidden #fileMasterplans   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEventMasterplans($event)" multiple/>
+                                    
+                                    <span *ngIf="masterplanURLs.length === 0" class="avatar">
+                                        <img (click)="fileMasterplans.click()" class="main-img" src="../../../../assets/images/masterplan_logo.png" alt="..."/>
+                                        <img (click)="fileMasterplans.click()" class="icon"
+                                            src="../../../../assets/images/Path 9801.png" alt="..."/>
+                                    </span>
+    
+                                    <span class="avatar project-photo">
+                                        <img *ngFor="let photo of masterplanURLs" class="project-photo" src="{{ photo['image'] }}" alt="..."/>
+                                    </span>
+                                </div>
+                                       
+                            </div>
+
+                            <button style="margin-top: 5%" type="submit" class="submit-btn button-success" (click)="addUnit(content)">
+                                <span>{{'developer.button' | translate}}</span>
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+          </div>
+    
+        </div>
+    
+    </div>
+
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                <img src="{{evaluator.avatar}}" alt="..."/>
+                <p>{{evaluator.name}}</p>
+                <div class="raiting-model">
+                    <ngb-rating [max]="5" [rate]="5">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <p style="text-align: center;">
+                {{'model.one of our agents will contact you' | translate}} <br><b
+                    style="color: #FD4964;">{{evaluator.workingHours}}</b>
+            </p>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="navigateToUnit()">{{'button.actions.Done' |
+                translate}}</button>
+        </div>
+    </ng-template>
+</div>

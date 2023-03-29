@@ -325,6 +325,7 @@ export class UnitDetailsComponent implements OnInit {
     if (this.checkValidUser()) {
       this.spinner.show();
       let unitData = this.unitData
+      console.log("unitData: ", unitData)
       const user = this.cookieService.get('user')
       unitData['user_id'] = JSON.parse(user).id
 

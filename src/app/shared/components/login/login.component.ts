@@ -70,17 +70,18 @@ export class LoginComponent implements OnInit {
     private httpClient: HttpClient,
     public modalService: NgbModal) {
       this.activeRouter.queryParams.subscribe(params => {
-        console.log(params.name)
-        this.name = JSON.parse(params.name);
-      });
-      this.activeRouter.queryParams.subscribe(params => {
-        this.email = JSON.parse(params.email);
-      });
-      this.activeRouter.queryParams.subscribe(params => {
-        this.phone = JSON.parse(params.phone);
-      });
-      this.activeRouter.queryParams.subscribe(params => {
-        this.avatar = JSON.parse(params.avatar);
+        if(params.name){
+          this.name = JSON.parse(params.name);
+        }
+        if(params.email){
+          this.email = JSON.parse(params.email);
+        }
+        if(params.phone){
+          this.phone = JSON.parse(params.phone);
+        }
+        if(params.avatar){
+          this.avatar = JSON.parse(params.avatar);
+        }
       });
 
       this.sub1 = this.appService.lang$.subscribe(async val => {
@@ -88,7 +89,19 @@ export class LoginComponent implements OnInit {
       })
      }
 
+     isLoggedInDeveloper(){
+      const developer = this.cookieService.get('developer')
+      
+      if (developer) {
+        this.notificationsService.showError(this.translateService.instant('error.developer'))
+        
+        this.router.navigate(['/single-developer'])
+      }
+    }
+
   async ngOnInit(): Promise<void> {
+    this.isLoggedInDeveloper()
+
     if (this.activeRouter.snapshot.queryParams && this.activeRouter.snapshot.queryParams.fLogin == 'true') {
       this.firstLogin = true
     }
@@ -112,6 +125,7 @@ export class LoginComponent implements OnInit {
   onOtpChange(e: any) {
     this.otpValue = e
   }
+
   async getOtP() {
     if (this.phoneForm.valid) {
       const phoneNumber = this.phoneForm.get('phone')?.value.e164Number
@@ -137,13 +151,14 @@ export class LoginComponent implements OnInit {
     }
     return false
   }
+
   validateOTP(): Boolean {
     if (String(this.otpValue).length === 4)
       return false
     return true
   }
-  async verifyOtp() {
 
+  async verifyOtp() {
     this.spinner.show()
 
     let obj = {
@@ -215,12 +230,12 @@ export class LoginComponent implements OnInit {
 
     this.spinner.hide()
   }
+
   async resendOtp() {
     this.isLoading = true
     await this.apiService.resendOtp({ "phone": this.phoneForm.get('phone')?.value.e164Number.substring(1) })
     this.isLoading = false
   }
-
 
   fileEvent(e: any) {
     let reader = new FileReader();
@@ -232,9 +247,11 @@ export class LoginComponent implements OnInit {
       };
     }
   }
+
   setAvatarSrc() {
-    return this.avatarUrl ? this.avatarUrl : '../../../../assets/images/Ellipse 1264.png'
+    return this.avatarUrl ? this.avatarUrl : '../../../../assets/images/profile_pic.jpg'
   }
+
   async Register() {
     this.isLoading = true
     if (this.filedata && this.phoneForm.get('name')?.valid && this.phoneForm.get('phone')?.valid) {
@@ -244,16 +261,13 @@ export class LoginComponent implements OnInit {
         'email': this.phoneForm.get('email')?.value,
         'avatar': this.avatarUrl
       }
-
-      // console.log("obj: ", obj.avatar)
-
-      const register = await this.apiService.register(obj)
-      // console.log(register)
+      const register = await this.apiService.createUser(obj)
+      console.log("register",register)
       if (register === false) {
         if (register?.data?.message) {
           return this.notificationService.showError(register.data.message)
         }
-        // console.log("error2")
+        console.log("error2")
         this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
       } else {
         this.haveOTP = true
@@ -296,16 +310,16 @@ export class LoginComponent implements OnInit {
     
     // return this.agreeTermsAndConditions
   }
+
   navigateToTermsConditions(){
     const url = this.router.serializeUrl(this.router.createUrlTree(['/terms-condition']));
     window.open(url, '_blank');
   }
+  
   navigateToPrivacyPolicy(){
     const url = this.router.serializeUrl(this.router.createUrlTree(['/privacy-policy']));
     window.open(url, '_blank');
   }
-
-
 
   async updateProfile() {
     // console.log(this.name)

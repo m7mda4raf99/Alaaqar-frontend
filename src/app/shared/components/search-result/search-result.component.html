@@ -4,7 +4,7 @@
         
     </ngx-spinner>
     <div class="row justify-content-center" style="margin: 25px 10px 0px 10px;">
-        <div class="col-xs-12 col-sm-10">
+        <div class="col-xs-12 col-sm-10" style="padding: 0px;">
             <div style="display:flex;" class="breadcrumb">
                 <div class="col-md-10 col-xs-12 bg-head">
                     <p class="main-title">{{'search.title' | translate}} <span>({{total_search_count}} {{'search.count' | translate}})</span></p>
@@ -37,227 +37,186 @@
 
             <div class="search-filters" [ngStyle]="{'display': display}">
                 <div  class="search-filters__box">
+                    <div class="search-filters__filter search_input">
+                        <ng-autocomplete 
+                            [data]="autoComplete"
+                            [searchKeyword]="keyword"
+                            placeholder="{{'buy.Placeholder' | translate}}"
+                            (selected)='selectEvent($event)'
+                            (selectedValueRender)='getHint()'
+                            (inputChanged)='onChangeSearch($event)'
+                            [itemTemplate]="itemTemplate"
+                            [debounceTime]="200"
+                            [focusFirst]="true">                                 
+                        </ng-autocomplete>
 
-                    <div class="search-filters__filter city">
-                        <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
-                        [settings]="settingsCity"
-                        (onSelect)="onChangeCity($event)"
-                        (onDeSelectAll)="onDeSelectAllCity()">
-                        </angular2-multiselect>
-                    </div>
-
-                    <div class="search-filters__filter area">
-                        <angular2-multiselect [data]="dropdownListArea" 
-                            [(ngModel)]="selectedItemArea" 
-                            [settings]="settingsArea" 
-                            (onSelect)="onItemSelectArea($event)" (onDeSelect) =onItemDeSelectArea($event)
-                            (onDeSelectAll)="onDeSelectAllArea()">
-                        </angular2-multiselect>
-                    </div>
-
-                    <div class="search-filters__filter neighborhood">
-                        <angular2-multiselect 
-                        [data]="dropdownListNeighborhood" 
-                        [(ngModel)]="selectedItemNeighborhood" 
-                        [settings]="settingsNeigbhorhood"
-                        (onSelect)="onItemSelectNeighborhood($event)"
-                        (onDeSelect) =onItemDeSelectNeighborhood($event)>
-                    </angular2-multiselect>
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.name"></a>
+                        </ng-template>
                     </div>
 
                     <div class="search-filters__filter estate_type">
                         <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
-                        [settings]="settingsUnitType"
-                        (onSelect)="onItemSelectUnitType($event)">
-                    </angular2-multiselect>
+                            [settings]="settingsUnitType">
+                        </angular2-multiselect>
                     </div>
                     
                     <div class="search-filters__filter propose">
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'للبيع / للإيجار' :'For Sell / Rent'" class="_filter" [(ngModel)]="propose">
-                            <ng-option [value]="'sell'">{{'home.Sell' | translate}}</ng-option>
-                            <ng-option [value]="'rent'">{{'home.Rent' | translate}}</ng-option>
-                        </ng-select>
+                        <angular2-multiselect [data]="dropdownListPropose" [(ngModel)]="selectedItemPropose" [settings]="settingsPropose">
+                        </angular2-multiselect>
                     </div>
                     
-                    <div class="search-filters__filter rooms">
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'عدد الغرف' : 'Rooms count'" class="_filter" [(ngModel)]="bedroom">
-                            <ng-option [value]="room.id" *ngFor="let room of bedroom_arr">{{activeLang == 'ar' ? room.name_ar : room.name_en}}</ng-option>
-                          </ng-select>
-                    </div>
-
-                    <div class="search-filters__filter space">
-                        <ng-select [placeholder]="activeLang == 'ar' ? 'المساحة' :'Space'" class="_filter" [(ngModel)]="space">
-                            <ng-option [value]="space['id']" *ngFor="let space of space_arr">{{activeLang == 'ar' ? space['name_ar'] : space['name_en']}}</ng-option>
-                        </ng-select>
-                    </div>
-
-                    <div class="search-filters__filter priceRange">
+                    <!-- price range -->
+                    <div class="ngSelect search-filters__filter priceRange">
                         <div class="dropdown" ngbDropdown>
                             <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
-                                (click)="focusMinPriceInput()" class="btn dropdown-toggle setPriceBtn ngSelect-input" type="button"
-                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                style="display: flex; justify-content: space-between; align-items: center;">
+                                class="btn dropdown-toggle setPriceBtn ngSelect-input"
+                                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{setPricePlaceHolder()}}
-                            
-                                <!-- #c1bebe -->
-                            <fa-icon style="position: initial; color: #949494"  [icon]="faChevronDown"></fa-icon>
+
+                                <fa-icon style="position: initial; color: #aaaaaa; margin: 0px 10px;"  [icon]="faChevronDown"></fa-icon>
 
                             </button>
 
-
                             <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                                (click)="$event.stopPropagation()" style="overflow: hidden;">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <input (focus)="hideMaxRange=true;hideMinRange=false"
-                                            (blur)="setMaxSelections(priceMinRange)" #minPrice 
-                                            placeholder="{{'home.Min Price' | translate}}" [allowNegative]="false" type="text"
-                                            ngxNumberFormat="#,###,###,###" />
-                                    </div>
-                                    <div class="col-6">
-                                        <input (focus)="hideMinRange=true;hideMaxRange=false" #maxPrice
-                                             placeholder="{{'home.Max Price' | translate}}"
-                                            [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <button [hidden]="hideMinRange" (click)="setMinValue(v.val)" class="select-price" *ngFor="let v of minPriceValue"
-                                            >{{v.view}}</button>
-                                            
-                                    </div>
-                                    <div class="col-6">
-                                        <button [hidden]="hideMaxRange" class="select-price" *ngFor="let v of maxPriceValue"
-                                            (click)="setMaxValue(v.val)">{{v.view}}</button>
-                                    </div>
-                                    <div class=" col-12">
-                                        <div class="row">
-                                            <div class="col foot">
+                                (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
+                                
+                                <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
         
-                                                <button type="button" (click)="toggleDropdown()"
-                                                    class="btn btn-done float-end">{{'button.actions.Done' |
-                                                    translate}}</button>
+                                </app-price-range-slider> -->
+        
+                                <div id="price_range">
+                                    <div id="Price_range_q">
+                                        {{'home.Price range' | translate}}
+                                    </div>
+        
+                                    <div id="slider">
+                                        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                                        (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)"></ngx-slider>
+                                    </div>
+        
+                                    <div id="textboxes">
+                
+                                        <div id="from">
+                                            {{activeLang === 'en' ? 'From' : 'من'}}
+                
+                                            <div id="fromTextbox">
+                                        
+                                                <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
+                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                [allowNegative]="false" type="text"
+                                                (keyup)="userChangeMin(false)"/>
                                             </div>
                                         </div>
+                                        
+                                        <div id="to">
+                                            {{activeLang === 'en' ? 'To' : 'إلى'}}
+                                            
+                                            <div id="fromTextbox">
+                                        
+                                                <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
+                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                [allowNegative]="false" type="text"
+                                                (keyup)="userChangeMax(false)"/>
+                                            </div>
+                                        </div>
+                                    
                                     </div>
+        
                                 </div>
+                                
                             </ul>
+        
                         </div>
+                        
                     </div>
 
-                    <div class="ngSelect compound" style="display: flex; align-items: center;">
-                        <input
-                            class="checkbox"
-                            type="checkbox"
-                            [checked]="checkboxVar"
-                            [disabled]="true"
-                            (change)="checkboxVar = !checkboxVar"/>
-    
-                        <div class="dropdown">
-                            <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
-                                <angular2-multiselect 
-                                    [data]="dropdownListCompound" 
-                                    [(ngModel)]="selectedItemCompound" 
-                                    [settings]="settingsCompound"
-                                    (onSelect)="onItemSelectCompound($event)"
-                                    (onDeSelect) =onItemDeSelectCompound($event)>
-                                </angular2-multiselect>
-            
-                            </div>
-        
-                            <div class="multiselect" *ngIf="checkboxVar">
-                                <angular2-multiselect 
-                                    [data]="dropdownListCompound" 
-                                    [(ngModel)]="selectedItemCompound" 
-                                    [settings]="settingsCompound"
-                                    (onSelect)="onItemSelectCompound($event)"
-                                    (onDeSelect) =onItemDeSelectCompound($event)>
-                                </angular2-multiselect>
-            
-                            </div>
-        
-                            <span *ngIf="SelectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-        
-    
-                        </div>
+                    <div class="search-filters__filter space">
+                        <angular2-multiselect [data]="dropdownListSpace" [(ngModel)]="selectedItemSpace" [settings]="settingsSpace">
+                        </angular2-multiselect>
+                    </div>
+                    
+                    <div class="search-filters__filter rooms">
+                        <angular2-multiselect [data]="dropdownListRoom" [(ngModel)]="selectedItemRoom" [settings]="settingsRoom">
+                        </angular2-multiselect>
+                        <!-- <ng-select [placeholder]="activeLang == 'ar' ? 'عدد الغرف' : 'Rooms count'" class="_filter" [(ngModel)]="bedroom">
+                            <ng-option [value]="room.id" *ngFor="let room of bedroom_arr">{{activeLang == 'ar' ? room.name_ar : room.name_en}}</ng-option>
+                          </ng-select> -->
+                    </div>
+
+                    <div class="ngSelect compound" style="display: flex; align-items: center; font-size: 14px;">
+
+                        {{ 'home.Compound' | translate }}
+
+                        <ng-toggle style="margin: 0px 10px;" [(value)]="in_compound" [color]="{unchecked: '#939da2', checked: '#184d47'}"> Compound </ng-toggle>
     
                     </div>
                 
                 </div>
                 
-                <button type="submit" (click)="quick_search()" class="btn button-success">{{'search_button' | translate}}</button>
+                <button type="submit" (click)="Getsearch()" class="btn button-success"> 
+                    <fa-icon [icon]="faSearch"></fa-icon>
+                </button>
                
             </div>
             
-            <div class="row mt-3 results" *ngIf="results.length > 0">
-                <div *ngFor="let item of results | paginate: { itemsPerPage: 18, currentPage: page,totalItems: total_search_count }" class="col-xs-12 col-sm-6 col-xl-4">
-                    <div class="card mb-3">
-                        <div class="row g-0 card-content">
-                            <div class="col-12" style="position: relative;">
-                                <span (click)="navigateToItemDetails(item)" class="overlay"></span>
-                                <span style="cursor: pointer;" (click)="navigateToItemDetails(item)"
-                                    class="bage">{{getPropose(item)}}</span>
-                                <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
-                                    src="../../../../assets/images/Path 165 copy.png" alt="..." />
-                                <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
-                                    src="../../../../assets/images/Path 165.png" alt="..." />
-                                <img style="cursor: pointer;height: 230px;" (click)="navigateToItemDetails(item)"
-                                (auxclick)="openNewWindow($event, item)" src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+            <div class="results" *ngIf="results.length > 0">
+                <div *ngFor="let item of results | paginate: { itemsPerPage: 18, currentPage: page,totalItems: total_search_count }" class="loop">
+                    <div class="card">
+                        <div style="position: relative;">
+                            <span (click)="navigateToItemDetails(item)" class="overlay"></span>
+                            <span style="cursor: pointer;" (click)="navigateToItemDetails(item)"
+                                class="bage">{{getPropose(item)}}</span>
+                            <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                src="../../../../assets/images/Path 165 copy.png" alt="..." />
+                            <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
+                                src="../../../../assets/images/Path 165.png" alt="..." />
+                            <img (click)="navigateToItemDetails(item)"
+                            (auxclick)="openNewWindow($event, item)" src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                        </div>
+                        
+                        <div class="card-body" style="cursor: pointer;" (click)="navigateToItemDetails(item)">  
+                            <h6>
+                                {{ item['title'] }}
+                            </h6>
+
+                            <h5 class="card-title">
+                                {{'propertyDetails.EGP' | translate}}
+                                <!-- <br> -->
+                                {{ numberWithCommas(item['price'])}}
+                            </h5>
+                            
+                            <div class="space-between">
+
+                                <span class="location">
+                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                        alt="..." />
+                                    {{activeLang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                </span>
+
+
+                                <span class="date">
+                                    <img src="../../../../assets/images/date.png"
+                                        alt="..." />
+                                        {{ setDate(item['created_at']) }}
+                                </span>
+
                             </div>
-                            <div class="col-md-12">
-                                <div class="card-body" style="cursor: pointer;" (click)="navigateToItemDetails(item)">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h6>
-                                                {{ item['title'] }}
-                                            </h6>
-
-                                            <h5 class="card-title">
-                                                {{'propertyDetails.EGP' | translate}}
-                                                <!-- <br> -->
-                                                {{ numberWithCommas(item['price'])}}
-                                            </h5>
-                                            
-                                            <div class="space-between">
-
-                                                <span class="location">
-                                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png"
-                                                        alt="..." />
-                                                    {{activeLang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
-                                                </span>
-
-
-                                                <span class="date">
-                                                    <img src="../../../../assets/images/date.png"
-                                                        alt="..." />
-                                                        {{ setDate(item['created_at']) }}
-                                                </span>
-
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-4 float-end" style="position: relative;">
-                                            <nz-progress class="float-end" nzType="circle"
-                                                [nzPercent]="getScore(item['score'])"
-                                                [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
-                                            </nz-progress>
-                                            <span class="score">{{getScore(item['score'])}}%</span>
-                                        </div> -->
-
-                                    </div>
-                                    <div class="card-text">
-                                        <div class="space-between">
-                                            <div class="desc" *ngFor="let c of item['criteria'] | slice:0:4">
-                                                <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
-                                                {{getCriteriaOptions(c)}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                
+                            <div class="card-text">
+                                <div class="desc" *ngFor="let c of item['criteria'] | slice:0:4">
+                                    <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
+                                    {{getCriteriaOptions(c)}}
                                 </div>
                             </div>
+                            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                         </div>
+                        
+                        
                     </div>
                 </div>
+
+                <pagination-controls (pageChange)="onPageChange($event)" [(ngModel)]="page" ></pagination-controls>
             </div>
            
            
@@ -285,22 +244,7 @@
                 </div>
             </div>
 
-            
-            <!-- <div class="row justify-content-center" *ngIf="results.length && results.length < total_search_count">
-                <button class="btn button-success more" (click)="showMore()">
-                    <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
-                    <span *ngIf="loadMore">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
-                        Loading...
-                    </span>
-                </button>
-
-            </div> -->
-
         </div>
-
-        <pagination-controls (pageChange)="onPageChange($event)" [(ngModel)]="page" ></pagination-controls>
-
     </div>
 </div>
 

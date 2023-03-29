@@ -13,6 +13,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { TranslateService } from '@ngx-translate/core';
 import { faTimes, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 @Component({
   selector: 'app-setup-seller-priorities',
@@ -38,7 +39,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private activeRouter: ActivatedRoute,
     private translateService: TranslateService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    private notificationsService: NotificationsService
   ) {
     this.spinner.show();
     this.sub1 = this.appService.lang$.subscribe(val => {
@@ -145,7 +147,19 @@ export class SetupSellerPrioritiesComponent implements OnInit {
 
   }
 
+  isLoggedInDeveloper(){
+    const developer = this.cookieService.get('developer')
+    
+    if (developer) {
+      this.notificationsService.showError(this.translateService.instant('error.developer'))
+      
+      this.router.navigate(['/single-developer'])
+    }
+  }
+
   async ngOnInit() {
+    this.isLoggedInDeveloper()
+
     const getImagTags = await this.getImageTags()
     if (getImagTags !== false) {
       this.appService.imgTags$.next(getImagTags)
@@ -322,7 +336,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       }
       let data = this.criteria.data
 
-      // console.log("arr now before setup: ", arr)
+      // console.log("arr now before setup: ", this.data)
 
       if (!Object.keys(this.data).length) {
         this.criteriaParent = []
@@ -676,11 +690,22 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       }
 
     }
+
+    // console.log("sellerFormValue: ", sellerFormValue)
+
+    // console.log("this.searchObj before: ", this.searchObj)
+
     for (const key in sellerFormValue) {
+      // console.log("key: ", key)
+      // console.log("sellerFormValue[key]: ", sellerFormValue[key])
+
       this.propertyDetailsObj[key] = sellerFormValue[key]
       for (const k in sellerFormValue[key]) {
+        // console.log("k: ", k)
+        // console.log("sellerFormValue[key][k]: ", sellerFormValue[key][k])
         if (Array.isArray(sellerFormValue[key][k])) {
           sellerFormValue[key][k].forEach((element: any) => {
+            // console.log("element: ", element)
             if (element?.id) {
               let criteriaID = this.getOptionCriteriaId(k)
               this.searchObj.options.push({
@@ -717,6 +742,9 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         }
       }
     }
+
+    // console.log("this.searchObj after: ", this.searchObj)
+
     this.searchObj['propose'] = this.propertyDetailsObj['propose'] = Number(this.params?.propose)
     //case edit
     if (Object.keys(this.editObj).length > 0) {
@@ -1050,7 +1078,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     }
   }
 
-  async onChangeCity(city: any) {
+  onChangeCity(city: any) {
     this.selectedCityNotValid = false
     this.selectedAreaNotValid = false
     this.selectedLocationNotValid = false
@@ -1355,15 +1383,6 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   onItemDeSelectCompound(){
 
   }
-
-  // async onItemDeSelectCompound(item: any){
-  //   // this.search_model.compounds = []
-
-  //   for(let item of this.selectedItemCompound){
-  //     // this.search_model.compounds.push(item.id)
-  //   }
-  //   // await this.setupUnitTypesCount()
-  // }
 
   // PRICE
   onChangePrice(){
@@ -1715,7 +1734,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
 
       this.search_model.propose = "" + this.selectedItemPropose[0].id
 
-      console.log("data: ", this.search_model)
+      // console.log("this.search_model: ", this.search_model)
 
       this.appService.propertyDetails$.next(this.search_model)
 
@@ -1729,6 +1748,16 @@ export class SetupSellerPrioritiesComponent implements OnInit {
 
       this.scroll(item)
 
+    }else{
+      if (this.selectedItemCity.length != 0 && this.dropdownListArea.length === 0 &&
+        !this.SelectedRealEstateTypeNotValid &&
+        !this.selectedProposeNotValid &&
+        !this.PriceNotValid){
+          this.notificationsService.showError(this.translateService.instant('error.addUnit area'))
+      }
+      else{
+        this.notificationsService.showError(this.translateService.instant('error.addUnit'))
+      }
     }
     
   }

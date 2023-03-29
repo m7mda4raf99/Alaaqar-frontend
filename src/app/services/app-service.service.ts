@@ -9,6 +9,7 @@ export class AppServiceService {
   query$ = new BehaviorSubject<string>('sell')
   activeTab$ = new BehaviorSubject<string>('1')
   isLoggedIn$ = new BehaviorSubject<boolean>(false)
+  isLoggedInDeveloper$ = new BehaviorSubject<boolean>(false)
   propertyDetails$ = new BehaviorSubject<any>(<any>({}));
   selected_country$ = new BehaviorSubject<string>('egypt')
 

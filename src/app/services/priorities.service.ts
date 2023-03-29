@@ -41,5 +41,11 @@ export class PrioritiesService {
     '4': this.formBuilder.group({
     }),
   })
+
+  newSellerForm =  this.formBuilder.group({
+    '1': this.formBuilder.group({
+    })
+  })
+
 }
 // one -> space => ['1111','11111],kitchen=>'['dff,'],3,4,5

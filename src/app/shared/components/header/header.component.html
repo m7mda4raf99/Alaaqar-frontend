@@ -46,7 +46,24 @@
 
                     </li>
 
-                    <nav *ngIf="pressedProfile" class="responsive">
+                    <li class="responsive" *ngIf="isLoggedInDeveloper" style="padding: 0px;" (click)="pressedProfile = !pressedProfile;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <ngx-avatar src="{{setAvatarUrl()}}" size="40"> </ngx-avatar>
+
+                            <div style="margin: 0px 10px;"> 
+                                <span style="font-size: 14px; font-weight: 700;"> {{getName()}} </span>
+                                <span style="font-size: 14px; color: #626262"> +{{getPhone()}} </span>
+
+                            </div>
+
+                            <fa-icon *ngIf="!pressedProfile" [icon]="faChevronDown"></fa-icon>
+                            <fa-icon *ngIf="pressedProfile" [icon]="faChevronUp"></fa-icon>
+
+                        </div>
+
+                    </li>
+
+                    <nav *ngIf="pressedProfile && isLoggedIn" class="responsive">
                         <ul style="padding: 0px;">
                             <li style="padding: 0px; margin: 0px;">
                                 <button style="padding: 0px 5px;" (click)="navigateToVisits();isMenuCollapsed = true;expand_collapse($event)" class="dropdown-item" >
@@ -109,6 +126,48 @@
                         
                     </nav>
 
+                    <nav *ngIf="pressedProfile && isLoggedInDeveloper" class="responsive">
+                        <ul style="padding: 0px;">
+
+                            <!-- <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="navigateToEditProfile();isMenuCollapsed = true;expand_collapse($event)" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/settings.png" alt="image" style="margin: 0px 5px;">{{'header.Profile.edit' |
+                                    translate}}
+                                </button>
+                            </li> -->
+
+                            <li style="padding: 0px; margin: 0px;">
+                                <button style="padding: 0px 5px;" (click)="showConfirmModel(content);isMenuCollapsed = true; expand_collapse($event)" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/logout.png" alt="image" style="margin: 0px 5px;">{{'header.Profile.logout' |
+                                    translate}}
+                                </button>
+
+                                <ng-template #content let-c="close" let-d="dismiss">
+                                    <div [class.rtl]="activeLang.title === 'AR'">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-title">{{'header.Profile.logout' | translate}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>{{'header.Profile.logout message' | translate}} </strong></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                (click)="c('cancel click')">{{'button.actions.cancel' | translate}}</button>
+                                            <button type="button" class="btn btn-danger" (click)="logout()">{{'header.Profile.logout' |
+                                                translate}}</button>
+                                        </div>
+                
+                                    </div>
+                                </ng-template>
+
+                            </li>
+
+                        </ul>
+                        
+                    </nav>
+
                     <div *ngIf="pressedProfile" class="responsive" style="background-color: #d5d5d5; width: 100%; height: 0.5px; margin-top: 15px;"> </div>
                     <div *ngIf="!pressedProfile" class="responsive" style="background-color: #d5d5d5; width: 100%; height: 1px;"> </div>
 
@@ -130,6 +189,13 @@
                         true}">
                         <!-- routerLink='/how-it-works' -->
                         <a routerLink='/home' [queryParams]="{q: 'commercial'}">{{'header.Commercial' | translate}}</a>
+                    </li>
+
+                    <!-- Developers -->
+                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                        true}">
+                        <!-- routerLink='/how-it-works' -->
+                        <a routerLink='/developers'>{{'header.Developers' | translate}}</a>
                     </li>
 
                     <div style="margin-right: 40px;" class="app-header__signup" (click)="addProperty()" >
@@ -205,21 +271,7 @@
                     </li>
                     <!-- Sign up -->
                     <li class="responsive">
-                        <div *ngIf="!isLoggedIn && ( activeLang.title === 'AR' || activeLang === 'AR' )">
-                            <div style="background-color: #d5d5d5; width: 100%; height: 1px; margin-bottom: 15px;"> </div>
-                            <div class="app-header__signup" (click)="navigateToLogin(); expand_collapse($event)" >
-                                <span class="icon">
-                                    <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M24 8c-4.42 0-8 3.58-8 8 0 4.41 3.58 8 8 8s8-3.59 8-8c0-4.42-3.58-8-8-8zm0 20c-5.33 0-16 2.67-16 8v4h32v-4c0-5.33-10.67-8-16-8z" />
-                                        <path d="M0 0h48v48h-48z" fill="none" />
-                                    </svg>
-                                </span>
-                                {{'sign_up' | translate}}
-                            </div>
-                        </div>
-            
-                        <div *ngIf="!isLoggedIn && ( activeLang.title === 'EN' || activeLang === 'EN' )">
+                        <div *ngIf="!isLoggedIn">
                             <div style="background-color: #d5d5d5; width: 100%; height: 1px; margin-bottom: 15px;"> </div>
                             <div class="app-header__signup" (click)="navigateToLogin(); expand_collapse($event)" >
                                 <span class="icon">
@@ -291,13 +343,13 @@
 
                 </span>
 
-                <ngx-avatar *ngIf="isLoggedIn" src="{{setAvatarUrl()}}" size="40"> </ngx-avatar>
+                <ngx-avatar *ngIf="isLoggedIn || isLoggedInDeveloper" src="{{setAvatarUrl()}}" size="40"> </ngx-avatar>
 
             </div>
             
             <div class="app-header__options">
     
-                <div *ngIf="!isLoggedIn" class="app-header__signup" (click)="navigateToLogin()" >
+                <div *ngIf="!isLoggedIn && !isLoggedInDeveloper" class="app-header__signup" (click)="navigateToLogin()" >
                     <span class="icon">
                         <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -394,6 +446,71 @@
                             </li>
                                 
                                 
+                                
+                        </ul>
+                    </div>
+                    <ng-template #content let-c="close" let-d="dismiss">
+                        <div [class.rtl]="activeLang.title === 'AR'">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-title">{{'header.Profile.logout' | translate}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>{{'header.Profile.logout message' | translate}} </strong></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    (click)="c('cancel click')">{{'button.actions.cancel' | translate}}</button>
+                                <button type="button" class="btn btn-danger" (click)="logout()">{{'header.Profile.logout' |
+                                    translate}}</button>
+                            </div>
+    
+                        </div>
+                    </ng-template>
+                </div>
+
+                
+                <div *ngIf="isLoggedInDeveloper" class="app-header__profile"  style="display:flex; margin-left: 10px; margin-right: 10px; position: relative; ">
+                    <div ngbDropdown class="dropdown loggedin">
+                        
+                        <!-- <img class="avatar" src="{{setAvatarUrl()}}" alt="..." /> -->
+                        <button ngbDropdownToggle  type="button" id="dropdownMenu2"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="background-color: white;border: 0px;">
+                            {{getName()}}
+                        </button>
+                        <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  >
+                        
+                            <!-- <li>
+                                <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/settings.png" alt="image">{{'header.Profile.edit' |
+                                    translate}}
+                                </button>
+                            </li> -->
+                            
+                            <li>
+                                <button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/logout.png" alt="image">{{'header.Profile.logout' |
+                                    translate}}
+                                </button>
+                            </li>  
+                        </ul>
+                        <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'EN' || activeLang === 'EN'" >
+                            <!-- <li>
+                                <button (click)="navigateToEditProfile();isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/settings.png" alt="image">{{'header.Profile.edit' |
+                                    translate}}
+                                </button>
+                            </li> -->
+                            <li>
+                                <button (click)="showConfirmModel(content);isMenuCollapsed = true" class="dropdown-item"
+                                    type="button">
+                                    <img src="../../../../assets/images/logout.png" alt="image">{{'header.Profile.logout' |
+                                    translate}}
+                                </button>
+                            </li>
                                 
                         </ul>
                     </div>

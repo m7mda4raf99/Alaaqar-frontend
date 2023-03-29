@@ -642,6 +642,7 @@ nz-progress {
     min-height: 550px;
 }
 
+
 .sub-head {
     width: 100%;
     height: 315px;
@@ -1058,7 +1059,6 @@ a{
 
 
 
-
 // .home .first-sec .home-controls{
     // .stats{
     //     width: 22% !important;
@@ -1284,7 +1284,7 @@ span.dropdown-multiselect--active{
 .selected-list .c-angle-down, .selected-list .c-angle-up {
     position: unset !important;
     transform: translateY(-40%) !important;
-    // padding: 1% 1% 1% 1% !important;
+    margin: 0px 10px;
 }
 
 .selected-list .c-list .c-token {
@@ -1385,7 +1385,7 @@ span.dropdown-multiselect--active{
 }
 
 .autocomplete-container .input-container input {
-    font-size: calc(0.6rem + 0.8vw) !important;
+    font-size: calc(0.6rem + 0.6vw) !important;
     border-radius: 25px 0px 0px 25px !important;
     height: 60px !important;
 
@@ -1478,8 +1478,8 @@ nav{
     justify-content: center;
 
     .ngx-pagination {
-        margin: 50px;
-
+        margin: 25px;
+    
         @media (max-width: 450px) {
             margin: 25px;
         }
@@ -1516,6 +1516,33 @@ nav{
     display: none !important;
 }
 
+.search-filters .clear-all{
+    display: none !important;
+}
+
+.add-project .clear-all{
+    display: none !important;
+}
+
+.electronic-advisor .clear-all{
+    display: none !important;
+}
+
+.search-filters .autocomplete-container{
+    box-shadow: 0 10px 6px #59595919!important;
+    border-radius: 50px!important;
+}
+
+.search-filters .autocomplete-container .input-container input{
+    font-size: 14px !important;
+    border-radius: 50px!important;
+    height: 38px !important;
+}
+
+.quest .clear-all{
+    display: none !important;
+}
+
 .dropdown-list ul li label{
     cursor: pointer !important;
 }
@@ -1528,3 +1555,30 @@ nav{
     background-color: #62a49c !important;
 }
 
+.quest .dropdown-list{
+    width: fit-content!important;
+
+    @media (max-width: 450px) {
+        width: 72%!important;
+    }
+}
+
+
+.rtl{
+    .developers .property-details .main-row .carousel .switcher .count{
+        right: 10px!important;
+        left: unset!important;
+        }
+}
+
+.add-project {
+    span.ng-star-inserted{
+        font-size: 1rem;
+    }
+}
+
+.electronic-advisor .list-area{
+    @media (max-width: 450px) {
+        width: 85% !important;
+    }
+}

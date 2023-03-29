@@ -31,206 +31,131 @@
 
 .results {
     background-color: #F7F7F7;
-
-    .main-row {
-        margin-top: 50px;
-
-        .result-head {
-            p.float-start {
-                font-family: 'Rubik-bold';
-                font-size: 25px;
-            }
-
-            .form-select {
-                border-radius: 20px;
-                border: 0;
-                outline: 0;
-                box-shadow: 0px 3px 6px #59595919;
-                padding-left: 50px;
-            }
-
-            fa-icon {
-                position: absolute;
-                top: 12px;
-                left: 34px;
-            }
-        }
-
-        .results {
-            .card-content {
-                border-top-left-radius: 20px;
-                overflow: hidden;
-                border-top-right-radius: 20px;
-
-                &:hover {
-                    .card-title {
-                        color: #FF725F;
-                    }
-
-                    // .overlay {
-                    //     background: transparent linear-gradient(
-                    //         180deg,#2b696242 0%,#327064bf 100%) 0% 0% no-repeat padding-box;
-                    // }
-                }
-
-                // .overlay {
-                //     width: 100%;
-                //     display: inline-block;
-                //     position: absolute;
-                //     height: 100%;
-                //     background: transparent linear-gradient(
-                // 180deg,#184D4742 0%,#092B24BF 100%) 0% 0% no-repeat padding-box;
-                //     border-top-left-radius: 20px;
-                //     border-top-right-radius: 20px;
-                //     cursor: pointer;
-                //     -webkit-transition: all 0.4s ease;
-                //     -ms-transition: all 0.4s ease;
-                //     transition: all 0.4s ease;
-
-
-                // }
-            }
-
-            background-color: #F7F7F7;
-
-
-
-
-        }
-    }
-
-}
-
-.card {
-    border: none;
     border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5% 0%;
+    margin: 3% 0%;
 
-    &:hover {
-        cursor: pointer;
-        .card-title {
-            color: #f55441;
-        }
-        box-shadow: 8px 3px 30px;
-        transition: 0.3s;
+    @media (max-width: 450px) {
+        padding: 0px;
     }
 
-    .img-fluid {
-        border-radius: 10px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        width: 100%;
-        background: transparent linear-gradient(180deg, #184D4742 0%, #092B24BF 100%) 0% 0% no-repeat padding-box;
-    }
+    .loop{
+        margin: 1% 1%;
+        width: 31%;
 
-    .card-title {
-        -webkit-transition: all 0.4s ease;
-        -ms-transition: all 0.4s ease;
-        transition: all 0.4s ease;
-        font-family: 'Rubik-bold';
-        font-size: 22px;
-
-        span {
-            color: #FF725F;
-            font-size: 13px;
+        @media (max-width: 450px) {
+            padding: 0px;
+            margin: 2.5% 0%;
+            width: 100%;
         }
 
-    }
-
-    .location {
-        display: block;
-        font-size: 14px;
-        color: #ABABB6;
-        padding-bottom: 10px;
-
-        img {
-            width: 8px;
-            margin-right: 3px;
-        }
-    }
-
-    .date {
-        display: block;
-        font-size: 14px;
-        color: #ababb6;
-        padding-bottom: 10px;
-        img {
-            width: 15px;
-            margin-right: 3px;
-        }
-    }
-    
-    .card-text {
-        color: #ABABB6;
-
-        .desc {
-            padding-top: 5px;
-            font-size: 14px;
-
-            .img-icon {
-                width: 20px;
+        .card {
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+        
+            &:hover {
+                cursor: pointer;
+                .card-title {
+                    color: #f55441;
+                }
+                box-shadow: 8px 3px 30px;
+                transition: 0.3s;
             }
-        }
-
-        .space-between{
-            display: flex;
-            justify-content: space-between;
-        }
-
-    }
-
-    .card-body {
-        .percent {
-            border-radius: 50%;
-            padding: 4px;
-            background-image: linear-gradient(white, white),
-                linear-gradient(to right, #147AD6, #79D2DE, #C175E8, #EC6666, #F9C669);
-            background-origin: border-box;
-            background-clip: content-box, border-box;
-            display: inline-block;
-            width: 55px;
-            height: 55px;
-
-            span {
-                padding: 10px 9px;
+        
+            .img-fluid {
+                height: 210px;
+                cursor: pointer;
+        
+                @media (max-width: 450px) {
+                    height: 180px;
+                }
+        
+                border-radius: 10px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                width: 100%;
+                background: transparent linear-gradient(180deg, #184D4742 0%, #092B24BF 100%) 0% 0% no-repeat padding-box;
             }
-        }
-
-        .score {
-            position: absolute;
-            right: 40px;
-            top: 20px;
-
-            @media (max-width: 320px) {
-                right: 17%;
+        
+            .card-body {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+        
+                .card-title {
+                    -webkit-transition: all 0.4s ease;
+                    -ms-transition: all 0.4s ease;
+                    transition: all 0.4s ease;
+                    font-family: 'Rubik-bold';
+                    font-size: 22px;
+            
+                    span {
+                        color: #FF725F;
+                        font-size: 13px;
+                    }
+            
+                }
+        
+                .card-text {
+                    color: #ABABB6;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+            
+                    .desc {
+                        padding-top: 5px;
+                        font-size: 14px;
+                        width: 25%;
+            
+                        @media (max-width: 450px) {
+                            width: 50%;
+                        }
+            
+            
+                        .img-icon {
+                            width: 20px;
+                        }
+                    }
+                }
+        
+                .space-between{
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+        
+                    .location {
+                        display: block;
+                        font-size: 14px;
+                        color: #ABABB6;
+                        padding-bottom: 10px;
+                
+                        img {
+                            width: 8px;
+                            margin-right: 3px;
+                        }
+                    }
+                
+                    .date {
+                        display: block;
+                        font-size: 14px;
+                        color: #ababb6;
+                        padding-bottom: 10px;
+                        img {
+                            width: 15px;
+                            margin-right: 3px;
+                        }
+                    }
+                }
             }
-
-            @media (max-width: 375px) {
-                right: 32%;
-            }
-
-            @media (max-width: 450px) {
-                right: 32%;
-            }
-
-            @media (max-width: 768px) {
-                right: 41%;
-            }
-
-            @media (max-width: 1024px) {
-                right: 7%;
-            }
-
-            @media (max-width: 1440px) {
-                right: 34%;
-            }
-        }
-
-        .space-between{
-            display: flex;
-            justify-content: space-between;
         }
     }
 }
+
+
 
 .bage {
     width: 100px;
@@ -301,24 +226,29 @@ fa-icon {
         // margin-top: 0px;
     }
 
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     align-items: baseline;
 
     &__box {
         display: flex;
+        justify-content: space-between;
         flex-grow: 1;
         flex-wrap: wrap;
         align-items: center;
+        margin: 0px 30px 0px 0px;
     }
 
     &__filter {
-        margin-right: 20px;
+        // margin-right: 20px;
         position: relative;
         // margin-bottom: 15px;
         &>p{
             margin-bottom: 5px;
             font-size: 14px;
             
+        }
+        &.search_input{
+            width: 20%; 
         }
         &.city,&.estate_type,&.propose{
             ng-select {
@@ -376,15 +306,15 @@ fa-icon {
 
 
         &.priceRange {
-            // min-width: 21%;
-            // min-width: 180px;
             .setPriceBtn{
-                border-radius: 10px !important;
-                font-size: 14px;
-                box-shadow: 0 3px 6px #59595919 !important;
-                // height: 55px;
-                // min-width: 100%;
-                // width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                border-radius: 50px!important;
+                font-size: 14px!important;
+                box-shadow: 0 10px 6px #59595919!important;
+                height: 38px;
             }
 
             input {
@@ -485,9 +415,16 @@ fa-icon {
         border-radius: 50px;
         // position: relative;
         top: 26px;
-        width: 200px;
+        // width: 200px;
         @media (max-width:1300px){
             width: 360px;
+        }
+
+        fa-icon{
+            position: initial;
+            display: block;
+            width: 35px;
+            font-size: 24px;
         }
     }
 }
@@ -509,6 +446,152 @@ fa-icon {
 
 .ng-select.ng-select-multiple::ng-deep .ng-select-container .ng-value-container .ng-value .ng-value-label{
     font-size: 11px;
+}
+
+
+.ngSelect {
+    &.priceRange {
+        // width: 15%;
+        // min-width: 15%;
+
+        @media (max-width: 450px) {
+            width: 100%;
+            padding: 10px 0px;
+        }
+            
+        input {
+            width: 95%;
+            @media (max-width: 768px) {
+                width: 95%;
+            }
+            @media (max-width: 450px) {
+                width: 100%;
+            }
+            width: 95%;
+            display: inline-flex;
+            transition: all 0.2s ease;
+            margin: 0 4px;
+            height: 44px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(246, 246, 250);
+            border: 1px solid rgb(209, 209, 213);
+            border-radius: 4px;
+            box-sizing: border-box;
+            caret-color: #fa5a64;
+        }
+        .select-price {
+            display: block;
+            border: none;
+            background: transparent;
+            text-align: center;
+            padding: 5px;
+            width: 100%;
+            cursor: pointer;
+            color: rgb(42, 42, 51);
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        .setPriceBtn {
+            // background: #fff;
+            // border: 1px solid #fa5a64;
+            color: #626265;
+            outline: none;
+            box-shadow: none;
+            border-radius: 4px;
+            @media (max-width: 768px) {
+                width: 100%;
+                text-align: unset;
+                border: 1px solid #ccc;
+            }
+            &.dimmed {
+                color: black;
+                font-size: 14px;
+            }
+        }
+        ul.dropdown-menu {
+            margin-top: 25px !important ;
+            // display: block;
+            padding: 16px;
+            border-top: none;
+            width: 326px ;
+            height: 225px !important;
+            border-radius: 10px;
+            // transform: translate(0px, 36px) !important;
+            @media (max-width: 450px) {
+                width: 320px;
+                margin-top: 0px !important ;
+            }
+            
+            #price_range{
+                width: 100%;
+                height: 100%;
+            }
+            
+            #textboxes {
+                height: 50px;
+                overflow: visible;
+                display: flex;
+            }
+
+            #from{
+                width: 50%;
+                height: fit-content;
+            }
+            
+            
+            #Rectangle_1314_rbk {
+                height: 24px;
+                border-radius: 10px;
+                border-color: rgba(153,178,175,1);
+                color: rgba(153,178,175,1);
+                padding-top: 10%;
+                padding-bottom: 10%;
+                padding-left: 5%;
+            }
+            
+            #to {
+                width: 50%;
+                height: fit-content;
+            }
+     
+            #Price_range_q {
+                font-family: Roboto;
+                font-weight: bold;
+                font-size: 24px;
+                color: #1e4937;
+                // margin-bottom: 20%;
+            }
+
+            #Price_range_hint{
+                font-family: Roboto;
+                font-size: 13px;
+            }
+            
+            #slider{
+                margin-top: 5%;
+                margin-bottom: 5%;
+                width: 100%;
+            }
+         
+        }
+        .foot {
+            background: #fa5a64;
+            padding: 17px;
+            color: #fff;
+            display: block;
+            width: 95%;
+            margin: 0 auto;
+            button {
+                width: 65px;
+                color: #fa5a64;
+                border: 1px solid #fff;
+                background: #fff;
+            }
+        }
+    }
 }
 
 
@@ -547,6 +630,10 @@ fa-icon {
                 border-bottom-left-radius: 50px;
                 
             }
+        }
+
+        &__box {
+            margin: 0px 0px 0px 30px;
         }
     }
     .form-select{

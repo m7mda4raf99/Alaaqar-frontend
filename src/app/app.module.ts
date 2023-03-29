@@ -77,7 +77,16 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgImageSliderModule } from 'ng-image-slider';
-
+import { QuestComponent } from './quest/quest.component';
+import { NgToggleModule } from 'ng-toggle-button';
+import { DevelopersComponent } from './shared/components/developers/developers.component';
+import { LoginDeveloperComponent } from './shared/components/login-developer/login-developer.component';
+import { SingleDeveloperComponent } from './shared/components/single-developer/single-developer.component';
+import { SingleProjectComponent } from './shared/components/single-project/single-project.component';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { AddProjectComponent } from './shared/components/add-project/add-project.component';
+import { AddUnitComponent } from './shared/components/add-unit/add-unit.component';
+import { ElectronicAdvisorComponent } from './shared/components/electronic-advisor/electronic-advisor.component';
 
 @NgModule({
   declarations: [
@@ -114,10 +123,19 @@ import { NgImageSliderModule } from 'ng-image-slider';
     FavouritesComponent,
     SearchResultComponent,
     ItemCardComponent,
-    PriceRangeSliderComponent  
+    PriceRangeSliderComponent,
+    QuestComponent,
+    DevelopersComponent,
+    LoginDeveloperComponent,
+    SingleDeveloperComponent,
+    SingleProjectComponent,
+    AddProjectComponent,
+    AddUnitComponent,
+    ElectronicAdvisorComponent  
   ],
   imports: [
-    // NgImageSliderModule,
+    IvyCarouselModule,
+    NgToggleModule.forRoot(),
     PaginationModule.forRoot(),
     NgxPaginationModule,
     AutocompleteLibModule,

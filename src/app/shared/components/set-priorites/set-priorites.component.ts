@@ -10,7 +10,8 @@ import { Observable, Subscription } from 'rxjs';
 import { faTimes, faChevronUp, faChevronDown, faCheckSquare, faSquare, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core'
 import { Options } from '@angular-slider/ngx-slider'
-
+import { CookieService } from 'ngx-cookie-service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 @Component({
   selector: 'app-set-priorites',
@@ -34,7 +35,9 @@ export class SetPrioritesComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private apiService: ApiService,
     private appService: AppServiceService,
-    private activeRouter: ActivatedRoute) {
+    private activeRouter: ActivatedRoute,
+    private cookieService: CookieService,
+    private notificationsService: NotificationsService,) {
     config.closeOthers = true;
     // config.type = 'info';
     config.animation = true
@@ -130,7 +133,19 @@ export class SetPrioritesComponent implements OnInit {
 
   proposeID: number = 2
 
+  isLoggedInDeveloper(){
+    const developer = this.cookieService.get('developer')
+    
+    if (developer) {
+      this.notificationsService.showError(this.translateService.instant('error.developer'))
+      
+      this.router.navigate(['/single-developer'])
+    }
+  }
+
   async ngOnInit() {
+    this.isLoggedInDeveloper()
+
     const activeRoute = this.activeRouter.snapshot
     if (activeRoute.queryParams && activeRoute.queryParams.propose) {
       this.proposeID=activeRoute.queryParams.propose

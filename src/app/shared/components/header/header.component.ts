@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   faHeart = faHeart
   isMenuCollapsed: boolean = true
   isLoggedIn: boolean = false
+  isLoggedInDeveloper: boolean = false
   BaseUrl = environment.baseUrl
   haveNotifications: boolean = false
   avatarUrl: any
@@ -96,10 +97,22 @@ export class HeaderComponent implements OnInit {
 
 
     })
+    this.sub3 = this.appServiceService.isLoggedInDeveloper$.subscribe(val => {
+      const developer = this.cookieService.get('developer')
+      if (developer) {
+        this.isLoggedInDeveloper = true
+        this.developerData = JSON.parse(developer)
+
+        this.avatarUrl = localStorage.getItem('avatarsPath')
+      }
+    })
   }
   sub1 = new Subscription()
   sub2 = new Subscription()
+  sub3 = new Subscription()
   userData: any
+  developerData: any
+
   allLangs = [
     {
       title: 'EN',
@@ -124,11 +137,28 @@ export class HeaderComponent implements OnInit {
     this.sub2.unsubscribe()
   }
   getName(){
-    return(this.userData.name)
+    if(this.isLoggedIn){
+      return(this.userData.name)
+    }else{
+      if(this.activeLang === 'EN' || this.activeLang.title === 'EN'){
+        return(this.developerData.name_en)
+      }else{
+        return(this.developerData.name_ar)
+      }
+    }
+
   }
 
   getPhone(){
-    return(this.userData.phone)
+    if(this.isLoggedIn){
+      return(this.userData.phone)
+    }else{
+      if(this.activeLang === 'en'){
+        return(this.developerData.phone)
+      }else{
+        return(this.developerData.phone)
+      }
+    }
   }
 
   switchLang(val: string) {
@@ -175,18 +205,32 @@ export class HeaderComponent implements OnInit {
     this.modalService.open(content);
   }
   async logout() {
+    this.spinner.show()
+    if(this.isLoggedIn){
+      let userID = { 'user_id': JSON.parse(this.cookieService.get('user')).id }
+      const logout = await this.apiService.logout(userID)
+      this.cookieService.delete('user')
+      this.appServiceService.isLoggedIn$.next(false)
+      this.userData = undefined
+      this.isLoggedIn = false
+      this.router.navigate(['/home'])
+    }
+    else{
+      let developerID = { 'developer_id': JSON.parse(this.cookieService.get('developer')).id }
+      const logout = await this.apiService.logoutDeveloper(developerID)
+      this.cookieService.delete('developer')
+      this.appServiceService.isLoggedInDeveloper$.next(false)
+      this.developerData = undefined
+      this.isLoggedInDeveloper = false
+      this.router.navigate(['/developers'])
+    }
+
     this.modalService.dismissAll()
-    let userID = { 'user_id': JSON.parse(this.cookieService.get('user')).id }
-    const logout = await this.apiService.logout(userID)
-    // if (logout === false ){}
-    this.cookieService.delete('user')
     this.cookieService.delete('token')
     localStorage.removeItem('avatarsPath')
-    this.appServiceService.isLoggedIn$.next(false)
-    this.userData = undefined
-    this.isLoggedIn = false
+    
     this.notificationsService.showSuccess('Success logout!')
-    this.router.navigate(['/home'])
+    this.spinner.hide()
   }
   navigateToEditProfile() {
     this.router.navigate(['/edit-profile'])
