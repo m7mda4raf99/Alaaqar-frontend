@@ -109,13 +109,18 @@ h2 {
         padding-bottom: 0px;
     }
 
+    h2{
+        color: #184d47;
+    }
+
     span {
         width: 87px;
         display: block;
         margin: 0 auto;
         height: 6px;
         margin-top: 5px;
-        background: $gradient_bg;
+        // background: $gradient_bg;
+        background: #FD4965;
         margin-top: 5px;
 
         &.top {
@@ -142,12 +147,16 @@ h2 {
 }
 
 .section-head-left {
+    h2{
+        color: #184d47;
+    }
+
     span {
         width: 87px;
         display: block;
         height: 6px;
         margin-top: 5px;
-        background: $gradient_bg;
+        background: #FD4965;
         margin-top: 5px;
 
         &.top {
@@ -1605,4 +1614,8 @@ nav{
 
 ::ng-deep .mck-title {
     background: #184d47 !important;
+}
+
+.angular-editor .angular-editor-wrapper .angular-editor-textarea{
+    height: 150px !important;
 }

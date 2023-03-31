@@ -235,10 +235,13 @@
 
                                 <ng-template #large_text let-key="key">
                                     <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
-
-                                        <textarea [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Description' | translate}}"
+                                        <!-- <textarea [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Description' | translate}}"
                                             (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:120px; border-radius: 15px;" class="form-control inputPlaceholder"
-                                            type="text" min="0"> </textarea>
+                                            type="text" min="0"> </textarea> -->
+
+                                        <angular-editor [(ngModel)]="descriptionEditor" formControlName="Write a unique description" class="form-control inputPlaceholder"
+                                            [config]="config" ></angular-editor>
+
                                     </div>
                                 </ng-template>
                             </div>

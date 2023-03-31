@@ -87,6 +87,7 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { AddProjectComponent } from './shared/components/add-project/add-project.component';
 import { AddUnitComponent } from './shared/components/add-unit/add-unit.component';
 import { ElectronicAdvisorComponent } from './shared/components/electronic-advisor/electronic-advisor.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { ElectronicAdvisorComponent } from './shared/components/electronic-advis
     ElectronicAdvisorComponent  
   ],
   imports: [
+    AngularEditorModule,
     IvyCarouselModule,
     NgToggleModule.forRoot(),
     PaginationModule.forRoot(),

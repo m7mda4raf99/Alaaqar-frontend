@@ -186,6 +186,11 @@ export class ApiService {
   public async addUnit(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/addunit`, 'POST', null, data)
   }
+
+  public async addUnitDeveloper(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/addunitdev`, 'POST', null, data)
+  }
+
   public async addNotCompletedUnit(data: any): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/addNotCompletedUnit`, 'POST', null, data)
   }
@@ -200,6 +205,9 @@ export class ApiService {
   }
   public async getSingleUnit(id: string): Promise<any> {
     return await this.SyncClient(`${this.BaseURL}api/my-unit/${id}`, 'GET', null, null)
+  }
+  public async getSingleUnitDeveloper(id: string, data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}api/mydev-unit/${id}`, 'GET', data, null)
   }
   public async getPublicUnit(id: string): Promise<any> {
     // console.log("apiservice: ", id)

@@ -287,7 +287,7 @@
                     a {
                         &:hover {
                             & #RENT {
-                                fill: #fd5664 !important;
+                                fill: #FD4965 !important;
                             }
                         }
                         color: #ababb6;
@@ -1694,7 +1694,7 @@
             &:hover {
                 cursor: pointer;
                 .card-title {
-                    color: #f55441;
+                    color: #FD4965;
                 }
 
                 box-shadow: 8px 3px 30px;
@@ -1760,7 +1760,7 @@
         
                         &:hover {
                             .card-title {
-                                color: #FF725F;
+                                color: #FD4965;
                             }
         
                             // .overlay {
@@ -1926,6 +1926,9 @@
                         height: fit-content;
                     }
                 }
+                &:hover{
+                    background: #FD4965;
+                }
             }
         }
         
@@ -2026,7 +2029,7 @@
 
                 &:hover {
                     .card-title {
-                        color: #f55441;
+                        color: #FD4965;
                     }
     
                     box-shadow: 8px 3px 30px;
@@ -2180,7 +2183,7 @@
     
                 &:hover {
                     .card-title {
-                        color: #f55441;
+                        color: #FD4965;
                     }
     
                     box-shadow: 8px 3px 30px;
@@ -2394,7 +2397,7 @@
             &:hover {
                 cursor: pointer;
                 .card-title {
-                    color: #f55441;
+                    color: #FD4965;
                 }
 
                 box-shadow: 8px 3px 30px;
@@ -2477,7 +2480,7 @@
             &:hover {
                 cursor: pointer;
                 .card-title {
-                    color: #f55441;
+                    color: #FD4965;
                 }
 
                 box-shadow: 8px 3px 30px;

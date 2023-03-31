@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-add-project',
@@ -17,6 +18,19 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
   styleUrls: ['./add-project.component.scss']
 })
 export class AddProjectComponent {
+  lang: string = ''
+  
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: this.lang === 'en' ? "Write a short description of your project.": "اكتب وصفا موجزا لمشروعك.",
+    translate: 'yes',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+  };
+  
   faLocationArrow = faLocationArrow
   faAngleRight = faAngleRight
   faChevronDown = faChevronDown
@@ -24,7 +38,6 @@ export class AddProjectComponent {
   faAngleLeft = faAngleLeft
 
   sub1 = new Subscription()
-  lang: string = ''
 
   constructor(
     private appServiceService: AppServiceService,
@@ -42,6 +55,12 @@ export class AddProjectComponent {
       this.setMultiSelection()
       this.putCity(false)
       this.putArea(false)
+
+      if(this.lang === 'en'){
+        this.config.placeholder = "Write a short description of your project."
+      }else{
+        this.config.placeholder = "اكتب وصفا موجزا لمشروعك."
+      }
     })
 
   }

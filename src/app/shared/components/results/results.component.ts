@@ -19,7 +19,7 @@ export class ResultsComponent implements OnInit {
   baseUrl = environment.baseUrl
   sub = new Subscription()
   sub2 = new Subscription()
-  limit: number = 6
+  limit: number = 18
   loadMore: boolean = false
   params = this.activatedRoute.snapshot.queryParams
   activeLang: any = ''

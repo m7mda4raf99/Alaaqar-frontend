@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { NgxSpinnerService } from "ngx-spinner"
 import { Subscription } from 'rxjs';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-login-developer',
@@ -64,6 +65,17 @@ export class LoginDeveloperComponent {
   loginSectionWidth: any = '130%'
   loginHeight: any = 'auto'
 
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: this.lang === 'en' ? "Write a short description of your company.": "اكتب وصفًا موجزًا لشركتك.",
+    translate: 'yes',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+  };
+
   constructor(
     private apiService: ApiService,
     private cookieService: CookieService,
@@ -94,6 +106,12 @@ export class LoginDeveloperComponent {
 
       this.sub1 = this.appService.lang$.subscribe(async val => {
         this.lang = val;
+
+        if(this.lang === 'en'){
+          this.config.placeholder = "Write a short description of your company."
+        }else{
+          this.config.placeholder = "اكتب وصفًا موجزًا لشركتك."
+        }
       })
      }
   
