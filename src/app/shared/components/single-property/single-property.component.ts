@@ -101,9 +101,26 @@ export class SinglePropertyComponent implements OnInit {
         console.log("data1: ", this.data)
       } else {
         this.isPublic = false
-        const data = await this.getPropertyDetailsData(activeRoute.queryParams.id)
-        this.data = data.data
-        console.log("data2: ", this.data)
+
+        const developer = this.cookieService.get('developer')
+
+        if(developer){
+          let request = {
+            developer_id: Number(JSON.parse(developer)['id'])
+          }
+
+          console.log("request: ", activeRoute.queryParams.id, request)
+
+          const data = await this.getPropertyDetailsDataDeveloper(activeRoute.queryParams.id, request)
+          this.data = data.data
+          console.log("developer unit data: ", data)
+        }
+        else{
+          const data = await this.getPropertyDetailsData(activeRoute.queryParams.id)
+          this.data = data.data
+          console.log("data2: ", this.data)
+        }
+        
       }
     }
     this.sliderTags = []
@@ -167,6 +184,9 @@ export class SinglePropertyComponent implements OnInit {
 
     // format number and add suffix
     return scaled.toFixed(1) + suffix
+  }
+  async getPropertyDetailsDataDeveloper(id: string, data: any) {
+    return await this.apiService.getSingleUnitDeveloper(id, data)
   }
   async getPropertyDetailsData(id: string) {
     return await this.apiService.getSingleUnit(id)

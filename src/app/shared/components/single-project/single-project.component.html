@@ -35,7 +35,7 @@
                     </div> 
 
                   <div class="button-holder">
-                    <button *ngIf="isDeveloperLoggedIn && switcher == 'units'" type="submit" class="btn" (click)="addUnit()" > 
+                    <button *ngIf="isActualDeveloperLoggedIn && switcher == 'units'" type="submit" class="btn" (click)="addUnit()" > 
                       {{'developer.addUnit' | translate}}
                     </button>
                   </div>
@@ -222,14 +222,14 @@
                       <div class="results" *ngIf="units.length === 0">
                         <img class="not-found-image" src="../../../../assets/images/no_projects_units.png" alt="...">
 
-                          <div class="not-found-card" *ngIf="isDeveloperLoggedIn">
+                          <div class="not-found-card" *ngIf="isActualDeveloperLoggedIn">
                             <span class="not-found"> {{'developer.developer no units1' | translate}} </span>
 
                             <span class="not-found sub"> {{'developer.developer no units2' | translate}}  </span>
 
                           </div>
 
-                          <div class="not-found-card" *ngIf="!isDeveloperLoggedIn">
+                          <div class="not-found-card" *ngIf="!isActualDeveloperLoggedIn">
                             <span class="not-found"> {{'developer.no units' | translate}} </span>
                           </div>
                       </div>

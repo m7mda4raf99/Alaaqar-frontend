@@ -13,6 +13,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 import { PrioritiesService } from 'src/app/services/priorities.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as util from '../../../utils/index'
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-add-unit',
@@ -21,6 +22,8 @@ import * as util from '../../../utils/index'
 })
 export class AddUnitComponent {
   util = util
+
+  descriptionEditor = ''
 
   faLocationArrow = faLocationArrow
   faAngleRight = faAngleRight
@@ -62,6 +65,12 @@ export class AddUnitComponent {
         this.getCompound(false)
         this.getLocation(false)
         this.getNeig(false)
+
+        if(this.activeLang === 'en'){
+          this.config.placeholder = "Write a short description of your property."
+        }else{
+          this.config.placeholder = "اكتب وصفًا موجزًا لوحدتك."
+        }
   
       })
       this.sub2 = this.prioritiesService.SellerPriority$.subscribe(val => {
@@ -412,6 +421,17 @@ export class AddUnitComponent {
   Neigh: any = []
 
   developer: any
+
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: this.activeLang === 'en' ? "Write a short description of your property.": "اكتب وصفًا موجزًا لوحدتك.",
+    translate: 'yes',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+  };
 
   async ngOnInit() {
     this.spinner.show()
@@ -1651,6 +1671,10 @@ export class AddUnitComponent {
   }
 
   getFormValue(key: any) {
+    // console.log("this.stepForm: ", this.stepForm)
+
+    // console.log("this.stepForm?.get(key): ", this.stepForm?.get(key))
+
     let val = this.stepForm?.get(key)?.value
     if (Array.isArray(val) && val.length > 0) {
       return val[0].value
@@ -1762,8 +1786,20 @@ export class AddUnitComponent {
   created_unit_id: any
 
   async addUnit(content: any){
-    // console.log(this.search_model)
-    // console.log("params: ", this.params['project_id'])
+    if (this.descriptionEditor === '') { 
+      this.stepForm?.get('Write a unique description')?.setErrors({ 'required': true }) 
+    }else {
+      let obj = {
+        value: this.descriptionEditor,
+        name_ar: "",
+        name_en: "",
+        selected: false,
+      }
+
+      this.stepForm?.get('Write a unique description')?.setValue([obj])
+    }
+
+    console.log('this.stepForm: ', this.stepForm)
 
     if(this.stepForm.status === 'VALID' && this.filedataMasterplan.length > 0 
     && this.filedataPhotos.length > 0 ){
@@ -1797,12 +1833,14 @@ export class AddUnitComponent {
         project_id: Number(this.params['project_id'])
       }
 
-      console.log("obj: ", unitData)
+      // console.log("obj: ", unitData)
 
       this.spinner.show()
-      const addUnitRes = await this.apiService.addUnit(unitData)
+      const addUnitRes = await this.apiService.addUnitDeveloper(unitData)
       // const addUnitRes = false
       this.spinner.hide()
+
+      // console.log('addUnitRes: ', addUnitRes)
 
       if (addUnitRes === false) {
         this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))
@@ -1819,10 +1857,6 @@ export class AddUnitComponent {
         this.evaluator.id = evaluator.id
         
         this.modalService.open(content);
-        
-        // redirect to project/{id} page
-                                                              // response.data.id
-        // this.router.navigate(['/single-project'], { queryParams: { id: 100 } })
       }
 
     }else{

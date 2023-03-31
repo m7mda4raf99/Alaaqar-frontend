@@ -289,6 +289,7 @@ export class SingleProjectComponent {
   switcher: any = 'overview'
 
   isDeveloperLoggedIn: boolean = false
+  isActualDeveloperLoggedIn: boolean = false
 
   params = this.activatedRoute.snapshot.queryParams
 
@@ -298,12 +299,6 @@ export class SingleProjectComponent {
     const developer = this.cookieService.get('developer')
 
     let id: any = ''
-
-    if(developer){
-      this.isDeveloperLoggedIn = true
-    }else{
-      this.isDeveloperLoggedIn = false
-    }
 
     console.log("this.params['id']: ", this.params['id'])
 
@@ -315,6 +310,20 @@ export class SingleProjectComponent {
 
     this.project = response.data
 
+    if(developer){
+      this.isDeveloperLoggedIn = true
+
+      if(response.data.developer_id === Number(JSON.parse(developer).id)){
+        this.isActualDeveloperLoggedIn = true
+      }else{
+        this.isActualDeveloperLoggedIn = false
+      }
+
+    }else{
+      this.isDeveloperLoggedIn = false
+    }
+
+    // console.log("this.project: ",  this.project)
 
     this.sliderData = this.project['project_images']
 
@@ -334,10 +343,16 @@ export class SingleProjectComponent {
 
     this.tagLength = this.sliderData.length
 
-    let unitData = {
-      project_id: this.params['id'],
+    let unitData: any = { 
+      project_id: Number(this.params['id']),
       offset: 0
+     }
+
+    if(this.isActualDeveloperLoggedIn){
+      unitData.isDeveloper = true
     }
+
+    console.log("this.unitData: ", unitData)
 
     let responseUnit = await this.appService.getUnits(unitData)
 

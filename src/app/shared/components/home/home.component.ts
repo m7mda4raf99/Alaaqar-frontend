@@ -21,6 +21,7 @@ import { Options } from '@angular-slider/ngx-slider'
 import { faExclamationCircle, faChevronDown, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { MatDialog } from '@angular/material/dialog';
+import { AngularEditorConfig } from '@kolkov/angular-editor'
 
 @Component({
   selector: 'app-home',
@@ -169,6 +170,8 @@ export class HomeComponent implements OnInit {
 
   autoComplete_placeholder: any = ''
 
+
+  
   top_searched_areas = [
     { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.png', 'area_id': 7},
     { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.png', 'area_id': 9},
@@ -454,7 +457,7 @@ export class HomeComponent implements OnInit {
       (window as any).kommunicate = m; m._globals = kommunicateSettings;
 
       kommunicateSettings.onInit = function() {
-        var css = ".mck-title { background: #184d47;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #184d47 !important; } .mck-msg-left .mck-msg-box{ background: #e7edec !important; } .km-cta-multi-button-container button.km-cta-button { color: #184d47 !important; border-color: #184d47 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #184d47 !important; border-color: #184d47 !important; } .mck-form-template-container button{ color: #184d47 !important; border-color: #184d47 !important; } .km-custom-widget-background-color { background: #184d47 !important; }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
+        var css = ".mck-title { background: #184d47;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #184d47 !important; } .mck-msg-left .mck-msg-box{ background: #e7edec !important; } .km-cta-multi-button-container button.km-cta-button { color: #184d47 !important; border-color: #184d47 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #184d47 !important; border-color: #184d47 !important; } .mck-form-template-container button{ color: #184d47 !important; border-color: #184d47 !important; } .km-custom-widget-background-color { background: #184d47 !important; &:hover{ background: #FD4965 !important; } }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
         (window as any).Kommunicate.customizeWidgetCss(css); // use window.Kommunicate for ReactJs
     };
 
@@ -634,7 +637,7 @@ export class HomeComponent implements OnInit {
   }
 
   print(data:any){
-    // console.log(data)
+    console.log(data)
   }
 
   checkDropDown(data: any){
