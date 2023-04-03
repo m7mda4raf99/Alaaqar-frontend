@@ -265,6 +265,14 @@ $active_background: #184d47;
         &:hover{
             background: #FD4965
         }
+
+        &.add-property{
+            background: #FD4965;
+
+            &:hover{
+                background: #e58d9b
+            }
+        }
     }
     &__profile{
        
@@ -545,6 +553,12 @@ ng-select{
 
 .ng-select::ng-deep .ng-dropdown-panel{
     min-width:auto !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+    display: flex !important;
+    padding: 5px;
+    justify-content: center;
 }
 
 // .navbar-collapse.show   {

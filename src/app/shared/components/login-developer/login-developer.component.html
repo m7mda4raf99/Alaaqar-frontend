@@ -4,7 +4,7 @@
   
   <div #developersDiv class="developers">
       <div class="container--fluid priorities-form">
-          <div class="sub-head">
+          <div #head  class="sub-head">
             <div class="container-fluid">
               <div class="row justify-content-center">
                 <div class="col-xs-12 col-md-10 ">
@@ -26,9 +26,9 @@
           <div class="container-fluid login" [ngStyle]="{'min-height': loginHeight }">
             <div class="row justify-content-center" style="margin:0;">
 
-                <div class="col-xs-11 col-md-10 login-area">
+                <div  class="col-xs-11 col-md-10 login-area">
                     <div class="row main-row">
-                        <div #head class="col-sm-12 col-lg-6 col-xl-5 login-container order-lg-0 order-sm-1">
+                        <div class="col-sm-12 col-lg-6 col-xl-5 login-container order-lg-0 order-sm-1">
 
 
                           <div class="login-sec" [ngStyle]="{'width': loginSectionWidth }" >
@@ -44,6 +44,22 @@
                                     </b>
                                 </div>
                                 <div class="login-form">
+                                    <!-- enter otp -->
+                                    <div class="enter-otp" *ngIf="haveOTP">
+                                        <p style="text-align: center;font-size: 18px;margin-bottom: 30px;">{{'signIn.Enter the OTP sent to' | translate}} <b
+                                                style="color: #2C2C2C;">{{phoneForm.get('phone')?.value?.e164Number}}</b>
+                                        </p>
+                                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:4}">
+                                        </ng-otp-input>
+                                        <p *ngIf="invalidPTO" style="text-align: center;color: red;">{{'signIn.Invalid OTP, Please try again' | translate}} </p>
+                                        <button (click)="verifyOtp()" [disabled]="validateOTP()" type="submit"
+                                            class="submit-btn button-success">{{'signIn.Submit' | translate}} </button>
+                                        <div class="resendOtp">
+                                            <p> {{'signIn.Did ont receive any code' | translate}}</p>
+                                            <span (click)="resendOtp()">{{'signIn.Re-send code' | translate}}</span>
+                                        </div>
+                                        <!-- <p>The value of id is {{ "ana2" }}</p> -->
+                                    </div>
                                     <!-- enter your number -->
                                     <div class="enter-your-number" *ngIf="!haveOTP && !registrationRequest">
                                       <form #f="ngForm" [formGroup]="phoneForm">
@@ -77,23 +93,6 @@
                                           </button>
                                           <!-- <p>The value of id is {{ "ana1" }}</p> -->
                                       </form>
-                                    </div>
-                                    
-                                    <!-- enter otp -->
-                                    <div class="enter-otp" *ngIf="haveOTP">
-                                        <p style="text-align: center;font-size: 18px;margin-bottom: 30px;">{{'signIn.Enter the OTP sent to' | translate}} <b
-                                                style="color: #2C2C2C;">{{phoneForm.get('phone')?.value?.e164Number}}</b>
-                                        </p>
-                                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:4}">
-                                        </ng-otp-input>
-                                        <p *ngIf="invalidPTO" style="text-align: center;color: red;">{{'signIn.Invalid OTP, Please try again' | translate}} </p>
-                                        <button (click)="verifyOtp()" [disabled]="validateOTP()" type="submit"
-                                            class="submit-btn button-success">{{'signIn.Submit' | translate}} </button>
-                                        <div class="resendOtp">
-                                            <p> {{'signIn.Did ont receive any code' | translate}}</p>
-                                            <span (click)="resendOtp()">{{'signIn.Re-send code' | translate}}</span>
-                                        </div>
-                                        <!-- <p>The value of id is {{ "ana2" }}</p> -->
                                     </div>
                                     
                                     <!-- register -->

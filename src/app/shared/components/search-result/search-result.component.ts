@@ -40,6 +40,7 @@ export class SearchResultComponent implements OnInit {
   loadMore: boolean = false
   search_model: any = this.activatedRoute.snapshot.queryParams
   activeLang: any = ''
+  activeTab: any = ''
   results : any[] = []
 
   selected_country:any
@@ -85,7 +86,7 @@ export class SearchResultComponent implements OnInit {
 
   changeFilter(){
     if(this.display === 'none'){
-      this.display = 'initial'
+      this.display = 'flex'
     }else{
       this.display = 'none'
     }
@@ -149,6 +150,8 @@ export class SearchResultComponent implements OnInit {
 
     this.setMultiSelection()
 
+    this.activeTab = this.activatedRoute.snapshot.queryParams['activeTab']
+
     if(window.matchMedia("(min-width: 450px)").matches){
       this.display = 'flex'
     }
@@ -188,7 +191,7 @@ export class SearchResultComponent implements OnInit {
   }
 
   async search(isloadMore?: boolean, pageNumber?: number) {
-    let arr = ['cities','neighborhood','type']
+    let arr = ['cities','neighborhoods','type']
     for(let i=0;i<arr.length;i++){
       if(!Array.isArray(this.search_model[arr[i]])){
         if(this.search_model[arr[i]] == null){
@@ -377,6 +380,8 @@ export class SearchResultComponent implements OnInit {
     this.search_model
     this.search_model.offset = 0
 
+    console.log("this.search_model: ", this.search_model)
+
     console.log(this.search_model)
 
     this.search(false)
@@ -557,7 +562,18 @@ export class SearchResultComponent implements OnInit {
               name_en: this.UnitTypes[key]?.name_en,
               name_ar: this.UnitTypes[key]?.name_ar
             }
-            types.push(obj)
+
+            if(this.activeTab === 'commercial'){
+              if(data.data[key]?.category_id === 2){
+                types.push(obj)
+              }
+            }else{
+              if(data.data[key]?.category_id != 2){
+                types.push(obj)
+              }
+            }
+
+            
           }
         }
         this.RealEstateType = types
@@ -584,10 +600,10 @@ export class SearchResultComponent implements OnInit {
 
   minValueText: number = 0;
   minValue: number = 0;
-  minValueInput: number = 0;
+  minValueInput: any;
 
   maxValue: number = 40000000;
-  maxValueInput: number = 0
+  maxValueInput: any;
 
   in_compound: boolean = false
 

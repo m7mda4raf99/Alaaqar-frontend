@@ -62,45 +62,6 @@
                             <div *ngIf="dropdownListArea.length > 0 && selectedItemCity.length > 0 && (dropdownListCompound.length > 0 || dropdownListLocation.length > 0)" class="separator">
                             </div>
                 
-                            <!-- compound -->
-                            <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" 
-                              class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
-                              <div style="padding: 10px; cursor: pointer;">
-                                  <input style="cursor: pointer;"
-                                  class="checkbox"
-                                  type="checkbox"
-                                  [checked]="checkboxVar"
-                                  (change)="changedCheckBox()"/>
-                                  <p [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
-          
-                              </div>
-          
-                              <div class="dropdown" 
-                              [ngStyle]="{'margin-top': margin_top, 'margin-bottom': margin_bottom}">
-                                  {{ setCompoundLocationNeigbhorhoodDropdown() }}
-                                  <div class="multiselect" [ngStyle]="{'pointer-events': pointerEventsCompound, 'display': displayCompound }" >
-                                      <angular2-multiselect 
-                                          [data]="dropdownListCompound" 
-                                          [(ngModel)]="selectedItemCompound" 
-                                          [settings]="settingsCompound"
-                                          (onSelect)="onItemSelectCompound($event)"
-                                          (onDeSelect) = "onItemDeSelectCompound()"
-                                          (onDeSelectAll)="onItemDeSelectCompound()">
-                                      </angular2-multiselect>
-                  
-                                  </div>
-              
-                                  <span *ngIf="selectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-                                  
-                                  <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar">{{'setPriorities.select compound' | translate}}</span>
-          
-          
-                              </div>
-          
-                            </div>
-          
-                            <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0 && dropdownListLocation.length > 0" class="separator">
-                            </div>
           
                             <!-- location -->
                             <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
@@ -118,7 +79,7 @@
           
                             </div>
           
-                            <div *ngIf="dropdownListNeighborhood.length > 0" class="separator">
+                            <div *ngIf="dropdownListNeighborhood.length > 0 || dropdownListCompound.length > 0" class="separator">
                             </div>
                 
                             <!-- neighborhood -->
@@ -134,6 +95,47 @@
                                   </angular2-multiselect>
           
                             </div>
+
+                            <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar && dropdownListCompound.length > 0" class="separator">
+                            </div>
+
+                            <!-- compound -->
+                            <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" 
+                                class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
+                                <div style="padding: 10px; cursor: pointer;">
+                                    <input style="cursor: pointer;"
+                                    class="checkbox"
+                                    type="checkbox"
+                                    [checked]="checkboxVar"
+                                    (change)="changedCheckBox()"/>
+                                    <p [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
+            
+                                </div>
+            
+                                <div class="dropdown" 
+                                [ngStyle]="{'margin-top': margin_top, 'margin-bottom': margin_bottom}">
+                                    {{ setCompoundLocationNeigbhorhoodDropdown() }}
+                                    <div class="multiselect" [ngStyle]="{'pointer-events': pointerEventsCompound, 'display': displayCompound }" >
+                                        <angular2-multiselect 
+                                            [data]="dropdownListCompound" 
+                                            [(ngModel)]="selectedItemCompound" 
+                                            [settings]="settingsCompound"
+                                            (onSelect)="onItemSelectCompound($event)"
+                                            (onDeSelect) = "onItemDeSelectCompound()"
+                                            (onDeSelectAll)="onItemDeSelectCompound()">
+                                        </angular2-multiselect>
+                    
+                                    </div>
+                
+                                    <span *ngIf="selectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                                    
+                                    <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar">{{'setPriorities.select compound' | translate}}</span>
+            
+            
+                                </div>
+            
+                            </div>
+            
           
                           </div>
           

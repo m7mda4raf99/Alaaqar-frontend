@@ -358,7 +358,44 @@
                 
                   <div *ngIf="dropdownListArea.length > 0 && selectedItemCity.length > 0 && (dropdownListCompound.length > 0 || dropdownListLocation.length > 0)" class="separator">
                   </div>
+
+
+                  <!-- location -->
+                  <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
+                                                              'background': backgroundLocation }">
+                      <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
+                      
+                          <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
+                          [settings]="settingsLocation"
+                          (onSelect)="onItemSelectLocation($event)"
+                          (onDeSelect)="onDeSelectAllLocation()"
+                          (onDeSelectAll)="onDeSelectAllLocation()">
+                          </angular2-multiselect>
+
+                      <span *ngIf="selectedLocationNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+
+                  </div>
+
+                  <div *ngIf="dropdownListNeighborhood.length > 0 || dropdownListCompound.length > 0" class="separator">
+                  </div>
       
+                  <!-- neighborhood -->
+                  <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
+                    <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                        <angular2-multiselect 
+                            [data]="dropdownListNeighborhood" 
+                            [(ngModel)]="selectedItemNeighborhood" 
+                            [settings]="settingsNeigbhorhood"
+                            (onSelect)="onItemSelectNeighborhood($event)"
+                            (onDeSelect) =onItemDeSelectNeighborhood($event)
+                            (onDeSelectAll) =onItemDeSelectNeighborhood($event)>
+                        </angular2-multiselect>
+
+                  </div>
+
+                  <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar && dropdownListCompound.length > 0" class="separator">
+                  </div>
+
                   <!-- compound -->
                   <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0" 
                     class="ngSelect compound" [ngStyle]="{'background': backgroundCompound }">
@@ -396,41 +433,6 @@
 
                   </div>
 
-                  <div *ngIf="selectedItemArea.length > 0 && dropdownListCompound.length > 0 && dropdownListLocation.length > 0" class="separator">
-                  </div>
-
-                  <!-- location -->
-                  <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
-                                                              'background': backgroundLocation }">
-                      <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
-                      
-                          <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
-                          [settings]="settingsLocation"
-                          (onSelect)="onItemSelectLocation($event)"
-                          (onDeSelect)="onDeSelectAllLocation()"
-                          (onDeSelectAll)="onDeSelectAllLocation()">
-                          </angular2-multiselect>
-
-                      <span *ngIf="selectedLocationNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-
-                  </div>
-
-                  <div *ngIf="dropdownListNeighborhood.length > 0" class="separator">
-                  </div>
-      
-                  <!-- neighborhood -->
-                  <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
-                    <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                        <angular2-multiselect 
-                            [data]="dropdownListNeighborhood" 
-                            [(ngModel)]="selectedItemNeighborhood" 
-                            [settings]="settingsNeigbhorhood"
-                            (onSelect)="onItemSelectNeighborhood($event)"
-                            (onDeSelect) =onItemDeSelectNeighborhood($event)
-                            (onDeSelectAll) =onItemDeSelectNeighborhood($event)>
-                        </angular2-multiselect>
-
-                  </div>
 
                 </div>
 

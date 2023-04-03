@@ -165,7 +165,6 @@ export class LoginDeveloperComponent {
               return this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
             }
           }
-          this.scroll(element)
           return this.haveOTP = true
         }
       }
@@ -351,7 +350,7 @@ export class LoginDeveloperComponent {
       this.loginSectionWidth = 'auto'
 
       if(!this.haveOTP && this.registrationRequest){
-        this.loginHeight = '1220px'
+        this.loginHeight = '1630px'
       }else{
         this.loginHeight = '600px'
       }

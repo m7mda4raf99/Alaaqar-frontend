@@ -469,8 +469,14 @@ export class SingleProjectComponent {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  navigateToItemDetails(item: any) {    
-    const urlTree = this.router.createUrlTree(['single-property'], { queryParams: { id: item.unit_id } });
+  navigateToItemDetails(item: any) { 
+    let boolean = undefined
+
+    if(!this.isActualDeveloperLoggedIn){
+      boolean = true
+    }
+    
+    const urlTree = this.router.createUrlTree(['single-property'], { queryParams: { id: item.unit_id, isPublic: boolean } });
     const url = this.router.serializeUrl(urlTree);
     window.open(url, '_blank');
   }

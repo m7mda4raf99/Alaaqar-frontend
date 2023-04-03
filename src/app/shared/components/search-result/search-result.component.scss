@@ -62,7 +62,7 @@
                 .card-title {
                     color: #f55441;
                 }
-                box-shadow: 8px 3px 30px;
+                box-shadow: 0px 0px 30px #184d47;
                 transition: 0.3s;
             }
         
@@ -236,6 +236,10 @@ fa-icon {
         flex-wrap: wrap;
         align-items: center;
         margin: 0px 30px 0px 0px;
+
+        @media (max-width: 450px) {
+            margin: 0px;
+        }
     }
 
     &__filter {
@@ -249,6 +253,9 @@ fa-icon {
         }
         &.search_input{
             width: 20%; 
+            @media (max-width: 450px) {
+                width: 100% !important; 
+            }
         }
         &.city,&.estate_type,&.propose{
             ng-select {
@@ -377,7 +384,7 @@ fa-icon {
             }
 
             ul.dropdown-menu {
-                margin-top: 25px !important;
+                margin-top: 5px !important;
                 // display: block;
                 padding: 10px;
                 border-top: none;
@@ -455,8 +462,8 @@ fa-icon {
         // min-width: 15%;
 
         @media (max-width: 450px) {
-            width: 100%;
-            padding: 10px 0px;
+            // width: 100%;
+            // padding: 10px 0px;
         }
             
         input {
@@ -512,17 +519,17 @@ fa-icon {
             }
         }
         ul.dropdown-menu {
-            margin-top: 25px !important ;
+            margin-top: 5px !important ;
             // display: block;
             padding: 16px;
             border-top: none;
             width: 326px ;
-            height: 225px !important;
+            height: fit-content !important;
             border-radius: 10px;
             // transform: translate(0px, 36px) !important;
             @media (max-width: 450px) {
                 width: 320px;
-                margin-top: 0px !important ;
+                margin-top: 5px !important ;
             }
             
             #price_range{
@@ -531,18 +538,21 @@ fa-icon {
             }
             
             #textboxes {
-                height: 50px;
+                // height: 50px;
                 overflow: visible;
                 display: flex;
+                padding: 10px 0px;
             }
 
             #from{
                 width: 50%;
                 height: fit-content;
+                padding: 0px 5px;
             }
             
             
             #Rectangle_1314_rbk {
+                margin: 0px;
                 height: 24px;
                 border-radius: 10px;
                 border-color: rgba(153,178,175,1);
@@ -555,12 +565,13 @@ fa-icon {
             #to {
                 width: 50%;
                 height: fit-content;
+                padding: 0px 5px;
             }
      
             #Price_range_q {
                 font-family: Roboto;
                 font-weight: bold;
-                font-size: 24px;
+                font-size: 22px;
                 color: #1e4937;
                 // margin-bottom: 20%;
             }
@@ -571,6 +582,7 @@ fa-icon {
             }
             
             #slider{
+                display: none;
                 margin-top: 5%;
                 margin-bottom: 5%;
                 width: 100%;
@@ -621,6 +633,11 @@ fa-icon {
         &__filter{
             margin-right: 0;
             margin-left: 20px;
+
+            @media (max-width:768px){
+                margin-left: 0px;
+            }
+
             .icon{
                 right: inherit;
                 left: 1px;
@@ -634,6 +651,11 @@ fa-icon {
 
         &__box {
             margin: 0px 0px 0px 30px;
+
+            @media (max-width:768px){
+                margin: 0px;
+            }
+
         }
     }
     .form-select{
@@ -654,6 +676,12 @@ fa-icon {
         &__filter{
             // width: 30%;
             // margin-bottom: 15px;
+
+            border: 1px solid #d6d6d6;
+            border-radius: 20px;
+
+
+
             &.city,&.area,&.neighborhood,&.estate_type,&.propose,&.rooms,&.space{
                 ._filter{
                     // max-width: none;
@@ -665,6 +693,20 @@ fa-icon {
             // &.estate_type,&.priceRange{
             //     width: 46%;
             // }
+        }
+
+        .compound{
+            display: flex; 
+            align-items: center;
+            font-size: 14px; 
+            justify-content: center;
+        }
+
+        .button-success{
+
+            span{
+                display: none;
+            }
         }
     }
 }
@@ -680,21 +722,38 @@ fa-icon {
 @media (max-width:768px){
     .search-filters{
         flex-direction: column;
+        align-items: center;
+        margin: 0px;
+
+
         &__filter{
-            width: 100%;
-            margin: 0;
-            margin-bottom: 15px;
+            width: 48%;
+            margin: 2%   1% 2% 1%;
+
+            // border: 0px;
+            // border-radius: 20px;
+
             &.city,&.area,&.neighborhood,&.estate_type{
 
             }
             &.estate_type,&.priceRange{
-                width: 100%;
+                // width: 100%;
             }
         }
         .button-success{
             position: inherit;
-            width: 100%;
+            width: fit-content;
             margin-top: 15px;
+            display: flex;
+            align-items: center;
+
+            span{
+                display: initial;
+            }
+        }
+
+        .compound{
+            width: 48%;
         }
     }
 }

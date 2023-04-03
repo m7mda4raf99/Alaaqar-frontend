@@ -198,7 +198,7 @@
                         <a routerLink='/developers'>{{'header.Developers' | translate}}</a>
                     </li>
 
-                    <div style="margin-right: 40px;" class="app-header__signup" (click)="addProperty()" >
+                    <div style="margin-right: 40px;" class="app-header__signup add-property" (click)="expand_collapse($event); addProperty();" >
                         <span class="icon">
                             <img src="../../assets/images/buildings.png" />
                         </span>
@@ -232,27 +232,26 @@
                     </li> -->
                     <!-- Select country -->
                     <li class="responsive" style="padding: 5px 0px;" >
-
                         <ng-select [items]="cities3"
-                        bindLabel="name"
-                        bindValue="name"
-                        placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
-                        [(ngModel)]="selectedCityName"
-                        (change)="transform_country(selectedCityName); expand_collapse($event)" 
-                        style="border: none ! important; width: 100% !important">
-                
-                        <ng-template ng-label-tmp let-item="item">
-                            <img height="20" width="20"  [src]="item.avatar"/>
-                            <b>{{item.name|translate}}</b> 
+                            bindLabel="name"
+                            bindValue="name"
+                            placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
+                            [(ngModel)]="selectedCityName"
+                            (change)="transform_country(selectedCityName); expand_collapse($event)" 
+                            style="border: none ! important; width: 100% !important">
+                    
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="20" width="30"  [src]="item.avatar"/>
+                                <b>{{item.name|translate}}</b> 
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                <img height="15" width="15" [src]="item.avatar"/>
+                                <b>{{item.name|translate}}</b>
                             </ng-template>
-                            <ng-template ng-option-tmp let-item="item" let-index="index">
-                            <img height="15" width="15" [src]="item.avatar"/>
-                            <b>{{item.name|translate}}</b>
-                        </ng-template>
-            
-                    </ng-select>
-
+                
+                        </ng-select>
                     </li>
+                    
                     <!-- Select language -->
                     <li class="responsive" style="padding: 5px 10px 0px;">
                         <div *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" 
@@ -318,7 +317,8 @@
         </nav>
         <div class="app-header__logo">
             <a routerLink='/home'>
-                <img src="../../assets/images/logo_header.png" />
+                <img *ngIf="activeLang.title === 'AR' || activeLang === 'AR'" src="../../assets/images/logo_header_arabic.png" />
+                <img *ngIf="activeLang.title != 'AR' && activeLang != 'AR'" src="../../assets/images/logo_header.png" />
             </a>
         </div>
         <div class="app-header__user" >
@@ -375,7 +375,7 @@
                         </span> -->
                         {{getName()}}
                         </button>
-                        <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'"  >
+                        <ul ngbDropdownMenu class="mydropdown" aria-labelledby="dropdownMenu2" *ngIf="activeLang.title === 'AR' || activeLang === 'AR'">
                             <li> 
                                 <button (click)="navigateToVisits();isMenuCollapsed = true" class="dropdown-item" >
                                     <img src="../../../../assets/images/my_visits.png" alt="image">
@@ -557,11 +557,11 @@
                     (change)="transform_country(selectedCityName)" style="border: none ! important;">
             
                     <ng-template ng-label-tmp let-item="item">
-                        <img height="20" width="20"  [src]="item.avatar"/>
+                        <img style="border-radius: 5px;" height="20" width="30"  [src]="item.avatar"/>
                         <!-- <b>{{item.name|translate}}</b>  -->
                     </ng-template>
                     <ng-template ng-option-tmp let-item="item" let-index="index">
-                        <img height="20" width="20" [src]="item.avatar"/>
+                        <img style="border-radius: 5px;" height="20" width="30" [src]="item.avatar"/>
                         <!-- <b>{{item.name|translate}}</b> -->
                     </ng-template>
         

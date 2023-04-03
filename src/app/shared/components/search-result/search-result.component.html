@@ -5,7 +5,7 @@
     </ngx-spinner>
     <div class="row justify-content-center" style="margin: 25px 10px 0px 10px;">
         <div class="col-xs-12 col-sm-10" style="padding: 0px;">
-            <div style="display:flex;" class="breadcrumb">
+            <div style="display:flex; margin: 0px;" class="breadcrumb">
                 <div class="col-md-10 col-xs-12 bg-head">
                     <p class="main-title">{{'search.title' | translate}} <span>({{total_search_count}} {{'search.count' | translate}})</span></p>
                     <div class="head">
@@ -18,7 +18,7 @@
                 <div class="buttons">
                     <div class="filter-button" (click)="changeFilter()">
                         <span> {{'Results.sub.Filters' | translate}} </span>
-                        <fa-icon *ngIf="display === 'initial'" style="position: initial;" [icon]="faChevronUp" class="faChevronUp"></fa-icon>
+                        <fa-icon *ngIf="display != 'none'" style="position: initial;" [icon]="faChevronUp" class="faChevronUp"></fa-icon>
                         <fa-icon *ngIf="display === 'none'" style="position: initial;" [icon]="faChevronDown" class="faChevronDown"></fa-icon>
                     </div>
                     <div class="col-md-2" style="position: relative; margin: 0% 1%; width: 100%;">
@@ -77,14 +77,16 @@
                                 <fa-icon style="position: initial; color: #aaaaaa; margin: 0px 10px;"  [icon]="faChevronDown"></fa-icon>
 
                             </button>
-
+                            
                             <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
                                 (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 38.4px, 0px);">
                                 
                                 <!-- <app-price-range-slider (sender)="receiver($event)" [activeTab]="activeTab">
         
                                 </app-price-range-slider> -->
-        
+                                
+                                
+
                                 <div id="price_range">
                                     <div id="Price_range_q">
                                         {{'home.Price range' | translate}}
@@ -103,7 +105,7 @@
                                             <div id="fromTextbox">
                                         
                                                 <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
-                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                placeholder="{{'home.Min Price' | translate}}" ngxNumberFormat="#,###,###,###"
                                                 [allowNegative]="false" type="text"
                                                 (keyup)="userChangeMin(false)"/>
                                             </div>
@@ -115,7 +117,7 @@
                                             <div id="fromTextbox">
                                         
                                                 <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
-                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                placeholder="{{'home.Max Price' | translate}}" ngxNumberFormat="#,###,###,###"
                                                 [allowNegative]="false" type="text"
                                                 (keyup)="userChangeMax(false)"/>
                                             </div>
@@ -144,7 +146,7 @@
                           </ng-select> -->
                     </div>
 
-                    <div class="ngSelect compound" style="display: flex; align-items: center; font-size: 14px;">
+                    <div *ngIf="activeTab != 'commercial'" class="ngSelect compound">
 
                         {{ 'home.Compound' | translate }}
 
@@ -156,6 +158,7 @@
                 
                 <button type="submit" (click)="Getsearch()" class="btn button-success"> 
                     <fa-icon [icon]="faSearch"></fa-icon>
+                    <span> {{'search_button' | translate}} </span>
                 </button>
                
             </div>
@@ -216,7 +219,7 @@
                     </div>
                 </div>
 
-                <pagination-controls (pageChange)="onPageChange($event)" [(ngModel)]="page" ></pagination-controls>
+                <pagination-controls style="width: 100%;" (pageChange)="onPageChange($event)" [(ngModel)]="page" ></pagination-controls>
             </div>
            
            
