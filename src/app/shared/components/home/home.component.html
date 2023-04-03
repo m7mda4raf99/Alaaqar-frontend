@@ -49,25 +49,26 @@
 
                 <div class="each-option" (click)="scroll(how_it_works)">
                     <img class="image-options" src="../../assets/images/how_it_works.png" alt="...">
-                    <div class="text-options"> how <br> it works</div>
+                    <div class="text-options"> {{ 'how it works' | translate }} </div>
                 </div>
 
                 <div class="separators" > </div>
 
                 <div class="each-option" (click)="tryItNow()">
                     <img class="image-options" src="../../assets/images/advisor.png" alt="...">
-                    <div class="text-options"> electronic <br> advisor</div>
+                    <div class="text-options">  {{ 'electronic advisor' | translate }} </div>
                 </div>
 
                 <div class="separators" > </div>
                 
                 <div class="each-option" (click)="scroll(download_app)">
                     <img class="image-options" src="../../assets/images/mobile.png" alt="...">
-                    <div class="text-options"> 
+                    <div class="text-options app"> 
 
-                        <img src="../../assets/images/logo_header.png"/>
-
-                        mobile app
+                        <img *ngIf="lang === 'ar'" src="../../assets/images/logo_header_arabic.png" />
+                        <img *ngIf="lang != 'ar'" src="../../assets/images/logo_header.png" />
+           
+                        {{ 'mobile app' | translate }}
 
                         <div style="    display: flex;
                         padding: 5px 5px;
@@ -300,47 +301,49 @@
 
             <div class="section-body">
                 <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of top_projects">
-                    <div class="card" (click)="navigateToSingleProject(card)">
-                        <div style="position: relative;">
-                            <span class="overlay"></span>
-                            <img src="{{ card.image }}" class="main-img" alt="...">
-                        </div> 
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
-                                {{lang === 'en' ? card.name_en : card.name_ar }}                                
-                            </h5>
-                            
-                            <div style="display: flex; justify-content: space-between;">
-                                <span class="location">
-                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png"
-                                        alt="..." />
-                                    {{lang === 'en' ? card.area_en : card.area_ar}}
-                                    <!-- New Alamien -->
-                                </span>
+                    <a routerLink='/single-project' [queryParams]="{id: card.id}">
+                        <div class="card" (click)="navigateToSingleProject(card)">
+                            <div style="position: relative;">
+                                <span class="overlay"></span>
+                                <img src="{{ card.image }}" class="main-img" alt="...">
+                            </div> 
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
+                                    {{lang === 'en' ? card.name_en : card.name_ar }}                                
+                                </h5>
+                                
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span class="location">
+                                        <img src="../../../../assets/images/noun_Location_1911856@2x.png"
+                                            alt="..." />
+                                        {{lang === 'en' ? card.area_en : card.area_ar}}
+                                        <!-- New Alamien -->
+                                    </span>
 
-                                <!-- <span class="date">
-                                    <img src="../../../../assets/images/date.png"
-                                        alt="..." />
+                                    <!-- <span class="date">
+                                        <img src="../../../../assets/images/date.png"
+                                            alt="..." />
 
-                                        {{ 'blog.start_date' | translate }}   
-                                        {{card.created_at}}
-                                </span> -->
+                                            {{ 'blog.start_date' | translate }}   
+                                            {{card.created_at}}
+                                    </span> -->
+                                </div>
+
+                                
+                                <!-- <div class="row card-foot">
+                                    <div class="col">
+                                        <img src="../../../../assets/images/Calendar copy.png" alt="..." />
+                                        Start Date: {{card.created_at}}
+                                    </div>
+                                    <div class="col">
+                                        <img src="../../../../assets/images/Show.png" alt="..."/>
+                                        {{card.views}} View
+                                    </div>
+                                </div> -->
                             </div>
-
-                            
-                            <!-- <div class="row card-foot">
-                                <div class="col">
-                                    <img src="../../../../assets/images/Calendar copy.png" alt="..." />
-                                    Start Date: {{card.created_at}}
-                                </div>
-                                <div class="col">
-                                    <img src="../../../../assets/images/Show.png" alt="..."/>
-                                    {{card.views}} View
-                                </div>
-                            </div> -->
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -605,7 +608,7 @@
                             <div class="mt-3 card-container">
                                 <div (click)="clickTopSearchedArea(0)" class="card">
                                     <span class="icons">
-                                        <img src="{{ top_searched_areas[0]['img'] }}" class="card-img-top"
+                                        <img style="border-radius: 20px;" src="{{ top_searched_areas[0]['img'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -620,7 +623,7 @@
                             <div class="mt-3 card-container">
                                 <div (click)="clickTopSearchedArea(1)" class="card">
                                     <span class="icons">
-                                        <img src="{{ top_searched_areas[1]['img'] }}" class="card-img-top"
+                                        <img style="border-radius: 20px;" src="{{ top_searched_areas[1]['img'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -637,7 +640,7 @@
                             <div class="mt-3 card-container">
                                 <div (click)="clickTopSearchedArea(2)" class="card">
                                     <span class="icons">
-                                        <img src="{{ top_searched_areas[2]['img'] }}" class="card-img-top"
+                                        <img style="border-radius: 20px;" src="{{ top_searched_areas[2]['img'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -652,7 +655,7 @@
                             <div class="mt-3 card-container">
                                 <div (click)="clickTopSearchedArea(3)" class="card">
                                     <span class="icons">
-                                        <img src="{{ top_searched_areas[3]['img'] }}" class="card-img-top"
+                                        <img style="border-radius: 20px;" src="{{ top_searched_areas[3]['img'] }}" class="card-img-top"
                                             alt="...">
         
                                     </span>
@@ -686,14 +689,14 @@
             </div>
         </div>
 
-        <!-- Top Searched Areas-->
+        <!-- Share Your Quests -->
         <div class="share-your-quests">
             <div class="justify-content-center">
                 <div class="col-xs-12">
-                    <div class="col-sm-10 justify-content-center container">
-                        <!-- <img src="../../../../assets/images/share_your_quests.png" alt="..." />   -->
-                        
-                        <div class="section-head-center quest">
+                    <div class="col-sm-10 container">                        
+                        <div class="quest_image">  </div>
+
+                        <div class="quest">
                             <h2>
                                 <span class="top"></span>
                                 {{'home.share_your_quests' | translate}}
@@ -869,7 +872,7 @@
                     {{'home.Our Blog.title' | translate}}
                     <span></span>
                 </h2>
-                <p class="description" style="padding: 0px 10px;">
+                <p class="description" style="padding: 0px 10px; display: none;">
                     {{'home.Our Blog.description1' | translate}},<br>{{'home.Our Blog.description2' |
                     translate}},<br>{{'home.Our Blog.description3' | translate}}
                 </p>

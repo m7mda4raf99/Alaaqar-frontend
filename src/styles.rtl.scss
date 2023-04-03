@@ -41,7 +41,7 @@
                 }
             }
         }
-        .justify-content-center,.container-fluid {
+        .justify-content-center, &.container-fluid {
             padding: 0 !important;
             margin: 0 !important;
         }
@@ -215,6 +215,15 @@
             }
         }
     } 
+
+    .app-header__signup.add-property{
+        background: #FD4965 !important;
+        color: white !important;
+
+        &:hover{
+            background: #e58d9b !important;
+        }
+    }
     // .ng-trigger-stepTransition {
     //     &.active  {
     //         transform: translateX(-88px) !important;
@@ -425,5 +434,9 @@
 
     .home .first-sec .main-home .search-section .search-button{
         border-radius: 25px 0px 0px 25px !important;
+    }
+
+    .dropdown-list ul li {
+        text-align: right;
     }
 }

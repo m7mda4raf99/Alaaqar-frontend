@@ -109,7 +109,7 @@
         "Area":"المنطقة",
         "Neighborhood":"الحي",
         "Location": "الموقع",
-        "Compound": "مُجَمَّع",
+        "Compound": "كمبوند",
         "Real estate type":"نوع العقار",
         "Propose": "عرض",
         "Price range":"متوسط السعر",
@@ -539,6 +539,9 @@
     "space":"المساحة",
     "egypt":"مصر",
     "saudi":"السعودية",
-    "coming_soon":"قريباً"
+    "coming_soon":"قريباً",
+    "how it works": "كيف يعمل",
+    "electronic advisor": "مستشار الكتروني",
+    "mobile app": "تطبيق جوال"
 
 }

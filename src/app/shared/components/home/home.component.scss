@@ -30,7 +30,7 @@
             justify-content: center;
 
             @media (max-width: 450px) {
-                margin-top: -240px;
+                margin-top: -285px;
                 height: 360px;
             }
             
@@ -90,8 +90,8 @@
 
             .other-options{
                 width: 100%;
-                padding: 30px 0px;
-                background: white;
+                padding: 60px 0 30px 0px;
+                background: linear-gradient(transparent 0%, #c8c8c8 35%, white 50%);
                 position: absolute;
                 bottom: 0px; 
                 display: flex;
@@ -99,16 +99,24 @@
                 align-items: center;
 
                 @media (max-width: 450px) {
-                    padding: 10px 0px;
+                    padding: 30px 0 5px 0px;
+                    background: linear-gradient(transparent 0%, #c8c8c8 30% ,white 50%);
                 }
 
                 .each-option{
                     display: flex; 
                     align-items: center; 
                     cursor: pointer;
+                    border-radius: 20px;
+                    padding: 25px;
+
+                    &:hover{
+                        background: #FD4965;
+                    }
 
                     @media (max-width: 450px) {
                         flex-direction: column;
+                        padding: 0px;
                     }
 
                     .image-options{
@@ -125,11 +133,19 @@
                         color: #184d47;
                         display: flex;
                         flex-direction: column;
+                        width: 67%;
 
                         @media (max-width: 450px) {
                             font-size: 15px;
                             align-items: center;
                             text-align: center;
+
+                            width: 90%;
+
+                            &.app{
+                                width: 100%;
+                            }
+
                         }
 
                         img{
@@ -406,7 +422,7 @@
             background-size: contain;
             @media (max-width: 450px) {
                 background-size: cover;
-                min-height: 240px;
+                min-height: 300px;
                 filter: brightness(0.6);
             }
             .overlay {
@@ -1697,7 +1713,8 @@
                     color: #FD4965;
                 }
 
-                box-shadow: 8px 3px 30px;
+                box-shadow: 0px 0px 30px #184d47;
+                transition: 0.3s;
                 // .overlay {
                 //     background: transparent linear-gradient(180deg, #2b696242 0%, #327064bf 100%) 0% 0% no-repeat
                 //         padding-box;
@@ -1986,13 +2003,16 @@
                 .card-body{
                     position: absolute;
                     bottom: 10px;
+                    background: linear-gradient(0deg, #184d47, transparent);
+                    border-radius: 10px;
 
                     @media (max-width: 450px) {
-                        padding-bottom: 0px;
+                        padding: 10px;
                     }
 
                     .card-title{
                         color: white;
+                        margin: 0px;
 
                         @media (max-width: 450px) {
                             font-size: 15px;
@@ -2032,7 +2052,7 @@
                         color: #FD4965;
                     }
     
-                    box-shadow: 8px 3px 30px;
+                    box-shadow: 0px 0px 30px #184d47;
                     transition: 0.3s;
                 }
             }
@@ -2052,9 +2072,12 @@
         .container{
             display: flex;
             margin: auto !important;
-            padding: 0;
-            background: rgb(255, 255, 255, 0.2) url("../../../../assets/images/share_your_quests.png") 0% 0% padding-box;
+            // padding: 0;
+            // background: rgb(255, 255, 255, 0.2) url("../../../../assets/images/share_your_quests.png") 0% 0% padding-box;
             border-radius: 25px;
+            border: 4px solid #184d47;
+            padding: 30px 20px;
+            background: white;
 
             img{
                 width: 100%;
@@ -2069,28 +2092,55 @@
                 border-radius: 10px;
             }
 
+            .quest_image{
+                background: rgb(255, 255, 255, 0.2) url("../../../../assets/images/share_quest.png") 0% 0% padding-box;
+                width: 25%;
+                background-size: cover;
+                margin: 0px 20px;
+
+                @media (max-width: 450px) {
+                    width: initial;
+                    height: 170px;
+                }
+                
+            }
+
             .quest{
                 // position: absolute;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                padding: 20px;
+                align-items: flex-start;
+                padding: 0px 35px;
                 justify-content: space-between;
                 height: 100%;
+                text-align: center;
+                width: 70%;
 
                 @media (max-width: 450px) {
+                    align-items: center;
                     padding: 0px;
+                    width: 100%;
+                }
+
+                h2{
+                    color: #184d47;
+
+                    @media (max-width: 450px) {
+                        padding: 20px 0px 10px 0px;
+                    }
                 }
 
                 .description{
-                    padding: 20px;
-                    width: 70%;
+                    padding: 20px 0px;
+                    font-size: 20px;
                     margin: 0px;
                     display: inline-block;
+                    text-align: start;
 
                     @media (max-width: 450px) {
                         width: 100%;
-                        padding: 20px 0px;
+                        padding: 10px 0 20px 0px;
+                        text-align: center;
                     }
                 }
             }
@@ -2098,7 +2148,8 @@
 
             @media (max-width: 450px) {
                 display: block;
-                padding: var(--bs-gutter-x, .75rem);;
+                padding: var(--bs-gutter-x, .75rem);
+                flex-direction: column;
             }
         }
         
@@ -2178,7 +2229,6 @@
                         // max-height: 35px;
                     }
 
-                    
                 }
     
                 &:hover {
@@ -2186,7 +2236,7 @@
                         color: #FD4965;
                     }
     
-                    box-shadow: 8px 3px 30px;
+                    box-shadow: 0px 0px 30px #184d47;
                     transition: 0.3s;
                 }
             }
@@ -2400,7 +2450,7 @@
                     color: #FD4965;
                 }
 
-                box-shadow: 8px 3px 30px;
+                box-shadow: 0px 0px 30px #184d47;
                 transition: 0.3s;
             }
 
@@ -2455,7 +2505,7 @@
 
     .top-projects{
         padding: 50px 135px;
-        background-color: #f7f7f7;
+        background: linear-gradient(180deg, white 0%, #f7f7f7 10%);
 
         @media (max-width: 450px) {
             padding: 25px 0px;
@@ -2483,7 +2533,7 @@
                     color: #FD4965;
                 }
 
-                box-shadow: 8px 3px 30px;
+                box-shadow: 0px 0px 30px #184d47;
                 transition: 0.3s;
             }
 

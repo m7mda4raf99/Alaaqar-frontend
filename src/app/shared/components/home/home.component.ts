@@ -173,10 +173,10 @@ export class HomeComponent implements OnInit {
 
   
   top_searched_areas = [
-    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.png', 'area_id': 7},
-    { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.png', 'area_id': 9},
-    { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/new_cairo.png', 'area_id': 4},
-    { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.png', 'area_id': 11}
+    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.jpg', 'area_id': 7},
+    { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.jpg', 'area_id': 9},
+    { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/newcairo.png', 'area_id': 4},
+    { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.jpg', 'area_id': 11}
   ]
 
   top_projects = [
@@ -394,7 +394,7 @@ export class HomeComponent implements OnInit {
       hint: this.selectedSearchQuery
     }
 
-    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+    this.router.navigate(['/search-result'], { queryParams: { activeTab: this.activeTab, search_query: JSON.stringify(this.search_bar_model) } })
   }
 
   async ngOnInit() {
@@ -512,7 +512,7 @@ export class HomeComponent implements OnInit {
 
     if(this.searchQuery !== ""){
       let data={
-        query : this.searchQuery  
+        query : this.searchQuery,
       }  
     
       this.response=  await this.apiService.getsearch(data)
@@ -573,7 +573,7 @@ export class HomeComponent implements OnInit {
       }
 
       if(this.activeTab === 'commercial'){
-        this.search_model.type = [14, 15, 16, 17, 18, 19]
+        this.search_bar_model.type = [14, 15, 16, 17, 18, 19]
       }
 
       // Compounds
@@ -598,7 +598,9 @@ export class HomeComponent implements OnInit {
   
       }
 
-      this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_bar_model) } })
+      console.log("this.search_bar_model: ", this.search_bar_model)
+
+      this.router.navigate(['/search-result'], { queryParams: { activeTab: this.activeTab, search_query: JSON.stringify(this.search_bar_model) } })
   
     }else{
       this.search_model = {
@@ -617,6 +619,9 @@ export class HomeComponent implements OnInit {
         this.search_model.type = [14, 15, 16, 17, 18, 19]
       }
 
+      console.log("this.search_model: ", this.search_model)
+
+
       this.search()
       
     }
@@ -626,6 +631,9 @@ export class HomeComponent implements OnInit {
     // do something with selected item
     this.searchQuery = item['name']
     this.selectedSearchQuery = this.searchQuery
+
+    this.searchKeyword()
+
   }
 
   async searchKeyword(){
@@ -633,7 +641,7 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    this.router.navigate(['/search-result'], { queryParams: { search_query: JSON.stringify(this.search_model) } })
+    this.router.navigate(['/search-result'], { queryParams: { activeTab: this.activeTab, search_query: JSON.stringify(this.search_model) } })
   }
 
   print(data:any){
@@ -2432,7 +2440,7 @@ async onItemSelectRealNeW(item: any){
   }
 
   navigateToSingleProject(item: any){
-    this.router.navigate(['single-project'], { queryParams: { id: item.id } })
+    // this.router.navigate(['single-project'], { queryParams: { id: item.id } })
   }
 
   navigateToSingleDeveloper(item: number){

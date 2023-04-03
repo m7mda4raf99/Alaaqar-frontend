@@ -57,6 +57,12 @@ h2 {
     @media (min-width: 375px) {
         min-width: fit-content;
     }
+
+    .ng-dropdown-panel-items .ng-option{
+        display: flex !important;
+        padding: 5px;
+        justify-content: center;
+    }
 }
 
 .modal {
@@ -71,7 +77,7 @@ h2 {
         height: 35px;
         border-radius: 10px !important;
         padding: 10px;
-        border: 1px solid #c9cbce !important;
+        // border: 1px solid #c9cbce !important;
         // min-height: 55px !important;
         width: 100% !important;
     }
@@ -791,6 +797,14 @@ nz-progress {
     display: block !important;
 }
 
+.ng-select .ng-select-container .ng-value-container{
+    padding: 5px !important;
+}
+
+.autocomplete-container .suggestions-container ul li:hover{
+    border-radius: 25px!important;
+}
+
 .iti__country-name {
     display: none;
 }
@@ -969,6 +983,11 @@ li{
 }
 a{
     text-decoration: none !important;
+    color: initial !important;
+
+    &:hover{
+        color: initial !important;
+    }
 }
 
 @media (max-width:1169px){
@@ -1267,14 +1286,14 @@ span.dropdown-multiselect--active{
     justify-content: space-between !important;
     align-items: center !important;
 
-    @media (max-width:450px) {
-        border: 1px solid #d9d3d3;
-        border-radius: 10px;    
+    // @media (max-width:450px) {
+    //     border: 1px solid #d9d3d3;
+    //     border-radius: 10px;    
 
-        span.ng-star-inserted{
-            // width: 100%;
-        }
-    }
+    //     span.ng-star-inserted{
+    //         // width: 100%;
+    //     }
+    // }
 }
 
 .selected-list .countplaceholder {
@@ -1529,8 +1548,19 @@ nav{
     display: none !important;
 }
 
-.search-filters .clear-all{
-    display: none !important;
+.search-filters{
+ 
+    .list-area {
+        width: 100% !important;
+        
+        @media (max-width: 450px) {
+            width: 50% !important;
+        }
+        
+    }
+    .clear-all{
+        display: none !important;
+    }
 }
 
 .add-project .clear-all{
@@ -1619,3 +1649,8 @@ nav{
 .angular-editor .angular-editor-wrapper .angular-editor-textarea{
     height: 150px !important;
 }
+
+.dropdown-list ul li {
+    text-align: left;
+}
+
