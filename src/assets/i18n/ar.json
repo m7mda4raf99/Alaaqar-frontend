@@ -18,7 +18,9 @@
             "Favorites": "المفضلة",
             "logout":"تسجيل الخروج",
             "logout message":"هل تريد حقا تسجيل الخروج؟ سوف تفقد جميع التغييرات الغير محفوظة."
-        }
+        },
+        "Select Country": "أختر بلدك"
+
     },
      "Profile": {
         "Edit profile": "تعديل الملف الشخصي",
@@ -147,6 +149,9 @@
             "description1": "اقرأ مقالات عن سوق العقارات",
             "description2": "بالإضافة إلى النصائح حول شراء وبيع وتأجير الشقق والمنازل",
             "description3": "أو العقارات التجارية"
+        },
+        "Top projects": {
+            "title": "أهم المشاريع"
         },
         "howItWorks":{
             "Its the easiest way to buy sell":"إنها أسهل طريقة لشراء أو بيع أو تأجير وحدة",
@@ -396,6 +401,7 @@
         "Assign to evaluator":"إرسال الي المقييم",
         "Request a visit":"اطلب زيارة",
         "EGP":"جنيه",
+        "SAR": "ريال",
         "From": "تبدأ من",
         "Max Price": "إلى",
         "results match your choices by":"بناءً على الأولويات المحددة ، ستطابق نتائجك اختياراتك بنسبة ",
@@ -488,6 +494,7 @@
         "button": "أضف",
         "upload_unit_photos": "ارفع صور الوحدة",
         "upload_unit_masterplan": "ارفع المخططات الرئيسية للوحدة",
+        "no developers": "لم يتم العثور على مطورين.",
         "no description": "لم يتم العثور على وصف.",
         "no projects": "لم يتم العثور على مشاريع.",
         "no units": "لم يتم العثور على وحدات.",

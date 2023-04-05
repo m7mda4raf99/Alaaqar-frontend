@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { AppServiceService } from 'src/app/services/app-service.service';
@@ -39,7 +39,11 @@ export class AddProjectComponent {
 
   sub1 = new Subscription()
 
+  subCountry = new Subscription()
+	country_id: any
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     private appServiceService: AppServiceService,
     private appService: ApiService,
     private spinner: NgxSpinnerService,
@@ -62,6 +66,10 @@ export class AddProjectComponent {
         this.config.placeholder = "اكتب وصفا موجزا لمشروعك."
       }
     })
+
+    // this.subCountry = this.appServiceService.country_id$.subscribe((res:any) =>{
+    //   this.country_id = res
+    // })
 
   }
 
@@ -323,7 +331,13 @@ export class AddProjectComponent {
 
     this.setMultiSelection()
 
-    this.locations = await this.apiService.getCitiesAreas();
+    this.country_id = Number(this.activatedRoute.snapshot.queryParams['country_id'])
+
+    let data = {
+      country_id: this.country_id
+    }
+
+    this.locations = await this.apiService.getCitiesAreas(data);
     this.locations = this.locations.data
     
     this.putCity(true)
@@ -481,7 +495,8 @@ export class AddProjectComponent {
         'img': this.logoURL,
         'masterplan': this.masterplanURL,
         'area_id': this.selectedItemArea[0].id,
-        'project_images': this.photosURLs
+        'project_images': this.photosURLs,
+        'country_id': this.country_id
       }
 
       this.spinner.show()
@@ -602,22 +617,119 @@ export class AddProjectComponent {
   }
 
   fileEventPhotos(e: any) {
-    this.spinner.show()
-
+    // this.spinner.show()
 
     for (var i = 0; i < e.target.files.length; i++) {
       let reader = new FileReader();
 
-      this.filedataPhotos.push(e.target.files[i])
-          
-      reader.onload = (e: any) => {
-          let img = reader.result
-          this.photosURLs.push({"image": img})
-      }
-      reader.readAsDataURL(e.target.files[i]);
-    }
+      let file = e.target.files[i]
 
-    this.spinner.hide()
+      this.filedataPhotos.push(file)
+
+      // Compress the file using a canvas element
+      let img: HTMLImageElement | any = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        let canvas: HTMLCanvasElement | null = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const maxWidth = 800;
+        const maxHeight = 800;
+        let width = img.width;
+        let height = img.height;
+
+        // Scale the image down if it's too large
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Draw the compressed image onto the canvas
+        ctx?.drawImage(img, 0, 0, width, height);
+
+      
+    //   reader.readAsDataURL(e.target.files[i]);
+        canvas.toBlob((blob) => {
+            if (blob) {
+              // Read the Blob object as a data URL and add it to the imagesToUpload array
+              const reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onload = (e: any) => {
+                const base64data = reader.result?.toString();
+                // console.log("reader result: ", reader.result)
+                this.photosURLs.push(
+                  {
+                    'image': base64data,
+                  }
+                )
+                console.log(this.photosURLs)
+                
+              }
+            }
+          }, 'image/jpeg', 0.7);
+          
+        canvas = null  
+      }
+
+      // img = null
+
+      // reader.readAsDataURL(file);
+      }
+
+      // this.spinner.hide()
+  }
+
+  compress(file: any) {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const maxWidth = 800;
+      const maxHeight = 800;
+      let width = img.width;
+      let height = img.height;
+
+      // Scale the image down if it's too large
+      if (width > maxWidth || height > maxHeight) {
+        const ratio = Math.min(maxWidth / width, maxHeight / height);
+        width *= ratio;
+        height *= ratio;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      // Draw the compressed image onto the canvas
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      // Convert the compressed image to a Blob object
+      canvas.toBlob((blob) => {
+        if (blob) {
+          // Read the Blob object as a data URL and add it to the imagesToUpload array
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onload = (e: any) => {
+            const base64data = reader.result?.toString();
+            // console.log("reader result: ", reader.result)
+            this.photosURLs.push(
+              {
+                'image': base64data,
+              }
+            )
+
+            return base64data
+            
+          }
+        }
+      }, 'image/jpeg', 0.7); // Adjust the quality here (0.7 = 70% quality)
+    };
+
+    
+    return '';
   }
 
 }

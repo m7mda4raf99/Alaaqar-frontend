@@ -17,6 +17,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class QuestComponent {
   @ViewChild('alert') alert: any;
 
+  subCountry = new Subscription()
+	country_id: any
+
   constructor(
     public appService: AppServiceService,
     private spinner: NgxSpinnerService,
@@ -33,6 +36,24 @@ export class QuestComponent {
       this.putCity(false)
       this.getNewArea(false)
     })
+
+    this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
+      this.country_id = res
+
+      this.spinner.show()
+
+      let data = {
+        country_id: this.country_id
+      }
+      
+      this.locations = await this.apiService.getCitiesAreas(data);
+      this.locations = this.locations.data
+  
+      this.putCity(true)
+  
+      this.spinner.hide()
+
+    })
   }
 
   sub1 = new Subscription()
@@ -41,13 +62,17 @@ export class QuestComponent {
 
   async ngOnInit() {
     this.setMultiSelection()
+
+    // let data = {
+    //   country_id: this.country_id
+    // }
     
-    this.locations = await this.apiService.getAllGeographicalLocations();
-    this.locations = this.locations.data
+    // this.locations = await this.apiService.getCitiesAreas(data);
+    // this.locations = this.locations.data
 
-    this.putCity(true)
+    // this.putCity(true)
 
-    this.spinner.hide()
+    // this.spinner.hide()
   }
 
 
@@ -208,6 +233,8 @@ export class QuestComponent {
   }
 
   onChangeCity() {
+    this.selectedItemArea = []
+
     this.getNewArea(true)
   }
 
@@ -319,7 +346,8 @@ export class QuestComponent {
         area: this.selectedItemArea.length > 0 ? this.selectedItemArea[0].name_en : "",
         compound: this.compound,
         min: this.min_price,
-        max: this.max_price
+        max: this.max_price,
+        country_id: this.country_id
       }
 
       console.log(data)

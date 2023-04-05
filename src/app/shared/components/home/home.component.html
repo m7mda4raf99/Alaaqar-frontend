@@ -1,4 +1,4 @@
-<div *ngIf="selected_country != 'saudi'" class="container-fluid home">
+<div class="container-fluid home">
     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
     </ngx-spinner>
@@ -48,37 +48,33 @@
             <div class="other-options">
 
                 <div class="each-option" (click)="scroll(how_it_works)">
-                    <img class="image-options" src="../../assets/images/how_it_works.png" alt="...">
+                    <div class="image-container how-it-works-img"><img class="image-options" src="../../assets/images/how_it_worksT.png" alt="..."></div>
                     <div class="text-options"> {{ 'how it works' | translate }} </div>
                 </div>
 
                 <div class="separators" > </div>
 
                 <div class="each-option" (click)="tryItNow()">
-                    <img class="image-options" src="../../assets/images/advisor.png" alt="...">
+                    <div class="image-container advisor-img"><img class="image-options" src="../../assets/images/advisorT.png" alt="..."></div>
                     <div class="text-options">  {{ 'electronic advisor' | translate }} </div>
                 </div>
 
                 <div class="separators" > </div>
                 
                 <div class="each-option" (click)="scroll(download_app)">
-                    <img class="image-options" src="../../assets/images/mobile.png" alt="...">
+                    <div class="image-container app-img"><img class="image-options" src="../../assets/images/appT.png" alt="..."></div>
                     <div class="text-options app"> 
 
-                        <img *ngIf="lang === 'ar'" src="../../assets/images/logo_header_arabic.png" />
-                        <img *ngIf="lang != 'ar'" src="../../assets/images/logo_header.png" />
-           
-                        {{ 'mobile app' | translate }}
+                        <div class="logoAR" *ngIf="lang === 'ar'"> </div>
 
-                        <div style="    display: flex;
-                        padding: 5px 5px;
-                        color: white;
-                        align-content: center;
-                        justify-content: center;
-                        background: #184d47;
-                        border-radius: 5px;
-                        font-size: 9px;
-                        width: fit-content;">
+                        <div class="logoEN" *ngIf="lang != 'ar'"> </div>
+
+                        <!-- <img *ngIf="lang === 'ar'" src="../../assets/images/logo_header_arabic.png" />
+                        <img *ngIf="lang != 'ar'" src="../../assets/images/logo_header.png" /> -->
+           
+                        <div> {{ 'mobile app' | translate }} </div>
+
+                        <div class="coming">
                             
                         {{'footer.coming_soon' | translate}}
                             <!-- {{'header.Add property' | translate}} -->
@@ -289,7 +285,7 @@
         </div>
 
         <!-- Top Projects -->
-        <div class="top-projects">
+        <div *ngIf="top_projects && top_projects.length > 0" class="top-projects">
             <div class="section-head-center">
                 <h2>
                     <span class="top"></span>
@@ -301,7 +297,7 @@
 
             <div class="section-body">
                 <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of top_projects">
-                    <a routerLink='/single-project' [queryParams]="{id: card.id}">
+                    <a routerLink='/single-project' [queryParams]="{id: card?.id}">
                         <div class="card" (click)="navigateToSingleProject(card)">
                             <div style="position: relative;">
                                 <span class="overlay"></span>
@@ -398,10 +394,12 @@
                                                         </h6>
                                                         
                                                         <h5 class="card-title">
-                                                            {{'propertyDetails.EGP' | translate}}
                                                             <!-- <br> -->
                                                             {{ numberWithCommas(item['price'])}}
+
+                                                            {{ getCurrency() }}
                                                         </h5>
+
                                                         
                                                         <div class="space-between">
                                                             <span class="location" >
@@ -457,7 +455,7 @@
         </div>
 
         <!-- Top Developers-->
-        <div class="top-developers">
+        <div *ngIf="top_developers && top_developers.length > 0" class="top-developers">
             <div class="section-head-center">
                 <h2>
                     <span class="top"></span>
@@ -471,85 +469,21 @@
             <div class="justify-content-center">
                 <div class="col-xs-12">
                     <div class="col-sm-10 justify-content-center container">
-                        <div style="display: flex; width: 100%;">
-                            <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleDeveloper(0)">
-                                    <span class="icons">
-                                        <img src="{{ top_developers[0]['image'] }}" class="card-img-top"
-                                            alt="...">
-        
-                                    </span>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            {{lang === 'en' ? top_developers[0]['name_en'] : top_developers[0]['name_ar'] }}
-                                        </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleDeveloper(1)">
-                                    <span class="icons">
-                                        <img src="{{ top_developers[1]['image'] }}" class="card-img-top"
-                                            alt="...">
-        
-                                    </span>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            {{lang === 'en' ? top_developers[1]['name_en'] : top_developers[1]['name_ar'] }}
-                                        </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: flex; width: 100%;">
-                            <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleDeveloper(2)">
-                                    <span class="icons">
-                                        <img src="{{ top_developers[2]['image'] }}" class="card-img-top"
-                                            alt="...">
-        
-                                    </span>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            {{lang === 'en' ? top_developers[2]['name_en'] : top_developers[2]['name_ar'] }}
-                                        </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-3 card-container">
-                                <div class="card" (click)="navigateToSingleDeveloper(3)">
-                                    <span class="icons">
-                                        <img src="{{ top_developers[3]['image'] }}" class="card-img-top"
-                                            alt="...">
-        
-                                    </span>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            {{lang === 'en' ? top_developers[3]['name_en'] : top_developers[3]['name_ar'] }}
-                                        </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                        <!-- <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
-                            <div class="card">
+                        <div *ngFor="let developer of top_developers" class="mt-3 card-container">
+                            <div (click)="navigateToSingleDeveloper(developer)" class="card">
                                 <span class="icons">
-                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
+                                    <img style="border-radius: 20px;" src="{{ developer['image'] }}" class="card-img-top"
+                                        alt="...">
     
                                 </span>
                                 <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Complete your deal' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.with the lowest' | translate}}
-                                        <br> {{'home.howItWorks.cost & effort' | translate}}
-                                    </p>
+                                    <h5 class="card-title">
+                                        {{lang === 'en' ? developer['name_en'] : developer['name_ar'] }}
+                                    </h5>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
+
                     </div>
     
                 </div>
@@ -590,7 +524,7 @@
         </div>
 
         <!-- Top Searched Areas-->
-        <div class="top-searched-areas">
+        <div *ngIf="top_searched_areas && top_searched_areas.length > 0" class="top-searched-areas">
             <div class="section-head-center">
                 <h2>
                     <span class="top"></span>
@@ -604,7 +538,22 @@
             <div class="justify-content-center">
                 <div class="col-xs-12">
                     <div class="col-sm-10 justify-content-center container">
-                        <div style="display: flex; width: 100%;">
+                        <div *ngFor="let area of top_searched_areas" class="mt-3 card-container">
+                            <div (click)="clickTopSearchedArea(area)" class="card">
+                                <span class="icons">
+                                    <img style="border-radius: 20px;" src="{{ area['img'] }}" class="card-img-top"
+                                        alt="...">
+    
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{lang === 'en' ? area['name_en'] : area['name_ar'] }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div style="display: flex; width: 100%;">
                             <div class="mt-3 card-container">
                                 <div (click)="clickTopSearchedArea(0)" class="card">
                                     <span class="icons">
@@ -616,7 +565,6 @@
                                         <h5 class="card-title">
                                             {{lang === 'en' ? top_searched_areas[0]['name_en'] : top_searched_areas[0]['name_ar'] }}
                                         </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -631,7 +579,6 @@
                                         <h5 class="card-title">
                                             {{lang === 'en' ? top_searched_areas[1]['name_en'] : top_searched_areas[1]['name_ar'] }}
                                         </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -648,7 +595,6 @@
                                         <h5 class="card-title">
                                             {{lang === 'en' ? top_searched_areas[2]['name_en'] : top_searched_areas[2]['name_ar'] }}
                                         </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -663,26 +609,11 @@
                                         <h5 class="card-title">
                                             {{lang === 'en' ? top_searched_areas[3]['name_en'] : top_searched_areas[3]['name_ar'] }}
                                         </h5>
-                                        <!-- <p class="card-text">{{'home.howItWorks.matched property' | translate}}</p> -->
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                       
-                        <!-- <div class="col-xs-12 col-lg-6 col-xl-3 mt-3">
-                            <div class="card">
-                                <span class="icons">
-                                    <img src="../../../../assets/images/Path 781.png" class="card-img-top" alt="...">
-    
-                                </span>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{'home.howItWorks.Complete your deal' | translate}}</h5>
-                                    <p class="card-text">{{'home.howItWorks.with the lowest' | translate}}
-                                        <br> {{'home.howItWorks.cost & effort' | translate}}
-                                    </p>
-                                </div>
-                            </div>
                         </div> -->
+                       
                     </div>
     
                 </div>
@@ -770,9 +701,14 @@
                                                         </h6>
                                                         
                                                         <h5 class="card-title">
-                                                            {{'propertyDetails.EGP' | translate}}
+                                                            
                                                             <!-- <br> -->
                                                             {{ numberWithCommas(item['price'])}}
+
+                                                            <span *ngIf="country_id === 1"> {{'propertyDetails.EGP' | translate}} </span>
+
+                                                            <span *ngIf="country_id === 2"> {{'propertyDetails.SAR' | translate}} </span>
+
                                                         </h5>
                                                         
                                                         <div class="space-between">
@@ -1335,7 +1271,7 @@
     </div>
 </div>
 
-<div *ngIf="selected_country == 'saudi'" class="coming-soon">
+<!-- <div *ngIf="country_id === 2" class="coming-soon">
     <img src="../../assets/images/logo_header.png"/>
     <h1>{{'coming_soon' | translate}}</h1>
-</div>
+</div> -->

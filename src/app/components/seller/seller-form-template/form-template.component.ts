@@ -371,6 +371,140 @@ export class SellFormTemplateComponent implements OnInit {
     else { return 'upload' }
   }
 
+  // fileEventInitial(e: any){
+  //   this.requiredRealImages = true
+
+  //   let key = 'Initial'
+
+  //   if (!this.myFilesPreview[key] && !this.myFilesPreview[key]?.length) {
+  //     this.myFilesPreview[key] = []
+  //   }
+
+  //   for (var i = 0; i < e.target.files.length; i++) {
+  //     let reader = new FileReader();
+  //     let file = e.target.files[0]
+
+  //     reader.onload = (e: any) => {
+  //       // console.log("reader result: ", reader.result)
+  //       this.myFilesPreview[key].push(
+  //         {
+  //           'img': reader.result,
+  //           'tag': 'Initial',
+  //           'file': file
+  //         }
+  //       )
+        
+  //     }
+  //     reader.readAsDataURL(e.target.files[i]);
+      
+  //   }
+  //   this.file.nativeElement.value = ''
+  //   // console.log("myFilesPreview: ", this.myFilesPreview)
+  // }
+
+  // fileEvent(e: any, key: any) {
+  //   if (!this.myFiles[key] && !this.myFiles[key]?.length) {
+  //     this.myFiles[key] = []
+  //     this.myFilesPreview[key] = []
+  //   }
+
+  //   if(!this.imagesToUpload[key] && !this.imagesToUpload[key]?.length){
+  //     this.imagesToUpload[key] = []
+  //   }
+    
+  //   for (var i = 0; i < e.target.files.length; i++) {
+  //     let fileIsExist = this.myFiles[key].filter((val: any) => val.name === e.target.files[i].name)
+  //     if (fileIsExist.length === 0) {
+  //       this.myFiles[key].push(e.target.files[i]);
+  //       let reader = new FileReader();
+  //       reader.onload = (e: any) => {
+  //         // console.log("reader result: ", reader.result)
+  //         this.myFilesPreview[key].push(reader.result)
+  //         this.imagesToUpload[key].push(reader.result)
+  //         this.allImages.push({
+  //           'img': reader.result,
+  //           'key': key,
+  //           'index': this.imagesToUpload[key].length - 1
+  //         })
+  //       }
+  //       reader.readAsDataURL(e.target.files[i]);
+  //     }
+  //   }
+  //   this.file.nativeElement.value = ''
+  // }
+
+
+  fileEvent(e: any, key: any) {
+
+    // Initialize the arrays if they don't exist
+    if (!this.myFiles[key] && !this.myFiles[key]?.length) {
+      this.myFiles[key] = []
+      this.myFilesPreview[key] = []
+    }
+  
+    if(!this.imagesToUpload[key] && !this.imagesToUpload[key]?.length){
+      this.imagesToUpload[key] = []
+    }
+  
+    // Loop through each selected file
+    for (var i = 0; i < e.target.files.length; i++) {
+  
+      // Check if the file already exists in the array
+      let fileIsExist = this.myFiles[key].filter((val: any) => val.name === e.target.files[i].name);
+      if (fileIsExist.length === 0) {
+  
+        // Compress the file using a canvas element
+        const img = new Image();
+        img.src = URL.createObjectURL(e.target.files[i]);
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const maxWidth = 800;
+          const maxHeight = 800;
+          let width = img.width;
+          let height = img.height;
+  
+          // Scale the image down if it's too large
+          if (width > maxWidth || height > maxHeight) {
+            const ratio = Math.min(maxWidth / width, maxHeight / height);
+            width *= ratio;
+            height *= ratio;
+          }
+  
+          canvas.width = width;
+          canvas.height = height;
+  
+          // Draw the compressed image onto the canvas
+          ctx?.drawImage(img, 0, 0, width, height);
+  
+          // Convert the compressed image to a Blob object
+          canvas.toBlob((blob) => {
+            if (blob) {
+              // Read the Blob object as a data URL and add it to the imagesToUpload array
+              const reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onloadend = () => {
+                const base64data = reader.result?.toString();
+                if (base64data) {
+                  this.myFiles[key].push(e.target.files[i]);
+                  this.myFilesPreview[key].push(base64data);
+                  this.imagesToUpload[key].push(base64data);
+                  this.allImages.push({
+                    'img': base64data,
+                    'key': key,
+                    'index': this.imagesToUpload[key].length - 1
+                  });
+                }
+              };
+            }
+          }, 'image/jpeg', 0.7); // Adjust the quality here (0.7 = 70% quality)
+        };
+      }
+    }
+    // Clear the file input
+  this.file.nativeElement.value = ''
+  } 
+
   fileEventInitial(e: any){
     this.requiredRealImages = true
 
@@ -381,57 +515,73 @@ export class SellFormTemplateComponent implements OnInit {
     }
 
     for (var i = 0; i < e.target.files.length; i++) {
-      let reader = new FileReader();
-      let file = e.target.files[0]
+      // let reader = new FileReader();
+       let file = e.target.files[0]
 
-      reader.onload = (e: any) => {
-        // console.log("reader result: ", reader.result)
-        this.myFilesPreview[key].push(
-          {
-            'img': reader.result,
-            'tag': 'Initial',
-            'file': file
-          }
-        )
-        
-      }
-      reader.readAsDataURL(e.target.files[i]);
+      // Compress the file using a canvas element
+      const img = new Image();
+      img.src = URL.createObjectURL(e.target.files[i]);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const maxWidth = 800;
+        const maxHeight = 800;
+        let width = img.width;
+        let height = img.height;
+
+        // Scale the image down if it's too large
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Draw the compressed image onto the canvas
+        ctx?.drawImage(img, 0, 0, width, height);
+
+      
+    //   reader.readAsDataURL(e.target.files[i]);
+        canvas.toBlob((blob) => {
+            if (blob) {
+              // Read the Blob object as a data URL and add it to the imagesToUpload array
+              const reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onload = (e: any) => {
+                const base64data = reader.result?.toString();
+                // console.log("reader result: ", reader.result)
+                this.myFilesPreview[key].push(
+                  {
+                    'img': base64data,
+                    'tag': 'Initial',
+                    'file': file
+                  }
+                )
+                
+              }
+              // reader.onloadend = () => {
+              //   const base64data = reader.result?.toString();
+              //   if (base64data) {
+              //     this.myFiles[key].push(e.target.files[i]);
+              //     this.myFilesPreview[key].push(base64data);
+              //     this.imagesToUpload[key].push(base64data);
+              //     this.allImages.push({
+              //       'img': base64data,
+              //       'tag': 'Initial',
+              //       'file': file
+              //     });
+              //   }
+              // };
+            }
+          }, 'image/jpeg', 0.7);
       
     }
     this.file.nativeElement.value = ''
     // console.log("myFilesPreview: ", this.myFilesPreview)
   }
-
-  fileEvent(e: any, key: any) {
-    if (!this.myFiles[key] && !this.myFiles[key]?.length) {
-      this.myFiles[key] = []
-      this.myFilesPreview[key] = []
-    }
-
-    if(!this.imagesToUpload[key] && !this.imagesToUpload[key]?.length){
-      this.imagesToUpload[key] = []
-    }
-    
-    for (var i = 0; i < e.target.files.length; i++) {
-      let fileIsExist = this.myFiles[key].filter((val: any) => val.name === e.target.files[i].name)
-      if (fileIsExist.length === 0) {
-        this.myFiles[key].push(e.target.files[i]);
-        let reader = new FileReader();
-        reader.onload = (e: any) => {
-          // console.log("reader result: ", reader.result)
-          this.myFilesPreview[key].push(reader.result)
-          this.imagesToUpload[key].push(reader.result)
-          this.allImages.push({
-            'img': reader.result,
-            'key': key,
-            'index': this.imagesToUpload[key].length - 1
-          })
-        }
-        reader.readAsDataURL(e.target.files[i]);
-      }
-    }
-    this.file.nativeElement.value = ''
-  }
+}
 
   deleteImgInitial(index: any) {
     let key = 'Initial'

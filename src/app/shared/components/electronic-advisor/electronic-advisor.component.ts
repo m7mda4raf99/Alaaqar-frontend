@@ -20,6 +20,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class ElectronicAdvisorComponent {
   util = util
 
+  subCountry = new Subscription()
+	country_id: any
+
   constructor(
     private activeRouter: ActivatedRoute,
     private cookieService: CookieService,
@@ -57,6 +60,17 @@ export class ElectronicAdvisorComponent {
             // 1
             this.sub = this.appServiceService.priorityOne$.subscribe(val => this.formData = val)
         }
+      })
+
+      this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
+        this.country_id = res
+
+        this.spinner.show()
+
+        await this.getCity(true)
+
+        this.spinner.hide()
+
       })
   }
 
@@ -216,10 +230,12 @@ export class ElectronicAdvisorComponent {
   async getCity(isChanged: boolean){
     if(isChanged){
       this.selectedItemCity = []
+      this.selectedItemArea = []
 
       let data = {
         xd: 2,
-        tab: 'buy'
+        tab: 'buy',
+        country_id: this.country_id
       }
       
       this.dropdownListCity=await this.apiService.getCity(data);
@@ -516,6 +532,7 @@ export class ElectronicAdvisorComponent {
       min_price: '',
       max_price: '',
       city_id: '',
+      country_id: '',
       areas: [],
       locations: [],
       neighborhoods: [],
@@ -524,10 +541,11 @@ export class ElectronicAdvisorComponent {
       options: []
     }
 
+    obj.country_id = this.country_id
     obj.city_id = this.selectedItemCity[0].id
     obj.areas = [this.selectedItemArea[0].id]
-    obj.min_price = 13465
-    obj.max_price = 40000000
+    obj.min_price = Number(this.min_price)
+    obj.max_price = Number(this.max_price)
     obj.propose = "2"
 
     let formValues = this.prioritiesService?.prioriesForm.value
@@ -573,7 +591,7 @@ export class ElectronicAdvisorComponent {
 
   async addInquiry(inquiryData: any) {
     if (inquiryData.max_price === '') {inquiryData.max_price = 0}
-    // console.log(inquiryData)
+    console.log(inquiryData)
     let inquiry = await this.apiService.addInquiry(inquiryData)
     if (inquiry === false) {
       return false
@@ -641,8 +659,8 @@ export class ElectronicAdvisorComponent {
 
     data.selectedCountryId = this.selectedItemCity[0].id
     data.selectedArea = [this.selectedItemArea[0].id]
-    data.priceMinRange = this.min_price
-    data.priceMaxRange = this.max_price
+    data.priceMinRange = Number(this.min_price)
+    data.priceMaxRange = Number(this.max_price)
     data.propose = "2"
 
     this.spinner.show()

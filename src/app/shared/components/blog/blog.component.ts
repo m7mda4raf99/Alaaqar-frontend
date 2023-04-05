@@ -17,9 +17,12 @@ export class BlogComponent implements OnInit {
   BaseURL = environment.baseUrl
   blogs: any[] = []
   loadMore: Boolean = false
-  limit: number = 0
+  limit: number = 20
   sub1 = new Subscription()
   lang: string = ''
+
+  subCountry = new Subscription()
+  country_id: any
 
   constructor(
     private router: Router,
@@ -31,14 +34,30 @@ export class BlogComponent implements OnInit {
       this.sub1 = this.appServiceService.lang$.subscribe(val => {
         this.lang = val
       })
+
+      this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
+        this.country_id = res
+  
+        this.spinner.show()
+
+
+        console.log('this.country_id: ', this.country_id)
+
+        await this.getHomeBlogs()
+
+        this.spinner.hide()
+
+  
+      })
+
      }
   ngOnInit(): void {
     this.titleService.setTitle('Blogs | Buy Apartment Mountain View | Buy and Rent North Coast');
     this.metaService.addTags([
       {name: 'description', content: "This is the simplest way to purchase, sell or lease commercial or residential properties. We've developed a custom algorithm, as well as skilled, professional agents."},
     ]);
-    this.spinner.show();
-    this.getHomeBlogs()
+    // this.spinner.show();
+    // this.getHomeBlogs()
 
   }
 
@@ -50,16 +69,24 @@ export class BlogComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  getHomeBlogs() {
-    let bodyData = {
+  async getHomeBlogs() {
+    let data = {
       sort: 'orderByDesc',
       offset: this.blogs.length ? this.blogs.length : 0,
-      limit: this.limit
+      limit: this.limit,
+      country_id: this.country_id
     }
-    this.apiService.getBlogs(bodyData).subscribe(data => {
-      this.spinner.hide();
-      return this.blogs = data.data
-    })
+    // this.apiService.getBlogs(bodyData).subscribe(data => {
+    //   this.spinner.hide();
+    //   return this.blogs = data.data
+    // })
+
+    let response = await this.apiService.getNewBlogs(data)
+
+    this.blogs = response.data
+
+    console.log('this.blogs: ', this.blogs)
+
   }
   subString(str: any) {
     let cleanText = str.replace(/<\/?[^>]+(>|$)/g, "");

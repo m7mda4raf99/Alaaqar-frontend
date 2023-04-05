@@ -234,19 +234,19 @@
                     <li class="responsive" style="padding: 5px 0px;" >
                         <ng-select [items]="cities3"
                             bindLabel="name"
-                            bindValue="name"
+                            bindValue="id"
                             placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
-                            [(ngModel)]="selectedCityName"
-                            (change)="transform_country(selectedCityName); expand_collapse($event)" 
+                            [(ngModel)]="selectedCountry" [searchable]="false"
+                            (change)="transform_country(selectedCountry); expand_collapse($event)" 
                             style="border: none ! important; width: 100% !important">
-                    
+
                             <ng-template ng-label-tmp let-item="item">
-                                <img height="20" width="30"  [src]="item.avatar"/>
-                                <b>{{item.name|translate}}</b> 
-                                </ng-template>
-                                <ng-template ng-option-tmp let-item="item" let-index="index">
-                                <img height="15" width="15" [src]="item.avatar"/>
-                                <b>{{item.name|translate}}</b>
+                                <img style="border-radius: 5px;" height="22.5" width="30"  [src]="item.avatar"/>
+                                <b style="padding: 0px 5px;"> {{item.name|translate}} </b>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                                <img style="border-radius: 5px;" height="22.5" width="30" [src]="item.avatar"/>
+                                <b style="padding: 0px 5px;"> {{item.name|translate}} </b>
                             </ng-template>
                 
                         </ng-select>
@@ -323,7 +323,7 @@
         </div>
         <div class="app-header__user" >
             
-            <div class="app-header__mini" style="position: relative; display: flex;">
+            <div *ngIf="isLoggedIn || isLoggedInDeveloper" class="app-header__mini" style="position: relative; display: flex;">
                 <span class="icon" (click)="navigateToNotifications();isMenuCollapsed = true" style="margin: 0px 5px; display: flex; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18.5" height="21.503" viewBox="0 0 18.5 21.503">
                         <g id="Iconly_Light_Notification" data-name="Iconly/Light/Notification"
@@ -551,22 +551,22 @@
 
                 <ng-select [items]="cities3"
                     bindLabel="name"
-                    bindValue="name"
+                    bindValue="id"
                     placeholder="{{ activeLang.title == 'AR' ? 'أختر الدولة' : 'Select country' }} "
-                    [(ngModel)]="selectedCityName"
-                    (change)="transform_country(selectedCityName)" style="border: none ! important;">
+                    [(ngModel)]="selectedCountry" [searchable]="false"
+                    (change)="transform_country(selectedCountry)" style="border: none ! important;">
             
                     <ng-template ng-label-tmp let-item="item">
                         <img style="border-radius: 5px;" height="20" width="30"  [src]="item.avatar"/>
-                        <!-- <b>{{item.name|translate}}</b>  -->
                     </ng-template>
                     <ng-template ng-option-tmp let-item="item" let-index="index">
                         <img style="border-radius: 5px;" height="20" width="30" [src]="item.avatar"/>
-                        <!-- <b>{{item.name|translate}}</b> -->
                     </ng-template>
         
                 </ng-select>
     
+              
+
             </div>
         <!-- </div> -->
 
@@ -589,6 +589,23 @@
     </ng-template>
 
 </div>
+
+
+<ng-template #CountryPop >
+    <div class="country-popup">
+        <h2> {{'header.Select Country' | translate}} </h2>
+        <div class="country-list">
+          <div class="country-item egypt" (click)="selectCountry(1)" >
+            <img style="width: auto;height: 85px;" src="../../../../assets/images/egypt_logo.png"/>
+            <span>Egypt</span>
+          </div>
+          <div class="country-item" (click)="selectCountry(2)">
+            <img style="width: auto;height: 85px;"  src="../../assets/images/saudi.png"/>
+            <span>Saudi Arabia</span>
+          </div>
+        </div>
+      </div>
+</ng-template>
 
 <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light main-header white-bg custom-padding">
     <div class="container-fluid custom-nav">

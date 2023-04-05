@@ -111,7 +111,42 @@
                     padding: 25px;
 
                     &:hover{
-                        background: #FD4965;
+                        // background: #FD4965;
+
+                        .image-container.how-it-works-img{
+                                background: #FD4965;
+                        }
+
+                        .image-container.advisor-img{
+                            background: #FD4965;
+                        }
+
+                        .image-container.app-img{
+                            background: #FD4965;
+                        }
+                        
+
+                        .text-options{
+                            color: #FD4965;
+                            
+                            .coming{
+                                background: #FD4965;
+                            }
+
+                            .logoAR{
+                                background: url('../../../../assets/images/logo_header_arabic_pink.png');
+                                height: 25px;
+                                background-size: contain;
+                            }
+    
+                            .logoEN{
+                                background: url('../../../../assets/images/logo_header_pink.png');
+                                height: 25px;
+                                background-size: contain;
+                            }
+
+                        }
+                        
                     }
 
                     @media (max-width: 450px) {
@@ -119,6 +154,32 @@
                         padding: 0px;
                     }
 
+                    .image-container{
+                        background: #184d47;
+                        border-radius: 50%;
+
+                        &.how-it-works-img{
+                            width: 60px;
+                            @media (max-width: 450px) {
+                                width: 45px;
+                            }
+                        }
+
+                        &.advisor-img{
+                            width: 60px;
+                            @media (max-width: 450px) {
+                                width: 45px;
+                            }
+                        }
+
+                        &.app-img{
+                            width: 60px;
+                            @media (max-width: 450px) {
+                                width: 45px;
+                            }
+                        }
+                        
+                    }
                     .image-options{
                         width: 60px;
 
@@ -155,6 +216,30 @@
                             @media (max-width: 450px) {
                                 display: none; 
                             }
+                        }
+
+                        .logoAR{
+                            background: url('../../../../assets/images/logo_header_arabic.png');
+                            height: 25px;
+                            background-size: contain;
+                        }
+
+                        .logoEN{
+                            background: url('../../../../assets/images/logo_header.png');
+                            height: 25px;
+                            background-size: contain;
+                        }
+
+                        .coming{
+                            display: flex;
+                            padding: 5px 5px;
+                            color: white;
+                            align-content: center;
+                            justify-content: center;
+                            background: #184d47;
+                            border-radius: 5px;
+                            font-size: 9px;
+                            width: fit-content;
                         }
                     }
                 }
@@ -1972,18 +2057,20 @@
             display: flex;
             margin: auto !important;
             padding: 0;
+            flex-wrap: wrap;
 
             @media (max-width: 450px) {
-                display: block;
+                // display: block;
                 padding: var(--bs-gutter-x, .75rem);;
             }
 
             .card-container{
                 margin: 0% 2%;
-                width: 100%;
+                width: 21%;
+
 
                 @media (max-width: 450px) {
-                    width: auto;
+                    width: 45%;
                 }
             }
 
@@ -2168,16 +2255,21 @@
             display: flex;
             margin: auto !important;
             padding: 0px;
+            flex-wrap: wrap;
+
 
             @media (max-width: 450px) {
-                display: block;
+                // display: block;
                 padding: var(--bs-gutter-x, .75rem);;
             }
 
             .card-container{
                 margin: 0% 2%;
-                width: 100%;
+                width: 21%;
 
+                @media (max-width: 450px) {
+                    width: 45%;
+                }
             }
 
             .card {
@@ -2192,7 +2284,7 @@
                 cursor: pointer;
 
                 @media (max-width: 450px) {
-                    height: fit-content;
+                    height: 100%;
                 }
 
                 .card-body{

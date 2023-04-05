@@ -184,9 +184,10 @@
                             </h6>
 
                             <h5 class="card-title">
-                                {{'propertyDetails.EGP' | translate}}
                                 <!-- <br> -->
                                 {{ numberWithCommas(item['price'])}}
+
+                                {{ getCurrency() }}
                             </h5>
                             
                             <div class="space-between">

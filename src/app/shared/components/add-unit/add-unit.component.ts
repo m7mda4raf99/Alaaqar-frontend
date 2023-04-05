@@ -38,6 +38,9 @@ export class AddUnitComponent {
   filedataMasterplan: any = []
   filedataPhotos: any = []
 
+  subCountry = new Subscription()
+	country_id: any
+
   constructor(
     public modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
@@ -88,6 +91,9 @@ export class AddUnitComponent {
       this.sub4 = this.appServiceService.uploads$.subscribe(val => this.attachments = val)
       this.sellerForm = this.prioritiesService.sellerForm
 
+      // this.subCountry = this.appServiceService.country_id$.subscribe((res:any) =>{
+      //   this.country_id = res
+      // })
   }
 
   project: any = { 
@@ -450,7 +456,13 @@ export class AddUnitComponent {
 
     this.setMultiSelection()
 
-    this.locations = await this.apiService.getAllGeographicalLocations();
+    this.country_id = Number(this.activatedRoute.snapshot.queryParams['country_id'])
+
+    let data = {
+      country_id: this.country_id
+    }
+
+    this.locations = await this.apiService.getAllGeographicalLocations(data);
     this.locations = this.locations.data
     
     this.putCity(true)
@@ -1830,7 +1842,8 @@ export class AddUnitComponent {
         images: images_array,
         options: this.search_model['options'],
         developer_id: JSON.parse(this.developer)['id'],
-        project_id: Number(this.params['project_id'])
+        project_id: Number(this.params['project_id']),
+        country_id: this.country_id
       }
 
       // console.log("obj: ", unitData)
@@ -1840,7 +1853,7 @@ export class AddUnitComponent {
       // const addUnitRes = false
       this.spinner.hide()
 
-      // console.log('addUnitRes: ', addUnitRes)
+      console.log('addUnitRes: ', addUnitRes)
 
       if (addUnitRes === false) {
         this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))

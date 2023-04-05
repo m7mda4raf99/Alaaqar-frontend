@@ -11,7 +11,7 @@ export class AppServiceService {
   isLoggedIn$ = new BehaviorSubject<boolean>(false)
   isLoggedInDeveloper$ = new BehaviorSubject<boolean>(false)
   propertyDetails$ = new BehaviorSubject<any>(<any>({}));
-  selected_country$ = new BehaviorSubject<string>('egypt')
+  country_id$ = new BehaviorSubject<number>(1)
 
   // Buyer 
   priorityOne$ = new BehaviorSubject<any>(<any>({}));

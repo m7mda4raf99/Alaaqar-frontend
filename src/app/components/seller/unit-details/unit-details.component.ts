@@ -416,6 +416,15 @@ export class UnitDetailsComponent implements OnInit {
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  
+  getCurrency(){
+    if(this.propertyDetails['country_id'] === 1){
+      return this.translateService.instant('propertyDetails.EGP')
+    }else{
+      return this.translateService.instant('propertyDetails.SAR')
+    }
+  }
+
   navigateToMyUnits() {
     this.modalService.dismissAll()
     this.router.navigate(['/units'])

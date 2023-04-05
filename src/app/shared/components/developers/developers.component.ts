@@ -18,6 +18,9 @@ export class DevelopersComponent {
   sub1 = new Subscription()
   lang: string = ''
 
+  subCountry = new Subscription()
+	country_id: any
+
   constructor(
     private appServiceService: AppServiceService,
     private appService: ApiService,
@@ -29,6 +32,25 @@ export class DevelopersComponent {
     ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
+    })
+
+    this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
+      this.country_id = res
+
+      this.spinner.show()
+    
+      let data = {
+        "offset": 0,
+        country_id: this.country_id
+      }
+
+      let response = await this.appService.getDevelopers(data)
+
+      this.developers = response.data['developers']
+
+      this.developers_count = response.data['developers_count']
+
+      this.spinner.hide()
     })
 
   }
@@ -59,19 +81,20 @@ export class DevelopersComponent {
   async ngOnInit() {
     this.isLoggedInDeveloper()
 
-    this.spinner.show()
+    // this.spinner.show()
     
-    let data = {
-      "offset": 0
-    }
+    // let data = {
+    //   "offset": 0,
+    //   country_id: this.country_id
+    // }
 
-    let response = await this.appService.getDevelopers(data)
+    // let response = await this.appService.getDevelopers(data)
 
-    this.developers = response.data['developers']
+    // this.developers = response.data['developers']
 
-    this.developers_count = response.data['developers_count']
+    // this.developers_count = response.data['developers_count']
 
-    this.spinner.hide()
+    // this.spinner.hide()
   }
 
   async onPageChange(pageNumber: number, div: any) {

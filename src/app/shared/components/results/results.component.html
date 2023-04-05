@@ -4,7 +4,7 @@
     </ngx-spinner>
     <div class="row justify-content-center" style="margin: 0;">
         <div class="col-xs-12 col-md-10 main-row">
-            <div class="result-head row">
+            <div #head class="result-head row">
                 <div class="row result-head">
                     <div class="col-sm-6 col-lg-10">
                         <p class="float-start">
@@ -27,7 +27,7 @@
                         translate }} </span>/ {{'Results.sub.Results' | translate }}</p>
             </div>
             <div class="row mt-3 results" *ngIf="results.length > 0">
-                <div *ngFor="let item of results" class="col-xs-12 col-sm-6 col-xl-4">
+                <div *ngFor="let item of results | paginate: { itemsPerPage: limit, currentPage: page,totalItems: unit_counts }" class="col-xs-12 col-sm-6 col-xl-4">
                     <div class="card mb-3">
                         <div class="row g-0 card-content">
                             <div class="col-12" style="position: relative;">
@@ -104,11 +104,13 @@
                     </div>
 
                 </div>
-            </div>
             
-            {{ print(results) }}
-            {{ print(isLoading) }}
+            
+                </div>
 
+                <pagination-controls style="width: 100%;" (pageChange)="onPageChange($event); scroll(head)" [(ngModel)]="page" ></pagination-controls>
+
+            </div>
             <div *ngIf="results.length == 0 && isLoading">
                 <div class="no-data">
                     <div class="no-data__icon">
@@ -132,19 +134,5 @@
                     
                 </div>
             </div>
-            
-            <div class="row justify-content-center" *ngIf="results.length && results.length > 5">
-                <button class="btn button-success more" (click)="showMore()">
-                    <span *ngIf="!loadMore">{{'button.actions.More' | translate}}</span>
-                    <span *ngIf="loadMore">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span>
-                        Loading...
-                    </span>
-                </button>
-
-            </div>
-
-        
-        </div>
     </div>
 </div>

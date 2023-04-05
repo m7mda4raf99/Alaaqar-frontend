@@ -179,8 +179,8 @@ export class ApiService {
     return await this.SyncClient(`${this.BaseURL}/api/image_tags`, 'GET')
   }
 
-  public async getTopHome(): Promise<any> {
-    return await this.SyncClient(`${this.BaseURL}/api/getTopHome`, 'GET')
+  public async getTopHome(data: any): Promise<any> {
+    return await this.SyncClient(`${this.BaseURL}/api/getTopHome`, 'GET', data, null)
   }
 
   public async addUnit(data: any): Promise<any> {
@@ -292,6 +292,9 @@ export class ApiService {
   public getBlogs(data: any = {}) {
     return this.AsyncClient(`${this.BaseURL}api/blogs`, 'POST' , null, data)
   }
+  public getNewBlogs(data: any) {
+    return this.SyncClient(`${this.BaseURL}api/getBlogs`, 'GET', data, null)
+  }
   public getHowItWorks() {
     return this.AsyncClient(`${this.BaseURL}api/content/how_it_works`, 'GET')
   }
@@ -373,12 +376,12 @@ export class ApiService {
     return this.SyncClient(`${this.BaseURL}api/checkoccurrence`, 'POST', null, data)
   }
 
-  public getAllGeographicalLocations(): Promise<any> {
-    return this.SyncClient(`${this.BaseURL}api/newGeographical`, 'GET')
+  public getAllGeographicalLocations(data: any): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/newGeographical`, 'GET', data, null)
   }
 
-  public getCitiesAreas(): Promise<any> {
-    return this.SyncClient(`${this.BaseURL}api/getCitiesAreas`, 'GET')
+  public getCitiesAreas(data: any): Promise<any> {
+    return this.SyncClient(`${this.BaseURL}api/getCitiesAreas`, 'GET', data, null)
   }
 
   public getDevelopers(data: any): Promise<any> {

@@ -37,6 +37,13 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
   @ViewChild('alert') alert: any;
+  @ViewChild('CountryPop') CountryPop: any;
+
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: false,
+    fullscreen: true
+  };
 
   faExclamationCircle = faExclamationCircle
   faChevronDown = faChevronDown
@@ -63,12 +70,14 @@ export class HomeComponent implements OnInit {
 
   video_variable: any
 
-  selected_country:any
+  selected_country: number = 1
   selectedAreaObj: any = []
 
   lang: string = ''
   BaseURL = environment.baseUrl
   sub1 = new Subscription()
+  subCountry = new Subscription()
+  country_id: any
   sub2 = new Subscription()
   activeTab: string = 'buy'
   countries: any = []
@@ -144,6 +153,7 @@ export class HomeComponent implements OnInit {
   selectedSearchQuery: any;
   response: any; 
   search_bar_model: any = {
+    country_id: null,
     cities: [],
     areas: [],
     locations: [],
@@ -172,24 +182,24 @@ export class HomeComponent implements OnInit {
 
 
   
-  top_searched_areas = [
-    { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.jpg', 'area_id': 7},
-    { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.jpg', 'area_id': 9},
-    { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/newcairo.png', 'area_id': 4},
-    { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.jpg', 'area_id': 11}
+  top_searched_areas: any = [
+    // { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.jpg', 'area_id': 7},
+    // { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.jpg', 'area_id': 9},
+    // { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/newcairo.png', 'area_id': 4},
+    // { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.jpg', 'area_id': 11}
   ]
 
-  top_projects = [
-    { 'id': 1,'name_en': 'Palm Hills New Cairo', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/palm_hills_project.jpg', 'developer_img': '../../../../assets/images/palm_hills.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
-    { 'id': 2,'name_en': 'Belle Vie', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/emaar_project.png', 'developer_img': '../../../../assets/images/emaar_misr.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
-    { 'id': 3,'name_en': 'Sodic East', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/sodic_project.png', 'developer_img': '../../../../assets/images/sodic.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
+  top_projects: any = [
+    // { 'id': 1,'name_en': 'Palm Hills New Cairo', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/palm_hills_project.jpg', 'developer_img': '../../../../assets/images/palm_hills.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
+    // { 'id': 2,'name_en': 'Belle Vie', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/emaar_project.png', 'developer_img': '../../../../assets/images/emaar_misr.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
+    // { 'id': 3,'name_en': 'Sodic East', 'name_ar': 'العاصمة الجديدة', 'image': '../../../../assets/images/sodic_project.png', 'developer_img': '../../../../assets/images/sodic.png', 'area_en': 'New Cairo', 'area_ar': 'القاهرة الجديدة'},
   ]
 
   top_developers: any = [
-    { 'id': 1, 'name_en': 'Palm Hills', 'name_ar': 'بالم هيلز', 'image': '../../../../assets/images/palm_hills.png'},
-    { 'id': 2, 'name_en': 'Emaar Misr', 'name_ar': 'اعمار مصر', 'image': '../../../../assets/images/emaar_misr.png'},
-    { 'id': 3, 'name_en': 'Orascom', 'name_ar': 'أوراسكوم', 'image': '../../../../assets/images/orascom.png'},
-    { 'id': 4, 'name_en': 'Sodic', 'name_ar': 'سوديك', 'image': '../../../../assets/images/sodic.png'}
+    // { 'id': 1, 'name_en': 'Palm Hills', 'name_ar': 'بالم هيلز', 'image': '../../../../assets/images/palm_hills.png'},
+    // { 'id': 2, 'name_en': 'Emaar Misr', 'name_ar': 'اعمار مصر', 'image': '../../../../assets/images/emaar_misr.png'},
+    // { 'id': 3, 'name_en': 'Orascom', 'name_ar': 'أوراسكوم', 'image': '../../../../assets/images/orascom.png'},
+    // { 'id': 4, 'name_en': 'Sodic', 'name_ar': 'سوديك', 'image': '../../../../assets/images/sodic.png'}
   ]
 
   buyImages = [
@@ -264,21 +274,7 @@ export class HomeComponent implements OnInit {
       this.getAreaLocations(false)
       this.getCompound(false)
 
-      if(this.lang === 'en'){
-        this.autoComplete = [
-          { id: 1, name: 'Cairo' },
-          { id: 2, name: 'Al Giza' },
-          { id: 3, name: 'Alexandria' },
-          { id: 4, name: 'Al Suez' }
-        ]
-      }else{
-        this.autoComplete = [
-          { id: 1, name: 'القاهرة' },
-          { id: 2, name: 'الجيزة' },
-          { id: 3, name: 'الاسكندريه' },
-          { id: 4, name: 'السويس' }
-        ]
-      }
+      this.putAutoComplete()
 
       // this.getTypes()
       if (val.toUpperCase() === 'AR') {
@@ -306,6 +302,23 @@ export class HomeComponent implements OnInit {
       }
 
       this.setAutocompletePlaceholder()
+
+    })
+
+    this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
+      this.country_id = res
+
+      this.putAutoComplete()
+      this.putTopSearchedAreas()
+
+      this.spinner.show()
+
+      await this.getTopHome()
+      await this.getRecentlyAdded()
+
+      this.spinner.hide()
+
+      this.getHomeBlogs()
 
     })
 
@@ -354,7 +367,7 @@ export class HomeComponent implements OnInit {
   clickTopSearchedArea(area: any){
     let city_id: any
 
-    switch(this.top_searched_areas[area]['area_id']){
+    switch(area['area_id']){
       case 4:
         city_id = 1
         break;
@@ -367,23 +380,15 @@ export class HomeComponent implements OnInit {
       case 11:
           city_id = 5
           break;
+      case 25:
+          city_id = 30
     }
 
-    this.search_model = {
-      cities: [1],
-      areas: [],
-      locations: [],
-      neighborhoods: [],
-      compounds: [],
-      type: [],
-      min_price: null,
-      max_price: null,
-      propose: 'buy'
-    }
 
     this.search_bar_model = {
+      country_id: this.country_id,
       cities: [city_id],
-      areas: [this.top_searched_areas[area]['area_id']],
+      areas: [area['area_id']],
       locations: [],
       neighborhoods: [],
       compounds: [],
@@ -401,11 +406,7 @@ export class HomeComponent implements OnInit {
     this.isLoggedInDeveloper()
     
     const box=document.getElementById('home')
-    
-     this.appServiceService.selected_country$.subscribe((res:any) =>{
-      this.selected_country = res
-    })
-    
+  
     
     this.titleService.setTitle('Alaaqar | Property Finder Online  | Buy And Sell Property In Egypt');
     
@@ -419,7 +420,7 @@ export class HomeComponent implements OnInit {
       this.quickSearchMargin = '20px'
     }
     
-    this.spinner.show()
+    // this.spinner.show()
     
     // await this.setPrice()
     // await this.getNewArea()
@@ -431,17 +432,18 @@ export class HomeComponent implements OnInit {
     // await this.setupUnitTypesCount()
     // await this.setupMinPrice()
 
-    await this.getTopHome()
+    // await this.getTopHome()
 
-    this.spinner.hide()
+    // this.spinner.hide()
 
-    if (!this.recentlyAdded.length) {
-      await this.getRecentlyAdded()
-    }
+    // if (!this.recentlyAdded.length) {
+    //   await this.getRecentlyAdded()
+    // }
+    
     this.getHomeAboutSectionData()
     this.getFooterContact()
     this.getAboutUsHome()
-    this.getHomeBlogs()
+    // this.getHomeBlogs()
     this.resetFormData()
 
     this.chat()
@@ -466,13 +468,17 @@ export class HomeComponent implements OnInit {
   }
 
   async getTopHome(){
-    let response = await this.apiService.getTopHome()
+    let data = {
+      country_id: this.country_id
+    }
+
+    let response = await this.apiService.getTopHome(data)
 
     this.top_developers = response.data['developers']
 
     this.top_projects = response.data['projects']
 
-    // this.recentlyAdded = response.data['units']
+    this.recentlyAdded = response.data['units']
 
     console.log("getTopHome: ", response)
   }
@@ -513,6 +519,7 @@ export class HomeComponent implements OnInit {
     if(this.searchQuery !== ""){
       let data={
         query : this.searchQuery,
+        country_id: this.country_id
       }  
     
       this.response=  await this.apiService.getsearch(data)
@@ -552,7 +559,8 @@ export class HomeComponent implements OnInit {
 
     if(this.selectedSearchQuery){
       let data={
-        query : this.selectedSearchQuery  
+        query : this.selectedSearchQuery,
+        country_id: this.country_id
       }  
       
       this.spinner.show()
@@ -560,6 +568,7 @@ export class HomeComponent implements OnInit {
       this.response=  await this.apiService.getsearch(data)
       
       this.search_bar_model = {
+        country_id: this.country_id,
         cities: [],
         areas: [],
         locations: [],
@@ -598,12 +607,15 @@ export class HomeComponent implements OnInit {
   
       }
 
+      this.search_bar_model.country_id = this.country_id
+
       console.log("this.search_bar_model: ", this.search_bar_model)
 
       this.router.navigate(['/search-result'], { queryParams: { activeTab: this.activeTab, search_query: JSON.stringify(this.search_bar_model) } })
   
     }else{
       this.search_model = {
+        country_id: this.country_id,
         cities: [],
         areas: [],
         locations: [],
@@ -1326,16 +1338,16 @@ export class HomeComponent implements OnInit {
     })
   }
   
-  getHomeBlogs() {
-    let params = {
-      'limit': 3,
-      'offset': 0
+  async getHomeBlogs() {
+    let data = {
+      limit: 3,
+      offset: 0,
+      country_id: this.country_id
     }
-    this.apiService.getBlogs(params).subscribe(data => {
-      console.log("blogs: ", data.data)
 
-      return this.blogs = data.data
-    })
+    let response = await this.apiService.getNewBlogs(data)
+
+    this.blogs = response.data
   }
   
   getFooterContact() {
@@ -1354,11 +1366,12 @@ export class HomeComponent implements OnInit {
     let headers = {
       'offset': '0',
       'limit': '3',
+      country_id: this.country_id
     }
     let recentlyAdded = await this.apiService.getRecentlyAdded(headers)
     this.recentlyAdded = recentlyAdded.data
 
-    console.log("this.recentlyAdded: ", this.recentlyAdded)
+    // console.log("this.recentlyAdded: ", this.recentlyAdded)
 
     return true
   }
@@ -1369,6 +1382,14 @@ export class HomeComponent implements OnInit {
   
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
+  getCurrency(){
+    if(this.country_id === 1){
+      return this.translateService.instant('propertyDetails.EGP')
+    }else{
+      return this.translateService.instant('propertyDetails.SAR')
+    }
   }
 
   async getCity(isChanged: boolean){
@@ -1760,6 +1781,7 @@ export class HomeComponent implements OnInit {
   }
 
   search_model: any = {
+    country_id: null,
     cities: [],
     areas: [],
     locations: [],
@@ -2192,14 +2214,25 @@ export class HomeComponent implements OnInit {
      }
   ];
 
+  putTopSearchedAreas(){
+    if(this.country_id === 1){
+      this.top_searched_areas = [
+        { 'name_en': 'New Capital', 'name_ar': 'العاصمة الجديدة', 'img': '../../../../assets/images/new_capital.jpg', 'area_id': 7},
+        { 'name_en': 'Sheikh Zayed', 'name_ar': 'الشيخ زايد', 'img': '../../../../assets/images/shaikh_zayed.jpg', 'area_id': 9},
+        { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/newcairo.png', 'area_id': 4},
+        { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.jpg', 'area_id': 11}
+      ]
+    }else{
+      this.top_searched_areas = [
+        { 'name_en': 'Riyadh', 'name_ar': 'الرياض', 'img': '../../../../assets/images/riyadh.jpg', 'area_id': 25},
+      ]
+    }
+  }
 
-  async onChangeSearch(val: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
+  putAutoComplete(){
+    this.autoComplete = []
 
-    this.selectedSearchQuery = val
-
-    if(val === ''){
+    if(this.country_id === 1){
       if(this.lang === 'en'){
         this.autoComplete = [
           { id: 1, name: 'Cairo' },
@@ -2215,6 +2248,27 @@ export class HomeComponent implements OnInit {
           { id: 4, name: 'السويس' }
         ]
       }
+    }else{
+      if(this.lang === 'en'){
+        this.autoComplete = [
+          { id: 1, name: 'Riyadh' }
+        ]
+      }else{
+        this.autoComplete = [
+          { id: 1, name: 'الرياض' }
+        ]
+      }
+    }
+  }
+
+  async onChangeSearch(val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+
+    this.selectedSearchQuery = val
+
+    if(val === ''){
+      this.putAutoComplete()
     }
 
     else{
@@ -2443,9 +2497,13 @@ async onItemSelectRealNeW(item: any){
     // this.router.navigate(['single-project'], { queryParams: { id: item.id } })
   }
 
-  navigateToSingleDeveloper(item: number){
-    this.router.navigate(['single-developer'], { queryParams: { id: this.top_developers[item].id } })
+  navigateToSingleDeveloper(developer: any){
+    this.router.navigate(['single-developer'], { queryParams: { id: developer.id } })
   }
+
+
+
+  
 
 }
 
