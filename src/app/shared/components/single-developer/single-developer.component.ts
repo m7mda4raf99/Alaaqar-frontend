@@ -199,6 +199,6 @@ export class SingleDeveloperComponent {
   }
 
   addProject(){
-    this.router.navigate(['/add-project'])
+    this.router.navigate(['/add-project'], { queryParams: { country_id: this.developer['country_id'] } })
   }
 }

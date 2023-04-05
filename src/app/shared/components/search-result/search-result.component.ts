@@ -29,6 +29,9 @@ export class SearchResultComponent implements OnInit {
   @ViewChild('apply') apply!: ElementRef
   @ViewChild('dropdownMenuButton1') dropdownMenuButton1!: ElementRef
 
+  subCountry = new Subscription()
+	country_id: any
+
   faFilter = faFilter
   faChevronDown = faChevronDown
   faChevronUp = faChevronUp
@@ -101,25 +104,25 @@ export class SearchResultComponent implements OnInit {
     private translateService: TranslateService,
     private activatedRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,) {
-      this.sub = this.appService.lang$.subscribe(async val => {
-        this.activeCity = val
-        // this.getCity(false)
+    this.sub = this.appService.lang$.subscribe(async val => {
+      this.activeCity = val
+      // this.getCity(false)
 
 
-        // this.getNeig(false)
-        // this.getAreaLocations(false)
-        // this.getCompound(false)
-        if (val.toUpperCase() === 'AR') {
-          this.defaultSelectedArea = 'اختار المنطقة'
-          this.defaultSelectedNeighborhood = "اختار الحي"
-          this.defaultSelectedRealEstateType = 'اختار نوع العقار'
-        } else {
-          this.defaultSelectedArea = 'Select Area'
-          this.defaultSelectedNeighborhood = 'Select Neighborhood'
-          this.defaultSelectedRealEstateType = 'Select Type'
-        }
+      // this.getNeig(false)
+      // this.getAreaLocations(false)
+      // this.getCompound(false)
+      if (val.toUpperCase() === 'AR') {
+        this.defaultSelectedArea = 'اختار المنطقة'
+        this.defaultSelectedNeighborhood = "اختار الحي"
+        this.defaultSelectedRealEstateType = 'اختار نوع العقار'
+      } else {
+        this.defaultSelectedArea = 'Select Area'
+        this.defaultSelectedNeighborhood = 'Select Neighborhood'
+        this.defaultSelectedRealEstateType = 'Select Type'
       }
-      )
+    }
+    )
 
     this.sub2 = this.appService.lang$.subscribe(val => {
       this.activeLang = val
@@ -129,6 +132,45 @@ export class SearchResultComponent implements OnInit {
       this.putRoom(false)
       this.putSpace(false)
 
+      this.putAutoComplete()
+
+    })
+
+    this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
+      this.country_id = res
+
+      this.putAutoComplete()
+
+      if(this.country_id === 1){
+        this.in_compound = true
+      }else{
+        this.in_compound = false
+      }
+
+      this.search_model = {
+        country_id: this.country_id,
+        cities: [],
+        areas: [],
+        locations: [],
+        neighborhoods: [],
+        compounds: [],
+        type: [],
+        min_price: null,
+        max_price: null,
+        propose: this.activeTab === 'rent' ? 'rental' : 'sell'
+      }
+
+      this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
+      this.search_model.limit = this.limit
+      this.search_model.sort = 'orderByDesc'
+      this.search_model.offset = 0
+
+      this.isLoading = true
+        
+      await this.search(false)
+
+      this.activeCity = this.search_model.cities
+      this.activeRealEstateType = this.search_model.type
     })
 
   }
@@ -156,9 +198,9 @@ export class SearchResultComponent implements OnInit {
       this.display = 'flex'
     }
     
-    this.appService.selected_country$.subscribe((res:any) =>{
-      this.selected_country = res
-    })
+    // this.appService.selected_country$.subscribe((res:any) =>{
+    //   this.selected_country = res
+    // })
     this.search_model = JSON.parse(this.search_model.search_query)
     console.log(this.search_model)
     this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
@@ -328,6 +370,14 @@ export class SearchResultComponent implements OnInit {
   }
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  getCurrency(){
+    if(this.country_id === 1){
+      return this.translateService.instant('propertyDetails.EGP')
+    }else{
+      return this.translateService.instant('propertyDetails.SAR')
+    }
   }
   
   async toggleFavorite(item: any) {
@@ -618,17 +668,11 @@ export class SearchResultComponent implements OnInit {
   selectedSearchQuery: any;
   response: any; 
 
-  async selectEvent(item: any) {
-    // do something with selected item
-    this.searchQuery = item['name']
-    this.selectedSearchQuery = this.searchQuery
-  }
 
-  async onChangeSearch(val: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
+  putAutoComplete(){
+    this.autoComplete = []
 
-    if(val === ''){
+    if(this.country_id === 1){
       if(this.activeLang === 'en'){
         this.autoComplete = [
           { id: 1, name: 'Cairo' },
@@ -644,6 +688,31 @@ export class SearchResultComponent implements OnInit {
           { id: 4, name: 'السويس' }
         ]
       }
+    }else{
+      if(this.activeLang === 'en'){
+        this.autoComplete = [
+          { id: 1, name: 'Riyadh' }
+        ]
+      }else{
+        this.autoComplete = [
+          { id: 1, name: 'الرياض' }
+        ]
+      }
+    }
+  }
+
+  async selectEvent(item: any) {
+    // do something with selected item
+    this.searchQuery = item['name']
+    this.selectedSearchQuery = this.searchQuery
+  }
+
+  async onChangeSearch(val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+
+    if(val === ''){
+      this.putAutoComplete()
     }
 
     else{
@@ -657,14 +726,14 @@ export class SearchResultComponent implements OnInit {
 
     if(this.searchQuery !== ""){
       let data={
-        query : this.searchQuery  
+        query : this.searchQuery,
+        country_id: this.country_id
       }  
     
       this.response =  await this.apiService.getsearch(data)
 
       this.autoComplete = []
-
-
+        
       for(let i = 0; i < 10 && this.response.data[i]; i++){
         if(this.isArabic(this.searchQuery)){
           this.autoComplete.push(
@@ -702,7 +771,8 @@ export class SearchResultComponent implements OnInit {
   async Getsearch() {
     if(this.selectedSearchQuery){
       let data={
-        query : this.selectedSearchQuery  
+        query : this.selectedSearchQuery,
+        country_id: this.country_id
       }  
   
       this.spinner.show()

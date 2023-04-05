@@ -29,7 +29,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center " style="background-color: #F7F7F7;">
             <div class="col-xs-12 col-md-10 main-content">
-                <div class="col-xs-12 priorites-list">
+                <div *ngIf="developers && developers.length > 0" class="col-xs-12 priorites-list">
                   <div #holder class="col holder container">
                     
                     <div *ngFor="let developer of developers | paginate: { itemsPerPage: 24, currentPage: page,totalItems: developers_count }" class="card-container">
@@ -55,6 +55,15 @@
 
                 </div>
     
+                <div *ngIf="developers === undefined || developers.length === 0" class="not-found"> 
+                  <img class="not-found-image" src="../../../../assets/images/no_projects_units.png" alt="...">
+
+                  <div class="not-found-card">
+                    <span class="not-found"> {{'developer.no developers' | translate}} </span>
+                  </div>
+
+                </div>
+
             </div>
           </div>
     

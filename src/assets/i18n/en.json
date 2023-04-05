@@ -18,7 +18,11 @@
             "Favorites": "Favorites",
             "logout": "Logout",
             "logout message": "Do you really wish to leave and log out? All the unsaved changes will be lost."
-        }
+        },
+        "Select Country": "Select Country",
+        "Egypt": "Egypt",
+        "KSA": "Saudi Arabia"
+
     },
     "Profile": {
         "Edit profile": "Edit profile",
@@ -402,6 +406,7 @@
         "Assign to evaluator":"Assign to evaluator",
         "Request a visit":"Request a visit",
         "EGP":"EGP",
+        "SAR": "SAR",
         "From": "From",
         "Max Price": "To",
         "results match your choices by":"Based on selected Priorities, your results will match your choices by",
@@ -493,6 +498,7 @@
         "button": "Add",
         "upload_unit_photos": "Upload unit photos",
         "upload_unit_masterplan": "Upload unit master plans",
+        "no developers": "No developers found.",
         "no description": "No description found.",
         "no projects": "No projects found.",
         "no units": "No units found.",

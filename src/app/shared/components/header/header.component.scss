@@ -269,9 +269,9 @@ $active_background: #184d47;
         &.add-property{
             background: #FD4965;
 
-            &:hover{
-                background: #e58d9b
-            }
+            // &:hover{
+            //     background: #e58d9b
+            // }
         }
     }
     &__profile{
@@ -559,6 +559,67 @@ ng-select{
     display: flex !important;
     padding: 5px;
     justify-content: center;
+}
+
+.country-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 275px;
+    justify-content: space-evenly;
+}
+    
+.country-popup h2 {
+    font-size: 28px;
+    text-align: center;
+    color: #184d47;
+}
+
+.country-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.country-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #184d47;
+    cursor: pointer;
+
+    &.egypt{
+        box-shadow: 0px 0px 20px #990404;
+    }
+}
+
+.country-item:hover {
+}
+
+.country-item.selected {
+// border: 2px solid #007bff;
+}
+
+.country-item img {
+    border-radius: 20px;
+    border-radius: 10px;
+    
+    &:hover{
+        opacity: 0.5;
+    }
+}
+
+.country-item span {
+    text-align: center;
+    display: none;
 }
 
 // .navbar-collapse.show   {

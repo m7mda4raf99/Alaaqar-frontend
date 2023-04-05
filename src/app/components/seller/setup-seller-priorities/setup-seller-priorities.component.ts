@@ -29,6 +29,10 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   faChevronUp = faChevronUp
   faTimes = faTimes
   faChevronDown = faChevronDown
+
+  subCountry = new Subscription()
+	country_id: any
+
   constructor(
     public appService: AppServiceService,
     private prioritiesService: PrioritiesService,
@@ -76,6 +80,26 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     //this.appService.uploads$
     //let propertyValue = this.appService.propertyDetails$.value
     //criteria
+    
+    this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
+      this.spinner.show()
+      this.country_id = res
+
+      let data = {
+        country_id: this.country_id
+      }
+  
+      this.locations = await this.apiService.getAllGeographicalLocations(data);
+      this.locations = this.locations.data
+      
+      this.putCity(true)
+      this.putUnitType(true)
+
+      this.spinner.hide()
+
+
+    })
+    
   }
   priorities: any
   sellerForm: any
@@ -176,11 +200,15 @@ export class SetupSellerPrioritiesComponent implements OnInit {
 
     this.setMultiSelection()
 
-    this.locations = await this.apiService.getAllGeographicalLocations();
-    this.locations = this.locations.data
+    // let data = {
+    //   country_id: 1
+    // }
+
+    // this.locations = await this.apiService.getAllGeographicalLocations(data);
+    // this.locations = this.locations.data
     
-    this.putCity(true)
-    this.putUnitType(true)
+    // this.putCity(true)
+    // this.putUnitType(true)
 
     this.spinner.hide();
   }
@@ -1669,6 +1697,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       this.backgroundFilter = 'rgb(246, 246, 246)';
       this.pointerEventsFilter = 'none'
 
+      this.search_model.country_id = this.country_id
       this.search_model.defaultCountry = this.selectedItemCity[0]['itemName']
       this.search_model.selectedCountry = {
         id: this.selectedItemCity[0]['id'],

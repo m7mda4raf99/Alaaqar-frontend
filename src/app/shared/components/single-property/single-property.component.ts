@@ -98,7 +98,6 @@ export class SinglePropertyComponent implements OnInit {
         // console.log("activeRoute:", activeRoute.queryParams.id.length)
         const data = await this.getPublicPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
-        console.log("data1: ", this.data)
       } else {
         this.isPublic = false
 
@@ -113,12 +112,10 @@ export class SinglePropertyComponent implements OnInit {
 
           const data = await this.getPropertyDetailsDataDeveloper(activeRoute.queryParams.id, request)
           this.data = data.data
-          console.log("developer unit data: ", data)
         }
         else{
           const data = await this.getPropertyDetailsData(activeRoute.queryParams.id)
           this.data = data.data
-          console.log("data2: ", this.data)
         }
         
       }
@@ -260,6 +257,14 @@ export class SinglePropertyComponent implements OnInit {
 
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
+  getCurrency(){
+    if(this.data['country_id'] === 1){
+      return this.translateService.instant('propertyDetails.EGP')
+    }else{
+      return this.translateService.instant('propertyDetails.SAR')
+    }
   }
 
   print(data: any){

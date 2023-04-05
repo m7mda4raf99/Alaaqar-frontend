@@ -414,7 +414,7 @@ export class SingleProjectComponent {
   }
 
   addUnit(){
-    this.router.navigate(['/add-unit'], { queryParams: { project_id: this.params.id } })
+    this.router.navigate(['/add-unit'], { queryParams: { project_id: this.params.id, country_id: this.project['country_id'] } })
   }
 
   sliderData: any = []

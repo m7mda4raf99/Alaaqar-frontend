@@ -24,6 +24,9 @@ export class LoginDeveloperComponent {
   @ViewChild('alert') alert: any;
   @ViewChild('terms_conditions') terms_conditions: any;
 
+  subCountry = new Subscription()
+	country_id: any
+
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
@@ -112,6 +115,10 @@ export class LoginDeveloperComponent {
         }else{
           this.config.placeholder = "اكتب وصفًا موجزًا لشركتك."
         }
+      })
+
+      this.subCountry = this.appService.country_id$.subscribe((res:any) =>{
+        this.country_id = res
       })
      }
   
@@ -259,7 +266,8 @@ export class LoginDeveloperComponent {
         'website': this.phoneForm.get('website')?.value,
         'company_location': this.phoneForm.get('company_location')?.value,
         'description': this.phoneForm.get('description')?.value,
-        'image': this.avatarUrl
+        'image': this.avatarUrl,
+        'country_id': this.country_id
       }
 
       console.log(obj)

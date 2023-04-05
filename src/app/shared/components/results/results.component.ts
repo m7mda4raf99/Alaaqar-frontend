@@ -24,6 +24,7 @@ export class ResultsComponent implements OnInit {
   params = this.activatedRoute.snapshot.queryParams
   activeLang: any = ''
   results = []
+  unit_counts:any 
   isLoading: boolean = true;
 
   constructor(
@@ -48,12 +49,13 @@ export class ResultsComponent implements OnInit {
         limit: this.limit
       }
       let results = await this.inquiryResult(body)
+
       if (results === false) {
         // error
       }
       this.spinner.hide()
-      this.results = results.data
-      // console.log("results",this.results)
+      this.results = results.data['units']
+      this.unit_counts = results.data['units_count']
       this.isLoading = false;
 
     } else {
@@ -81,7 +83,7 @@ export class ResultsComponent implements OnInit {
     }
 
     let data = await this.apiService.inquiryResult(bodyData)
-    this.results = data.data && data.data.length > 0 ? this.results.concat(data.data) : this.results
+    this.results = data.data['units'] && data.data['units'].length > 0 ? this.results.concat(data.data['units']) : this.results
     return this.loadMore = false
 
   }
@@ -175,5 +177,39 @@ export class ResultsComponent implements OnInit {
 
   print(data: any){
     console.log(data)
+  }
+
+  page?: number = 1;
+
+
+  async onPageChange(pageNumber: number) {
+    let newOffset = ( pageNumber - 1 ) * 18
+
+    this.page = pageNumber
+
+    this.isLoading = true;
+    this.spinner.show()
+    let body = {
+      id: this.params.id,
+      sort: 'orderByDesc',
+      limit: this.limit,
+      offset: newOffset
+    }
+    let results = await this.inquiryResult(body)
+
+    if (results === false) {
+      // error
+    }
+    this.spinner.hide()
+    this.results = results.data['units']
+    this.unit_counts = results.data['units_count']
+    this.isLoading = false;
+
+    // this.page = pageNumber;
+    
+  }
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
   }
 }

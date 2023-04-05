@@ -79,7 +79,7 @@
                                 <div style="display: flex; align-items: center;">
                                     <p *ngIf="data?.price_to" style="margin: 0px 10px; color: #ff725f;"> {{'propertyDetails.From' | translate}}: </p>
                                     <p class="price">
-                                        {{numberWithCommas(data?.price ? data.price : '')}} {{'propertyDetails.EGP' | translate}}
+                                        {{numberWithCommas(data?.price ? data.price : '')}} {{ getCurrency() }}
                                     </p>
 
                                 </div>
@@ -87,7 +87,7 @@
                                 <div *ngIf="data?.price_to" style="display: flex; align-items: center;">
                                     <p style="margin: 0px 10px; color: #ff725f;"> {{'propertyDetails.Max Price' | translate}}: </p>
                                     <p class="price" style="font-size: 20px; font-family: 'Rubik';">
-                                        {{numberWithCommas(data?.price_to ? data.price_to : '')}} {{'propertyDetails.EGP' | translate}} 
+                                        {{numberWithCommas(data?.price_to ? data.price_to : '')}} {{ getCurrency() }} 
                                     </p>
 
                                 </div>

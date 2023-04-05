@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { ApiService } from '../../services/api.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('alert') alert: any;
+  @ViewChild('CountryPop') CountryPop: any;
+
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: false,
+    fullscreen: true
+  };
 
   faChevronDown = faChevronDown
   faChevronUp = faChevronUp
@@ -34,6 +42,7 @@ export class HeaderComponent implements OnInit {
   avatarUrl: any
   selectedCityName = 'egypt';
   pressedProfile: boolean = false
+  selectedCountry: number = 1
 
   cities3 = [
     {
@@ -41,7 +50,7 @@ export class HeaderComponent implements OnInit {
       name: 'egypt',
       value:'Egypt',
       avatar:
-        '../../../../assets/images/egypt.png',
+        '../../../../assets/images/egypt_logo.png',
     },
     {
       id: 2,
@@ -53,7 +62,7 @@ export class HeaderComponent implements OnInit {
     
   ];
   constructor(
-  
+    private translateService: TranslateService,
     private appServiceService: AppServiceService,
     private router: Router,
     private cookieService: CookieService,
@@ -85,6 +94,25 @@ export class HeaderComponent implements OnInit {
       this.langList = this.allLangs.filter(lang => lang.title != defaultLang)
       this.switchLang(defaultLang.toLocaleLowerCase())
     }
+
+    const selected_country = localStorage.getItem('selected_country');
+
+    console.log("selected_country ashraf: ", selected_country)
+
+    if(!selected_country){
+      this.selectedCountry = 1
+      localStorage.setItem('selected_country', "1");
+      this.appServiceService.country_id$.next(1)
+
+      setTimeout(() => {
+        this.modalService.open(this.CountryPop,this.config);
+        this
+      }, 100);
+    }else{
+      this.selectedCountry = Number(selected_country)
+      this.appServiceService.country_id$.next(this.selectedCountry)
+    }
+
     this.sub2 = this.appServiceService.isLoggedIn$.subscribe(val => {
       const user = this.cookieService.get('user')
       if (user) {
@@ -110,6 +138,7 @@ export class HeaderComponent implements OnInit {
   sub1 = new Subscription()
   sub2 = new Subscription()
   sub3 = new Subscription()
+  subCountry = new Subscription()
   userData: any
   developerData: any
 
@@ -128,7 +157,9 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
   }
+
   setAvatarUrl() {
     return this.avatarUrl ? this.avatarUrl : '../../../../assets/images/Ellipse 1264.png'
   }
@@ -263,25 +294,27 @@ export class HeaderComponent implements OnInit {
   }
 
   async addProperty(){
-    const user = this.cookieService.get('user')
+    this.modalService.open(this.CountryPop,this.config);
 
-    if(user){
-      let request = {
-        id: JSON.parse(user)['id']
-      }
+    // const user = this.cookieService.get('user')
 
-      this.spinner.show()
-      let response = await this.apiService.checkoccurrence(request)
-      this.spinner.hide()
+    // if(user){
+    //   let request = {
+    //     id: JSON.parse(user)['id']
+    //   }
 
-      if(response.data){
-        this.modalService.open(this.alert);
-      }else{
-        this.router.navigate(['/sell'], { queryParams: { type_id: 1, propose: 2 } })
-      }
-    }else{
-      this.router.navigate(['/login'], { queryParams: { type_id: 1, propose: 2 } })
-    }
+    //   this.spinner.show()
+    //   let response = await this.apiService.checkoccurrence(request)
+    //   this.spinner.hide()
+
+    //   if(response.data){
+    //     this.notificationsService.showError(this.translateService.instant('buy.fail_message'))
+    //   }else{
+    //     this.router.navigate(['/sell'], { queryParams: { type_id: 1, propose: 2 } })
+    //   }
+    // }else{
+    //   this.router.navigate(['/login'], { queryParams: { type_id: 1, propose: 2 } })
+    // }
 
   }
 
@@ -297,12 +330,6 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  // selected_country = 'egypt'
-  transform_country(event:any){
-    //this.selected_country = event.name
-    this.appServiceService.selected_country$.next(event)
-  }
-
   expand_collapse(element:any){
     this.pressedProfile = false;
 
@@ -310,6 +337,27 @@ export class HeaderComponent implements OnInit {
     this._ElementRef.nativeElement.querySelector('.app-header__menu').classList.toggle('active')
     // this._ElementRef.nativeElement.querySelector('body').style.overflow  = 'hidden'
     // this.doc
+  }
+
+  transform_country(event:any){
+    this.selectedCountry = event
+    localStorage.setItem('selected_country', event + '')
+    this.appServiceService.country_id$.next(event)
+
+    if(this.selectedCountry === 2){
+      this.selectedLang('AR')
+    }
+  }
+
+  selectCountry(country: number) {
+    this.selectedCountry = country
+    localStorage.setItem('selected_country', country + "");
+    this.appServiceService.country_id$.next(country)
+    this.modalService.dismissAll()
+
+    if(this.selectedCountry === 2){
+      this.selectedLang('AR')
+    }
   }
 
 }
