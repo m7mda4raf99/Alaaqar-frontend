@@ -46,9 +46,13 @@
                 </div>
                 <div class="contacts">
                     <h3> {{'footer.Contact' | translate}}</h3>
-                    <div class="flex">
+                    <div *ngIf="country_id === 1" class="flex">
                         <p> {{contacts.contact_phone}} </p>
                         <p> {{contacts.contact_email}} </p>
+                    </div>
+
+                    <div *ngIf="country_id === 2" class="flex">
+                        <p> <a routerLink='/contact'>{{'header.contact_us' | translate}}</a></p>
                     </div>
                 </div>
                 <div class="download">
@@ -95,5 +99,5 @@
             </div>
             <hr class="line-break">
             <img style="width:200px;margin-bottom: 10px;" src="../../../../assets/images/Group 1347@2x.png" alt="..."/>
-        </div>
+    </div>
 </div>

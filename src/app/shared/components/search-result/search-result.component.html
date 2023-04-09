@@ -148,7 +148,8 @@
 
                     <div *ngIf="activeTab != 'commercial'" class="ngSelect compound">
 
-                        {{ 'home.Compound' | translate }}
+                        <div *ngIf="country_id === 1"> {{ 'home.Compound EGY' | translate }} </div>
+                        <div *ngIf="country_id === 2"> {{ 'home.Compound KSA' | translate }} </div>
 
                         <ng-toggle style="margin: 0px 10px;" [(value)]="in_compound" [color]="{unchecked: '#939da2', checked: '#184d47'}"> Compound </ng-toggle>
     

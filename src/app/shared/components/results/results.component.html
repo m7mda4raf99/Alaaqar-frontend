@@ -65,8 +65,9 @@
                                                 </h6>
                                                 
                                                 <h5 class="card-title">
-                                                    {{'propertyDetails.EGP' | translate}}
+                                                    <!-- {{'propertyDetails.EGP' | translate}} -->
                                                     {{ numberWithCommas(item['price'])}}
+                                                    {{ getCurrency(item['country_id']) }}
                                                 </h5>
                                                 <div class="space-between">
 

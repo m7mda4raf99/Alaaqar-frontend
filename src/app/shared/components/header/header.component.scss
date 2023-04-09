@@ -567,19 +567,30 @@ ng-select{
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 9999;
-    background-color: #fff;
+    background-color: #f5f5f5;
+    // opacity: 0.9;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    width: 450px;
+    width: 500px;
     height: 275px;
     justify-content: space-evenly;
+
+    @media (max-width: 450px) {
+        width: inherit;
+        height: 250px;
+    }
+    
 }
     
 .country-popup h2 {
     font-size: 28px;
     text-align: center;
     color: #184d47;
+
+    @media (max-width: 450px) {
+        font-size: 24px;
+    }
 }
 
 .country-list {
@@ -593,11 +604,11 @@ ng-select{
     flex-direction: column;
     align-items: center;
     border-radius: 12px;
-    box-shadow: 0 0 20px #184d47;
+    // box-shadow: 0 0 20px #184d47;
     cursor: pointer;
 
     &.egypt{
-        box-shadow: 0px 0px 20px #990404;
+        // box-shadow: 0px 0px 20px #990404;
     }
 }
 
@@ -611,7 +622,8 @@ ng-select{
 .country-item img {
     border-radius: 20px;
     border-radius: 10px;
-    
+    height: 150px;
+
     &:hover{
         opacity: 0.5;
     }

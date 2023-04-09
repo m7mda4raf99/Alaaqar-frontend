@@ -99,8 +99,17 @@
                 align-items: center;
 
                 @media (max-width: 450px) {
+                    display: flex;
                     padding: 30px 0 5px 0px;
                     background: linear-gradient(transparent 0%, #c8c8c8 30% ,white 50%);
+                }
+
+                a{
+                    flex: none;
+
+                    @media (max-width: 450px) {
+                        flex: 1;
+                    }
                 }
 
                 .each-option{
@@ -135,13 +144,13 @@
 
                             .logoAR{
                                 background: url('../../../../assets/images/logo_header_arabic_pink.png');
-                                height: 25px;
+                                height: 18px;
                                 background-size: contain;
                             }
     
                             .logoEN{
                                 background: url('../../../../assets/images/logo_header_pink.png');
-                                height: 25px;
+                                height: 18px;
                                 background-size: contain;
                             }
 
@@ -150,6 +159,7 @@
                     }
 
                     @media (max-width: 450px) {
+                        width: 100%;
                         flex-direction: column;
                         padding: 0px;
                     }
@@ -194,14 +204,15 @@
                         color: #184d47;
                         display: flex;
                         flex-direction: column;
-                        width: 67%;
+                        width: 63%;
 
                         @media (max-width: 450px) {
+                            padding: 5px 0px;
                             font-size: 15px;
                             align-items: center;
                             text-align: center;
 
-                            width: 90%;
+                            width: 40%;
 
                             &.app{
                                 width: 100%;
@@ -220,14 +231,22 @@
 
                         .logoAR{
                             background: url('../../../../assets/images/logo_header_arabic.png');
-                            height: 25px;
+                            height: 18px;
                             background-size: contain;
+
+                            @media (max-width: 450px) {
+                                display: none;
+                            }
                         }
 
                         .logoEN{
                             background: url('../../../../assets/images/logo_header.png');
-                            height: 25px;
+                            height: 18px;
                             background-size: contain;
+
+                            @media (max-width: 450px) {
+                                display: none;
+                            }
                         }
 
                         .coming{
@@ -2058,6 +2077,7 @@
             margin: auto !important;
             padding: 0;
             flex-wrap: wrap;
+            justify-content: space-around !important;
 
             @media (max-width: 450px) {
                 // display: block;
@@ -2065,12 +2085,14 @@
             }
 
             .card-container{
-                margin: 0% 2%;
-                width: 21%;
-
+                margin: 0% 1%;
+                // width: 18%;
+                flex: 1;
 
                 @media (max-width: 450px) {
+                    margin: 0% 2%;
                     width: 45%;
+                    flex: none;
                 }
             }
 

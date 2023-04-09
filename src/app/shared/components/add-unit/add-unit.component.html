@@ -108,8 +108,9 @@
                                     type="checkbox"
                                     [checked]="checkboxVar"
                                     (change)="changedCheckBox()"/>
-                                    <p [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound' | translate}}</p>
-            
+                                    <p *ngIf="country_id === 1" [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound EGY' | translate}}</p>
+                                    <p *ngIf="country_id === 2" [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound KSA' | translate}}</p>
+
                                 </div>
             
                                 <div class="dropdown" 
@@ -129,8 +130,9 @@
                 
                                     <span *ngIf="selectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
                                     
-                                    <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar">{{'setPriorities.select compound' | translate}}</span>
-            
+                                    <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar && country_id === 1">{{'setPriorities.select compound EGY' | translate}}</span>
+                                    <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar && country_id === 2">{{'setPriorities.select compound KSA' | translate}}</span>
+
             
                                 </div>
             

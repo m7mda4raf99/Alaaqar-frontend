@@ -11,7 +11,8 @@
 
         <div class="col-md-12 main-home">
             <img class="main-image" src="../../assets/images/main_photo.jpg" alt="...">
-            <h1 >{{'home.Find Your Perfect' | translate}} {{'home.Future Home' | translate}}</h1>
+            <h1 *ngIf="country_id === 1">{{'home.Find Your Perfect' | translate}} {{'home.Future Home EGY' | translate}}</h1>
+            <h1 *ngIf="country_id === 2">{{'home.Find Your Perfect' | translate}} {{'home.Future Home KSA' | translate}}</h1>
 
             <div class="search-section">
 
@@ -47,41 +48,48 @@
 
             <div class="other-options">
 
-                <div class="each-option" (click)="scroll(how_it_works)">
-                    <div class="image-container how-it-works-img"><img class="image-options" src="../../assets/images/how_it_worksT.png" alt="..."></div>
-                    <div class="text-options"> {{ 'how it works' | translate }} </div>
-                </div>
+                <a routerLink='/how-it-works'>
+                    <div class="each-option">
+                        <div class="image-container how-it-works-img"><img class="image-options" src="../../assets/images/how_it_worksT.png" alt="..."></div>
+                        <div class="text-options"> {{ 'how it works' | translate }} </div>
+                    </div>
+                </a>
 
                 <div class="separators" > </div>
 
-                <div class="each-option" (click)="tryItNow()">
-                    <div class="image-container advisor-img"><img class="image-options" src="../../assets/images/advisorT.png" alt="..."></div>
-                    <div class="text-options">  {{ 'electronic advisor' | translate }} </div>
-                </div>
+                <a routerLink='/electronic-advisor'>
+                    <div class="each-option" (click)="tryItNow()">
+                        <div class="image-container advisor-img"><img class="image-options" src="../../assets/images/advisorT.png" alt="..."></div>
+                        <div class="text-options"> {{ 'electronic advisor' | translate }} </div>
+                    </div>
+                </a>
 
                 <div class="separators" > </div>
                 
-                <div class="each-option" (click)="scroll(download_app)">
-                    <div class="image-container app-img"><img class="image-options" src="../../assets/images/appT.png" alt="..."></div>
-                    <div class="text-options app"> 
+                <a>
+                    <div class="each-option" (click)="scroll(download_app)">
+                        <div class="image-container app-img"><img class="image-options" src="../../assets/images/appT.png" alt="..."></div>
+                        <div class="text-options app"> 
 
-                        <div class="logoAR" *ngIf="lang === 'ar'"> </div>
+                            <div class="logoAR" *ngIf="lang === 'ar'"> </div>
 
-                        <div class="logoEN" *ngIf="lang != 'ar'"> </div>
+                            <div class="logoEN" *ngIf="lang != 'ar'"> </div>
 
-                        <!-- <img *ngIf="lang === 'ar'" src="../../assets/images/logo_header_arabic.png" />
-                        <img *ngIf="lang != 'ar'" src="../../assets/images/logo_header.png" /> -->
-           
-                        <div> {{ 'mobile app' | translate }} </div>
+                            <!-- <img *ngIf="lang === 'ar'" src="../../assets/images/logo_header_arabic.png" />
+                            <img *ngIf="lang != 'ar'" src="../../assets/images/logo_header.png" /> -->
+            
+                            <div style="font-size: 15px;"> {{ 'mobile app' | translate }} </div>
 
-                        <div class="coming">
-                            
-                        {{'footer.coming_soon' | translate}}
-                            <!-- {{'header.Add property' | translate}} -->
+                            <div class="coming">
+                                
+                            {{'footer.coming_soon' | translate}}
+                                <!-- {{'header.Add property' | translate}} -->
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
+                </a>
+
 
             </div>
 
@@ -491,7 +499,7 @@
         </div>
 
         <!-- How it works-->
-        <div #how_it_works class="how-it-works">
+        <div #how_it_works class="how-it-works" style="display: none;">
             <div class="section-head-left">
                 <h2>
                     <span class="top"></span>
@@ -515,7 +523,7 @@
             </div>
         </div>
 
-        <div class="image-slider">
+        <div class="image-slider" style="display: none;">
             <ng-image-slider *ngIf="switcher === 'buyer'" [images]="buyImages"
             [imageSize]="{width: 340, height: 495}" #nav></ng-image-slider>
 

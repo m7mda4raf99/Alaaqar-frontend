@@ -124,10 +124,9 @@ h2 {
         display: block;
         margin: 0 auto;
         height: 6px;
-        margin-top: 5px;
+        margin-top: 7px;
         // background: $gradient_bg;
         background: #FD4965;
-        margin-top: 5px;
 
         &.top {
             width: 5px;
@@ -1422,7 +1421,7 @@ span.dropdown-multiselect--active{
     height: 60px !important;
 
     @media (max-width: 450px) {
-        font-size: calc(0.8rem + 1vw) !important;
+        font-size: calc(.7rem + 0.7vw)!important;
         height: 50px !important;
     }
 

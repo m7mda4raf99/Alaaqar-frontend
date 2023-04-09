@@ -132,6 +132,13 @@ export class ResultsComponent implements OnInit {
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  getCurrency(country: any){
+    if(country === 1){
+      return this.translateService.instant('propertyDetails.EGP')
+    }else{
+      return this.translateService.instant('propertyDetails.SAR')
+    }
+  }
   async toggleFavorite(item: any) {
     let hasError: boolean = false
     if (item.isFavorite === true) {

@@ -294,27 +294,27 @@ export class HeaderComponent implements OnInit {
   }
 
   async addProperty(){
-    this.modalService.open(this.CountryPop,this.config);
+    // this.modalService.open(this.CountryPop,this.config);
 
-    // const user = this.cookieService.get('user')
+    const user = this.cookieService.get('user')
 
-    // if(user){
-    //   let request = {
-    //     id: JSON.parse(user)['id']
-    //   }
+    if(user){
+      let request = {
+        id: JSON.parse(user)['id']
+      }
 
-    //   this.spinner.show()
-    //   let response = await this.apiService.checkoccurrence(request)
-    //   this.spinner.hide()
+      this.spinner.show()
+      let response = await this.apiService.checkoccurrence(request)
+      this.spinner.hide()
 
-    //   if(response.data){
-    //     this.notificationsService.showError(this.translateService.instant('buy.fail_message'))
-    //   }else{
-    //     this.router.navigate(['/sell'], { queryParams: { type_id: 1, propose: 2 } })
-    //   }
-    // }else{
-    //   this.router.navigate(['/login'], { queryParams: { type_id: 1, propose: 2 } })
-    // }
+      if(response.data){
+        this.notificationsService.showError(this.translateService.instant('buy.fail_message'))
+      }else{
+        this.router.navigate(['/sell'], { queryParams: { type_id: 1, propose: 2 } })
+      }
+    }else{
+      this.router.navigate(['/login'], { queryParams: { type_id: 1, propose: 2 } })
+    }
 
   }
 
