@@ -320,6 +320,8 @@ export class HomeComponent implements OnInit {
 
       this.getHomeBlogs()
 
+      this.setAutocompletePlaceholder()
+
     })
 
   }
@@ -329,19 +331,31 @@ export class HomeComponent implements OnInit {
       if(this.lang === 'en'){
         this.autoComplete_placeholder = "Commercial in city, district or compounds"
       }else{
-        this.autoComplete_placeholder = "تجاري في مدينة، حي أو كمبوندات"
+        if(this.country_id === 1){
+          this.autoComplete_placeholder = "تجاري في مدينة، حي أو كمبوندات"
+        }else{
+          this.autoComplete_placeholder = "تجاري في مدينة، حي أو مجتمعات"
+        }
       }
     }else if(this.activeTab === 'rent'){
       if(this.lang === 'en'){
         this.autoComplete_placeholder = "Rent in city, district or compounds"
       }else{
-        this.autoComplete_placeholder = "استأجر في مدينة، حي أو كمبوندات"
+        if(this.country_id === 1){
+          this.autoComplete_placeholder = "استأجر في مدينة، حي أو كمبوندات"
+        }else{
+          this.autoComplete_placeholder = "استأجر في مدينة، حي أو مجتمعات"
+        }
       }
     }else{
       if(this.lang === 'en'){
         this.autoComplete_placeholder = "Buy in city, district or compounds"
       }else{
-        this.autoComplete_placeholder = "اشترى في مدينة، حي أو كمبوندات"
+        if(this.country_id === 1){
+          this.autoComplete_placeholder = "اشترى في مدينة، حي أو كمبوندات"
+        }else{
+          this.autoComplete_placeholder = "اشترى في مدينة، حي أو مجتمعات"
+        }
       }
     }
   }
@@ -459,7 +473,7 @@ export class HomeComponent implements OnInit {
       (window as any).kommunicate = m; m._globals = kommunicateSettings;
 
       kommunicateSettings.onInit = function() {
-        var css = ".mck-title { background: #184d47;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #184d47 !important; } .mck-msg-left .mck-msg-box{ background: #e7edec !important; } .km-cta-multi-button-container button.km-cta-button { color: #184d47 !important; border-color: #184d47 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #184d47 !important; border-color: #184d47 !important; } .mck-form-template-container button{ color: #184d47 !important; border-color: #184d47 !important; } .km-custom-widget-background-color { background: #184d47 !important; &:hover{ background: #FD4965 !important; } }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
+        var css = ".mck-title { background: #FD4965;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #FD4965 !important; } .mck-msg-left .mck-msg-box{ background: #f9e9ec !important; } .km-cta-multi-button-container button.km-cta-button { color: #FD4965 !important; border-color: #FD4965 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #FD4965 !important; border-color: #FD4965 !important; } .mck-form-template-container button{ color: #FD4965 !important; border-color: #FD4965 !important; } .km-custom-widget-background-color { background: #FD4965 !important; &:hover{ background: #184d47 !important; } }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
         (window as any).Kommunicate.customizeWidgetCss(css); // use window.Kommunicate for ReactJs
     };
 
@@ -2224,7 +2238,12 @@ export class HomeComponent implements OnInit {
       ]
     }else{
       this.top_searched_areas = [
-        { 'name_en': 'Riyadh', 'name_ar': 'الرياض', 'img': '../../../../assets/images/riyadh.jpg', 'area_id': 25},
+        { 'name_en': 'North Riyadh', 'name_ar': 'شمال الرياض', 'img': '../../../../assets/images/north_riyadh.jpg', 'area_id': 25},
+        { 'name_en': 'East Riyadh', 'name_ar': 'شرق الرياض', 'img': '../../../../assets/images/east_riyadh.jpg', 'area_id': 25},
+        { 'name_en': 'Central Riyadh', 'name_ar': 'وسط الرياض', 'img': '../../../../assets/images/center_riyadh.jpg', 'area_id': 25},
+        { 'name_en': 'South Riyadh', 'name_ar': 'جنوب الرياض', 'img': '../../../../assets/images/south_riyadh.jpg', 'area_id': 25},
+        { 'name_en': 'West Riyadh', 'name_ar': 'غرب الرياض', 'img': '../../../../assets/images/west_riyadh.jpg', 'area_id': 25},
+
       ]
     }
   }

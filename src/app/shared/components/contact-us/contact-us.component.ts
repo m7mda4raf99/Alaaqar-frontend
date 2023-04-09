@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Meta, Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs'
+import { AppServiceService } from '../../../services/app-service.service'
 
 @Component({
   selector: 'app-contact-us',
@@ -21,6 +23,9 @@ export class ContactUsComponent implements OnInit {
   faWhatsappSquare = faWhatsapp
   faMapMarkerAlt = faMapMarkerAlt
   contacts: any = {}
+
+  subCountry = new Subscription()
+  country_id: any
   constructor(
     public formBuilder: UntypedFormBuilder,
     private apiService: ApiService,
@@ -29,7 +34,12 @@ export class ContactUsComponent implements OnInit {
     private translateService: TranslateService,
     private spinner: NgxSpinnerService,
     private metaService: Meta,
-    private titleService: Title) { }
+    private titleService: Title,
+    private appServiceService: AppServiceService) {
+      this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
+        this.country_id = res
+      })
+     }
   contactForm: any = this.formBuilder.group({
     name: new UntypedFormControl('', [Validators.required]),
     email: new UntypedFormControl(''),

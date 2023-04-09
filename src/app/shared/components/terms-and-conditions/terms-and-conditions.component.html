@@ -16,15 +16,15 @@
         <div class="row justify-content-center">
             <div class="col-xs-12 col-md-10 main-content mb-5">
                 <div class="who-we-are">
-                    <div class="section-head-left">
+                    <!-- <div class="section-head-left"> -->
                         <h2 style="padding-bottom: 30px;">
                             <span class="top"></span>
                             {{'terms.terms' | translate}}
                             <span></span>
                         </h2>
-                        <p class="description" [innerHTML]="activeLang === 'en' ? terms.terms_conditions_en : terms.terms_conditions_ar"></p>
+                        <p class="description" style="overflow: auto;" [innerHTML]="activeLang === 'en' ? terms.terms_conditions_en : terms.terms_conditions_ar"></p>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>

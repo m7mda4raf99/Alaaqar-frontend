@@ -324,7 +324,7 @@
         <div class="app-header__user" >
             
             <div *ngIf="isLoggedIn || isLoggedInDeveloper" class="app-header__mini" style="position: relative; display: flex;">
-                <span class="icon" (click)="navigateToNotifications();isMenuCollapsed = true" style="margin: 0px 5px; display: flex; align-items: center;">
+                <span class="icon" (click)="navigateToNotifications();isMenuCollapsed = true" style="margin: 0px 15px; display: flex; align-items: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18.5" height="21.503" viewBox="0 0 18.5 21.503">
                         <g id="Iconly_Light_Notification" data-name="Iconly/Light/Notification"
                             transform="translate(0.75 0.75)">
@@ -596,11 +596,11 @@
         <h2> {{'header.Select Country' | translate}} </h2>
         <div class="country-list">
           <div class="country-item egypt" (click)="selectCountry(1)" >
-            <img style="width: auto;height: 85px;" src="../../../../assets/images/egypt_logo.png"/>
+            <img src="../../../../assets/images/new_egypt.png"/>
             <span>Egypt</span>
           </div>
           <div class="country-item" (click)="selectCountry(2)">
-            <img style="width: auto;height: 85px;"  src="../../assets/images/saudi.png"/>
+            <img src="../../assets/images/new_ksa.png"/>
             <span>Saudi Arabia</span>
           </div>
         </div>

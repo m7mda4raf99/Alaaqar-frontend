@@ -19,7 +19,7 @@
             "logout": "Logout",
             "logout message": "Do you really wish to leave and log out? All the unsaved changes will be lost."
         },
-        "Select Country": "Select Country",
+        "Select Country": "Please Select Your Country",
         "Egypt": "Egypt",
         "KSA": "Saudi Arabia"
 
@@ -101,7 +101,8 @@
     },
     "home": {
         "Find Your Perfect": "Buy, Sell, or Rent  ",
-        "Future Home": "without hassle!",
+        "Future Home EGY": "without hassle!",
+        "Future Home KSA": "without hassle!",
         "Hassle Free . Save Time . No Hidden Fees": "Highly Efficient. Saves Time. Saves Money",
         "500 Developers":"(+30,000 Property , +500 Developers , 12 Areas, +100 Consultants)",
         "Property count": "+30,000",
@@ -120,7 +121,8 @@
         "Area": "Area",
         "Neighborhood": "Neighborhood",
         "Location": "Location",
-        "Compound": "Compound",
+        "Compound EGY": "Compound",
+        "Compound KSA": "Compound",
         "Real estate type": "Real estate type",
         "Propose": "Proposal",
         "Price range": "Price range",
@@ -180,8 +182,8 @@
         },
         "top_searched_areas": "Top searched areas",
         "top_developers": "Top developers",
-        "share_your_quests": "Share your quests",
-        "share_your_quests_description": "'al.aaqar' search engine designed with AI that takes you in easy and simple steps to determine your needs accurately, and this is the most accurate and effective way to get your perfect property."
+        "share_your_quests": "Share your request",
+        "share_your_quests_description": "Are you in search of your dream home? Our real estate advisors who have access to a wide range of listings and resources who can assist you in finding the perfect property. Don't wait any longer to find your dream home. Contact us today."
 
     },
     "quest":{
@@ -273,8 +275,10 @@
         "Description": "Simple steps designed professionally and carefully by real estate experts ensure that you enjoy a unique experience in searching for your suitable property, bring you closer to your dreams, and put in front of you the best options for the property you are looking for with ease and accuracy, and the results will be shown to you with a percentage of the appropriate percentage for your choices.",
         "Hint 1": "SELECT YOUR GEOGRAPHICAL LOCATION AND PROPERTY TYPE",
         "Hint 2": "IN 3 CONSECUTIVE STEPS, SET YOUR PRIORITIES",
-        "choose compound": "To search for a compound, click here!",
-        "select compound": "To select a compound, click here!",
+        "choose compound EGY": "To search for a compound, click here!",
+        "select compound EGY": "To select a compound, click here!",
+        "choose compound KSA": "To search for a compound, click here!",
+        "select compound KSA": "To select a compound, click here!",
         "Home":"Home",
         "Buy a home":"Buy a home",
         "Set your priorities and drag and drop them from left to right":"Set your priorities and drag and drop them from left to right",
@@ -385,10 +389,6 @@
         "Choose Options": "Or choose options",
         "Choose Keywords":"Or search by keywords",
         "Placeholder": "City, District or Compounds",
-        "Placeholder Buy": "Buy in city, district or compounds",
-        "Placeholder Rent": "Rent in city, district or compounds",
-        "Placeholder Commercial": "Commercial in city, district or compounds",
-
         "Text search": "TEXT SEARCH",
         "Attributes search": "SEARCH WITH ATTRIBUTES",
         "fail": "Sorry!",
@@ -534,7 +534,7 @@
     "solution_text":"al.aaqar is the first search engine supported by AI, to find the best options that suit your needs, which saves you a lot of time, effort, and search trouble, as well as a lot of real estate brokers' money, Also If you are a property owner, al.aaqar provides you with the right consumer, which facilitates the sale process and saves time and effort.",
     "try_solution":"Try our solution",
     "search_button":"Quick search",
-    "quest_button": "Share your quests",
+    "quest_button": "Share your request",
     "electronic_consultant":"TRY IT NOW",
     "advisor_description1": "try",
     "advisor_description2": "al.aaqar ai search,",

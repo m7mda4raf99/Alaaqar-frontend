@@ -30,7 +30,7 @@ export class SearchResultComponent implements OnInit {
   @ViewChild('dropdownMenuButton1') dropdownMenuButton1!: ElementRef
 
   subCountry = new Subscription()
-	country_id: any
+	country_id: any = Number(JSON.parse(this.activatedRoute.snapshot.queryParams['search_query'])['country_id'])
 
   faFilter = faFilter
   faChevronDown = faChevronDown
@@ -104,26 +104,6 @@ export class SearchResultComponent implements OnInit {
     private translateService: TranslateService,
     private activatedRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,) {
-    this.sub = this.appService.lang$.subscribe(async val => {
-      this.activeCity = val
-      // this.getCity(false)
-
-
-      // this.getNeig(false)
-      // this.getAreaLocations(false)
-      // this.getCompound(false)
-      if (val.toUpperCase() === 'AR') {
-        this.defaultSelectedArea = 'اختار المنطقة'
-        this.defaultSelectedNeighborhood = "اختار الحي"
-        this.defaultSelectedRealEstateType = 'اختار نوع العقار'
-      } else {
-        this.defaultSelectedArea = 'Select Area'
-        this.defaultSelectedNeighborhood = 'Select Neighborhood'
-        this.defaultSelectedRealEstateType = 'Select Type'
-      }
-    }
-    )
-
     this.sub2 = this.appService.lang$.subscribe(val => {
       this.activeLang = val
 
@@ -134,12 +114,27 @@ export class SearchResultComponent implements OnInit {
 
       this.putAutoComplete()
 
+      if (val.toUpperCase() === 'AR') {
+        this.defaultSelectedArea = 'اختار المنطقة'
+        this.defaultSelectedNeighborhood = "اختار الحي"
+        this.defaultSelectedRealEstateType = 'اختار نوع العقار'
+      } else {
+        this.defaultSelectedArea = 'Select Area'
+        this.defaultSelectedNeighborhood = 'Select Neighborhood'
+        this.defaultSelectedRealEstateType = 'Select Type'
+      }
+
     })
 
     this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
-      this.country_id = res
 
-      this.putAutoComplete()
+      if(res != this.country_id){
+        console.log("country changed so restart search")
+        // country changed
+
+        this.country_id = res
+
+        this.putAutoComplete()
 
       if(this.country_id === 1){
         this.in_compound = true
@@ -165,12 +160,28 @@ export class SearchResultComponent implements OnInit {
       this.search_model.sort = 'orderByDesc'
       this.search_model.offset = 0
 
+      if(this.activeTab != 'commercial'){
+        if(this.country_id === 1){
+          this.in_compound = true
+        }else{
+          this.in_compound = false
+        }
+      }else{
+        this.in_compound = false
+      }
+  
+      this.search_model.in_compound = this.in_compound
+      
+
       this.isLoading = true
         
+      console.log("const: ", this.search_model)
+
       await this.search(false)
 
       this.activeCity = this.search_model.cities
       this.activeRealEstateType = this.search_model.type
+      }
     })
 
   }
@@ -201,15 +212,32 @@ export class SearchResultComponent implements OnInit {
     // this.appService.selected_country$.subscribe((res:any) =>{
     //   this.selected_country = res
     // })
-    this.search_model = JSON.parse(this.search_model.search_query)
-    console.log(this.search_model)
+    this.search_model = JSON.parse(this.activatedRoute.snapshot.queryParams['search_query'])
     this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
     this.search_model.limit = this.limit
     this.search_model.sort = 'orderByDesc'
     this.search_model.offset = 0
+
+    if(this.activeTab != 'commercial'){
+      if(this.country_id === 1){
+        this.in_compound = true
+      }else{
+        this.in_compound = false
+      }
+    }else{
+      this.in_compound = false
+    }
+
+    this.search_model.in_compound = this.in_compound
+    
+    console.log("oninit: ", this.search_model)
+
     this.search(false)
-    this.get_bedrooms_options(5)
-    this.get_space_options(4)
+    await this.get_bedrooms_options(5)
+    await this.get_space_options(4)
+
+    console.log("get_bedrooms_options:", this.dropdownListRoom)
+    console.log("get_space_options:", this.dropdownListSpace)
 
     /// New Search filter 
     this.activeCity = this.search_model.cities
@@ -316,12 +344,19 @@ export class SearchResultComponent implements OnInit {
     this.dropdownMenuButton1.nativeElement.click()
   }
   setPricePlaceHolder() {
+    console.log("Min: ", this.priceMinRange, " | Max: ", this.priceMaxRange)
+
     if (this.priceMinRange === 0 && this.priceMaxRange === '' || this.priceMaxRange === null || this.priceMaxRange === 0) {
       return this.translateService.instant('home.All Prices')
     }
-    if (this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
-    if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
-    if (!this.priceMinRange && this.priceMaxRange) { return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
+    if (this.priceMinRange && this.priceMaxRange) { 
+      return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
+    if (this.priceMinRange && (!this.priceMaxRange || this.priceMaxRange == '')) { 
+      return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + 'Any' }
+    if (!this.priceMinRange && this.priceMaxRange) { 
+      this.priceMinRange = 0
+      return 'EGP ' + this.abbreviateNumber(this.priceMinRange) + ' ~ ' + this.abbreviateNumber(this.priceMaxRange) }
+    
     return this.translateService.instant('home.Select price range')
   }
 
@@ -422,7 +457,7 @@ export class SearchResultComponent implements OnInit {
     this.search_model['propose'] = this.selectedItemPropose[0] ? (this.selectedItemPropose[0].id == 2 ? 'sell' : 'rent') : undefined
     
     this.search_model['max_price'] = this.priceMaxRange
-    this.search_model['min_price'] = this.priceMinRange
+    this.search_model['min_price'] = this.priceMinRange ? this.priceMinRange : 0
 
     this.search_model['bedroom'] = this.selectedItemRoom[0] ? this.selectedItemRoom[0].id : undefined
     this.search_model['space'] = this.selectedItemSpace[0] ? this.selectedItemSpace[0].id : undefined

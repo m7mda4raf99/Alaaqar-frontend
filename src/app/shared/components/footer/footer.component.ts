@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { Subscription } from 'rxjs'
+import { AppServiceService } from '../../../services/app-service.service'
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +10,15 @@ import { ApiService } from '../../services/api.service';
 })
 export class FooterComponent implements OnInit {
   contacts: any = {}
-  constructor(private apiService: ApiService) { }
+  subCountry = new Subscription()
+  country_id: any
+
+  constructor(private apiService: ApiService, private appServiceService: AppServiceService,
+    ) {
+    this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
+      this.country_id = res
+    })
+   }
 
   ngOnInit(): void {
     this.footerContacts()

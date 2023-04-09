@@ -88,7 +88,13 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       let data = {
         country_id: this.country_id
       }
-  
+
+      this.dropdownListCity = []
+      this.dropdownListArea = []
+      this.dropdownListLocation = []
+      this.dropdownListCompound = []
+      this.dropdownListNeighborhood = []
+
       this.locations = await this.apiService.getAllGeographicalLocations(data);
       this.locations = this.locations.data
       
@@ -96,7 +102,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       this.putUnitType(true)
 
       this.spinner.hide()
-
+      
 
     })
     
