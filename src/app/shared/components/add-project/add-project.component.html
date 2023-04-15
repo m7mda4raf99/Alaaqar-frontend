@@ -76,12 +76,20 @@
                           </div>
 
                           <div class="each-input description">
-                              <label for="validationCustom01" class="form-label">{{'signIn.Description' | translate}}</label>
+                              <label for="validationCustom01" class="form-label">{{'signIn.Description EN' | translate}}</label>
 
-                              <angular-editor formControlName="description" class="form-control" id="description"
-                              aria-describedby="inputGroupPrepend" [config]="config"></angular-editor>
+                              <angular-editor formControlName="description_en" class="form-control" id="description_en"
+                              aria-describedby="inputGroupPrepend" [config]="config_en"></angular-editor>
 
                           </div>
+
+                          <div class="each-input description">
+                            <label for="validationCustom01" class="form-label">{{'signIn.Description AR' | translate}}</label>
+
+                            <angular-editor formControlName="description_ar" class="form-control" id="description_ar"
+                            aria-describedby="inputGroupPrepend" [config]="config_ar"></angular-editor>
+
+                        </div>
 
                           <div class="each-input upload">
                             <div class="each-upload">

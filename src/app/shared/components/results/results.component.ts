@@ -56,6 +56,9 @@ export class ResultsComponent implements OnInit {
       this.spinner.hide()
       this.results = results.data['units']
       this.unit_counts = results.data['units_count']
+
+      console.log("results: ", results)
+
       this.isLoading = false;
 
     } else {

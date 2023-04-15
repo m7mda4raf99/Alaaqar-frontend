@@ -64,21 +64,6 @@
                                 {{ propertyDetails.title }}
 
                             </p>
-                            <div class="accuracy row" *ngIf="proerityType === 'buy' && params?.score">
-                                <div class="col-8">
-                                    <p class="text-head">{{'propertyDetails.Results Accuracy' | translate}}</p>
-                                    <p class="text-desc">
-                                        {{'propertyDetails.results match your choices by' | translate}}
-                                        {{getScore(params?.score)}}%
-                                    </p>
-                                </div>
-                                <div class="col-4" style="position: relative;">
-                                    <nz-progress class="float-end" nzType="circle" [nzPercent]="getScore(params['score'])"
-                                        [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
-                                    </nz-progress>
-                                    <span class="score">{{getScore(params['score'])}}%</span>
-                                </div>
-                            </div>
                         
                             <div style="margin-bottom: 20px;">
                                 <div style="display: flex; align-items: center;">
@@ -117,9 +102,25 @@
 
                             </div>
 
+                            <div class="accuracy row" *ngIf="proerityType === 'buy' && params?.score">
+                                <div class="col-8">
+                                    <p class="text-head">{{'propertyDetails.Results Accuracy' | translate}}</p>
+                                    <p class="text-desc">
+                                        {{'propertyDetails.results match your choices by' | translate}}
+                                        {{getScore(params?.score)}}%
+                                    </p>
+                                </div>
+                                <div class="col-4" style="position: relative; height: fit-content;">
+                                    <nz-progress class="float-end" nzType="circle" [nzPercent]="getScore(params['score'])"
+                                        [nzStrokeColor]="{ '0%': '#EC6666','50%':'#C175E8','70%':'#79D2DE', '100%': '#147AD6' }">
+                                    </nz-progress>
+                                    <span class="score">{{getScore(params['score'])}}%</span>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="row justify-content-center" style="padding: 10px;">
+                        <div class="button-holder">
 
                             <p *ngIf="proerityType === 'sell' " class="mt-5" style="color: #5A8DEE;">
                                 {{'propertyDetails.Click assign to evaluator' | translate}}
@@ -153,8 +154,8 @@
                     <div class="row justify-content-center"
                         *ngFor="let item of getItemCriteria(propertyDetails) | keyvalue; let index = index;">
                         <p class="head">{{getParentName(item.value)}}</p>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-4 col-lg-3 mt-3"
+                        <div class="criteria-container">
+                            <div
                                 *ngFor="let sItem of getOptions(item.value) | keyvalue">
                                 <div class="box">
                                     <span class="icon">

@@ -332,7 +332,7 @@ export class SingleProjectComponent {
       this.sliderData = []
       this.sliderData.push(
         {
-          img: '../../../../assets/images/empty.jpeg',
+          image: '../../../../assets/images/empty.jpeg',
         }
       )
     }

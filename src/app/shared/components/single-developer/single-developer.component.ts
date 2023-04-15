@@ -6,6 +6,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 import { ApiService } from '../../services/api.service'
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateService } from '@ngx-translate/core'
+import { faLocationArrow, faAngleRight, faChevronDown, faChevronUp, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-single-developer',
@@ -13,6 +14,12 @@ import { TranslateService } from '@ngx-translate/core'
   styleUrls: ['./single-developer.component.scss']
 })
 export class SingleDeveloperComponent {
+  faLocationArrow = faLocationArrow
+  faAngleRight = faAngleRight
+  faChevronDown = faChevronDown
+  faChevronUp = faChevronUp
+  faAngleLeft = faAngleLeft
+
   sub1 = new Subscription()
   lang: string = ''
 
@@ -146,6 +153,20 @@ export class SingleDeveloperComponent {
 
     this.developer = response.data
 
+    this.sliderData = this.developer['developer_images']
+
+    if (!this.sliderData || this.sliderData.length === 0) {
+  
+      this.sliderData = []
+      this.sliderData.push(
+        {
+          image: '../../../../assets/images/empty.jpeg',
+        }
+      )
+    }
+
+    console.log("this.sliderData: ", this.sliderData)
+
     this.spinner.hide()
   }
 
@@ -186,6 +207,25 @@ export class SingleDeveloperComponent {
     var div = document.getElementById('description')
     // console.log("x: ", div)
     div!.innerHTML = str?.trim();
+  }
+
+  sliderData: any = []
+  activeIndex: number = 0
+  tagLength: number = 0
+  activeItem: any = ''
+  activeImageId: number = 0
+
+  handleSliderNavigation(navigate: string) {
+    let index: number = navigate === 'next' ? this.activeIndex + 1 : this.activeIndex - 1
+    index = index === this.sliderData.length ? 0 : index
+    if (index === -1) { index = this.sliderData.length - 1 }
+    this.tagLength = this.sliderData.length
+    return this.activeItem = index !== -1, this.activeImageId = index
+  }
+
+  setActiveIndex(index: number) {
+    this.tagLength = this.sliderData.length
+    return this.activeIndex = index
   }
 
   navigateToSingleProject(item: any){

@@ -69,32 +69,36 @@
 
             .score {
                 position: absolute;
-                right: 40px;
-                top: 20px;
-                @media (min-width: 320px) {
-                    right: 17%;
-                }
-                @media (min-width: 375px) {
-                    right: 32%;
-                }
-                @media (min-width: 450px) {
-                    right: 32%;
-                }
-                @media (min-width: 768px) {
-                    right: 41%;
-                }
-                @media (min-width: 1024px) {
-                    right: 7%;
-                }
-                @media (min-width: 1045px) {
-                    right: 41% !important;
-                }
-                @media only screen and (min-width: 1025px) and (max-width: 1440px) {
-                    right: 35%;
-                }
-                @media (min-width: 1440px) {
-                    right: 34%;
-                }
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+
+                // right: 40px;
+                // top: 20px;
+                // @media (min-width: 320px) {
+                //     right: 17%;
+                // }
+                // @media (min-width: 375px) {
+                //     right: 32%;
+                // }
+                // @media (min-width: 450px) {
+                //     right: 32%;
+                // }
+                // @media (min-width: 768px) {
+                //     right: 41%;
+                // }
+                // @media (min-width: 1024px) {
+                //     right: 7%;
+                // }
+                // @media (min-width: 1045px) {
+                //     right: 41% !important;
+                // }
+                // @media only screen and (min-width: 1025px) and (max-width: 1440px) {
+                //     right: 35%;
+                // }
+                // @media (min-width: 1440px) {
+                //     right: 34%;
+                // }
             }
             background-color: #fff;
             border-radius: 10px;
@@ -103,6 +107,7 @@
             @media (max-width: 768px) {
                 margin-top: 25px;
                 height: max-content;
+                min-height: auto;
             }
             .accuracy {
                 background-color: #f7f7f7;
@@ -156,8 +161,8 @@
                         height: 42px;
                     }
                     @media (max-width: 375px) {
-                        width: 55px;
-                        height: 53px;
+                        // width: 55px;
+                        // height: 53px;
                     }
                 }
                 p {
@@ -205,6 +210,22 @@
                 color: #ff725f;
                 height: 50px;
             }
+
+            .button-holder{
+                @media (max-width: 768px) {
+                    background: white;
+                    width: 100%;
+                    display: flex;
+                    position: fixed;
+                    bottom: 0;
+                    right: 0;
+                    left: 0;
+                    z-index: 9999;
+                    padding: 15px;
+                }
+                
+            }
+
             .button-success {
                 margin-top: 0px;
                 width: 100%;
@@ -245,17 +266,24 @@
                     }
                 }
 
+                .criteria-container{
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: end;
+                    justify-content: flex-start;
+                }
+
                 .box {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    max-width: 215px;
-                    height: 120px;
+                    /* max-width: 215px; */
+                    // height: 90px;
                     border: 1px solid #a9a9a9;
                     border-radius: 10px;
-                    //  text-align: center;
                     margin: auto;
-                    padding: 15px;
+                    padding: 10px 15px;
+                    margin: 5px 5px;
 
                     .icon {
                         display: inline-block;

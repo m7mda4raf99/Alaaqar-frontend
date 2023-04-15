@@ -269,9 +269,11 @@ $active_background: #184d47;
         &.add-property{
             background: #FD4965;
 
-            // &:hover{
-            //     background: #e58d9b
-            // }
+            margin-right: 40px;
+
+            @media (max-width: 450px) {
+                margin: 0px 10px 15px 10px;
+            }
         }
     }
     &__profile{

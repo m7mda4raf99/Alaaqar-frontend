@@ -410,7 +410,8 @@ export class HomeComponent implements OnInit {
       min_price: null,
       max_price: null,
       propose: this.activeTab === 'rent' ? 'rental' : 'sell',
-      hint: this.selectedSearchQuery
+      hint: this.selectedSearchQuery,
+      activeTab: this.activeTab
     }
 
     this.router.navigate(['/search-result'], { queryParams: { activeTab: this.activeTab, search_query: JSON.stringify(this.search_bar_model) } })
@@ -460,26 +461,26 @@ export class HomeComponent implements OnInit {
     // this.getHomeBlogs()
     this.resetFormData()
 
-    this.chat()
+    // this.chat()
 
   }
 
-  chat(){
-    (function(d, m){
-      var kommunicateSettings: any = {"appId":"291b5743d8de72feca0622c537146bc42","popupWidget":true,"automaticChatOpenOnNavigation":true};
-      var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
-      s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-      var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
-      (window as any).kommunicate = m; m._globals = kommunicateSettings;
+  // chat(){
+  //   (function(d, m){
+  //     var kommunicateSettings: any = {"appId":"291b5743d8de72feca0622c537146bc42","popupWidget":true,"automaticChatOpenOnNavigation":true};
+  //     var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+  //     s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+  //     var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+  //     (window as any).kommunicate = m; m._globals = kommunicateSettings;
 
-      kommunicateSettings.onInit = function() {
-        var css = ".mck-title { background: #FD4965;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #FD4965 !important; } .mck-msg-left .mck-msg-box{ background: #f9e9ec !important; } .km-cta-multi-button-container button.km-cta-button { color: #FD4965 !important; border-color: #FD4965 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #FD4965 !important; border-color: #FD4965 !important; } .mck-form-template-container button{ color: #FD4965 !important; border-color: #FD4965 !important; } .km-custom-widget-background-color { background: #FD4965 !important; &:hover{ background: #184d47 !important; } }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
-        (window as any).Kommunicate.customizeWidgetCss(css); // use window.Kommunicate for ReactJs
-    };
+  //     kommunicateSettings.onInit = function() {
+  //       var css = ".mck-title { background: #FD4965;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #FD4965 !important; } .mck-msg-left .mck-msg-box{ background: #f9e9ec !important; } .km-cta-multi-button-container button.km-cta-button { color: #FD4965 !important; border-color: #FD4965 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #FD4965 !important; border-color: #FD4965 !important; } .mck-form-template-container button{ color: #FD4965 !important; border-color: #FD4965 !important; } .km-custom-widget-background-color { background: #FD4965 !important; &:hover{ background: #184d47 !important; } }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
+  //       (window as any).Kommunicate.customizeWidgetCss(css); // use window.Kommunicate for ReactJs
+  //   };
 
-    })(document, (window as any).kommunicate || {});
+  //   })(document, (window as any).kommunicate || {});
     
-  }
+  // }
 
   async getTopHome(){
     let data = {
@@ -592,7 +593,8 @@ export class HomeComponent implements OnInit {
         min_price: null,
         max_price: null,
         propose: this.activeTab === 'rent' ? 'rental' : 'sell',
-        hint: this.selectedSearchQuery
+        hint: this.selectedSearchQuery,
+        activeTab: this.activeTab
       }
 
       if(this.activeTab === 'commercial'){
@@ -638,7 +640,8 @@ export class HomeComponent implements OnInit {
         type: [],
         min_price: null,
         max_price: null,
-        propose: this.activeTab === 'rent' ? 'rental' : 'sell'
+        propose: this.activeTab === 'rent' ? 'rental' : 'sell',
+        activeTab: this.activeTab
       }
 
       if(this.activeTab === 'commercial'){
@@ -2509,7 +2512,7 @@ async onItemSelectRealNeW(item: any){
   }
 
   share_your_quests(){
-    this.router.navigate(['/quest'])
+    this.router.navigate(['/share-your-request'])
   }
 
   navigateToSingleProject(item: any){

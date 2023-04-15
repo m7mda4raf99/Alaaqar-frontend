@@ -482,8 +482,8 @@
                       <div class="price-input">
                           <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
                               translate}}</label>
-                          <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
-                              [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                          <input class="ngSelect-input" [(ngModel)]="priceValueInput" placeholder="{{'home.Price' | translate}}"
+                              type="text" (keyup)="userChangePrice()"/>
                       </div>
   
                       <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |

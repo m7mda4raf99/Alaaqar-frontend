@@ -131,7 +131,10 @@
                             (click)="addUnit(content)">Assign to evaluator</button>
                         <button *ngIf="proerityType === 'buy' " class="btn button-success more"
                             (click)="open(content)">Assign to evaluator</button> -->
-                        <button *ngIf="isPublic"  class="btn button-success more" (click)="requestVisit(sellerContent)">{{'propertyDetails.Request a visit' | translate}}</button>
+
+                        <div class="button-holder">
+                            <button *ngIf="isPublic"  class="btn button-success more" (click)="requestVisit(sellerContent)">{{'propertyDetails.Request a visit' | translate}}</button>
+                        </div>    
 
                     </div>
                 </div>
@@ -154,8 +157,8 @@
                     <div class="row justify-content-center"
                         *ngFor="let item of getItemCriteria(data) | keyvalue; let index = index;">
                         <p class="head">{{getParentName(item.value)}}</p>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-4 col-lg-2 mt-3 fit-content"
+                        <div class="criteria-container">
+                            <div
                                 *ngFor="let sItem of getOptions(item.value) | keyvalue">
                                 
                                 <div class="box">

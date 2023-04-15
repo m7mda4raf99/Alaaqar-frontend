@@ -58,7 +58,7 @@ const routes: Routes = [
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard]  },
   { path: 'favorites', component: FavouritesComponent, canActivate: [AuthGuard]  },
   { path: 'search-result', component: SearchResultComponent, },
-  { path: 'quest', component: QuestComponent, },
+  { path: 'share-your-request', component: QuestComponent, },
   { path: 'developers', component: DevelopersComponent, },
   { path: 'login-developer', component: LoginDeveloperComponent, },
   { path: 'single-developer', component: SingleDeveloperComponent, },
