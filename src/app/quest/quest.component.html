@@ -77,7 +77,10 @@
 
                         <label style="display: flex; align-items: center; margin: 10px 10px;">
                           <input style="margin: 10px;" [(ngModel)]="compound" type="checkbox" data-toggle="toggle">
-                          {{'home.Compound' | translate}} 
+                          
+                          <label *ngIf="country_id === 1">{{'home.Compound EGY' | translate}}</label> 
+                          <label *ngIf="country_id === 2">{{'home.Compound KSA' | translate}}</label> 
+
                         </label>
 
                       </div>
@@ -97,13 +100,13 @@
 
                         <div class="name">
                           <div class="title"> {{'quest.Min' | translate}} 
-                            <input class="ngSelect-input" [(ngModel)]="min_price" placeholder="{{'quest.Min Price' | translate}}"
-                            [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />    
+                            <input class="ngSelect-input" [(ngModel)]="minValueInput" placeholder="{{'quest.Min Price' | translate}}"
+                            type="text" (keyup)="userChangeMin()"/>    
                           </div>
     
                           <div class="title"> {{'quest.Max' | translate}} 
-                            <input class="ngSelect-input" [(ngModel)]="max_price" placeholder="{{'quest.Max Price' | translate}}"
-                            [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
+                            <input class="ngSelect-input" [(ngModel)]="maxValueInput" placeholder="{{'quest.Max Price' | translate}}"
+                            type="text" (keyup)="userChangeMax()"/>
     
                           </div>
                         </div>

@@ -25,6 +25,20 @@
     gTag('js', new Date());
 
     gTag('config', 'GTM-TL6KHMR');
+
+    (function(d, m){
+      var kommunicateSettings= {"appId":"291b5743d8de72feca0622c537146bc42","popupWidget":true,"automaticChatOpenOnNavigation":true};
+      var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+      s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+      var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+      window.kommunicate = m; m._globals = kommunicateSettings;
+
+      kommunicateSettings.onInit = function() {
+        var css = ".mck-title { background: #FD4965;} .mck-running-on { display: none !important; } .mck-msg-right .mck-msg-box { background: #FD4965 !important; } .mck-msg-left .mck-msg-box{ background: #f9e9ec !important; } .km-cta-multi-button-container button.km-cta-button { color: #FD4965 !important; border-color: #FD4965 !important; } .km-cta-multi-button-container button.km-quick-replies{ color: #FD4965 !important; border-color: #FD4965 !important; } .mck-form-template-container button{ color: #FD4965 !important; border-color: #FD4965 !important; } .km-custom-widget-background-color { background: #FD4965 !important; &:hover{ background: #184d47 !important; } }"; // Replace <YOUR_CSS_CODE_HERE> with the CSS you want to override.
+        window.Kommunicate.customizeWidgetCss(css); // use window.Kommunicate for ReactJs
+    };
+
+    })(document, window.kommunicate || {});
   </script>
 
 </head>

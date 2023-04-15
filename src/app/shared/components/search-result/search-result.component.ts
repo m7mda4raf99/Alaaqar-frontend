@@ -14,13 +14,15 @@ import { unwatchFile } from 'fs';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Options } from '@angular-slider/ngx-slider';
 import { CookieService } from 'ngx-cookie-service';
+import { DecimalPipe } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
-  styleUrls: ['./search-result.component.scss']
+  styleUrls: ['./search-result.component.scss'],
+  providers: [DecimalPipe]
 })
 export class SearchResultComponent implements OnInit {
 
@@ -103,7 +105,8 @@ export class SearchResultComponent implements OnInit {
     private apiService: ApiService,
     private translateService: TranslateService,
     private activatedRoute: ActivatedRoute,
-    private spinner: NgxSpinnerService,) {
+    private spinner: NgxSpinnerService,
+    private decimalPipe: DecimalPipe) {
     this.sub2 = this.appService.lang$.subscribe(val => {
       this.activeLang = val
 
@@ -129,7 +132,7 @@ export class SearchResultComponent implements OnInit {
     this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
 
       if(res != this.country_id){
-        console.log("country changed so restart search")
+        // console.log("country changed so restart search")
         // country changed
 
         this.country_id = res
@@ -175,7 +178,7 @@ export class SearchResultComponent implements OnInit {
 
       this.isLoading = true
         
-      console.log("const: ", this.search_model)
+      // console.log("const: ", this.search_model)
 
       await this.search(false)
 
@@ -230,14 +233,14 @@ export class SearchResultComponent implements OnInit {
 
     this.search_model.in_compound = this.in_compound
     
-    console.log("oninit: ", this.search_model)
+    // console.log("oninit: ", this.search_model)
 
     this.search(false)
     await this.get_bedrooms_options(5)
     await this.get_space_options(4)
 
-    console.log("get_bedrooms_options:", this.dropdownListRoom)
-    console.log("get_space_options:", this.dropdownListSpace)
+    // console.log("get_bedrooms_options:", this.dropdownListRoom)
+    // console.log("get_space_options:", this.dropdownListSpace)
 
     /// New Search filter 
     this.activeCity = this.search_model.cities
@@ -248,10 +251,10 @@ export class SearchResultComponent implements OnInit {
   }
 
   onPageChange(pageNumber: number) {
-    console.log("offset")
-    console.log(this.search_model.offset)
-    console.log('event')
-    console.log(pageNumber)
+    // console.log("offset")
+    // console.log(this.search_model.offset)
+    // console.log('event')
+    // console.log(pageNumber)
     this.search_model.flag = false
     this.search_model.offset = (pageNumber-1) * 18
     this.search(true,pageNumber)
@@ -283,8 +286,8 @@ export class SearchResultComponent implements OnInit {
       else {
         if(res.data.units && res.data.units.length > 0){
           this.results = res.data.units
-          console.log('results')
-          console.log(this.results)
+          // console.log('results')
+          // console.log(this.results)
         } else {
           this.results = []
         }  
@@ -344,7 +347,7 @@ export class SearchResultComponent implements OnInit {
     this.dropdownMenuButton1.nativeElement.click()
   }
   setPricePlaceHolder() {
-    console.log("Min: ", this.priceMinRange, " | Max: ", this.priceMaxRange)
+    // console.log("Min: ", this.priceMinRange, " | Max: ", this.priceMaxRange)
 
     if (this.priceMinRange === 0 && this.priceMaxRange === '' || this.priceMaxRange === null || this.priceMaxRange === 0) {
       return this.translateService.instant('home.All Prices')
@@ -465,9 +468,9 @@ export class SearchResultComponent implements OnInit {
     this.search_model
     this.search_model.offset = 0
 
-    console.log("this.search_model: ", this.search_model)
+    // console.log("this.search_model: ", this.search_model)
 
-    console.log(this.search_model)
+    // console.log(this.search_model)
 
     this.search(false)
   }
@@ -844,35 +847,46 @@ export class SearchResultComponent implements OnInit {
     this.quick_search()
   }
 
-  userChangeMin(flag: boolean){    
-    if(flag){
-      this.minValueInput = this.minValue
-      this.priceMinRange = this.minValue
-    }else{
-      this.priceMinRange = Number(this.minValueInput)
+  userChangeMin(){ 
+    this.minValueInput = this.minValueInput.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-      if(this.priceMaxRange < this.priceMinRange){
-        this.priceMaxRange = this.priceMinRange
-        this.maxValueInput = this.priceMinRange
-      }
+    this.priceMinRange = Number(this.minValueInput.replace(/,/g, ''))
+
+    if(this.priceMaxRange === undefined || this.priceMaxRange === '' || this.priceMaxRange < this.priceMinRange){
+      this.priceMaxRange = this.priceMinRange
+      this.maxValueInput = this.minValueInput
+    }
+  }
+
+  userChangeMax(){   
+    this.maxValueInput = this.maxValueInput.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+ 
+    this.priceMaxRange = Number(this.maxValueInput.replace(/,/g, ''))
+
+    if(this.priceMaxRange < this.priceMinRange){
+      this.priceMinRange = this.priceMaxRange
+      this.minValueInput = this.maxValueInput
     }
 
   }
 
-  userChangeMax(flag: boolean){    
-    if(flag){
-        this.maxValueInput = this.maxValue
-        this.priceMaxRange = this.maxValue
-    }else{
-      this.priceMaxRange = Number(this.maxValueInput)
+//   PosEnd() {
+//     var input = document.getElementById('idText') as HTMLInputElement
 
-      if(this.priceMaxRange < this.priceMinRange){
-        this.priceMinRange = this.priceMaxRange
-        this.minValueInput = this.priceMaxRange
-      }
-
-    }
-  }
+//     var len = input.value.length;
+      
+//     // Mostly for Web Browsers
+//     if (input.setSelectionRange) {
+//         input.focus();
+//         input.setSelectionRange(len, len);
+//     } else if (input.val) {
+//         var t = input.createTextRange();
+//         t.collapse(true);
+//         t.moveEnd('character', len);
+//         t.moveStart('character', len);
+//         t.select();
+//     }
+// }
 
   setMultiSelection(){
     this.settingsUnitType = {
@@ -952,7 +966,13 @@ export class SearchResultComponent implements OnInit {
   }
 
   getHint(){
-    console.log("ashraffff")
+    // console.log("ashraffff")
     return {id: 1, name: 'gizoo'}
+  }
+
+  myNumber: any;
+
+  formatMinNumber() {
+    this.myNumber = this.myNumber.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 }

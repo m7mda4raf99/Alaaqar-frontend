@@ -150,7 +150,7 @@
     
                             .logoEN{
                                 background: url('../../../../assets/images/logo_header_pink.png');
-                                height: 18px;
+                                height: 19px;
                                 background-size: contain;
                             }
 
@@ -204,7 +204,7 @@
                         color: #184d47;
                         display: flex;
                         flex-direction: column;
-                        width: 63%;
+                        // width: 63%;
 
                         @media (max-width: 450px) {
                             padding: 5px 0px;
@@ -212,10 +212,14 @@
                             align-items: center;
                             text-align: center;
 
-                            width: 40%;
+                            // width: 87%;
 
                             &.app{
-                                width: 100%;
+                                // width: 100%;
+                            }
+
+                            &.request{
+                                // width: 50%;
                             }
 
                         }
@@ -241,7 +245,7 @@
 
                         .logoEN{
                             background: url('../../../../assets/images/logo_header.png');
-                            height: 18px;
+                            height: 19px;
                             background-size: contain;
 
                             @media (max-width: 450px) {
@@ -250,6 +254,7 @@
                         }
 
                         .coming{
+                            margin-top: 2px;
                             display: flex;
                             padding: 5px 5px;
                             color: white;
@@ -259,6 +264,12 @@
                             border-radius: 5px;
                             font-size: 9px;
                             width: fit-content;
+
+                            &.ai{
+                                @media (max-width: 450px) {
+                                    display: none;
+                                }
+                            }
                         }
                     }
                 }
@@ -1672,7 +1683,7 @@
         }
     }
     .recently-added {
-        padding: 50px 0;
+        padding: 50px 135px;
 
         @media (max-width: 450px) {
             padding: 25px 0px;
@@ -1847,7 +1858,10 @@
         }
         
         .results {
-            background-color: #F7F7F7;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         
             .main-row {
                 margin-top: 50px;
@@ -1916,10 +1930,15 @@
                 }
             }
 
-            // .hover{
-            //     box-shadow: 8px 3px 30px;
-                
-            // }
+            .hover{
+                width: 31%;
+                margin: 0% 1%;
+
+                @media (max-width: 450px) {
+                    width: 100%;
+                    margin: 0% 10px;
+                }
+            }
         
         }
     }
@@ -2203,7 +2222,7 @@
 
             .quest_image{
                 background: rgb(255, 255, 255, 0.2) url("../../../../assets/images/share_quest.png") 0% 0% padding-box;
-                width: 25%;
+                width: 24%;
                 background-size: cover;
                 margin: 0px 20px;
 
@@ -2387,7 +2406,7 @@
         .left-sec {
             .downlaod {
                 display: flex;
-                justify-content: flex-start;
+                justify-content: center;
 
                 img {
                     width: 35%;
@@ -2501,6 +2520,18 @@
                     }
                 }
             }
+        }
+
+        .coming{
+            margin: 3% 5%;
+            display: flex;
+            padding: 10px;
+            color: #fff;
+            align-content: center;
+            justify-content: center;
+            background: #184d47;
+            border-radius: 5px;
+            width: fit-content;
         }
     }
     .about-alaqaar {

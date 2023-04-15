@@ -89,6 +89,7 @@
         "addUnit": "All of your unit's data is required!",
         "addUnit area": "Please choose a city with an available district!",
         "location": "Please make sure to select your location.",
+        "unit type": "Please make sure to select your property type.",
         "choose_priority": "Please make sure to select at least one priority.",
         "set_priority": "Please make sure to set all chosen priorities."
     },
@@ -123,7 +124,7 @@
         "Location": "Location",
         "Compound EGY": "Compound",
         "Compound KSA": "Compound",
-        "Real estate type": "Real estate type",
+        "Real estate type": "Property Type",
         "Propose": "Proposal",
         "Price range": "Price range",
         "Price range hint": "Minimum price in this area: ",
@@ -183,8 +184,10 @@
         "top_searched_areas": "Top searched areas",
         "top_developers": "Top developers",
         "share_your_quests": "Share your request",
-        "share_your_quests_description": "Are you in search of your dream home? Our real estate advisors who have access to a wide range of listings and resources who can assist you in finding the perfect property. Don't wait any longer to find your dream home. Contact us today."
-
+        "share_your_quests_title1": "share your",
+        "share_your_quests_title2": "request",
+        "share_your_quests_description": "Are you in search of your dream home? Our real estate advisors who have access to a wide range of listings and resources who can assist you in finding the perfect property. Don't wait any longer to find your dream home. Contact us today.",
+        "AI": "AI-powered"
     },
     "quest":{
         "title":"Share your requirements!",
@@ -204,8 +207,10 @@
         "Mobile Number": "Mobile Number",
         "Min": "Min",
         "Max": "Max",
-        "Min Price": "0 EGP",
-        "Max Price": "100,000,000 EGP"
+        "Min Price EGY": "0 EGP",
+        "Max Price EGY": "900,000,000 EGP",
+        "Min Price KSA": "0 SAR",
+        "Max Price KSA": "900,000,000 SAR"
     },
     "alert":{
        "failed": "Failed",
@@ -445,6 +450,7 @@
         "Sign Up":"Sign Up",
         "OTP Verification":"OTP Verification",
         "Your name and image":"Your name and image",
+        "Your name and image developer":"Your company information",
         "Please Enter a valid phone number":" Please enter a valid phone number.",
         "Request OTP":"Request OTP",
         "Enter the OTP sent to":"Enter the OTP sent to",
@@ -465,7 +471,9 @@
         "Company Name AR": "Company Name (AR)",
         "Website": "Website",
         "Company Location": "Company Location",
-        "Description": "Description"
+        "Description": "Description",
+        "Description EN": "Description (EN)",
+        "Description AR": "Description (AR)"
     },
     "howItWorks":{
         "How it works":"How it works",
@@ -492,6 +500,7 @@
         "project_name_en": "Project Name (EN)",
         "project_name_ar": "Project Name (AR)",
         "address": "Address",
+        "upload_developer_photos": "Upload company photos",
         "upload_photos": "Upload project photos",
         "upload_masterplan": "Upload master plan",
         "upload_logo": "Upload project logo",
@@ -519,6 +528,7 @@
         "set_top_priority": "Set your top priorities.",
         "set_low_priority": "Set your low priorities.",
         "location": "Please select your location.",
+        "unit type": "Please select your property type.",
         "price": "Please select your price range.",
         "min": "Minimum",
         "max": "Maximum",
@@ -556,5 +566,8 @@
     "coming_soon":"Coming soon",
     "how it works": "how it works",
     "electronic advisor": "electronic advisor",
+    "electronic advisor1": "electronic",
+    "electronic advisor2": "advisor",
+
     "mobile app": "mobile app"
 }

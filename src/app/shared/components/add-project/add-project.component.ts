@@ -20,15 +20,30 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 export class AddProjectComponent {
   lang: string = ''
   
-  config: AngularEditorConfig = {
+  config_en: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     height: '15rem',
     minHeight: '5rem',
-    placeholder: this.lang === 'en' ? "Write a short description of your project.": "اكتب وصفا موجزا لمشروعك.",
+    placeholder: this.lang === 'en' ? "Write a short description of your company ( in english ).": "اكتب وصفًا موجزًا لشركتك ( باللغة الإنجليزية ).",
     translate: 'yes',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
+    enableToolbar: false,
+    showToolbar: false
+  };
+
+  config_ar: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: this.lang === 'en' ? "Write a short description of your company ( in arabic ).": "اكتب وصفًا موجزًا لشركتك ( بالعربية ).",
+    translate: 'yes',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    enableToolbar: false,
+    showToolbar: false
   };
   
   faLocationArrow = faLocationArrow
@@ -61,9 +76,11 @@ export class AddProjectComponent {
       this.putArea(false)
 
       if(this.lang === 'en'){
-        this.config.placeholder = "Write a short description of your project."
+        this.config_en.placeholder = "Write a short description of your project ( in english )."
+        this.config_ar.placeholder = "Write a short description of your project ( in arabic )."
       }else{
-        this.config.placeholder = "اكتب وصفا موجزا لمشروعك."
+        this.config_en.placeholder = "اكتب وصفًا موجزًا لمشروعك ( باللغة الإنجليزية )."
+        this.config_ar.placeholder = "اكتب وصفًا موجزًا لمشروعك ( بالعربية )."
       }
     })
 
@@ -478,7 +495,8 @@ export class AddProjectComponent {
 
   async addProject(){
     if(this.projectForm.value['address'] != '' && 
-    this.projectForm.value['description'] != '' &&
+    this.projectForm.value['description_en'] != '' &&
+    this.projectForm.value['description_ar'] != '' &&
     this.projectForm.value['project_name_ar'] != '' &&
     this.projectForm.value['project_name_en'] != '' &&
     this.projectForm.value['city'].length > 0 &&
@@ -491,7 +509,8 @@ export class AddProjectComponent {
         'name_en': this.projectForm.get('project_name_en')?.value,
         'name_ar': this.projectForm.get('project_name_ar')?.value,
         'location': this.projectForm.get('address')?.value,
-        'description': this.projectForm.get('description')?.value,
+        'description_en': this.projectForm.get('description_en')?.value,
+        'description_ar': this.projectForm.get('description_ar')?.value,
         'img': this.logoURL,
         'masterplan': this.masterplanURL,
         'area_id': this.selectedItemArea[0].id,
@@ -525,7 +544,8 @@ export class AddProjectComponent {
     project_name_en: new UntypedFormControl(''),
     project_name_ar: new UntypedFormControl(''),
     address:  new UntypedFormControl(''),
-    description:  new UntypedFormControl(''),
+    description_en:  new UntypedFormControl(''),
+    description_ar:  new UntypedFormControl(''),
     city:  new UntypedFormControl(''),
     area:  new UntypedFormControl(''),
 

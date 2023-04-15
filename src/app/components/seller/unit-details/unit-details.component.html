@@ -104,12 +104,15 @@
 
                         <!-- <button (click)="editUnit()" *ngIf="proerityType === 'sell' && params.edit != 'true' "
                             class="btn more edit-unit">{{'propertyDetails.Edit this unit' | translate}}</button> -->
-                        <button *ngIf="proerityType === 'sell' && params.edit == 'true'"
+                        
+                        <div class="button-holder">
+                            <button *ngIf="proerityType === 'sell' && params.edit == 'true'"
                             class="btn button-success more" (click)="UpdateUnit(content)">{{'propertyDetails.Assign
                             to evaluator' | translate}}</button>
-                        <button *ngIf="proerityType === 'sell' && params.edit != 'true' "
+                            <button *ngIf="proerityType === 'sell' && params.edit != 'true' "
                             class="btn button-success more" (click)="addUnit(content)">{{'propertyDetails.Assign to
                             evaluator' | translate}}</button>
+                        </div>
 
                     </div>
                 </div>
@@ -126,8 +129,8 @@
                 <div class="col-12 more-details" *ngFor="let view of propertyDataView | keyvalue">
                     <!--  Interior -->
                     <p class="head"> {{getViewName(view.value)}}</p>
-                    <div class="row">
-                        <div class="col-xs-6 col-md-4 col-lg-3 mt-3"
+                    <div class="criteria-container">
+                        <div
                             *ngFor="let item of getViewOptions(view.value) | keyvalue;let index = index;">
 
                             <div class="box" *ngIf="item.key != 'Unit Title' && item.key != 'Write a unique description'">

@@ -1797,4 +1797,14 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     
   }
 
+  priceValueInput: any;
+
+  userChangePrice(){ 
+    this.PriceNotValid = false
+    
+    this.priceValueInput = this.priceValueInput.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    this.price = Number(this.priceValueInput.replace(/,/g, ''))
+  }
+
 }

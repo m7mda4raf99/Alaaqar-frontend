@@ -60,7 +60,7 @@
                             <input hidden ngbButton type="radio" value="projects"> {{'developer.Projects' | translate}}
                           </label>
                         </div>
-                        <div class="carousel-cell">
+                        <!-- <div class="carousel-cell">
                           <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'visit_requests'">
                             <input hidden ngbButton type="radio" value="visit_requests"> Visit Requests
                           </label>
@@ -74,7 +74,7 @@
                           <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'pending_reviews'">
                             <input hidden ngbButton type="radio" value="pending_reviews"> Pending Reviews
                           </label>
-                        </div>
+                        </div> -->
                         
                       </carousel>
     
@@ -88,7 +88,7 @@
                         <label ngbButtonLabel class="switch-tab" [class.active]="switcher == 'projects'">
                           <input hidden ngbButton type="radio" value="projects"> {{'developer.Projects' | translate}}
                         </label>
-                        <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'visit_requests'">
+                        <!-- <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'visit_requests'">
                           <input hidden ngbButton type="radio" value="visit_requests"> Visit Requests
                         </label>
                         <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'reviews'">
@@ -96,7 +96,7 @@
                         </label>
                         <label style="pointer-events: none;" ngbButtonLabel class="switch-tab" [class.active]="switcher == 'pending_reviews'">
                           <input hidden ngbButton type="radio" value="pending_reviews"> Pending Reviews
-                        </label>
+                        </label> -->
     
                     </div>
 
@@ -109,14 +109,57 @@
                         <div class="row" style="margin: 0px 15px;">
                             <div class="col-xs-12 col-md-10 main-row">
                                 
+                                <!-- // images -->
+                                <div class="images">
+                                    <div class="col-sm-12 col-lg-10">
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="switcher">
+                                                    <!-- <select [(ngModel)]="activeItem" (change)="onChangeSlider(activeItem)"
+                                                        class="form-select form-select-lg mb-3 float-end"
+                                                        aria-label=".form-select-lg example" style="width:176px;">
+                                                        <option value="" selected><span></span>{{'propertyDetails.All images' | translate}}
+                                                        </option>
+                                                        <option *ngFor="let item of sliderTags" value="{{item}}" [selected]="item === activeItem">{{item}}</option>
+                                                    </select>
+                                                    <img class="img-icon" src="../../../../assets/images/photo.svg" alt="..."/> -->
+                                                    <span class="count"><span style="color: #FF725F;">{{activeImageId + 1 <= tagLength && activeImageId + 1 !== 0
+                                                        ?activeImageId + 1 : 1 }}</span>/{{tagLength}}</span>
+                                                </div>
+                                                <!-- ngfor loop using get dynamic value and ngclass for add acive class -->
+                                                <div *ngFor="let result of sliderData; let i = index" >
+                                                    <div [attr.init]="i === activeImageId?setActiveIndex(i): false" class="carousel-item" 
+                                                        [ngClass]="{'active': i === activeImageId}">
+                                                        <img src={{result.image}} class="slider-img" alt="..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button (click)="handleSliderNavigation('back')" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                                                data-bs-slide="prev">
+                                                <fa-icon [icon]="faAngleLeft" class="user-icon"></fa-icon>
+                                                <span class="visually-hidden">{{'propertyDetails.Previous' | translate}}</span>
+                                            </button>
+                                            <button (click)="handleSliderNavigation('next')" class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                                                data-bs-slide="next">
+                                                <fa-icon [icon]="faAngleRight" class="user-icon"></fa-icon>
+                                                <span class="visually-hidden">{{'propertyDetails.Next' | translate}}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+  
                                 <!-- description -->
                                 <div class="row details col-lg-10">
-                                    <span class="head-description"> {{'developer.description' | translate}} </span>
+                                  <span class="head-description"> {{'developer.description' | translate}} </span>
+  
+                                  <!-- {{renderString(developer['description'])}} -->
+                                  <span id="description" class="sub-head-description"
+                                    [innerHTML]="lang === 'en' ? developer.description_en : developer.description_ar">
+                                   </span>
+  
+                              </div>
 
-                                    {{renderString(developer['description'])}}
-                                    <span id="description" class="sub-head-description"> </span>
-
-                                </div>
   
                             </div>
                         </div>

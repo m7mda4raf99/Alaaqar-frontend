@@ -40,7 +40,7 @@
                                             {{'signIn.Sign Up' | translate}}
                                         </label>
                                         <label *ngIf="haveOTP">{{'signIn.OTP Verification' | translate}}</label>
-                                        <label *ngIf="registrationRequest">{{'signIn.Your name and image' | translate}}</label>
+                                        <label *ngIf="registrationRequest">{{'signIn.Your name and image developer' | translate}}</label>
                                     </b>
                                 </div>
                                 <div class="login-form">
@@ -97,7 +97,7 @@
                                     
                                     <!-- register -->
                                     <div class="register" *ngIf="!haveOTP && registrationRequest">
-                                      <form #f="ngForm" [formGroup]="phoneForm">
+                                      <form style="display: flex; flex-direction: column; align-items: center;" #f="ngForm" [formGroup]="phoneForm">
                                           <div class="image">
                                               <input hidden #file   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEvent($event)" />
                                               <span class="avatar">
@@ -140,14 +140,48 @@
                                                     aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Company Location' | translate}}">
                                             </div>
                                             <div class="each-input description">
-                                                <label for="validationCustom01" class="form-label">{{'signIn.Description' | translate}}</label>
+                                                <label for="validationCustom01" class="form-label">{{'signIn.Description EN' | translate}}</label>
                                                 
-                                                <angular-editor  formControlName="description" class="form-control" id="description"
-                                                 aria-describedby="inputGroupPrepend" [config]="config"></angular-editor>
+                                                <angular-editor  formControlName="description_en" class="form-control" id="description_en"
+                                                 aria-describedby="inputGroupPrepend" [config]="config_en"></angular-editor>
 
                                                 
                                             </div>
 
+                                            <div class="each-input description">
+                                                <label for="validationCustom01" class="form-label">{{'signIn.Description AR' | translate}}</label>
+                                                
+                                                <angular-editor  formControlName="description_ar" class="form-control" id="description_ar"
+                                                 aria-describedby="inputGroupPrepend" [config]="config_ar"></angular-editor>
+
+                                                
+                                            </div>
+
+                                            <div class="each-input upload">
+                                                <div class="each-upload">
+                                                  <div style="display: flex; justify-content: space-around; align-items: center;">
+                                                    <label for="validationCustom01" class="form-label" style="margin: 10px;">{{'developer.upload_developer_photos' | translate}}</label>
+                                                    <img *ngIf="photosURLs.length > 0" (click)="filePhotos.click()" style="background-color: #99B2AF;
+                                                    padding: 7px; cursor: pointer;
+                                                    border-radius: 50%;
+                                                    width: 35px;
+                                                    height: 35px;"
+                                                          src="../../../../assets/images/Path 9801.png" alt="..."/>
+                                                  </div>
+                                                  <input hidden #filePhotos   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEventPhotos($event)" multiple/>
+                                                  <span *ngIf="photosURLs.length === 0" class="avatar">
+                                                      <img (click)="filePhotos.click()" class="main-img" src="../../../../assets/images/project_photos.jpg" alt="..."/>
+                                                      <img (click)="filePhotos.click()" class="icon"
+                                                          src="../../../../assets/images/Path 9801.png" alt="..."/>
+                                                  </span>
+                    
+                                                  <span class="avatar project-photo">
+                                                    <img *ngFor="let photo of photosURLs" class="project-photo" src="{{ photo['image'] }}" alt="..."/>
+                                                  </span>
+                                                </div>
+                    
+                    
+                                              </div>
                                           </div>
                                           
                                           
@@ -163,7 +197,7 @@
                                                       policy' | translate}}</a>.
                                               </label>
                                           </div>
-                                          <button style="margin-top: 5%" type="submit" class="submit-btn button-success"
+                                          <button type="submit" class="submit-btn login button-success"
                                               [disabled]="isLoading || !agreeTermsAndConditions" (click)="Register(head)">
                                               <span *ngIf="!isLoading">{{'signIn.Login' | translate}}</span>
                                               <span *ngIf="isLoading">

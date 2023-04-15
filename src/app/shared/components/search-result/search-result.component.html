@@ -92,10 +92,10 @@
                                         {{'home.Price range' | translate}}
                                     </div>
         
-                                    <div id="slider">
+                                    <!-- <div id="slider">
                                         <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
                                         (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)"></ngx-slider>
-                                    </div>
+                                    </div> -->
         
                                     <div id="textboxes">
                 
@@ -105,10 +105,10 @@
                                             <div id="fromTextbox">
                                         
                                                 <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
-                                                placeholder="{{'home.Min Price' | translate}}" ngxNumberFormat="#,###,###,###"
-                                                [allowNegative]="false" type="text"
-                                                (keyup)="userChangeMin(false)"/>
+                                                placeholder="{{'home.Min Price' | translate}}"
+                                                (keyup)="userChangeMin()" type="text" />
                                             </div>
+                
                                         </div>
                                         
                                         <div id="to">
@@ -117,9 +117,8 @@
                                             <div id="fromTextbox">
                                         
                                                 <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
-                                                placeholder="{{'home.Max Price' | translate}}" ngxNumberFormat="#,###,###,###"
-                                                [allowNegative]="false" type="text"
-                                                (keyup)="userChangeMax(false)"/>
+                                                placeholder="{{'home.Max Price' | translate}}" type="text"
+                                                (keyup)="userChangeMax()"/>
                                             </div>
                                         </div>
                                     

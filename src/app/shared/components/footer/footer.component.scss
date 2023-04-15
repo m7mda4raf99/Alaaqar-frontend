@@ -47,9 +47,15 @@
                     opacity: 1;
                     width: 24px;
                     height: 24px;
-                    padding: 0px 24px;
+                    padding: 0px 24px !important;
                     &.fb {
                         background: transparent url('../../assets/images/facebook-fill.svg') 0% 0% no-repeat padding-box;
+                    }
+                    &.sc {
+                        background: transparent url('../../assets/images/snapchat-logo-svgrepo-com.svg') 0% 0% no-repeat padding-box;
+                    }
+                    &.tt {
+                        background: transparent url('../../assets/images/logo-tiktok-svgrepo-com.svg') 0% 0% no-repeat padding-box;
                     }
                     &.ig {
                         background: transparent url('../../assets/images/instagram-line.svg') 0% 0% no-repeat padding-box;

@@ -13,7 +13,9 @@
                       </div>
                     
                     <div class="social-links col">
-                        <span (click)="navigateToFacebook()" class="fb"></span>
+                        <span *ngIf="country_id === 1" (click)="navigateToFacebook()" class="fb"></span>
+                        <span *ngIf="country_id === 2" (click)="navigateToSnapchat()" class="sc"></span>
+                        <span *ngIf="country_id === 2" (click)="navigateToTiktok()" class="tt"></span>
                         <span (click)="navigateToInstagram()" class="ig"></span>
                         <span (click)="navigateToTwitter()" class="tw"></span>
                         <span (click)="navigateToYoutube()" class="you"></span>
@@ -46,14 +48,14 @@
                 </div>
                 <div class="contacts">
                     <h3> {{'footer.Contact' | translate}}</h3>
-                    <div *ngIf="country_id === 1" class="flex">
+                    <!-- <div *ngIf="country_id === 1" class="flex">
                         <p> {{contacts.contact_phone}} </p>
                         <p> {{contacts.contact_email}} </p>
-                    </div>
+                    </div> -->
 
-                    <div *ngIf="country_id === 2" class="flex">
+                    <!-- <div *ngIf="country_id === 2" class="flex"> -->
                         <p> <a routerLink='/contact'>{{'header.contact_us' | translate}}</a></p>
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="download">
                     

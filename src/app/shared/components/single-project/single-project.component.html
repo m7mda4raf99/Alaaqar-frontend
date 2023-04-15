@@ -141,8 +141,11 @@
                               <div class="row details col-lg-10">
                                 <span class="head-description"> {{'developer.description' | translate}} </span>
 
-                                {{renderString(project['description'])}}
-                                <span id="description" class="sub-head-description"> </span>
+                                <!-- {{renderString(project['description'])}} -->
+                                <span id="description" class="sub-head-description"
+                                  [innerHTML]="lang === 'en' ? project.description_en : project.description_ar"
+                                > 
+                                </span>
 
                             </div>
 

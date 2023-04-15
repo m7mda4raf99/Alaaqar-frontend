@@ -369,4 +369,30 @@ export class QuestComponent {
     }
   }
 
+  minValueInput: any;
+  maxValueInput: any;
+
+  userChangeMin(){ 
+    this.minValueInput = this.minValueInput.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    this.min_price = Number(this.minValueInput.replace(/,/g, ''))
+
+    if(this.max_price === undefined || this.max_price === '' || this.max_price < this.min_price){
+      this.max_price = this.min_price
+      this.maxValueInput = this.minValueInput
+    }
+  }
+
+  userChangeMax(){   
+    this.maxValueInput = this.maxValueInput.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+ 
+    this.max_price = Number(this.maxValueInput.replace(/,/g, ''))
+
+    if(this.max_price < this.min_price){
+      this.min_price = this.max_price
+      this.minValueInput = this.maxValueInput
+    }
+
+  }
+
 }

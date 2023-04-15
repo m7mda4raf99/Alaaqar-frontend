@@ -47,6 +47,16 @@ export class FooterComponent implements OnInit {
     window.open(url, '_blank')
   }
 
+  navigateToSnapchat() {
+    let url = 'https://www.snapchat.com/add/alaaqardigital'
+    window.open(url, '_blank')
+  }
+
+  navigateToTiktok() {
+    let url = 'https://www.tiktok.com/@alaaqar'
+    window.open(url, '_blank')
+  }
+
   navigateToInstagram() {
     let url = 'https://instagram.com/alaaqarapp?igshid=YmMyMTA2M2Y='
     window.open(url, '_blank')
@@ -58,7 +68,12 @@ export class FooterComponent implements OnInit {
   }
 
   navigateToTwitter() {
-    let url = 'https://twitter.com/alaaqarapp'
+    let url = 'https://twitter.com/alaaqarGulf'
+
+    if(this.country_id === 1){
+      url = 'https://twitter.com/alaaqarapp'
+    }
+    
     window.open(url, '_blank')
   }
 

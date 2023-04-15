@@ -38,6 +38,9 @@ export class LoginDeveloperComponent {
   isLoading: boolean = false
   checkboxTerms: boolean = false
 
+  photosURLs: any = []
+  filedataPhotos: any = []
+
   phoneForm = new UntypedFormGroup({
     phone: new UntypedFormControl('', [Validators.required]),
     name: new UntypedFormControl(''),
@@ -46,7 +49,8 @@ export class LoginDeveloperComponent {
     company_name_ar:  new UntypedFormControl(''),
     website:  new UntypedFormControl(''),
     company_location:  new UntypedFormControl(''),
-    description:  new UntypedFormControl(''),
+    description_en:  new UntypedFormControl(''),
+    description_ar:  new UntypedFormControl(''),
     avatar: new UntypedFormControl(''),
   });
   agreeTermsAndConditions: boolean = false
@@ -68,15 +72,30 @@ export class LoginDeveloperComponent {
   loginSectionWidth: any = '130%'
   loginHeight: any = 'auto'
 
-  config: AngularEditorConfig = {
+  config_en: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
     height: '15rem',
     minHeight: '5rem',
-    placeholder: this.lang === 'en' ? "Write a short description of your company.": "اكتب وصفًا موجزًا لشركتك.",
+    placeholder: this.lang === 'en' ? "Write a short description of your company. ( in english )": "اكتب وصفًا موجزًا لشركتك. ( باللغة الإنجليزية )",
     translate: 'yes',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
+    enableToolbar: false,
+    showToolbar: false
+  };
+
+  config_ar: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: this.lang === 'en' ? "Write a short description of your company. ( in arabic )": "اكتب وصفًا موجزًا لشركتك. ( بالعربية )",
+    translate: 'yes',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    enableToolbar: false,
+    showToolbar: false
   };
 
   constructor(
@@ -111,9 +130,11 @@ export class LoginDeveloperComponent {
         this.lang = val;
 
         if(this.lang === 'en'){
-          this.config.placeholder = "Write a short description of your company."
+          this.config_en.placeholder = "Write a short description of your company ( in english )."
+          this.config_ar.placeholder = "Write a short description of your company ( in arabic )."
         }else{
-          this.config.placeholder = "اكتب وصفًا موجزًا لشركتك."
+          this.config_en.placeholder = "اكتب وصفًا موجزًا لشركتك ( باللغة الإنجليزية )."
+          this.config_ar.placeholder = "اكتب وصفًا موجزًا لشركتك ( بالعربية )."
         }
       })
 
@@ -163,8 +184,9 @@ export class LoginDeveloperComponent {
           this.phoneForm.get('company_name_ar')?.setValidators(Validators.required)
           this.phoneForm.get('website')?.setValidators(Validators.required)
           this.phoneForm.get('company_location')?.setValidators(Validators.required)
-          this.phoneForm.get('description')?.setValidators(Validators.required)
-  
+          this.phoneForm.get('description_en')?.setValidators(Validators.required)
+          this.phoneForm.get('description_ar')?.setValidators(Validators.required)
+
         } else if (doLogin?.data.otp) {
           if (doLogin?.data?.OTP && doLogin?.data?.OTP === 'resend otp') {
             let resendOtp = await this.apiService.resendOTPDeveloper({ "phone": this.phoneForm.get('phone')?.value.e164Number.substring(1) })
@@ -214,7 +236,8 @@ export class LoginDeveloperComponent {
         phone: verifyOtp.data.dev.phone,
         email: verifyOtp.data.dev.email,
         location: verifyOtp.data.dev.location,
-		    description: verifyOtp.data.dev.description,
+		    description_en: verifyOtp.data.dev.description_en,
+        description_ar: verifyOtp.data.dev.description_ar,
         website: verifyOtp.data.dev.website,
         status: verifyOtp.data.dev.status,
         api_token: verifyOtp.data.dev.api_token
@@ -256,7 +279,7 @@ export class LoginDeveloperComponent {
 
   async Register(element: any) {
     this.isLoading = true
-    if (this.filedata && this.phoneForm.get('name')?.valid && this.phoneForm.get('phone')?.valid) {
+    if (this.filedata && this.photosURLs.length > 0 && this.phoneForm.get('name')?.valid && this.phoneForm.get('phone')?.valid) {
       let obj = {
         'name': this.phoneForm.get('name')?.value,
         'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
@@ -265,9 +288,11 @@ export class LoginDeveloperComponent {
         'company_name_ar': this.phoneForm.get('company_name_ar')?.value,
         'website': this.phoneForm.get('website')?.value,
         'company_location': this.phoneForm.get('company_location')?.value,
-        'description': this.phoneForm.get('description')?.value,
+        'description_en': this.phoneForm.get('description_en')?.value,
+        'description_ar': this.phoneForm.get('description_ar')?.value,
         'image': this.avatarUrl,
-        'country_id': this.country_id
+        'country_id': this.country_id,
+        'developer_images': this.photosURLs,
       }
 
       console.log(obj)
@@ -372,6 +397,72 @@ export class LoginDeveloperComponent {
       }
     }
 
+  }
+
+  fileEventPhotos(e: any) {
+    // this.spinner.show()
+
+    for (var i = 0; i < e.target.files.length; i++) {
+      let reader = new FileReader();
+
+      let file = e.target.files[i]
+
+      this.filedataPhotos.push(file)
+
+      // Compress the file using a canvas element
+      let img: HTMLImageElement | any = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        let canvas: HTMLCanvasElement | null = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const maxWidth = 800;
+        const maxHeight = 800;
+        let width = img.width;
+        let height = img.height;
+
+        // Scale the image down if it's too large
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Draw the compressed image onto the canvas
+        ctx?.drawImage(img, 0, 0, width, height);
+
+      
+    //   reader.readAsDataURL(e.target.files[i]);
+        canvas.toBlob((blob) => {
+            if (blob) {
+              // Read the Blob object as a data URL and add it to the imagesToUpload array
+              const reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onload = (e: any) => {
+                const base64data = reader.result?.toString();
+                // console.log("reader result: ", reader.result)
+                this.photosURLs.push(
+                  {
+                    'image': base64data,
+                  }
+                )
+                // console.log(this.photosURLs)
+                
+              }
+            }
+          }, 'image/jpeg', 0.7);
+          
+        canvas = null  
+      }
+
+      // img = null
+
+      // reader.readAsDataURL(file);
+      }
+
+      // this.spinner.hide()
   }
 
 }
