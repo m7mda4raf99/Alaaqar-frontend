@@ -45,15 +45,15 @@ export class EditProfileComponent implements OnInit {
     const user = this.cookieService.get('user')
     if (user) {
       let Json = JSON.parse(user)
-      console.log("email",Json)
+      // console.log("email",Json)
       this.phoneForm.get('name')?.setValue(Json.name)
       this.phoneForm.get('phone')?.setValue(Json.phone)
       this.phoneForm.get('email')?.setValue(Json.email)
       this.phone= this.phoneForm.get('phone')
     }
-    console.log("phone",this.phone.value['number'])
+    // console.log("phone",this.phone.value['number'])
     this.setAvatarSrc();
-    console.log("avatar",this.setAvatarSrc() )
+    // console.log("avatar",this.setAvatarSrc() )
   }
   fileEvent(e: any) {
     let reader = new FileReader();
@@ -74,7 +74,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   goToPage(name: string,phone: string,email: string,avatar: string) {
-    console.log("phone:",phone)
+    // console.log("phone:",phone)
     //this.router.navigate(['/login',name]);
     this.router.navigate(['/login'], { queryParams: { name: JSON.stringify(name)
         ,phone: JSON.stringify(phone)

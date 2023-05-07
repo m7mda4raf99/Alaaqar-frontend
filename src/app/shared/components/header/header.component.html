@@ -172,20 +172,20 @@
                     <div *ngIf="!pressedProfile" class="responsive" style="background-color: #d5d5d5; width: 100%; height: 1px;"> </div>
 
                     <!-- Buy -->
-                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <li (click)="expand_collapse($event); pushEvent('buy');" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         false}">
                         <!-- routerLink='/home' -->
                         <a routerLink='/home' [queryParams]="{q: 'buy'}">{{'header.Buy' | translate}}</a>
                     </li>
 
                     <!-- Rent -->
-                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <li (click)="expand_collapse($event); pushEvent('rent');" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <!-- routerLink='/blog' -->
                         <a routerLink='/home' [queryParams]="{q: 'rent'}">{{'header.Rent' | translate}}</a>
                     </li>
                     <!-- Commercial -->
-                    <li (click)="expand_collapse($event)" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+                    <li (click)="expand_collapse($event); pushEvent('commercial');" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
                         true}">
                         <!-- routerLink='/how-it-works' -->
                         <a routerLink='/home' [queryParams]="{q: 'commercial'}">{{'header.Commercial' | translate}}</a>

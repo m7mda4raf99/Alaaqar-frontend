@@ -71,6 +71,10 @@ export class SinglePropertyComponent implements OnInit {
   moreData: any = {}
   sliderTags: any = []
   descriptionDisplay: any = 'initial'
+
+  myInnerHeight = window.innerHeight;
+  myInnerWidth = window.innerWidth;
+  customHeight: any;
   
   constructor(
     private cookieService: CookieService,
@@ -90,6 +94,12 @@ export class SinglePropertyComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if(window.matchMedia("(min-width: 768px)").matches){
+      this.customHeight = 500;
+    }else{
+      this.customHeight = window.innerWidth / 1.64;
+    }
+
     this.spinner.show()
     const activeRoute = this.activeRouter.snapshot
     if (activeRoute.queryParams && activeRoute.queryParams.id) {
@@ -98,6 +108,7 @@ export class SinglePropertyComponent implements OnInit {
         // console.log("activeRoute:", activeRoute.queryParams.id.length)
         const data = await this.getPublicPropertyDetailsData(activeRoute.queryParams.id)
         this.data = data.data
+        // console.log("this.data: ", this.data)
       } else {
         this.isPublic = false
 
@@ -108,7 +119,7 @@ export class SinglePropertyComponent implements OnInit {
             developer_id: Number(JSON.parse(developer)['id'])
           }
 
-          console.log("request: ", activeRoute.queryParams.id, request)
+          // console.log("request: ", activeRoute.queryParams.id, request)
 
           const data = await this.getPropertyDetailsDataDeveloper(activeRoute.queryParams.id, request)
           this.data = data.data
@@ -273,7 +284,7 @@ export class SinglePropertyComponent implements OnInit {
 
   getOptions(data: any) {    
     if (data.criterias !== undefined) {
-      console.log("data ashraf: ", data)
+      // console.log("data ashraf: ", data)
       if(data['name_en'] === 'Interior'){
         let arr = []
         for(let item of data.criterias){

@@ -61,7 +61,7 @@ export class MyVisitsComponent implements OnInit {
     this.modalService.open(content);
   }
   setAvatarUrl(item: any) {
-    console.log("item: ", item)
+    // console.log("item: ", item)
     return item.agent_avatar
   }
   filterVisits(filter: string) {

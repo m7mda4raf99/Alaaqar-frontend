@@ -213,7 +213,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
     obj.compounds = propertyValue['selectedCompound'] ? propertyValue['selectedCompound'] : []
     obj.propose = propertyValue['propose'] = propertyValue['propose']
     
-    console.log("obj: ", obj)
+    // console.log("obj: ", obj)
     
     for (const key in formValues) {
       for (const k in formValues[key]) {
@@ -239,7 +239,7 @@ export class SetupBuyerPrioritiesComponent implements OnInit {
       }
     }
 
-    console.log("obj: ", obj)
+    // console.log("obj: ", obj)
 
     let addInquiry = await this.addInquiry(obj)
     if (addInquiry === false) {

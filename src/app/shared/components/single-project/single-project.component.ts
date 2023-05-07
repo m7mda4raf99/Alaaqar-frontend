@@ -300,7 +300,7 @@ export class SingleProjectComponent {
 
     let id: any = ''
 
-    console.log("this.params['id']: ", this.params['id'])
+    // console.log("this.params['id']: ", this.params['id'])
 
     let data = {
       project_id: this.params['id']
@@ -352,11 +352,11 @@ export class SingleProjectComponent {
       unitData.isDeveloper = true
     }
 
-    console.log("this.unitData: ", unitData)
+    // console.log("this.unitData: ", unitData)
 
     let responseUnit = await this.appService.getUnits(unitData)
 
-    console.log("this.responseUnit: ", responseUnit)
+    // console.log("this.responseUnit: ", responseUnit)
 
     this.units = responseUnit.data
 
@@ -376,7 +376,7 @@ export class SingleProjectComponent {
  
     let responseUnit = await this.appService.getUnits(unitData)
 
-    console.log("backend units: ", responseUnit.data)
+    // console.log("backend units: ", responseUnit.data)
 
     this.spinner.hide()
 

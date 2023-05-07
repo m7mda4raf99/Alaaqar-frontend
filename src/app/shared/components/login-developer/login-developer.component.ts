@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { ApiService } from '../../services/api.service'
@@ -110,7 +110,8 @@ export class LoginDeveloperComponent {
     private translateService: TranslateService,
     private spinner: NgxSpinnerService,
     private httpClient: HttpClient,
-    public modalService: NgbModal) {
+    public modalService: NgbModal,
+    private cdRef: ChangeDetectorRef) {
       this.activeRouter.queryParams.subscribe(params => {
         if(params.name){
           this.name = JSON.parse(params.name);
@@ -172,7 +173,7 @@ export class LoginDeveloperComponent {
         this.isLoading = true
         const doLogin: any = await this.apiService.loginDeveloper(phoneNumber.substring(1))
         this.isLoading = false
-        console.log("ashraf: ", doLogin)
+        // console.log("ashraf: ", doLogin)
         if (doLogin?.data?.firstLogin === 'Registration request') {
           this.scroll(element)
 
@@ -219,7 +220,7 @@ export class LoginDeveloperComponent {
       'otp': this.otpValue
     }
 
-    console.log(obj)
+    // console.log(obj)
 
     const verifyOtp = await this.apiService.verfiyOtpDeveloper(obj)
 
@@ -295,7 +296,7 @@ export class LoginDeveloperComponent {
         'developer_images': this.photosURLs,
       }
 
-      console.log(obj)
+      // console.log(obj)
 
       const register = await this.apiService.createDeveloper(obj)
 
@@ -448,13 +449,14 @@ export class LoginDeveloperComponent {
                     'image': base64data,
                   }
                 )
+
+                this.cdRef.detectChanges();
+
                 // console.log(this.photosURLs)
                 
               }
             }
           }, 'image/jpeg', 0.7);
-          
-        canvas = null  
       }
 
       // img = null

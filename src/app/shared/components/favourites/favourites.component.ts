@@ -85,7 +85,7 @@ export class FavouritesComponent implements OnInit {
     if (item.isFavorite === true) {
       if (await this.apiService.removeFromFavorite({ 'unit_id': item.unit_id }) == false) { hasError = true }
       // item.unit_i
-      console.log('this.results', this.results)
+      // console.log('this.results', this.results)
       this.results = this.results.filter((val: any) => val.unit_id !== item.unit_id)
     } else {
       if (await this.apiService.addToFavorite({ 'unit_id': item.unit_id }) == false) { hasError = true }

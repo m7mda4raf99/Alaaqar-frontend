@@ -334,7 +334,7 @@ export class HomeComponent implements OnInit {
         if(this.country_id === 1){
           this.autoComplete_placeholder = "تجاري في مدينة، حي أو كمبوندات"
         }else{
-          this.autoComplete_placeholder = "تجاري في مدينة، حي أو مجتمعات"
+          this.autoComplete_placeholder = "تجاري في مدينة، حي أو مجمعات"
         }
       }
     }else if(this.activeTab === 'rent'){
@@ -344,7 +344,7 @@ export class HomeComponent implements OnInit {
         if(this.country_id === 1){
           this.autoComplete_placeholder = "استأجر في مدينة، حي أو كمبوندات"
         }else{
-          this.autoComplete_placeholder = "استأجر في مدينة، حي أو مجتمعات"
+          this.autoComplete_placeholder = "استأجر في مدينة، حي أو مجمعات"
         }
       }
     }else{
@@ -354,7 +354,7 @@ export class HomeComponent implements OnInit {
         if(this.country_id === 1){
           this.autoComplete_placeholder = "اشترى في مدينة، حي أو كمبوندات"
         }else{
-          this.autoComplete_placeholder = "اشترى في مدينة، حي أو مجتمعات"
+          this.autoComplete_placeholder = "اشترى في مدينة، حي أو مجمعات"
         }
       }
     }
@@ -365,7 +365,7 @@ export class HomeComponent implements OnInit {
   }
 
   onChangeSwitcher(){
-    console.log(this.switcher)
+    // console.log(this.switcher)
   }
 
   isLoggedInDeveloper(){
@@ -394,8 +394,9 @@ export class HomeComponent implements OnInit {
       case 11:
           city_id = 5
           break;
-      case 25:
-          city_id = 30
+      default:
+        city_id = 30
+        break;
     }
 
 
@@ -495,7 +496,7 @@ export class HomeComponent implements OnInit {
 
     this.recentlyAdded = response.data['units']
 
-    console.log("getTopHome: ", response)
+    // console.log("getTopHome: ", response)
   }
   
   async setPrice(){
@@ -580,7 +581,7 @@ export class HomeComponent implements OnInit {
       
       this.spinner.show()
 
-      this.response=  await this.apiService.getsearch(data)
+      this.response =  await this.apiService.getsearch(data)
       
       this.search_bar_model = {
         country_id: this.country_id,
@@ -625,7 +626,7 @@ export class HomeComponent implements OnInit {
 
       this.search_bar_model.country_id = this.country_id
 
-      console.log("this.search_bar_model: ", this.search_bar_model)
+      // console.log("this.search_bar_model: ", this.search_bar_model)
 
       this.router.navigate(['/search-result'], { queryParams: { activeTab: this.activeTab, search_query: JSON.stringify(this.search_bar_model) } })
   
@@ -648,7 +649,7 @@ export class HomeComponent implements OnInit {
         this.search_model.type = [14, 15, 16, 17, 18, 19]
       }
 
-      console.log("this.search_model: ", this.search_model)
+      // console.log("this.search_model: ", this.search_model)
 
 
       this.search()
@@ -674,11 +675,11 @@ export class HomeComponent implements OnInit {
   }
 
   print(data:any){
-    console.log(data)
+    // console.log(data)
   }
 
   checkDropDown(data: any){
-    console.log("DATA: ", data)
+    // console.log("DATA: ", data)
 
     if(window.matchMedia("(min-width: 450px)").matches){
       this.quickSearchMargin = '0px'
@@ -2241,11 +2242,11 @@ export class HomeComponent implements OnInit {
       ]
     }else{
       this.top_searched_areas = [
-        { 'name_en': 'North Riyadh', 'name_ar': 'شمال الرياض', 'img': '../../../../assets/images/north_riyadh.jpg', 'area_id': 25},
-        { 'name_en': 'East Riyadh', 'name_ar': 'شرق الرياض', 'img': '../../../../assets/images/east_riyadh.jpg', 'area_id': 25},
+        { 'name_en': 'North Riyadh', 'name_ar': 'شمال الرياض', 'img': '../../../../assets/images/north_riyadh.jpg', 'area_id': 23},
+        { 'name_en': 'East Riyadh', 'name_ar': 'شرق الرياض', 'img': '../../../../assets/images/east_riyadh.jpg', 'area_id': 24},
         { 'name_en': 'Central Riyadh', 'name_ar': 'وسط الرياض', 'img': '../../../../assets/images/center_riyadh.jpg', 'area_id': 25},
-        { 'name_en': 'South Riyadh', 'name_ar': 'جنوب الرياض', 'img': '../../../../assets/images/south_riyadh.jpg', 'area_id': 25},
-        { 'name_en': 'West Riyadh', 'name_ar': 'غرب الرياض', 'img': '../../../../assets/images/west_riyadh.jpg', 'area_id': 25},
+        { 'name_en': 'South Riyadh', 'name_ar': 'جنوب الرياض', 'img': '../../../../assets/images/south_riyadh.jpg', 'area_id': 26},
+        { 'name_en': 'West Riyadh', 'name_ar': 'غرب الرياض', 'img': '../../../../assets/images/west_riyadh.jpg', 'area_id': 27},
 
       ]
     }

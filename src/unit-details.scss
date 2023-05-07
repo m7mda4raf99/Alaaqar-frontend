@@ -44,6 +44,8 @@
                     @media (min-width: 768px) {
                         height: 500px;
                     }
+
+                    
                 }
             }
             .carousel-control-next-icon {
@@ -52,14 +54,30 @@
             .carousel-control-next,
             .carousel-control-prev {
                 opacity: 1;
+                width: 12%;
+
+                @media (max-width: 768px) {
+                    width: 15%;
+                }
+
             }
             .user-icon {
                 color: #184d47;
-                background: #f7f7f7;
+                background: transparent;
                 padding: 10px 15px;
                 border-radius: 10px;
                 z-index: 999999;
                 opacity: 1;
+                font-size: 50px;
+
+                :hover{
+                    color: #FD4965;
+                }
+
+                @media (max-width: 450px) {
+                    padding: 5px 10px;
+                    font-size: 35px;
+                }
             }
         }
         .actions {

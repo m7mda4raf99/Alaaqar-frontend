@@ -57,6 +57,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
   data: any = [];
   moreData: any = {}
   proerityType: string = '';
+  fullSliderData = []
   sliderData: any = []
   sliderTags: any = []
   propertyData: any
@@ -67,6 +68,10 @@ export class BuyerUnitDetailsComponent implements OnInit {
   activeIndex: number = 0
   unitCriteria: any = this.appServiceService.unitCriteria$.value
   descriptionDisplay: any = 'initial'
+
+  myInnerHeight = window.innerHeight;
+  myInnerWidth = window.innerWidth;
+  customHeight: any;
 
   constructor(private activeRouter: ActivatedRoute,
     private router: Router,
@@ -95,38 +100,73 @@ export class BuyerUnitDetailsComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if(window.matchMedia("(min-width: 768px)").matches){
+      this.customHeight = 500;
+    }else{
+      this.customHeight = window.innerWidth / 1.64;
+    }
+    
     let snapshot: any = this.activeRouter.snapshot
     this.spinner.show()
     let unit = await this.apiService.getPublicUnit(snapshot.queryParams.id)
     this.spinner.hide();
     this.proerityType = 'buy'
 
+    // this.data = unit.data
+    // console.log("unit: ", unit.data)
+
     // console.log("unit.data.tags: ", unit.data.tags)
 
-    let slider: any = []
-    if (unit.data.tags !== undefined && unit.data.tags.length > 0) {
-      unit.data.tags.forEach((element: any, i: number) => {
-        if (!this.sliderTags.includes(element.tag_name_en)) {
-          this.sliderTags.push(element.tag_name_en)
-        }
-        slider.push({
-          img: element.image,
-          title: `Slide ${i}`,
-          tag: element.tag_name_en
-        })
-      });
-      this.sliderData = slider
-      this.data = slider
-      this.tagLength = this.data.length
-    } else {
-      this.sliderData = this.data = [
+    // let slider: any = []
+    // if (unit.data.tags !== undefined && unit.data.tags.length > 0) {
+    //   unit.data.tags.forEach((element: any, i: number) => {
+    //     if (!this.sliderTags.includes(element.tag_name_en)) {
+    //       this.sliderTags.push(element.tag_name_en)
+    //     }
+    //     slider.push({
+    //       img: element.image,
+    //       title: `Slide ${i}`,
+    //       tag: element.tag_name_en
+    //     })
+    //   });
+    //   this.sliderData = slider
+    //   this.data = slider
+    //   this.tagLength = this.data.length
+    // } else {
+    //   this.sliderData = this.data = [
+    //     {
+    //       img: '../../../../assets/images/empty.jpeg',
+    //       title: `Slide 0`,
+    //       tag: ''
+    //     }
+    //   ]
+    // }
+
+    this.sliderTags = []
+    unit.data?.tags?.map((val: any) => {
+      val.title = this.activeLang === 'en' ? val.tag_name_en : val.tag_name_ar
+      if (!this.sliderTags.includes(val.title)) {
+        this.sliderTags.push(val.title)
+      }
+    })
+
+    this.data = this.sliderTags
+
+    this.fullSliderData = this.sliderData = unit.data?.tags
+    if (!this.sliderData || this.sliderData.length === 0) {
+      this.sliderData = []
+      this.sliderData.push(
         {
-          img: '../../../../assets/images/empty.jpeg',
-          title: `Slide 0`,
-          tag: ''
+          id: 1,
+          image: '../../../../assets/images/empty.jpeg',
+          tag_name_ar: "",
+          tag_name_en: "",
+          title: ""
         }
-      ]
+      )
     }
+    this.tagLength = this.sliderData.length
+
 
     if(snapshot.queryParams.requestVisit){
       await this.requestVisit(this.sellerContent)
@@ -244,14 +284,13 @@ export class BuyerUnitDetailsComponent implements OnInit {
   onChangeSlider(value: string) {
     let tagLength: number = 0
     if (value && value !== '') {
-      const index = this.sliderData.findIndex((data: any) => data.tag === value);
+      const index = this.sliderData.findIndex((data: any) => data.tag === value || data.tag_name_en === value);
       this.sliderData.forEach((element: any) => { if (element.tag === value) { tagLength += 1 } })
       this.activeImageId = index
       this.tagLength = tagLength === 0 ? this.sliderData.length : tagLength
-      return this.activeItem = index === -1 ? this.sliderTags[0] : this.sliderTags[index], this.tagLength, this.activeImageId
+      return this.tagLength, this.activeImageId
     }
-    this.tagLength = this.sliderData.length
-    return this.sliderTags[0]
+    return  this.tagLength, this.activeImageId
   }
 
   handleSliderNavigation(navigate: string) {
@@ -259,7 +298,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
     index = index === this.sliderData.length ? 0 : index
     if (index === -1) { index = this.sliderData.length - 1 }
     this.tagLength = this.sliderData.length
-    return this.activeItem = index !== -1 && this.sliderTags[index] !== undefined ? this.sliderTags[index] : this.sliderTags[this.sliderData.length - 1], this.activeImageId = index
+    return this.activeItem = index !== -1 && this.sliderTags[index] !== undefined ? this.sliderTags[index] : this.sliderTags[0], this.activeImageId = index
   }
   setActiveIndex(index: number) {
     this.tagLength = this.sliderData.length
@@ -296,7 +335,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
   async addUnit(content: any) {
     //open(content)
 
-    console.log("add unit clciekd.")
+    // console.log("add unit clciekd.")
 
     if (this.checkValidUser()) {
       this.spinner.show();
@@ -321,7 +360,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
     }
   }
   async UpdateUnit(content: any) {
-    console.log("UpdateUnit unit clciekd.")
+    // console.log("UpdateUnit unit clciekd.")
 
     if (this.checkValidUser()) {
       let obj = {
