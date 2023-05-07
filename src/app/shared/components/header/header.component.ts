@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit {
 
     const selected_country = localStorage.getItem('selected_country');
 
-    console.log("selected_country ashraf: ", selected_country)
+    // console.log("selected_country ashraf: ", selected_country)
 
     if(!selected_country){
       this.selectedCountry = 1
@@ -157,11 +157,10 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
   }
 
   setAvatarUrl() {
-    return this.avatarUrl ? this.avatarUrl : '../../../../assets/images/Ellipse 1264.png'
+    return this.avatarUrl ? this.avatarUrl != 'null' ? this.avatarUrl : '../../../../assets/images/profile_pic.jpg' : '../../../../assets/images/profile_pic.jpg'
   }
   ngOnDestroy() {
     this.sub1.unsubscribe()
@@ -358,6 +357,25 @@ export class HeaderComponent implements OnInit {
     if(this.selectedCountry === 2){
       this.selectedLang('AR')
     }
+  }
+
+  pushEvent(activeTab: any){
+    // if(activeTab === 'buy'){
+    //   console.log("event pushed: Buy Search Result")
+    //   window.dataLayer.push({
+    //     'event': 'Buy Search Result',
+    //   });
+    // }else if(activeTab === 'rent'){
+    //   console.log("event pushed: Rent Search Result")
+    //   window.dataLayer.push({
+    //     'event': 'Rent Search Result',
+    //   });
+    // }else{
+    //   console.log("event pushed: Commercial Search Result")
+    //   window.dataLayer.push({
+    //     'event': 'Commercial Search Result',
+    //   });
+    // }
   }
 
 }

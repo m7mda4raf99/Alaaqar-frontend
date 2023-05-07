@@ -1431,7 +1431,7 @@ export class SetPrioritesComponent implements OnInit {
 
       data.propose = ""+this.proposeID
 
-      console.log("data: ", data)
+      // console.log("data: ", data)
 
       this.appService.propertyDetails$.next(data)
 

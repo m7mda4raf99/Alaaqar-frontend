@@ -60,6 +60,10 @@ export class UnitDetailsComponent implements OnInit {
 
   terms: any = {}
 
+  myInnerHeight = window.innerHeight;
+  myInnerWidth = window.innerWidth;
+  customHeight: any;
+  
   constructor(
     private activeRouter: ActivatedRoute,
     private router: Router,
@@ -88,6 +92,13 @@ export class UnitDetailsComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
+    if(window.matchMedia("(min-width: 768px)").matches){
+      this.customHeight = 500;
+    }else{
+      this.customHeight = window.innerWidth / 1.64;
+    }
+
     // console.log("this.propertyData: ", this.propertyData)
 
     // if(this.propertyImages['Initial']){
@@ -325,7 +336,7 @@ export class UnitDetailsComponent implements OnInit {
     if (this.checkValidUser()) {
       this.spinner.show();
       let unitData = this.unitData
-      console.log("unitData: ", unitData)
+      // console.log("unitData: ", unitData)
       const user = this.cookieService.get('user')
       unitData['user_id'] = JSON.parse(user).id
 
@@ -345,6 +356,14 @@ export class UnitDetailsComponent implements OnInit {
         this.evaluator.workingHours = evaluator.working_hours
         this.evaluator.id = evaluator.id
         this.open(content)
+
+        window.dataLayer.push({
+          'event': 'Add Property',
+          'user_id': JSON.parse(user).id,
+          'user_name': JSON.parse(user).name,
+          'user_phone': JSON.parse(user).phone,
+        });
+
       } else {
         this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
       }

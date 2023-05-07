@@ -126,7 +126,7 @@ export class SingleBlogComponent implements OnInit {
       let response = await this.apiService.formsubmit(data);
       this.spinner.hide()
   
-      console.log('blog response: ', response)
+      // console.log('blog response: ', response)
   
       if(response.message === 'Form submitted successfully'){
         this.response_status = true

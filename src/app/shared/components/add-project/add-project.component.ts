@@ -521,7 +521,7 @@ export class AddProjectComponent {
       this.spinner.show()
       const response = await this.apiService.addProject(obj)
 
-      console.log(response)
+      // console.log(response)
       this.spinner.hide()
 
       if (response === false) {
@@ -685,7 +685,7 @@ export class AddProjectComponent {
                     'image': base64data,
                   }
                 )
-                console.log(this.photosURLs)
+                // console.log(this.photosURLs)
                 
               }
             }

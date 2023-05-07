@@ -23,6 +23,8 @@ export class ContactUsComponent implements OnInit {
   faWhatsappSquare = faWhatsapp
   faMapMarkerAlt = faMapMarkerAlt
   contacts: any = {}
+  lang: string = ''
+  sub1 = new Subscription()
 
   subCountry = new Subscription()
   country_id: any
@@ -36,6 +38,10 @@ export class ContactUsComponent implements OnInit {
     private metaService: Meta,
     private titleService: Title,
     private appServiceService: AppServiceService) {
+      this.sub1 = this.appServiceService.lang$.subscribe(async val => {
+        this.lang = val
+      })
+
       this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
         this.country_id = res
       })
@@ -53,7 +59,7 @@ export class ContactUsComponent implements OnInit {
     ]);
     this.contactForm.get('phone')?.invalid
     this.apiService.getContacts().then(contact => {
-      console.log(contact)
+      // console.log(contact)
       this.contacts = contact.data
 
     })
@@ -71,4 +77,19 @@ export class ContactUsComponent implements OnInit {
     this.router.navigate(['/home'])
   }
 
+  getLocation(){
+    if(this.country_id === 1){
+      if(this.lang === 'en'){
+        return this.contacts.contact_location_egy_en
+      }else{
+        return this.contacts.contact_location_egy_ar
+      }
+    }else{
+      if(this.lang === 'en'){
+        return this.contacts.contact_location_ksa_en
+      }else{
+        return this.contacts.contact_location_ksa_ar
+      }
+    }
+  }
 }

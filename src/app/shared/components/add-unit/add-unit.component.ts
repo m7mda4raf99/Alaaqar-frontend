@@ -1812,7 +1812,7 @@ export class AddUnitComponent {
       this.stepForm?.get('Write a unique description')?.setValue([obj])
     }
 
-    console.log('this.stepForm: ', this.stepForm)
+    // console.log('this.stepForm: ', this.stepForm)
 
     if(this.stepForm.status === 'VALID' && this.filedataMasterplan.length > 0 
     && this.filedataPhotos.length > 0 ){
@@ -1854,7 +1854,7 @@ export class AddUnitComponent {
       // const addUnitRes = false
       this.spinner.hide()
 
-      console.log('addUnitRes: ', addUnitRes)
+      // console.log('addUnitRes: ', addUnitRes)
 
       if (addUnitRes === false) {
         this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))

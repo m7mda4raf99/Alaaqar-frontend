@@ -703,7 +703,7 @@ nz-progress {
     background-color: #fff;
     border-color: #184d47;
     outline: 0;
-    box-shadow: 0 0 0 0.1rem rgb(255 114 95 / 40%);
+    box-shadow: 0 0 0 0.1rem #6f9f99;
     outline-color: transparent;
 }
 
@@ -1656,4 +1656,41 @@ nav{
 .app-header .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
     display: flex !important;
     align-items: center !important;
+}
+
+
+.carousel-indicators [data-bs-target] {
+    height: 5px;
+    background-color: #184d47;
+    opacity: 0.3;
+
+    &.active {
+        opacity: 1;
+    }
+}
+
+.carousel-indicators{
+    pointer-events: none;
+}
+
+.carousel-inner{
+    .image-tag{
+        position: absolute;
+        color: white;
+        z-index: 1;
+        display: flex;
+        left: 20px;
+        top: 20px;
+        background: #FD4965;
+        padding: 5px 20px;
+        border-radius: 10px;
+        font-size: 16px;
+
+        @media (max-width: 450px) {
+            font-size: 14px;
+            left: 10px;
+            top: 10px;
+            padding: 5px 15px;
+        }   
+    }
 }

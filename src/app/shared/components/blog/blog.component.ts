@@ -41,7 +41,7 @@ export class BlogComponent implements OnInit {
         this.spinner.show()
 
 
-        console.log('this.country_id: ', this.country_id)
+        // console.log('this.country_id: ', this.country_id)
 
         await this.getHomeBlogs()
 
@@ -85,7 +85,7 @@ export class BlogComponent implements OnInit {
 
     this.blogs = response.data
 
-    console.log('this.blogs: ', this.blogs)
+    // console.log('this.blogs: ', this.blogs)
 
   }
   subString(str: any) {

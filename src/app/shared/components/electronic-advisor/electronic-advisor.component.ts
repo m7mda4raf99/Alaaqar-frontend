@@ -635,7 +635,7 @@ export class ElectronicAdvisorComponent {
 
   async addInquiry(inquiryData: any) {
     if (inquiryData.max_price === '') {inquiryData.max_price = 0}
-    console.log(inquiryData)
+    // console.log(inquiryData)
     let inquiry = await this.apiService.addInquiry(inquiryData)
     if (inquiry === false) {
       return false
@@ -992,7 +992,7 @@ export class ElectronicAdvisorComponent {
 
     let response = await this.apiService.unit_types_count_area(data);
 
-    console.log('response: ', response)
+    // console.log('response: ', response)
 
     let x = 0
     for (const key in response.data) {

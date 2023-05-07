@@ -143,13 +143,13 @@ export class SingleDeveloperComponent {
       developer_id: id
     } 
 
-    console.log(data)
+    // console.log(data)
 
     let response = await this.appService.getDeveloper(data)
 
     // console.log("dummy: ", this.developer)
 
-    console.log("backend: ", response.data)
+    // console.log("backend: ", response.data)
 
     this.developer = response.data
 
@@ -165,7 +165,7 @@ export class SingleDeveloperComponent {
       )
     }
 
-    console.log("this.sliderData: ", this.sliderData)
+    // console.log("this.sliderData: ", this.sliderData)
 
     this.spinner.hide()
   }
@@ -182,7 +182,7 @@ export class SingleDeveloperComponent {
  
     let response = await this.appService.getDevelopers(data)
 
-    console.log(response.data)
+    // console.log(response.data)
 
     this.spinner.hide()
 

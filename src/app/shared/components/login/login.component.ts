@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
 
   routeToHome(){
     // this.router.navigate(['/home'])
-    console.log("done pressedddd")
+    // console.log("done pressedddd")
     this.modalService.dismissAll()
 
   }
@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit {
       this.isLoading = true
       const doLogin: any = await this.apiService.login(phoneNumber.substring(1))
       this.isLoading = false
-      console.log("ashraf: ", doLogin?.data?.firstLogin)
+      // console.log("ashraf: ", doLogin?.data?.firstLogin)
       if (doLogin?.data?.firstLogin === 'Registration request') {
         this.registrationRequest = true
         this.phoneForm.get('name')?.setValidators(Validators.required)
@@ -142,7 +142,7 @@ export class LoginComponent implements OnInit {
         if (doLogin?.data?.OTP && doLogin?.data?.OTP === 'resend otp') {
           let resendOtp = await this.apiService.resendOtp({ "phone": this.phoneForm.get('phone')?.value.e164Number.substring(1) })
           if (resendOtp === false) {
-            console.log("error1")
+            // console.log("error1")
             return this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
           }
         }
@@ -258,7 +258,7 @@ export class LoginComponent implements OnInit {
 
   async Register() {
     this.isLoading = true
-    if (this.filedata && this.phoneForm.get('name')?.valid && this.phoneForm.get('phone')?.valid) {
+    if (this.phoneForm.get('name')?.valid && this.phoneForm.get('phone')?.valid) {
       let obj = {
         'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
         'name': this.phoneForm.get('name')?.value,
@@ -266,19 +266,18 @@ export class LoginComponent implements OnInit {
         'avatar': this.avatarUrl
       }
       const register = await this.apiService.createUser(obj)
-      console.log("register",register)
+      // console.log("register",register)
       if (register === false) {
         if (register?.data?.message) {
           return this.notificationService.showError(register.data.message)
         }
-        console.log("error2")
+        // console.log("error2")
         this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
       } else {
         this.haveOTP = true
       }
-
     } else {
-      this.notificationService.showError('UserName, Email and Avatar are required!')
+      this.notificationService.showError('UserName and email are required!')
     }
     this.isLoading = false
   }

@@ -235,7 +235,7 @@ export class SearchResultComponent implements OnInit {
     
     // console.log("oninit: ", this.search_model)
 
-    this.search(false)
+    await this.search(false)
     await this.get_bedrooms_options(5)
     await this.get_space_options(4)
 
@@ -247,7 +247,7 @@ export class SearchResultComponent implements OnInit {
     this.activeRealEstateType = this.search_model.type
     // await this.getCity(true)
     // await this.getAreaLocations(true)
-    this.getUnitTypes()    
+    this.getUnitTypes()
   }
 
   onPageChange(pageNumber: number) {
@@ -292,6 +292,14 @@ export class SearchResultComponent implements OnInit {
           this.results = []
         }  
         this.total_search_count = res.data.units_count
+
+        if(this.total_search_count > 0){
+          window.dataLayer.push({
+            'event': 'Search Result',
+            'event_search_type': this.activeTab
+          });
+        }
+
       }
       this.spinner.hide()
       this.search_model.offset +=18

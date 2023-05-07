@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { PrioritiesService } from '../../../services/priorities.service';
 import { AppServiceService } from 'src/app/services/app-service.service';
@@ -59,7 +59,8 @@ export class SellFormTemplateComponent implements OnInit {
     public appService: AppServiceService,
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
-    private router: Router) {
+    private router: Router,
+    private cdRef: ChangeDetectorRef) {
     this.sub2 = this.appService.lang$.subscribe(val => this.activeLang = val)
     this.sub3 = this.appService.imgTags$.subscribe(val => {
       if (val.data) {
@@ -451,7 +452,7 @@ export class SellFormTemplateComponent implements OnInit {
   
       // Check if the file already exists in the array
       let fileIsExist = this.myFiles[key].filter((val: any) => val.name === e.target.files[i].name);
-      if (fileIsExist.length === 0) {
+      // if (fileIsExist.length === 0) {
   
         // Compress the file using a canvas element
         const img = new Image();
@@ -494,12 +495,13 @@ export class SellFormTemplateComponent implements OnInit {
                     'key': key,
                     'index': this.imagesToUpload[key].length - 1
                   });
+                  this.cdRef.detectChanges();
                 }
               };
             }
           }, 'image/jpeg', 0.7); // Adjust the quality here (0.7 = 70% quality)
         };
-      }
+      // }
     }
     // Clear the file input
   this.file.nativeElement.value = ''
@@ -515,12 +517,14 @@ export class SellFormTemplateComponent implements OnInit {
     }
 
     for (var i = 0; i < e.target.files.length; i++) {
+      let reader = new FileReader();
+
       // let reader = new FileReader();
-       let file = e.target.files[0]
+      let file = e.target.files[i]
 
       // Compress the file using a canvas element
       const img = new Image();
-      img.src = URL.createObjectURL(e.target.files[i]);
+      img.src = URL.createObjectURL(file);
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -559,6 +563,8 @@ export class SellFormTemplateComponent implements OnInit {
                     'file': file
                   }
                 )
+
+                this.cdRef.detectChanges();
                 
               }
               // reader.onloadend = () => {
@@ -578,9 +584,9 @@ export class SellFormTemplateComponent implements OnInit {
           }, 'image/jpeg', 0.7);
       
     }
-    this.file.nativeElement.value = ''
     // console.log("myFilesPreview: ", this.myFilesPreview)
   }
+  this.file.nativeElement.value = ''
 }
 
   deleteImgInitial(index: any) {
@@ -605,6 +611,8 @@ export class SellFormTemplateComponent implements OnInit {
     // if (this.imagesToUpload && this.imagesToUpload[key]) {
     //   this.imagesToUpload[key].splice(index, 1)
     // }
+
+    this.cdRef.detectChanges();
   }
 
   deleteImg(key: any, index: any) {
@@ -631,6 +639,7 @@ export class SellFormTemplateComponent implements OnInit {
       this.deleteFromInitial(key, index)
     }
 
+    this.cdRef.detectChanges();
   }
 
   deleteFromInitial(key: any, index: any){
@@ -647,6 +656,8 @@ export class SellFormTemplateComponent implements OnInit {
     if (indexDeletedImage > -1) {
       this.myFilesPreview['Initial'].splice(indexDeletedImage, 1);
     }
+
+    this.cdRef.detectChanges();
   }
 
   next() {

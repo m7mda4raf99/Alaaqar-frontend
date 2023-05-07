@@ -42,18 +42,18 @@ export class CanDeactivateGuard implements CanDeactivate<SetupSellerPrioritiesCo
           let unitData = this.unitData
           const user = this.cookieService.get('user')
           unitData['user_id'] = JSON.parse(user).id
-          console.log('unitData guard shars')
-          console.log(unitData)
+          // console.log('unitData guard shars')
+          // console.log(unitData)
           const addUnitRes = await this.apiService.addNotCompletedUnit(unitData)
-          console.log(addUnitRes)
+          // console.log(addUnitRes)
         } else{
-          console.log("Not valid user")
+          // console.log("Not valid user")
         }
 
         return true;
       } else {
         // perform custom function for discarding changes here
-        console.log("discard")
+        // console.log("discard")
         return true;
       }
     } else {

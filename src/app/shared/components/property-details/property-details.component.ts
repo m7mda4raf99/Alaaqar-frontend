@@ -176,7 +176,7 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   print(data: any){
-    console.log("my data: ", data)
+    // console.log("my data: ", data)
   }
 
   abbreviateNumber(number: number) {

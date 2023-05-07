@@ -129,7 +129,7 @@ export class MyUnitsComponent implements OnInit {
     let units = await this.apiService.getMyUnits(bodyData)
     if (units !== false) {
       this.items = this.items && this.items && this.items.length > 0 ? this.items.concat(units.data) : units.data
-      console.log("items: ", this.items)
+      // console.log("items: ", this.items)
     } else {
       this.notificationsService.showError(this.translateService.instant('error.someThing went Wrong'))
     }
