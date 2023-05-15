@@ -10,6 +10,17 @@
     }
     background-color: #F7F7F7;
 
+    .blog-holder{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .blog{
+            width: 400px;
+            margin: 10px;
+        }
+    }
+
     .card {
         border-radius: 20px;
         padding: 10px;

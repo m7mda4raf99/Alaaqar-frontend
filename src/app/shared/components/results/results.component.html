@@ -1,5 +1,5 @@
 <div class="container-fluied results">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+    <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
     </ngx-spinner>
     <div class="row justify-content-center" style="margin: 0;">
@@ -26,9 +26,9 @@
                 <p> <span style="color: #ABABB6;cursor: pointer;">{{'Results.sub.Home' | translate }} / {{'Results.sub.Buy a home' |
                         translate }} </span>/ {{'Results.sub.Results' | translate }}</p>
             </div>
-            <div class="row mt-3 results" *ngIf="results.length > 0">
-                <div *ngFor="let item of results | paginate: { itemsPerPage: limit, currentPage: page,totalItems: unit_counts }" class="col-xs-12 col-sm-6 col-xl-4">
-                    <div class="card mb-3">
+            <div class="mt-3 results" *ngIf="results.length > 0">
+                <div *ngFor="let item of results | paginate: { itemsPerPage: limit, currentPage: page,totalItems: unit_counts }" class="loop">
+                    <div class="card">
                         <div class="row g-0 card-content">
                             <div class="col-12" style="position: relative;">
                                 <span (click)="navigateToItemDetails(item)" class="overlay"></span>
@@ -128,7 +128,7 @@
                 <div class="no-data">
                     <div class="no-data__icon">
 
-                        <img src="../../assets/images/no_results.jpg"/>
+                        <img src="../../assets/images/no_results.png"/>
                     </div>
                     <h4 style="color: #fd4965;margin:0;">{{'no_results' | translate}}</h4>
                     <p>{{'no_results_text' | translate}}</p>

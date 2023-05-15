@@ -305,8 +305,26 @@ export class HomeComponent implements OnInit {
 
     })
 
+    // const selected_country = localStorage.getItem('selected_country');
+
+    // if(!selected_country){
+    //   this.selectedCountry = 1
+    //   localStorage.setItem('selected_country', "1");
+    //   this.appServiceService.country_id$.next(1)
+
+    //   setTimeout(() => {
+    //     this.modalService.open(this.CountryPop,this.config);
+    //     this
+    //   }, 100);
+    // }else{
+    //   this.selectedCountry = Number(selected_country)
+    //   this.appServiceService.country_id$.next(this.selectedCountry)
+    // }
+
     this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
       this.country_id = res
+
+      // console.log('this.country_id home: ', this.country_id)
 
       this.putAutoComplete()
       this.putTopSearchedAreas()
@@ -419,6 +437,7 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
+
     this.isLoggedInDeveloper()
     
     const box=document.getElementById('home')
@@ -572,6 +591,7 @@ export class HomeComponent implements OnInit {
   }
    
   async Getsearch() {
+    this.appServiceService.selectedSearchQuery$.next(this.selectedSearchQuery)
 
     if(this.selectedSearchQuery){
       let data={
@@ -1403,10 +1423,12 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrency(){
-    if(this.country_id === 1){
-      return this.translateService.instant('propertyDetails.EGP')
-    }else{
+    if(this.country_id === 2){
       return this.translateService.instant('propertyDetails.SAR')
+    }else if(this.country_id === 3){
+      return this.translateService.instant('propertyDetails.AED')
+    }else{
+      return this.translateService.instant('propertyDetails.EGP')
     }
   }
 
@@ -2240,7 +2262,9 @@ export class HomeComponent implements OnInit {
         { 'name_en': 'New Cairo', 'name_ar': 'القاهرة الجديدة', 'img': '../../../../assets/images/newcairo.png', 'area_id': 4},
         { 'name_en': 'North Coast', 'name_ar': 'الساحل الشمالي', 'img': '../../../../assets/images/north_coast.jpg', 'area_id': 11}
       ]
-    }else{
+    }
+    
+    if(this.country_id === 2){
       this.top_searched_areas = [
         { 'name_en': 'North Riyadh', 'name_ar': 'شمال الرياض', 'img': '../../../../assets/images/north_riyadh.jpg', 'area_id': 23},
         { 'name_en': 'East Riyadh', 'name_ar': 'شرق الرياض', 'img': '../../../../assets/images/east_riyadh.jpg', 'area_id': 24},
@@ -2248,6 +2272,12 @@ export class HomeComponent implements OnInit {
         { 'name_en': 'South Riyadh', 'name_ar': 'جنوب الرياض', 'img': '../../../../assets/images/south_riyadh.jpg', 'area_id': 26},
         { 'name_en': 'West Riyadh', 'name_ar': 'غرب الرياض', 'img': '../../../../assets/images/west_riyadh.jpg', 'area_id': 27},
 
+      ]
+    }
+
+    if(this.country_id === 3){
+      this.top_searched_areas = [
+        
       ]
     }
   }
@@ -2271,7 +2301,9 @@ export class HomeComponent implements OnInit {
           { id: 4, name: 'السويس' }
         ]
       }
-    }else{
+    }
+    
+    if(this.country_id === 2){
       if(this.lang === 'en'){
         this.autoComplete = [
           { id: 1, name: 'Riyadh' }
@@ -2280,6 +2312,18 @@ export class HomeComponent implements OnInit {
         this.autoComplete = [
           { id: 1, name: 'الرياض' }
         ]
+      }
+
+      if(this.country_id === 3){
+        if(this.lang === 'en'){
+          this.autoComplete = [
+            { id: 1, name: 'Dubai' }
+          ]
+        }else{
+          this.autoComplete = [
+            { id: 1, name: 'دبي' }
+          ]
+        }
       }
     }
   }
@@ -2524,9 +2568,26 @@ async onItemSelectRealNeW(item: any){
     this.router.navigate(['single-developer'], { queryParams: { id: developer.id } })
   }
 
+  selectCountry(country: number) {
+    this.selectedCountry = country
+    localStorage.setItem('selected_country', country + "");
+    this.appServiceService.country_id$.next(country)
+    this.modalService.dismissAll()
 
+    if(this.selectedCountry === 2){
+      this.selectedLang('AR')
+    }
+  }
 
-  
+  selectedLang(val: any) {
+    this.lang = val
+    this.switchLang(val.toLowerCase())
+  }
+
+  switchLang(val: string) {
+    localStorage.setItem('lang', val.toUpperCase())
+    return this.appServiceService.lang$.next(val)
+  }
 
 }
 

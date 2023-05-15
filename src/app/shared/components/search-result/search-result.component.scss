@@ -24,6 +24,7 @@
             box-shadow: 0 3px 6px #59595919;
             width: 100%;
             align-items: center;
+            border: 1px solid #d6d6d6;
         }
     }
     
@@ -43,14 +44,8 @@
     }
 
     .loop{
-        margin: 1% 1%;
-        width: 31%;
-
-        @media (max-width: 450px) {
-            padding: 0px;
-            margin: 2.5% 0%;
-            width: 100%;
-        }
+        margin: 10px;
+        width: 380px;
 
         .card {
             height: 100%;
@@ -197,6 +192,7 @@
     outline: 0;
     box-shadow: 0px 3px 6px #59595919;
     padding-left: 50px;
+    border: 1px solid #d6d6d6;
 }
 
 fa-icon {
@@ -243,6 +239,9 @@ fa-icon {
     }
 
     &__filter {
+        border: 1px solid #d6d6d6;
+        border-radius: 20px;
+
         // margin-right: 20px;
         position: relative;
         // margin-bottom: 15px;
@@ -274,7 +273,6 @@ fa-icon {
             // }
         }
         
-
         .icon{
             position: absolute;
             right: 1px;
@@ -295,10 +293,6 @@ fa-icon {
                 display: block;
             }
         }
-
-
-        
-        
 
         ng-select {
             // min-width: 120px;
@@ -418,21 +412,27 @@ fa-icon {
 
     }
     .button-success{
-        height: 55px;
         border-radius: 50px;
-        // position: relative;
         top: 26px;
-        // width: 200px;
-        @media (max-width:1300px){
-            width: 360px;
-        }
 
         fa-icon{
             position: initial;
             display: block;
-            width: 35px;
+            padding: 2px;
             font-size: 24px;
         }
+
+        span{
+            display: none;
+        }
+
+    }
+
+    .compound{
+        display: flex; 
+        align-items: center;
+        font-size: 14px; 
+        justify-content: center;
     }
 }
 
@@ -574,6 +574,9 @@ fa-icon {
                 font-size: 22px;
                 color: #1e4937;
                 // margin-bottom: 20%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
             #Price_range_hint{
@@ -619,7 +622,7 @@ fa-icon {
     padding-left: 15px;
     & ~ fa-icon{
         position: absolute;
-        top: 17px;
+        top: 20px;
         right: 12px !important;
         background: #Fff;
         width: 16px;
@@ -668,7 +671,7 @@ fa-icon {
     }
 }
 
-@media (max-width:1600px){
+@media only screen and (min-width: 1168px) and (max-width: 1440px) {
     .search-filters{
         &__box{
             flex-wrap: wrap;
@@ -711,15 +714,81 @@ fa-icon {
     }
 }
 
-@media (max-width:1169px){
+@media only screen and (min-width: 768px) and (max-width: 1168px) {
     .search-filters{
+        flex-wrap: wrap;
+        justify-content: center;
+
         &__filter{
-            width: 45%;
+            width: 25%;
+            margin-bottom: 20px;
+
+            &.search_input{
+                width: 45%;
+            }
+        }
+
+        .compound{
+            margin-bottom: 20px;
+        }
+
+        .button-success{
+            position: inherit;
+            width: fit-content;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+
+            span{
+                display: block;
+            }
         }
     }
 }
 
-@media (max-width:768px){
+@media only screen and (min-width: 450px) and (max-width: 768px) {
+    .search-filters{
+        flex-direction: column;
+        align-items: center;
+        margin: 0px;
+
+
+        &__filter{
+            width: 48%;
+            margin: 2%   1% 2% 1%;
+
+            // border: 0px;
+            // border-radius: 20px;
+            &.search_input{
+                width: 100%; 
+                
+            }
+            &.city,&.area,&.neighborhood,&.estate_type{
+
+            }
+            &.estate_type,&.priceRange{
+                // width: 100%;
+            }
+        }
+        .button-success{
+            position: inherit;
+            width: fit-content;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+
+            span{
+                display: initial;
+            }
+        }
+
+        .compound{
+            width: 48%;
+        }
+    }
+}
+
+@media (max-width: 450px) {
     .search-filters{
         flex-direction: column;
         align-items: center;
@@ -754,6 +823,14 @@ fa-icon {
 
         .compound{
             width: 48%;
+        }
+    }
+
+    .results{
+        .loop{
+            padding: 0px;
+            margin: 2.5% 0%;
+            width: 100%;
         }
     }
 }

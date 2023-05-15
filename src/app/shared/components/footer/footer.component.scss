@@ -183,9 +183,109 @@
             background: transparent linear-gradient(180deg, #FD4965 0%, #FD7363 100%) 0% 0% no-repeat padding-box;
         }
 
-        
+    }
+
+    @media only screen and (min-width: 1024px) and (max-width: 1440px) {
+        padding: 2rem 1rem 0rem!important;
+
+        .responsive{
+            .image{
+                width: 25%;
+            }
+
+            .download{
+                width: 25%;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+        .responsive{
+            flex-wrap: wrap;
+            justify-content: center;
+            
+            .image{
+                width: 40%;
+            }
+
+            .links{
+                width: 25%;
+            }
+
+            .services{
+                width: 15%;
+            }
+
+            .contacts{
+                width: 15%;
+            }
+            
+        }
 
     }
 
+    @media only screen and (min-width: 450px) and (max-width: 768px) {
+        .responsive{
+            display: block;
+
+            .image{
+                width: 100%;
+                margin: 5% 0%;
+            }
+
+            .links{    
+                width: 100%;
+                margin: 5% 0%;
+                
+                .flex{
+                    display: flex;
+                    justify-content: space-between;
+                    
+                }
+            }
+            
+            .services{    
+                width: 100%;
+                margin: 5% 0%;
+            
+                .flex{
+                    display: flex;
+                    justify-content: space-between;
     
+                }
+            }
+    
+            .contacts{
+                width: 100%;
+                margin: 5% 0%;
+        
+                .flex{
+                    display: flex;
+                    justify-content: space-between;
+                    
+                }
+            }
+    
+            .download{
+                text-align: start;
+                width: 100%;
+                margin: 5% 0%;
+                
+    
+                .left-sec {
+                    .downlaod {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        align-items: center;
+                        
+    
+                        img {
+                            width: 140px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -932,26 +932,32 @@ export class ElectronicAdvisorComponent {
   }
 
   getPlaceholderMin(){
-    if(this.country_id === 1){
-      return this.translateService.instant('quest.Min Price EGY')
-    }else{
+    if(this.country_id === 2){
       return this.translateService.instant('quest.Min Price KSA')
+    } else if(this.country_id === 3){
+      return this.translateService.instant('quest.Min Price UAE')
+    } else{
+      return this.translateService.instant('quest.Min Price EGY')
     }
   }
 
   getPlaceholderMax(){
-    if(this.country_id === 1){
-      return this.translateService.instant('quest.Max Price EGY')
-    }else{
-      return this.translateService.instant('quest.Max Price KSA')
+    if(this.country_id === 2){
+      return this.translateService.instant('quest.Min Price KSA')
+    } else if(this.country_id === 3){
+      return this.translateService.instant('quest.Min Price UAE')
+    } else{
+      return this.translateService.instant('quest.Min Price EGY')
     }
   }
 
   getCurrency(){
-    if(this.country_id === 1){
-      return this.translateService.instant('propertyDetails.EGP')
-    }else{
+    if(this.country_id === 2){
       return this.translateService.instant('propertyDetails.SAR')
+    } else if(this.country_id === 3){
+      return this.translateService.instant('propertyDetails.AED')
+    } else {
+      return this.translateService.instant('propertyDetails.EGP')
     }
   }
 
@@ -981,6 +987,9 @@ export class ElectronicAdvisorComponent {
       {id: 21, name_en: 'Studio', name_ar: 'ستوديو', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
       // {id: 22, name_en: 'Penthouse', name_ar: 'بنتهاوس', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
       {id: 23, name_en: 'Roof', name_ar: 'رووف', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 24, name_en: 'Sky Villa', name_ar: 'سكاي ڤيلا', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+      {id: 25, name_en: 'Standalone Villa', name_ar: 'ستاند ألون', category_id: 1, category_name_en: 'Residential',category_name_ar:'سكني',units_count: 0},
+
     ]
   
     

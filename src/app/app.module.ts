@@ -61,7 +61,7 @@ import { TermsAndConditionsComponent } from './shared/components/terms-and-condi
 import { PrivacyPolicyComponent } from './shared/components/privacy-policy/privacy-policy.component'
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { FavouritesComponent } from './shared/components/favourites/favourites.component';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SearchResultComponent } from './shared/components/search-result/search-result.component';
 import { ItemCardComponent } from './shared/components/item-card/item-card.component';
 
@@ -132,7 +132,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     SingleProjectComponent,
     AddProjectComponent,
     AddUnitComponent,
-    ElectronicAdvisorComponent  
+    ElectronicAdvisorComponent
   ],
   imports: [
     AngularEditorModule,
@@ -191,7 +191,9 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(library: FaIconLibrary,private router: Router) {
+  constructor(library: FaIconLibrary,private router: Router,
+    private _activatedRoute: ActivatedRoute,
+    ) {
     // library.addIconPacks(fas)
     library.addIcons()
     router.events.subscribe((val) => {

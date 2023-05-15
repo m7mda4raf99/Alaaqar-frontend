@@ -50,7 +50,7 @@ padding: 0;
                             }
                             &.pull-this {
                                 margin-left: -40px;
-                                @media (max-width:768px) {
+                                @media (max-width:992px) {
                                     margin: 0 auto;
                                 }
                             }
@@ -75,7 +75,7 @@ padding: 0;
                 border-top-right-radius: 40px;
                  
                 min-height: 355px;
-                @media (max-width:768px) {
+                @media (max-width:992px) {
                     min-height: 260px       
                     }
 
@@ -87,7 +87,7 @@ padding: 0;
                     right: -37px;
                     top: 20px;
                     max-width: 100%;
-                    @media (max-width:768px) {
+                    @media (max-width:992px) {
                         right:auto
                     }
                 }

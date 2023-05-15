@@ -437,10 +437,14 @@ export class UnitDetailsComponent implements OnInit {
   }
   
   getCurrency(){
-    if(this.propertyDetails['country_id'] === 1){
-      return this.translateService.instant('propertyDetails.EGP')
-    }else{
+    if(this.propertyDetails['country_id'] === 2){
       return this.translateService.instant('propertyDetails.SAR')
+    }
+    if(this.propertyDetails['country_id'] === 3){
+      return this.translateService.instant('propertyDetails.AED')
+    }
+    else{
+      return this.translateService.instant('propertyDetails.EGP')
     }
   }
 

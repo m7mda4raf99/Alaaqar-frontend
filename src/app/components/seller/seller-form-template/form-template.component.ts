@@ -68,23 +68,23 @@ export class SellFormTemplateComponent implements OnInit {
 
         val.data.forEach((element: any) => {
           this.imagesForm.addControl(this.activeLang === 'en' ? element.name_en : element.name_ar, new UntypedFormControl('', Validators.required))
-          
-          if(element.name_en != 'Master Plan'){          
-              this.imageTags.push({'name_en': element.name_en, 'name_ar': element.name_ar})
-              this.allTags.push({'name_en': element.name_en, 'name_ar': element.name_ar})
+
+          if (element.name_en != 'Master Plan') {
+            this.imageTags.push({ 'name_en': element.name_en, 'name_ar': element.name_ar })
+            this.allTags.push({ 'name_en': element.name_en, 'name_ar': element.name_ar })
           }
 
         });
 
-        this.allTags.push({'name_en': 'Initial', 'name_ar': 'أولي'})
+        this.allTags.push({ 'name_en': 'Initial', 'name_ar': 'أولي' })
 
 
-        if(this.activeLang === 'AR'){
+        if (this.activeLang === 'AR') {
           this.selectedImageTag = 'تصنيف الصورة'
-        }else{
+        } else {
           this.selectedImageTag = 'Image Category'
         }
-  
+
 
         this.sub4 = this.appService.propertyImagesPreviewEditMode$.subscribe(val => {
           if (Object.keys(val).length > 0) {
@@ -105,7 +105,7 @@ export class SellFormTemplateComponent implements OnInit {
             // console.log('uploads2: ', uploads)
 
             for (const sTag in this.myFilesPreview) {
-              if(sTag != "Initial"){
+              if (sTag != "Initial") {
                 this.myFilesPreview[sTag].forEach((el: any) => {
                   let sObj: any = {
                     tag_id: '',
@@ -184,8 +184,8 @@ export class SellFormTemplateComponent implements OnInit {
           // 1
           this.sub = this.appService.tabOne$.subscribe(val => { this.formData = val })
 
-          
-          // console.log(this.sub)
+
+        // console.log(this.sub)
 
       }
     })
@@ -213,9 +213,9 @@ export class SellFormTemplateComponent implements OnInit {
     });
   }
   onInputNumberChange(key: any, e: any) {
-    if (e.target.value === '') { 
-      return this.stepForm.get(key)?.setErrors({ 'required': true }) 
-    }else {
+    if (e.target.value === '') {
+      return this.stepForm.get(key)?.setErrors({ 'required': true })
+    } else {
       let obj = {
         value: e.target.value,
         name_ar: "",
@@ -237,9 +237,9 @@ export class SellFormTemplateComponent implements OnInit {
     }
     return '';
   }
-  getHelperText(key: any){
+  getHelperText(key: any) {
     for (const element of this.formData) {
-      if (element.name_en === key || element.name_ar === key){
+      if (element.name_en === key || element.name_ar === key) {
         // console.log(element)
         return this.activeLang === 'en' ? element.measuring_unit_en : element.measuring_unit_ar
       }
@@ -247,7 +247,7 @@ export class SellFormTemplateComponent implements OnInit {
     // this.formData.forEach((element: any) => {
     //   console.log(element)
     //   console.log('key',key)
-     
+
     // });
   }
   checkSelected(key: any, val: any) {
@@ -265,11 +265,11 @@ export class SellFormTemplateComponent implements OnInit {
   }
   setupFormControlValue(e: any, key: any, value: any, filled: any) {
     let currentValue = this.stepForm.get(key)?.value
-    
-    if (filled !== -1 && e.target.checked) { 
-      e.target.checked = !e.target.checked 
+
+    if (filled !== -1 && e.target.checked) {
+      e.target.checked = !e.target.checked
     }
-    
+
     if (e.target.checked) {
       if (!currentValue) {
         this.stepForm.get(key)?.setValue([value])
@@ -288,11 +288,11 @@ export class SellFormTemplateComponent implements OnInit {
     }
   }
 
-  setSingleSelect(e: any, key: any, value: any, filled: any) {    
+  setSingleSelect(e: any, key: any, value: any, filled: any) {
     this.stepForm.get(key)?.setValue([value])
   }
 
-  isInvalid(criteria: any){
+  isInvalid(criteria: any) {
     return this.stepForm.controls[criteria['name_en']].status === 'INVALID'
   }
 
@@ -335,38 +335,38 @@ export class SellFormTemplateComponent implements OnInit {
 
   getType(data: any, key: any) {
     const value = data.filter((val: any) => val?.name_en === key || val?.name_en.includes(key))
-    
+
     // console.log("halim")
     // console.log(data)
 
-    if(value[0].type !== 'select' && value[0].type !== 'number' && value[0].type !== 'text' &&
-    value[0].type !== 'large_text'){
+    if (value[0].type !== 'select' && value[0].type !== 'number' && value[0].type !== 'text' &&
+      value[0].type !== 'large_text') {
       // console.log("halim")
       // console.log(value[0].type)
     }
-      
+
 
     // console.log("bassel")
     // console.log(value)
     // console.log(key)
 
-    if (value[0].type === 'select' && value[0].multiple === 2) { 
-      return 'multiSelectCheckbox' 
+    if (value[0].type === 'select' && value[0].multiple === 2) {
+      return 'multiSelectCheckbox'
     }
-    
-    else if (value[0].type === 'select' && value[0].multiple === 1) { 
+
+    else if (value[0].type === 'select' && value[0].multiple === 1) {
       // console.log("zanaty")
       // console.log(value)
 
-      return 'dropdownSelect' 
+      return 'dropdownSelect'
     }
-    else if (value[0].type === 'number') { 
-      return 'inputNumber' 
+    else if (value[0].type === 'number') {
+      return 'inputNumber'
     }
-    else if (value[0].type === 'text') { 
-      return 'text' 
+    else if (value[0].type === 'text') {
+      return 'text'
     }
-    else if (value[0].type === 'large_text') { 
+    else if (value[0].type === 'large_text') {
       return 'large_text'
     }
     else { return 'upload' }
@@ -394,10 +394,10 @@ export class SellFormTemplateComponent implements OnInit {
   //           'file': file
   //         }
   //       )
-        
+
   //     }
   //     reader.readAsDataURL(e.target.files[i]);
-      
+
   //   }
   //   this.file.nativeElement.value = ''
   //   // console.log("myFilesPreview: ", this.myFilesPreview)
@@ -412,7 +412,7 @@ export class SellFormTemplateComponent implements OnInit {
   //   if(!this.imagesToUpload[key] && !this.imagesToUpload[key]?.length){
   //     this.imagesToUpload[key] = []
   //   }
-    
+
   //   for (var i = 0; i < e.target.files.length; i++) {
   //     let fileIsExist = this.myFiles[key].filter((val: any) => val.name === e.target.files[i].name)
   //     if (fileIsExist.length === 0) {
@@ -442,72 +442,72 @@ export class SellFormTemplateComponent implements OnInit {
       this.myFiles[key] = []
       this.myFilesPreview[key] = []
     }
-  
-    if(!this.imagesToUpload[key] && !this.imagesToUpload[key]?.length){
+
+    if (!this.imagesToUpload[key] && !this.imagesToUpload[key]?.length) {
       this.imagesToUpload[key] = []
     }
-  
+
     // Loop through each selected file
     for (var i = 0; i < e.target.files.length; i++) {
-  
+
       // Check if the file already exists in the array
       let fileIsExist = this.myFiles[key].filter((val: any) => val.name === e.target.files[i].name);
       // if (fileIsExist.length === 0) {
-  
-        // Compress the file using a canvas element
-        const img = new Image();
-        img.src = URL.createObjectURL(e.target.files[i]);
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          const maxWidth = 800;
-          const maxHeight = 800;
-          let width = img.width;
-          let height = img.height;
-  
-          // Scale the image down if it's too large
-          if (width > maxWidth || height > maxHeight) {
-            const ratio = Math.min(maxWidth / width, maxHeight / height);
-            width *= ratio;
-            height *= ratio;
+
+      // Compress the file using a canvas element
+      const img = new Image();
+      img.src = URL.createObjectURL(e.target.files[i]);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const maxWidth = 800;
+        const maxHeight = 800;
+        let width = img.width;
+        let height = img.height;
+
+        // Scale the image down if it's too large
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Draw the compressed image onto the canvas
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        // Convert the compressed image to a Blob object
+        canvas.toBlob((blob) => {
+          if (blob) {
+            // Read the Blob object as a data URL and add it to the imagesToUpload array
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+              const base64data = reader.result?.toString();
+              if (base64data) {
+                this.myFiles[key].push(e.target.files[i]);
+                this.myFilesPreview[key].push(base64data);
+                this.imagesToUpload[key].push(base64data);
+                this.allImages.push({
+                  'img': base64data,
+                  'key': key,
+                  'index': this.imagesToUpload[key].length - 1
+                });
+                this.cdRef.detectChanges();
+              }
+            };
           }
-  
-          canvas.width = width;
-          canvas.height = height;
-  
-          // Draw the compressed image onto the canvas
-          ctx?.drawImage(img, 0, 0, width, height);
-  
-          // Convert the compressed image to a Blob object
-          canvas.toBlob((blob) => {
-            if (blob) {
-              // Read the Blob object as a data URL and add it to the imagesToUpload array
-              const reader = new FileReader();
-              reader.readAsDataURL(blob);
-              reader.onloadend = () => {
-                const base64data = reader.result?.toString();
-                if (base64data) {
-                  this.myFiles[key].push(e.target.files[i]);
-                  this.myFilesPreview[key].push(base64data);
-                  this.imagesToUpload[key].push(base64data);
-                  this.allImages.push({
-                    'img': base64data,
-                    'key': key,
-                    'index': this.imagesToUpload[key].length - 1
-                  });
-                  this.cdRef.detectChanges();
-                }
-              };
-            }
-          }, 'image/jpeg', 0.7); // Adjust the quality here (0.7 = 70% quality)
-        };
+        }, 'image/jpeg', 0.7); // Adjust the quality here (0.7 = 70% quality)
+      };
       // }
     }
     // Clear the file input
-  this.file.nativeElement.value = ''
-  } 
+    this.file.nativeElement.value = ''
+  }
 
-  fileEventInitial(e: any){
+  fileEventInitial(e: any) {
     this.requiredRealImages = true
 
     let key = 'Initial'
@@ -546,48 +546,49 @@ export class SellFormTemplateComponent implements OnInit {
         // Draw the compressed image onto the canvas
         ctx?.drawImage(img, 0, 0, width, height);
 
-      
-    //   reader.readAsDataURL(e.target.files[i]);
-        canvas.toBlob((blob) => {
-            if (blob) {
-              // Read the Blob object as a data URL and add it to the imagesToUpload array
-              const reader = new FileReader();
-              reader.readAsDataURL(blob);
-              reader.onload = (e: any) => {
-                const base64data = reader.result?.toString();
-                // console.log("reader result: ", reader.result)
-                this.myFilesPreview[key].push(
-                  {
-                    'img': base64data,
-                    'tag': 'Initial',
-                    'file': file
-                  }
-                )
 
-                this.cdRef.detectChanges();
-                
-              }
-              // reader.onloadend = () => {
-              //   const base64data = reader.result?.toString();
-              //   if (base64data) {
-              //     this.myFiles[key].push(e.target.files[i]);
-              //     this.myFilesPreview[key].push(base64data);
-              //     this.imagesToUpload[key].push(base64data);
-              //     this.allImages.push({
-              //       'img': base64data,
-              //       'tag': 'Initial',
-              //       'file': file
-              //     });
-              //   }
-              // };
+        //   reader.readAsDataURL(e.target.files[i]);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            // Read the Blob object as a data URL and add it to the imagesToUpload array
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onload = (e: any) => {
+              const base64data = reader.result?.toString();
+              // console.log("reader result: ", reader.result)
+              this.myFilesPreview[key].push(
+                {
+                  'img': base64data,
+                  'tag': 'Initial',
+                  'file': file
+                }
+              )
+
+              this.cdRef.detectChanges();
+              this.appService.myFilesPreview$.next(this.myFilesPreview)
+
             }
-          }, 'image/jpeg', 0.7);
-      
+            // reader.onloadend = () => {
+            //   const base64data = reader.result?.toString();
+            //   if (base64data) {
+            //     this.myFiles[key].push(e.target.files[i]);
+            //     this.myFilesPreview[key].push(base64data);
+            //     this.imagesToUpload[key].push(base64data);
+            //     this.allImages.push({
+            //       'img': base64data,
+            //       'tag': 'Initial',
+            //       'file': file
+            //     });
+            //   }
+            // };
+          }
+        }, 'image/jpeg', 0.7);
+
+      }
+      // console.log("myFilesPreview: ", this.myFilesPreview)
     }
-    // console.log("myFilesPreview: ", this.myFilesPreview)
+    this.file.nativeElement.value = ''
   }
-  this.file.nativeElement.value = ''
-}
 
   deleteImgInitial(index: any) {
     let key = 'Initial'
@@ -605,9 +606,11 @@ export class SellFormTemplateComponent implements OnInit {
 
     // this.myFiles[key].splice(index, 1)
     this.myFilesPreview[key].splice(index, 1)
-    
+
     this.appService.deletedImages$.next(this.deletedImages)
-    
+
+    this.appService.myFilesPreview$.next(this.myFilesPreview)
+
     // if (this.imagesToUpload && this.imagesToUpload[key]) {
     //   this.imagesToUpload[key].splice(index, 1)
     // }
@@ -635,14 +638,14 @@ export class SellFormTemplateComponent implements OnInit {
       this.imagesToUpload[key].splice(index, 1)
     }
 
-    if(key != 'Master Plan'){
+    if (key != 'Master Plan') {
       this.deleteFromInitial(key, index)
     }
 
     this.cdRef.detectChanges();
   }
 
-  deleteFromInitial(key: any, index: any){
+  deleteFromInitial(key: any, index: any) {
     let x = this.myFilesPreview['Initial'][0]
     // console.log("x is here: ", x)
 
@@ -661,50 +664,50 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
   next() {
-    if(!this.uploadmaster){
+    // if(!this.uploadmaster){
 
-      if(this.myFilesPreview['Initial']){
+    // if (this.myFilesPreview['Initial']) {
 
-        for(let tag in this.myFilesPreview){
-          if(tag != 'Initial'){
-            delete this.myFilesPreview[tag]
-          }
+      // for (let tag in this.myFilesPreview) {
+      //   if (tag != 'Initial') {
+      //     delete this.myFilesPreview[tag]
+      //   }
+      // }
+
+    //   if (this.myFilesPreview['Initial'].length > 0) {
+    //     if (this.checkRealImages()) {
+    //       this.requiredRealImages = false
+    //       return this.uploadingPhotos = true
+    //     }
+    //   }
+    // }
+
+    this.imagesToUpload = {}
+    this.myFiles = {}
+
+    if (this.myFilesPreview['Initial']) {
+      for (let image of this.myFilesPreview['Initial']) {
+
+        if (!this.myFiles[image['tag']]) {
+          this.myFiles[image['tag']] = []
         }
+        this.myFiles[image['tag']].push(image['file'])
 
-        if(this.myFilesPreview['Initial'].length > 0){
-          if(this.checkRealImages()){
-            this.requiredRealImages = false
-            return this.uploadingPhotos = true
-          }
+        if (!this.imagesToUpload[image['tag']]) {
+          this.imagesToUpload[image['tag']] = []
         }
+        this.imagesToUpload[image['tag']].push(image['img'])
+
+        if (!this.myFilesPreview[image['tag']]) {
+          this.myFilesPreview[image['tag']] = []
+        }
+        this.myFilesPreview[image['tag']].push(image['img'])
       }
-
-      this.imagesToUpload = {}
-      this.myFiles = {}
-
-      if(this.myFilesPreview['Initial']){
-        for(let image of this.myFilesPreview['Initial']){
-
-          if(!this.myFiles[image['tag']]){
-            this.myFiles[image['tag']] = [] 
-          }
-          this.myFiles[image['tag']].push(image['file'])
-
-          if(!this.imagesToUpload[image['tag']]){
-            this.imagesToUpload[image['tag']] = []
-          }
-          this.imagesToUpload[image['tag']].push(image['img'])
-
-          if(!this.myFilesPreview[image['tag']]){
-            this.myFilesPreview[image['tag']] = []
-          }
-          this.myFilesPreview[image['tag']].push(image['img'])
-        }
-      }
-      
-      
-
     }
+
+
+
+    // }
 
     // if (this.active <= Number(Object.keys(this.imagesForm.controls).length) - 1) {
     //   this.active += 1
@@ -732,7 +735,7 @@ export class SellFormTemplateComponent implements OnInit {
     let images: any = []
     let imagesToUpload: any = []
     for (const sTag in this.myFilesPreview) {
-      if(sTag != "Initial"){
+      if (sTag != "Initial") {
         this.myFilesPreview[sTag].forEach((el: any) => {
           let sObj: any = {
             tag_id: '',
@@ -776,13 +779,13 @@ export class SellFormTemplateComponent implements OnInit {
     // console.log(this.myFiles)
     // console.log("my images")
     // console.log(this.allImages)
-    
+
 
     this.appService.uploads$.next(images)
     this.appService.imagesToUpload$.next(imagesToUpload)
     this.stepForm.get('Unit photos')?.setValue([this.myFiles])
     // }
-    return this.uploadingPhotos = false
+    // return this.uploadingPhotos = false
   }
 
   keyTranslate(key: any, array: any) {
@@ -790,7 +793,7 @@ export class SellFormTemplateComponent implements OnInit {
     return row[0] ? this.activeLang === 'en' ? row[0].name_en : row[0].name_ar : 'undefined'
   }
 
-  previewImages(){
+  previewImages() {
     return this.myFilesPreview['Initial']
   }
   imagesPreview() {
@@ -801,9 +804,9 @@ export class SellFormTemplateComponent implements OnInit {
     // console.log("this.myFilesPreview: ", this.myFilesPreview) 
 
     for (let [k, val] of Object.entries(this.myFilesPreview)) {
-      if(k != 'Initial'){
+      if (k != 'Initial') {
         for (const key in this.myFilesPreview[k]) {
-          
+
           // console.log("key: ", k, ", index: ", key) 
 
           arr.push({
@@ -813,21 +816,21 @@ export class SellFormTemplateComponent implements OnInit {
           })
         }
       }
-      
+
     }
     // console.log(arr)
     return arr
   }
 
-  isRealImagesEmpty(){
-    if(this.myFilesPreview['Initial']){
-      if(this.myFilesPreview['Initial'].length > 0){
+  isRealImagesEmpty() {
+    if (this.myFilesPreview['Initial']) {
+      if (this.myFilesPreview['Initial'].length > 0) {
         return false
       }
-      else{
+      else {
         return true
       }
-    }else{
+    } else {
       return true
     }
 
@@ -857,42 +860,46 @@ export class SellFormTemplateComponent implements OnInit {
   }
 
 
-  filterTitleDescription(data: any[]){
-    if(Array.isArray(data) && data.length > 0){
+  filterTitleDescription(data: any[]) {
+    if (Array.isArray(data) && data.length > 0) {
       return data.filter(x => x.name_en == 'Unit Title' || x.name_en == 'Write a unique description');
-    }else {
+    } else {
       return []
     }
   }
 
-  filterOther(data: any[]){
-    if(Array.isArray(data) && data.length){
-      return data.filter(x => x.name_en != 'Unit Title' 
-      && x.name_en != 'Write a unique description'
-      && x.icon != 'upload.svg');
-    }else{
+  filterOther(data: any[]) {
+    if (Array.isArray(data) && data.length) {
+      return data.filter(x => x.name_en != 'Unit Title'
+        && x.name_en != 'Write a unique description'
+        && x.icon != 'upload.svg');
+    } else {
       return []
     }
-    
+
   }
 
-  filterImage(data: any[]){
+  filterImage(data: any[]) {
     // console.log("data now1: ", data)
 
-    if(Array.isArray(data) && data.length){
+    if (Array.isArray(data) && data.length) {
       // console.log("data now2: ", data.filter(x => x.icon === 'upload.svg'))
       return data.filter(x => x.icon === 'upload.svg');
-    }else{
+    } else {
       return []
     }
   }
 
-  onChangeImageTag(event: any, index: any){
+  onChangeImageTag(event: any, index: any) {
     this.requiredRealImages = true
 
     let selectedTag = event.target.options[event.target.selectedIndex].value
 
     this.myFilesPreview['Initial'][index]['tag'] = selectedTag
+
+    this.appService.myFilesPreview$.next(this.myFilesPreview)
+
+    // this.next()
 
     // console.log(this.myFilesPreview)
 
@@ -905,36 +912,36 @@ export class SellFormTemplateComponent implements OnInit {
     // if(!this.imagesToUpload[this.selectedImageTag] && !this.imagesToUpload[this.selectedImageTag]?.length){
     //   this.imagesToUpload[this.selectedImageTag] = []
     // }
-    
+
     // this.myFiles[this.selectedImageTag].push(this.myFiles[old_tag].splice(index, 1))
     // this.imagesToUpload[this.selectedImageTag].push(this.myFilesPreview[old_tag].splice(index, 1))
     // this.myFilesPreview[this.selectedImageTag].push(this.imagesToUpload[old_tag].splice(index, 1))
 
   }
-  
-  initFiles(){
+
+  initFiles() {
     this.imagesToUpload = {}
-    
-    if(this.myFilesPreview['Initial']){
+
+    if (this.myFilesPreview['Initial']) {
       for (var key of Object.keys(this.myFilesPreview)) {
-        if(key != 'Initial'){
+        if (key != 'Initial') {
           delete this.myFilesPreview[key]
         }
       }
       // console.log("here: ", this.myFilesPreview)
-    }else{
+    } else {
       this.myFilesPreview = {}
     }
 
   }
 
-  checkRealImages(){
-    if(this.myFilesPreview['Initial'].length < 5){
+  checkRealImages() {
+    if (this.myFilesPreview['Initial'].length < 5) {
       return true
     }
-    else{
-      for(let image of this.myFilesPreview['Initial']){
-        if(image['tag'] === 'Initial' || image['tag'] === 'Image Category'){
+    else {
+      for (let image of this.myFilesPreview['Initial']) {
+        if (image['tag'] === 'Initial' || image['tag'] === 'Image Category') {
           return true
         }
       }
@@ -942,13 +949,13 @@ export class SellFormTemplateComponent implements OnInit {
     return false
   }
 
-  setStyle(){
+  setStyle() {
     const div = document.getElementById('image_criteria');
 
     if (div != null) {
-      if(this.imagesPreview().length === 0){
+      if (this.imagesPreview().length === 0) {
         div.style.display = 'block'
-      }else{
+      } else {
         div.style.display = 'flex'
         div.style.justifyContent = 'space-between'
         div.style.alignItems = 'baseline'

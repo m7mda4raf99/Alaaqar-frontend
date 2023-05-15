@@ -243,8 +243,16 @@ export class LoginDeveloperComponent {
         status: verifyOtp.data.dev.status,
         api_token: verifyOtp.data.dev.api_token
       }
+
+      // console.log('obj: ', JSON.stringify(obj))
+
       this.cookieService.set('developer', JSON.stringify(obj), { expires: 2, sameSite: 'Lax', secure: false });
       
+      const developer = this.cookieService.get('developer')  
+      // console.log('this.cookieService ', this.cookieService.getAll())
+
+      // console.log('developer login: ', developer)
+
       localStorage.setItem('avatarsPath', verifyOtp.data.dev.img);
       this.appService.isLoggedInDeveloper$.next(true)
       

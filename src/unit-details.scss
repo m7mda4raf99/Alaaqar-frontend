@@ -122,7 +122,7 @@
             border-radius: 10px;
             min-height: 500px;
             padding: 15px;
-            @media (max-width: 768px) {
+            @media (max-width: 991px) {
                 margin-top: 25px;
                 height: max-content;
                 min-height: auto;
@@ -175,8 +175,8 @@
                     width: 35px;
                     height: 30px;
                     @media only screen and (min-width: 1024px) and (max-width: 1350px) {
-                        width: 43px;
-                        height: 42px;
+                        // width: 43px;
+                        // height: 42px;
                     }
                     @media (max-width: 375px) {
                         // width: 55px;
@@ -230,7 +230,7 @@
             }
 
             .button-holder{
-                @media (max-width: 768px) {
+                @media (max-width: 991px) {
                     background: white;
                     width: 100%;
                     display: flex;
@@ -246,6 +246,7 @@
 
             .button-success {
                 margin-top: 0px;
+                min-width: auto;
                 width: 100%;
                 margin: 0px;
                 @media (max-width: 768px) {
@@ -258,6 +259,7 @@
             background-color: #fff;
             border-radius: 20px;
             padding: 15px;
+            margin: 0px;
             .title {
                 color: #4e4e56;
                 font-size: 24px;

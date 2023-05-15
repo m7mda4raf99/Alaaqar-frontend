@@ -1,4 +1,4 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
   <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
 </ngx-spinner>
 
@@ -79,7 +79,7 @@
                           <input style="margin: 10px;" [(ngModel)]="compound" type="checkbox" data-toggle="toggle">
                           
                           <label *ngIf="country_id === 1">{{'home.Compound EGY' | translate}}</label> 
-                          <label *ngIf="country_id === 2">{{'home.Compound KSA' | translate}}</label> 
+                          <label *ngIf="country_id === 2 || country_id === 3">{{'home.Compound KSA' | translate}}</label> 
 
                         </label>
 
@@ -100,12 +100,12 @@
 
                         <div class="name">
                           <div class="title"> {{'quest.Min' | translate}} 
-                            <input class="ngSelect-input" [(ngModel)]="minValueInput" placeholder="{{'quest.Min Price' | translate}}"
+                            <input class="ngSelect-input" [(ngModel)]="minValueInput" placeholder="{{'home.Min Price' | translate}}"
                             type="text" (keyup)="userChangeMin()"/>    
                           </div>
     
                           <div class="title"> {{'quest.Max' | translate}} 
-                            <input class="ngSelect-input" [(ngModel)]="maxValueInput" placeholder="{{'quest.Max Price' | translate}}"
+                            <input class="ngSelect-input" [(ngModel)]="maxValueInput" placeholder="{{'home.Max Price' | translate}}"
                             type="text" (keyup)="userChangeMax()"/>
     
                           </div>

@@ -665,7 +665,7 @@ nz-progress {
     width: 100%;
     height: 315px;
     background: linear-gradient(to bottom, rgba(24, 77, 71, 0.77), rgba(24, 77, 71, 0.03)),
-        url("./assets/images/verne-ho-0LAJfSNa-xQ-unsplash\ \(1\).png");
+        url("./assets/images/verne-ho-0LAJfSNa-xQ-unsplash\ \(1\).jpg");
 
     .title {
         color: #ffffff;
@@ -850,6 +850,7 @@ nz-progress {
     max-width: 400px;
     margin: 50px auto;
     &__icon{
+        margin: 30px 0px;
         
         img{
             width: 100%;
@@ -879,9 +880,11 @@ nz-progress {
 .alaqaar-solution{
     background: #f7f7f7;
     padding-top: 100px;
+    padding-bottom: 100px;
 
     @media (max-width:450px){
         padding-top: 30px;
+        padding-bottom: 30px;
     }
 
     position: relative;
@@ -991,14 +994,10 @@ a{
 
 @media (max-width:1169px){
     body{
-        padding-top: 140px;
+        padding-top: 70px;
     }
 }
-@media (max-width:767px){
-    body{
-        padding-top: 190px;
-    }
-}
+
 @media (max-width:450px){
     body{
         padding-top: 70px;
@@ -1006,6 +1005,10 @@ a{
 }
 
 @media (max-width:768px){
+    body{
+        padding-top: 70px;
+    }
+    
     .app-header ng-select{
         .ng-select-container, .ngSelect-input{
             border-radius: 0 !important;
@@ -1478,6 +1481,18 @@ span.dropdown-multiselect--active{
         max-width: fit-content;
         margin: 3rem 20rem;
 
+        @media only screen and (min-width: 1024px) and (max-width: 1440px) {
+            margin: 5rem 12.5rem;
+        }
+
+        @media only screen and (min-width: 768px) and (max-width: 1024px) {
+            margin: 5rem;
+        }
+
+        @media only screen and (min-width: 450px) and (max-width: 768px) {
+            margin: 5rem 2.5rem;
+        }
+
         @media (max-width: 450px) {
             top: 10%;
             margin: 3rem 0rem;
@@ -1692,5 +1707,11 @@ nav{
             top: 10px;
             padding: 5px 15px;
         }   
+    }
+}
+
+@media (max-width: 565) {
+    .d-lg-block {
+        display: block!important;
     }
 }

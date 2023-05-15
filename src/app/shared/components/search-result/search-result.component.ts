@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faFilter, faChevronDown, faChevronUp, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faChevronDown, faChevronUp, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NotificationsService } from '../../../services/notifications.service'
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Options } from '@angular-slider/ngx-slider';
 import { CookieService } from 'ngx-cookie-service';
 import { DecimalPipe } from '@angular/common';
+import { AutocompleteComponent } from 'angular-ng-autocomplete';
 
 
 
@@ -30,6 +31,7 @@ export class SearchResultComponent implements OnInit {
   @ViewChild('maxPrice') maxPrice!: ElementRef
   @ViewChild('apply') apply!: ElementRef
   @ViewChild('dropdownMenuButton1') dropdownMenuButton1!: ElementRef
+  @ViewChild('auto') auto: any;
 
   subCountry = new Subscription()
 	country_id: any = Number(JSON.parse(this.activatedRoute.snapshot.queryParams['search_query'])['country_id'])
@@ -38,9 +40,11 @@ export class SearchResultComponent implements OnInit {
   faChevronDown = faChevronDown
   faChevronUp = faChevronUp
   faSearch = faSearch
+  faTrash = faTrash
   baseUrl = environment.baseUrl
   sub = new Subscription()
   sub2 = new Subscription()
+  sub3 = new Subscription()
   limit: number = 18
   loadMore: boolean = false
   search_model: any = this.activatedRoute.snapshot.queryParams
@@ -89,6 +93,8 @@ export class SearchResultComponent implements OnInit {
   page?: number = 1;
   totalItems: number = 400;
 
+  initialValue: any= ''
+
   changeFilter(){
     if(this.display === 'none'){
       this.display = 'flex'
@@ -131,60 +137,46 @@ export class SearchResultComponent implements OnInit {
 
     this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
 
-      if(res != this.country_id){
+      // if(res != this.country_id){
         // console.log("country changed so restart search")
         // country changed
 
         this.country_id = res
 
-        this.putAutoComplete()
+        this.putAutoComplete()    
 
-      if(this.country_id === 1){
-        this.in_compound = true
-      }else{
-        this.in_compound = false
-      }
-
-      this.search_model = {
-        country_id: this.country_id,
-        cities: [],
-        areas: [],
-        locations: [],
-        neighborhoods: [],
-        compounds: [],
-        type: [],
-        min_price: null,
-        max_price: null,
-        propose: this.activeTab === 'rent' ? 'rental' : 'sell'
-      }
-
-      this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
-      this.search_model.limit = this.limit
-      this.search_model.sort = 'orderByDesc'
-      this.search_model.offset = 0
-
-      if(this.activeTab != 'commercial'){
-        if(this.country_id === 1){
-          this.in_compound = true
-        }else{
-          this.in_compound = false
+        this.search_model = {
+          country_id: this.country_id,
+          cities: [],
+          areas: [],
+          locations: [],
+          neighborhoods: [],
+          compounds: [],
+          type: [],
+          min_price: null,
+          max_price: null,
+          propose: this.activeTab === 'rent' ? 'rental' : 'sell'
         }
-      }else{
-        this.in_compound = false
-      }
-  
-      this.search_model.in_compound = this.in_compound
-      
 
-      this.isLoading = true
+        this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
+        this.search_model.limit = this.limit
+        this.search_model.sort = 'orderByDesc'
+        this.search_model.offset = 0
+    
+        this.search_model.in_compound = this.in_compound
         
-      // console.log("const: ", this.search_model)
 
-      await this.search(false)
+        this.isLoading = true
+          
+        await this.search(false)
 
-      this.activeCity = this.search_model.cities
-      this.activeRealEstateType = this.search_model.type
-      }
+        this.activeCity = this.search_model.cities
+        this.activeRealEstateType = this.search_model.type
+      // }
+    })
+
+    this.sub3 = this.appService.selectedSearchQuery$.subscribe(val => {
+      this.initialValue = val
     })
 
   }
@@ -215,27 +207,17 @@ export class SearchResultComponent implements OnInit {
     // this.appService.selected_country$.subscribe((res:any) =>{
     //   this.selected_country = res
     // })
-    this.search_model = JSON.parse(this.activatedRoute.snapshot.queryParams['search_query'])
-    this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
-    this.search_model.limit = this.limit
-    this.search_model.sort = 'orderByDesc'
-    this.search_model.offset = 0
+    // this.search_model = JSON.parse(this.activatedRoute.snapshot.queryParams['search_query'])
+    // this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
+    // this.search_model.limit = this.limit
+    // this.search_model.sort = 'orderByDesc'
+    // this.search_model.offset = 0
 
-    if(this.activeTab != 'commercial'){
-      if(this.country_id === 1){
-        this.in_compound = true
-      }else{
-        this.in_compound = false
-      }
-    }else{
-      this.in_compound = false
-    }
-
-    this.search_model.in_compound = this.in_compound
+    // this.search_model.in_compound = this.in_compound
     
-    // console.log("oninit: ", this.search_model)
+    // // console.log("oninit: ", this.search_model)
 
-    await this.search(false)
+    // await this.search(false)
     await this.get_bedrooms_options(5)
     await this.get_space_options(4)
 
@@ -243,8 +225,8 @@ export class SearchResultComponent implements OnInit {
     // console.log("get_space_options:", this.dropdownListSpace)
 
     /// New Search filter 
-    this.activeCity = this.search_model.cities
-    this.activeRealEstateType = this.search_model.type
+    // this.activeCity = this.search_model.cities
+    // this.activeRealEstateType = this.search_model.type
     // await this.getCity(true)
     // await this.getAreaLocations(true)
     this.getUnitTypes()
@@ -419,10 +401,12 @@ export class SearchResultComponent implements OnInit {
   }
 
   getCurrency(){
-    if(this.country_id === 1){
-      return this.translateService.instant('propertyDetails.EGP')
-    }else{
+    if(this.country_id === 2){
       return this.translateService.instant('propertyDetails.SAR')
+    }else if(this.country_id === 3){
+      return this.translateService.instant('propertyDetails.AED')
+    }else{
+      return this.translateService.instant('propertyDetails.EGP')
     }
   }
   
@@ -734,7 +718,9 @@ export class SearchResultComponent implements OnInit {
           { id: 4, name: 'السويس' }
         ]
       }
-    }else{
+    }
+    
+    if(this.country_id === 2){
       if(this.activeLang === 'en'){
         this.autoComplete = [
           { id: 1, name: 'Riyadh' }
@@ -745,12 +731,42 @@ export class SearchResultComponent implements OnInit {
         ]
       }
     }
+
+    if(this.country_id === 3){
+      if(this.activeLang === 'en'){
+        this.autoComplete = [
+          { id: 1, name: 'Dubai' }
+        ]
+      }else{
+        this.autoComplete = [
+          { id: 1, name: 'دبي' }
+        ]
+      }
+    }
   }
 
   async selectEvent(item: any) {
     // do something with selected item
     this.searchQuery = item['name']
     this.selectedSearchQuery = this.searchQuery
+
+    this.Getsearch()
+  }
+
+  inputCleared(){
+    this.selectedSearchQuery = null
+
+    this.search_model.compounds = []
+    this.search_model.neighborhoods = []
+    this.search_model.locations = []
+    this.search_model.areas = []
+    this.search_model.cities = []
+
+    this.Getsearch()
+  }
+
+  onDropdownClose(){
+    // console.log('closed')
   }
 
   async onChangeSearch(val: string) {
@@ -861,8 +877,8 @@ export class SearchResultComponent implements OnInit {
     this.priceMinRange = Number(this.minValueInput.replace(/,/g, ''))
 
     if(this.priceMaxRange === undefined || this.priceMaxRange === '' || this.priceMaxRange < this.priceMinRange){
-      this.priceMaxRange = this.priceMinRange
-      this.maxValueInput = this.minValueInput
+      // this.priceMaxRange = this.priceMinRange
+      // this.maxValueInput = this.minValueInput
     }
   }
 
@@ -872,10 +888,17 @@ export class SearchResultComponent implements OnInit {
     this.priceMaxRange = Number(this.maxValueInput.replace(/,/g, ''))
 
     if(this.priceMaxRange < this.priceMinRange){
-      this.priceMinRange = this.priceMaxRange
-      this.minValueInput = this.maxValueInput
+      // this.priceMinRange = this.priceMaxRange
+      // this.minValueInput = this.maxValueInput
     }
+  }
 
+  searchPrice(){
+    if(this.priceMinRange != undefined && this.priceMaxRange != undefined && this.priceMinRange <= this.priceMaxRange){
+      this.Getsearch()
+    }else{
+      this.notificationsService.showError(this.translateService.instant('error.price'))
+    }
   }
 
 //   PosEnd() {
@@ -982,5 +1005,27 @@ export class SearchResultComponent implements OnInit {
 
   formatMinNumber() {
     this.myNumber = this.myNumber.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  clear(){
+    this.search_model.compounds = []
+    this.search_model.neighborhoods = []
+    this.search_model.locations = []
+    this.search_model.areas = []
+    this.search_model.cities = []
+
+    this.SelectedRealEstateType = []
+    this.selectedItemPropose = []
+    this.priceMaxRange = undefined
+    this.priceMinRange = undefined
+    this.selectedItemRoom = []
+    this.selectedItemSpace = []
+
+    this.in_compound = false
+
+    this.quick_search()
+
+    this.auto.clear()
+    this.auto.close()
   }
 }

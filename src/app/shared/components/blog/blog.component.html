@@ -1,5 +1,5 @@
 <div class="alaqaar-blogs">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+    <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
     </ngx-spinner>
 
@@ -12,8 +12,8 @@
                         translate}}</p>
                 </div>
             </div>
-            <div class="row">
-                <div *ngFor="let item of blogs" class="col-xs-12 col-md-6 col-xl-4 mt-3">
+            <div class="blog-holder">
+                <div *ngFor="let item of blogs" class="mt-3 blog">
                     <div class="card" (click)="navigateToSingleBlog(item)">
                         <div style="position: relative;">
                             <span class="overlay" style="border-top-right-radius: 20px;"></span>

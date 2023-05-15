@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs'
 import { Post } from './interfaces/post'
 import { Store, select } from '@ngrx/store'
 import { PostState } from './store/state/post.state'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { GetPosts } from './store/actions/post.actions'
 import { selectedPosts } from './store/selector/post.selector'
 import { map, takeWhile } from 'rxjs/operators'
@@ -22,6 +22,7 @@ export class AppComponent {
   title = 'alaqaar'
   pageDir: string = 'ltr'
   sub1 = new Subscription()
+  sub2 = new Subscription()
 
 
   constructor(
@@ -29,8 +30,9 @@ export class AppComponent {
     private _router: Router, 
     public translate: TranslateService, 
     public appService: AppServiceService,
-    private toastService: ToastService
-
+    private toastService: ToastService,
+    private _activatedRoute: ActivatedRoute,
+    private router: Router,
 ) {
     // this._store.dispatch(new GetPosts())
     // this.posts$ = this._store.select(selectedPosts)

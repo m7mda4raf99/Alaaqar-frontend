@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { AppServiceService } from '../../../services/app-service.service'
 import { faUser, faEllipsisV, faSignOutAlt, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faEdit, faHeart } from '@fortawesome/free-regular-svg-icons';
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('alert') alert: any;
-  @ViewChild('CountryPop') CountryPop: any;
+  // @ViewChild('CountryPop') CountryPop: any;
 
   config = {
     backdrop: true,
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   avatarUrl: any
   selectedCityName = 'egypt';
   pressedProfile: boolean = false
-  selectedCountry: number = 1
+  selectedCountry: any
 
   cities3 = [
     {
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
       name: 'egypt',
       value:'Egypt',
       avatar:
-        '../../../../assets/images/egypt_logo.png',
+        '../../../../assets/images/egypt_logo.jpg',
     },
     {
       id: 2,
@@ -59,8 +59,16 @@ export class HeaderComponent implements OnInit {
       avatar:
         '../../assets/images/saudi.png',
     },
+    {
+      id: 3,
+      name: 'UAE',
+      value:'UAE',
+      avatar:
+        '../../assets/images/uae.png',
+    },
     
   ];
+
   constructor(
     private translateService: TranslateService,
     private appServiceService: AppServiceService,
@@ -70,7 +78,8 @@ export class HeaderComponent implements OnInit {
     private apiService: ApiService,
     private spinner: NgxSpinnerService,
     private notificationsService: NotificationsService,
-    private _ElementRef:ElementRef) {
+    private _ElementRef:ElementRef,
+    private activatedRoute: ActivatedRoute,) {
     const currentLang = localStorage.getItem('lang')
     if (currentLang) {
       const selectedLng = this.allLangs.filter(lang => lang.title == currentLang)
@@ -80,38 +89,72 @@ export class HeaderComponent implements OnInit {
         this.langList = this.allLangs.filter(lang => lang.title != currentLang)
         this.switchLang(String(this.activeLang.title).toLowerCase())
       } else {
-        this.activeLang = this.allLangs.filter(lang => lang.title == 'EN')
+        this.activeLang = this.allLangs.filter(lang => lang.title == 'AR')
         this.activeLang = this.activeLang[0]
-        this.langList = this.allLangs.filter(lang => lang.title != 'EN')
-        this.switchLang('en')
+        this.langList = this.allLangs.filter(lang => lang.title != 'AR')
+        this.switchLang('ar')
       }
     } else {
       // RESET LANGUAGE TO BE (EN)
-      localStorage.setItem('lang', 'EN')
-      let defaultLang: string = 'EN'
+      localStorage.setItem('lang', 'AR')
+      let defaultLang: string = 'AR'
       this.activeLang = this.allLangs.filter(lang => lang.title == defaultLang)
       this.activeLang = this.activeLang[0]
       this.langList = this.allLangs.filter(lang => lang.title != defaultLang)
       this.switchLang(defaultLang.toLocaleLowerCase())
     }
 
-    const selected_country = localStorage.getItem('selected_country');
+    this.sub = this.activatedRoute.queryParams.subscribe(params => {
+      
+      if(params && params['country']){
+        switch (params['country']){
+          case 'ksa': 
+            this.selectCountry(2)
+            break
+          case 'uae':
+            this.selectCountry(3)
+            break
+          default:
+            this.selectCountry(1)
+        }
 
-    // console.log("selected_country ashraf: ", selected_country)
+      }else{
+        if(localStorage.getItem('selected_country')){
+          this.selectedCountry = Number(localStorage.getItem('selected_country'))
+          this.selectCountry(this.selectedCountry)
+        }
+        else{
+          this.selectCountry(1)
+        }
+      }
 
-    if(!selected_country){
-      this.selectedCountry = 1
-      localStorage.setItem('selected_country', "1");
-      this.appServiceService.country_id$.next(1)
+    })
+    // if(this.params && this.params.country){
+    //   if(this.params.country === 'ksa'){
+    //     this.selectCountry(2)
+    //   }else if(this.params.country === 'uae'){
+    //     this.selectCountry(3)
+    //   }else if(this.params.country === 'eg'){
+    //     this.selectCountry(1)
+    //   }else{
+    //     this.router.navigate([], {
+    //       relativeTo: this.activatedRoute,
+    //       queryParams: { country: 'eg'},
+    //       queryParamsHandling: 'merge'
+    //     });
 
-      setTimeout(() => {
-        this.modalService.open(this.CountryPop,this.config);
-        this
-      }, 100);
-    }else{
-      this.selectedCountry = Number(selected_country)
-      this.appServiceService.country_id$.next(this.selectedCountry)
-    }
+    //     this.selectCountry(1)
+    //   }
+    // }else{
+    //   console.log('heree')
+    //   this.router.navigate([], {
+    //     relativeTo: this.activatedRoute,
+    //     queryParams: { country: 'eg'},
+    //     queryParamsHandling: 'merge'
+    //   });
+
+    //   this.selectCountry(2)
+    // }
 
     this.sub2 = this.appServiceService.isLoggedIn$.subscribe(val => {
       const user = this.cookieService.get('user')
@@ -135,6 +178,7 @@ export class HeaderComponent implements OnInit {
       }
     })
   }
+  sub = new Subscription()
   sub1 = new Subscription()
   sub2 = new Subscription()
   sub3 = new Subscription()

@@ -91,7 +91,10 @@
         "location": "Please make sure to select your location.",
         "unit type": "Please make sure to select your property type.",
         "choose_priority": "Please make sure to select at least one priority.",
-        "set_priority": "Please make sure to set all chosen priorities."
+        "set_priority": "Please make sure to set all chosen priorities.",
+        "images": "Please make sure to upload at least 5 images and select their categories.",
+        "complete sell": "Please make sure to choose all criteria options.",
+        "price": "Please make sure that the minimum and maximum prices are appropriately set."
     },
     "success":{
         "Your message has been sent successfully!":"Your message has been sent successfully!",
@@ -210,7 +213,9 @@
         "Min Price EGY": "0 EGP",
         "Max Price EGY": "900,000,000 EGP",
         "Min Price KSA": "0 SAR",
-        "Max Price KSA": "900,000,000 SAR"
+        "Max Price KSA": "900,000,000 SAR",
+        "Min Price UAE": "0 AED",
+        "Max Price UAE": "900,000,000 AED"
     },
     "alert":{
        "failed": "Failed",
@@ -412,6 +417,7 @@
         "Request a visit":"Request a visit",
         "EGP":"EGP",
         "SAR": "SAR",
+        "AED": "AED",
         "From": "From",
         "Max Price": "To",
         "results match your choices by":"Based on selected Priorities, your results will match your choices by",
@@ -544,6 +550,7 @@
     "solution_text":"al.aaqar is the first search engine supported by AI, to find the best options that suit your needs, which saves you a lot of time, effort, and search trouble, as well as a lot of real estate brokers' money, Also If you are a property owner, al.aaqar provides you with the right consumer, which facilitates the sale process and saves time and effort.",
     "try_solution":"Try our solution",
     "search_button":"Quick search",
+    "clear_button":"Clear",
     "quest_button": "Share your request",
     "electronic_consultant":"TRY IT NOW",
     "advisor_description1": "try",

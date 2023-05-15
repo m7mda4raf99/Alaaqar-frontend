@@ -350,7 +350,7 @@ export class QuestComponent {
         country_id: this.country_id
       }
 
-      console.log(data)
+      // console.log(data)
       // call api
 
       this.spinner.show()
