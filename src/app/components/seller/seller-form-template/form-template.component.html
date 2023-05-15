@@ -2,398 +2,241 @@
     <form [formGroup]="stepForm" autocomplete="off" novalidate #formRef="ngForm">
         <div class="row">
 
-                <!-- Title/Description -->
-                <div class="col-lg-12 col-sm-12" 
+            <!-- Title/Description -->
+            <div class="col-lg-12 col-sm-12"
                 *ngFor="let criteria of filterTitleDescription(formData); let index = index;">
-                    
-                    <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
-                        <span *ngIf="criteria.name_en !== 'Unit Title' &&
-                                    criteria.name_en !== 'Write a unique description'"> 
-                            
-                            <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
-                            {{getKeyName(criteria.name_en, formData)}}
-                    </p>
 
-                    <span *ngIf="isInvalid(criteria)" class="required"> * </span>
+                <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
+                    <span *ngIf="criteria.name_en !== 'Unit Title' &&
+                                    criteria.name_en !== 'Write a unique description'">
 
-                    
-                    <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
-                        <ng-container
-                        [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'text' ?  text : large_text"                        
+                        <img [src]="getImageSrc(criteria.name_en,formData)" alt="..." /></span>
+                    {{getKeyName(criteria.name_en, formData)}}
+                </p>
+
+                <!-- <span *ngIf="isInvalid(criteria)" class="required"> * </span> -->
+
+
+                <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
+                    <ng-container
+                        [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'text' ?  text : large_text"
                         [ngTemplateOutletContext]="{key: index}">
-                        </ng-container>
-                    </div>
-    
-
-                    <ng-template #text let-key="key">
-                        <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
-                            <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
-                                class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
-                            <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Title' | translate}}"
-                                (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:48px; border-radius: 15px;" class="form-control mt-3 inputPlaceholder"
-                                type="text" min="0" />
-                        </div>
-                    </ng-template>
-
-                    <ng-template #large_text let-key="key">
-                        <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
-                            <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
-                                class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
-                            <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Description' | translate}}"
-                                (keyup)="onInputNumberChange(criteria.name_en,$event)" style="height:96px; border-radius: 15px;" class="form-control mt-3 inputPlaceholder"
-                                type="text" min="0" />
-                        </div>
-                    </ng-template>
+                    </ng-container>
                 </div>
 
-                <!-- Others -->
-                <div class="col-lg-6 col-sm-12" 
-                *ngFor="let criteria of filterOther(formData); let index = index;">
-   
-                    <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
-                        <span *ngIf="criteria.name_en !== 'Unit Title' &&
+
+                <ng-template #text let-key="key">
+                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                        <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
+                                class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
+                        <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Unit Title' | translate}}"
+                            (keyup)="onInputNumberChange(criteria.name_en,$event)"
+                            style="height:48px; border-radius: 15px;" class="form-control mt-3 inputPlaceholder"
+                            type="text" min="0" />
+                    </div>
+                </ng-template>
+
+                <ng-template #large_text let-key="key">
+                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                        <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
+                                class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
+                        <input [value]="getFormValue(criteria.name_en)"
+                            placeholder="{{'sell.Unit Description' | translate}}"
+                            (keyup)="onInputNumberChange(criteria.name_en,$event)"
+                            style="height:96px; border-radius: 15px;" class="form-control mt-3 inputPlaceholder"
+                            type="text" min="0" />
+                    </div>
+                </ng-template>
+            </div>
+
+            <!-- Others -->
+            <div class="col-lg-6 col-sm-12" *ngFor="let criteria of filterOther(formData); let index = index;">
+
+                <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
+                    <span *ngIf="criteria.name_en !== 'Unit Title' &&
                                     criteria.name_en !== 'Write a unique description' &&
-                                    criteria.icon !== 'upload.svg'"> 
-                            
-                            <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
-                            {{getKeyName(criteria.name_en, formData)}}
-                    </p>
+                                    criteria.icon !== 'upload.svg'">
 
-                    <span *ngIf="isInvalid(criteria)" class="required"> * </span>
-                    
-                    <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
-                        <ng-container
-                        [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'dropdownSelect' ? dropdownSelect : 
+                        <img [src]="getImageSrc(criteria.name_en,formData)" alt="..." /></span>
+                    {{getKeyName(criteria.name_en, formData)}}
+                </p>
+
+                <!-- <span *ngIf="isInvalid(criteria)" class="required"> * </span> -->
+
+                <div class="row" [class.bordered]="index === 0 || index === 2 || index === 4">
+                    <ng-container [ngTemplateOutlet]="getType(formData, criteria.name_en) === 'dropdownSelect' ? dropdownSelect : 
                         getType(formData, criteria.name_en) === 'inputNumber' ?  inputNumber : 
-                        multiSelectCheckbox"                        
-                        
-                        [ngTemplateOutletContext]="{key: index}">
-                        </ng-container>
+                        multiSelectCheckbox" [ngTemplateOutletContext]="{key: index}">
+                    </ng-container>
+                </div>
+
+
+                <ng-template #multiSelectCheckbox let-key="key">
+                    <div class="col-6 mb-2"
+                        *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+
+                        <input ng-change="false"
+                            (change)="setupFormControlValue($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
+                            mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i"
+                            autocomplete="off" />
+                        <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
+                            [for]="criteria.name_en + i">
+                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                        </label>
                     </div>
-                  
-                    
-                    <ng-template #multiSelectCheckbox let-key="key">
-                        <div class="col-6 mb-2"
-                            *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
-                                                        
-                            <input ng-change="false"
-                                (change)="setupFormControlValue($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
-                                mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i" autocomplete="off" />
-                            <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
-                                [for]="criteria.name_en + i">
-                                {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
-                            </label>
-                        </div>
-                    </ng-template>
+                </ng-template>
 
-                    <ng-template #radioButton let-key="key">
-                        <div class="col-6 mb-2 btn-group"
-                            *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
-                            <input mdbRadio type="radio" class="btn-check-" [id]="criteria.name_en + i" autocomplete="off"
-                                [checked]="checkIsSelected(criteria.name_en, sValue.id) !== -1" [value]="sValue.id" />
-                            <label [class.filled]="checkIsSelected(criteria.name_en, sValue.id) !== -1" class="btn btn-primary"
-                                [for]="criteria.name_en + i">
-                                {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
-                            </label>
-                        </div>
-                    </ng-template>
-                    
-                    <ng-template #dropdownSelect let-key="key">
-                        <div class="col-6 mb-2"
-                            *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
-                            
-                            {{ criteria.name_en === "Floors" ? print(sValue, sValue) : printO("", "") }}
+                <ng-template #radioButton let-key="key">
+                    <div class="col-6 mb-2 btn-group"
+                        *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+                        <input mdbRadio type="radio" class="btn-check-" [id]="criteria.name_en + i" autocomplete="off"
+                            [checked]="checkIsSelected(criteria.name_en, sValue.id) !== -1" [value]="sValue.id" />
+                        <label [class.filled]="checkIsSelected(criteria.name_en, sValue.id) !== -1"
+                            class="btn btn-primary" [for]="criteria.name_en + i">
+                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                        </label>
+                    </div>
+                </ng-template>
+
+                <ng-template #dropdownSelect let-key="key">
+                    <div class="col-6 mb-2"
+                        *ngFor="let sValue of util.getFilteredValues(criteria.name_en,formData);let i = index;">
+
+                        {{ criteria.name_en === "Floors" ? print(sValue, sValue) : printO("", "") }}
 
 
-                            <input ng-change="false"
-                                (change)="setSingleSelect($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
-                                mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i" autocomplete="off" />
-                            <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
-                                [for]="criteria.name_en + i">
-                                {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
-                            </label>
-                        </div>
-                    </ng-template>
-                    
-                    <ng-template #inputNumber let-key="key">
-                        <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
-                            <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
+                        <input ng-change="false"
+                            (change)="setSingleSelect($event,criteria.name_en, sValue, checkIsSelected(criteria.name_en, sValue))"
+                            mdbCheckbox type="checkbox" class="btn-check" [id]="criteria.name_en + i"
+                            autocomplete="off" />
+                        <label [class.filled]="checkIsSelected(criteria.name_en, sValue) !== -1" class="btn btn-primary"
+                            [for]="criteria.name_en + i">
+                            {{activeLang === 'en' ? sValue.name_en : sValue.name_ar}}
+                        </label>
+                    </div>
+                </ng-template>
+
+                <ng-template #inputNumber let-key="key">
+                    <div [formGroup]="stepForm" class="col-12 mb-3 input-group">
+                        <!-- <span style="height:48px;background-color: #f7f7f7;color: #2c2c2c;"
                                 class="input-group-text mt-3" id="inputGroup-sizing-default">{{getHelperText(criteria.name_en)}}</span> -->
-                            <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Enter value' | translate}}"
-                                (keyup)="onInputNumberChange(criteria.name_en,$event)" 
-                                (change)="onInputNumberChange(criteria.name_en,$event)"
-                                style="height:48px" class="form-control mt-3 inputPlaceholder"
-                                type="number" min="0" />
-                        </div>
-                    </ng-template>
-
-                </div>
-
-                <!-- Images Upload -->
-                <div class="col-lg-12 col-sm-12" 
-                *ngFor="let criteria of filterImage(formData); let index = index;">
-                        
-
-                    <!-- {{ print(criteria, criteria) }} -->
-
-                    <div class="col-lg-12" style="height: 0.25%; margin-top: 2.5%;background: #a29a9a;">  </div> 
-
-                    {{ setStyle() }}
-
-                    <div id="image_criteria" class="col-lg-12" class="image_criteria"> 
-                        <p class="title" [class.bordered-top]="index === 2 || index === 3 || index === 4">
-                            <span *ngIf="criteria.icon === 'upload.svg'"> 
-                                
-                                <img [src]="getImageSrc(criteria.name_en,formData)"  alt="..."/></span>
-                                {{getKeyName(criteria.name_en, formData)}}
-
-                                <span *ngIf="imagesPreview().length === 0 && !uploadingPhotos" class="required"> * </span>
-                        </p>               
-                        
-                        <div style="display: flex;"> 
-                            <div class="imagesUpload masterplan" >
-                                <button *ngIf="imagesPreview().length === 0 && !uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0; uploadmaster = true;"
-                                    style="background: #fff;
-                                    border: 1px solid #FF725F;
-                                    color: #ff725f;">
-                                    {{'sell.Masterplan' | translate}} </button>
-                            </div> 
-
-                            <div style="width: 10px;"> </div> 
-
-                            <div class="imagesUpload real">
-
-                                <button *ngIf="imagesPreview().length === 0 && !uploadingPhotos" (click)="uploadingPhotos = !uploadingPhotos;active = 0; uploadmaster = false;"
-                                    style="background-color: #fd4965;
-                                    background: transparent linear-gradient(180deg,#fd4965 0%,#fd7363 100%) 0% 0% no-repeat padding-box;
-                                        color: white;
-                                        border: 0px">
-                                    {{'sell.Real images' | translate}} </button>
-                            </div>    
-                            
-                        </div>
-
-                        <a *ngIf="imagesPreview().length > 0" 
-                            (click)="uploadingPhotos = !uploadingPhotos;active = 0"
-                            style="padding-top:5%; color: #f55441; text-decoration: underline !important;
-                            cursor: pointer;">
-                            {{'sell.View photos' | translate}}    
-                        </a>
+                        <input [value]="getFormValue(criteria.name_en)" placeholder="{{'sell.Enter value' | translate}}"
+                            (keyup)="onInputNumberChange(criteria.name_en,$event)"
+                            (change)="onInputNumberChange(criteria.name_en,$event)" style="height:48px"
+                            class="form-control mt-3 inputPlaceholder" type="number" min="0" />
                     </div>
-
-                    <div *ngIf="imagesPreview() && !uploadingPhotos" style="display: flex; flex-wrap: wrap;">
-                        
-                        <span *ngFor="let item of imagesPreview();let index = index;" >
-
-                            <img src="{{item['img']}}"
-                            style="width: 85px; height: auto;height:70px; border-radius: 10px;margin-bottom: 10px;padding: 5px;" alt="..."/>
-                            
-                            <span style="
-                                background-color: #FFFFFF;
-                                width: 30px;
-                                text-align: center;
-                                border-radius: 10%;
-                                height: 30px;
-                                cursor: pointer;" (click)="deleteImg(item['key'], item['index'])">
-                                <fa-icon style="font-size:13px; cursor: pointer; vertical-align: top; position: absolute; transform: translateX(-10px);" [icon]="faTimes" [styles]="{'stroke': 'red', 'color': 'red'}" class="user-faTimes"
-                                        (click)="deleteImg(item['key'], item['index'])">
-                                </fa-icon>                       
-                            </span>	
-                            
-                        </span>
-                            
-                        <!-- </div> -->
-                    </div>
-    
-                </div>
+                </ng-template>
 
             </div>
+
+            <!-- Images Upload -->
+            <div class="col-lg-12 col-sm-12 photos-uploader"
+                *ngFor="let criteria of filterImage(formData); let index = index;">
+
+                <div class="upload-photos">
+                    <!-- <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm"> -->
+                    <div style="display: flex; justify-content: space-between">
+
+                        <div style="display: flex;">
+                            <p style="padding: 15px 0px 0px 15px; margin-bottom: 0px; font-weight: bolder;">
+                                {{'sell.upload photos' |
+                                translate}}</p>
+
+                            <p *ngIf="!requiredRealImages"
+                                style="color: #f55441; padding: 20px 15px 0px 15px; margin-bottom: 0px; font-size: 12px">
+                                *{{'sell.required real images' | translate}}</p>
+
+                        </div>
+
+                        <a *ngIf="myFilesPreview['Initial'] && myFilesPreview['Initial'].length != 0"
+                            (click)="file.click()" style=" color: #f55441; text-decoration: underline !important;
+                                cursor: pointer; padding: 15px 15px 0px 0px;">
+                            {{'sell.upload photos' | translate}}
+                        </a>
+
+                    </div>
+
+                    <p class="guidance">{{'sell.photoUpload.Select category' | translate}}</p>
+
+
+                    <div class="content">
+
+                        <!-- *ngIf="!myFilesPreview['Master Plan'] || myFilesPreview['Master Plan']?.length === 0" -->
+
+                        <div class="upload-link"
+                            *ngIf="!myFilesPreview['Initial'] || myFilesPreview['Initial'].length === 0">
+                            <img (click)="file.click()" class="mb-2"
+                                style="width: 154px;margin: auto;display: block;cursor: pointer;"
+                                src="../../../../assets/images/photo__.svg" alt="..." />
+
+                            <a (click)="file.click()" style="color: #f55441; text-decoration: underline !important;
+                                cursor: pointer;">
+                                {{'sell.Click upload' | translate}}
+                            </a>
+                        </div>
+
+
+                        <input hidden #file type="file" name="myFile" accept="image/png,image/jpeg"
+                            (change)="fileEventInitial($event)" value="" multiple />
+
+
+                        <div class="row" *ngIf="myFilesPreview['Initial']?.length">
+
+
+                            <div class="col-sm-12 col-md-4 mb-3"
+                                *ngFor="let item of myFilesPreview['Initial'];let index = index;"
+                                style="position: relative;">
+
+                                <img src="{{item['img']}}" style="width: 100%; height:175px;" alt="..." />
+
+                                <span style="left: 25px; right: 25px; position: absolute; top: 15px; display: flex;
+                                    justify-content: space-between;">
+
+                                    <select (change)="onChangeImageTag($event, index)"
+                                        style="background-color: #F7F7F7;height: 30px;border-radius: 8px; border: 0px; padding: 0px 5px 0px 5px;">
+                                        <option selected> {{ activeLang === 'en' ? 'Image Category' :'تصنيف الصورة' }}
+                                        </option>
+                                        <option *ngFor="let item of imageTags" [ngValue]="item.name_en"> {{ activeLang
+                                            === 'en' ?
+                                            item.name_en : item.name_ar }} </option>
+
+                                    </select>
+
+                                    <span style=" background-color: #F7F7F7;
+                                                width: 30px;
+                                                text-align: center;
+                                                border-radius: 10%;
+                                                height: 30px;
+                                                cursor: pointer;" (click)="deleteImgInitial(index)">
+                                        <fa-icon style="font-size: 15px; position:relative; top:2px;" [icon]="faTrash"
+                                            [styles]="{'stroke': 'red', 'color': 'red'}" class="user-faTimes"></fa-icon>
+                                    </span>
+                                </span>
+
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="row button-row" style="justify-content: end">
+
+                            <button style="width: 150px;" (click)="next()" class="done">
+                                {{'button.actions.Done' | translate}}</button>
+                        </div> -->
+
+                    </div>
+
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-pills">
+
+                    </ul>
+
+                    <div [ngbNavOutlet]="nav"></div>
+
+                </div>
+
+
+            </div>
+
+        </div>
     </form>
 
 </div>
-
-<div [hidden]="!uploadingPhotos" class="photos-uploader">
-    
-    <!-- masterplan -->
-    <div *ngIf="uploadmaster" class="upload-photos">
-        <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm" class="upload-photos">
-            <div style="display: flex; justify-content: space-between">
-                <p style="padding: 15px 0px 0px 15px; margin-bottom: 0px; font-weight: bolder;">{{'sell.upload photos' | translate}}</p>
-                
-                <a *ngIf="myFilesPreview['Master Plan'] && myFilesPreview['Master Plan']?.length != 0"
-                (click)="file.click()"
-                    style=" color: #f55441; text-decoration: underline !important;
-                    cursor: pointer; padding: 15px 15px 0px 0px;">
-                    {{'sell.upload photos' | translate}}    
-                </a>
-            
-            </div>
-
-            <p class="guidance">{{'sell.photoUpload.Select category masterplan' | translate}}</p>
-    
-            <div class="content">
-                
-                <div class="col-lg-12 upload-link" *ngIf="!myFilesPreview['Master Plan'] || myFilesPreview['Master Plan']?.length === 0">
-                    <img (click)="file.click()" class="mb-2" src="../../../../assets/images/photo__.svg" alt="..."/>
-
-                    <a (click)="file.click()"
-                    style="color: #f55441; text-decoration: underline !important; cursor: pointer;">
-                    {{'sell.Click upload' | translate}}    
-                </a>
-                </div>
-
-                <input hidden #file type="file" name="myFile" accept="image/png,image/jpeg"
-                (change)="fileEvent($event,'Master Plan')" value="" multiple />
-            
-                <div class="row" *ngIf="myFilesPreview['Master Plan']?.length">
-                    <div class="col-sm-12 col-md-6 mb-3"
-                        *ngFor="let item of myFilesPreview['Master Plan'];let index = index;"
-                        style="position: relative;">
-                        <img src="{{item}}" style="width: 100%; height:250px;" alt="..."/>
-                        <span style="position: absolute;
-                    right: 20px;
-                    top: 8px;
-                    background-color: #F7F7F7;
-                    width: 30px;
-                    text-align: center;
-                    border-radius: 10%;
-                    height: 30px;
-                    cursor: pointer;" (click)="deleteImg('Master Plan', index)">
-                            <fa-icon style="font-size: 15px; position:relative; top:2px" [icon]="faTrash" [styles]="{'stroke': 'red', 'color': 'red'}" class="user-faTimes"></fa-icon>
-                        </span>
-                    </div>
-                </div>
-
-
-                <div class="row button-row" style="justify-content: end; margin: 0px;">
-                
-                    <button style="width: 150px;" (click)="next()" class="done">
-                        {{'button.actions.Done' | translate}}</button>
-                </div>
-
-            </div>
-            
-            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-pills">
-                
-                
-                <!-- <a 
-                (click)="file.click()"
-                    style="padding-top:5%; color: #f55441; text-decoration: underline !important;
-                    cursor: pointer;">
-                    {{'sell.View photos' | translate}}    
-                </a> -->
-              
-                
-                
-              
-               
-                <!-- <li ngbNavItem>
-                  <a ngbNavLink>Second</a>
-                  <ng-template ngbNavContent>Second content</ng-template>
-                </li> -->
-            </ul>
-            
-            <div [ngbNavOutlet]="nav"></div>
-            <!-- <div class="col-lg-6 col-sm-12" *ngFor="let ctrl of imagesForm.controls | keyvalue;let index = index;">
-                dd
-            </div> -->
-        </form>    
-    </div>
-
-    <!-- real images -->
-    <div *ngIf="!uploadmaster" class="upload-photos">
-        <!-- <form [formGroup]="imagesForm" autocomplete="off" novalidate #formRef="ngForm"> -->
-            <div style="display: flex; justify-content: space-between">
-                
-                <div style="display: flex;">
-                    <p style="padding: 15px 0px 0px 15px; margin-bottom: 0px; font-weight: bolder;">{{'sell.upload photos' | translate}}</p>
-
-                    <p *ngIf="!requiredRealImages" style="color: #f55441; padding: 20px 15px 0px 15px; margin-bottom: 0px; font-size: 12px"> *{{'sell.required real images' | translate}}</p>
-
-                </div>
-
-                <a *ngIf="myFilesPreview['Initial'] && myFilesPreview['Initial'].length != 0"
-                (click)="file.click()"
-                    style=" color: #f55441; text-decoration: underline !important;
-                    cursor: pointer; padding: 15px 15px 0px 0px;">
-                    {{'sell.upload photos' | translate}}    
-                </a>
-            
-            </div>
-
-            <p class="guidance">{{'sell.photoUpload.Select category' | translate}}</p>
-    
-
-            <div class="content">
-                
-                <!-- *ngIf="!myFilesPreview['Master Plan'] || myFilesPreview['Master Plan']?.length === 0" -->
-                
-                <div class="upload-link" *ngIf="!myFilesPreview['Initial'] || myFilesPreview['Initial'].length === 0">
-                    <img (click)="file.click()" class="mb-2"
-                                    style="width: 154px;margin: auto;display: block;cursor: pointer;"
-                src="../../../../assets/images/photo__.svg" alt="..."/>
-
-                    <a 
-                (click)="file.click()"
-                    style="color: #f55441; text-decoration: underline !important;
-                    cursor: pointer;">
-                    {{'sell.Click upload' | translate}}    
-                </a>
-                </div>
-
-                
-                <input hidden #file type="file" name="myFile" accept="image/png,image/jpeg"
-                (change)="fileEventInitial($event)" value="" multiple />
-            
-
-                <div class="row" *ngIf="myFilesPreview['Initial']?.length">
-
-
-                    <div class="col-sm-12 col-md-4 mb-3"
-                        *ngFor="let item of myFilesPreview['Initial'];let index = index;"
-                        style="position: relative;">
-                          
-                        <img src="{{item['img']}}" style="width: 100%; height:175px;" alt="..."/>
-                                                        
-                        <span style="left: 25px; right: 25px; position: absolute; top: 15px; display: flex;
-                        justify-content: space-between;">
-                           
-                             <select (change)="onChangeImageTag($event, index)" style="background-color: #F7F7F7;height: 30px;border-radius: 8px; border: 0px; padding: 0px 5px 0px 5px;">
-                                <option selected> {{ activeLang === 'en' ? 'Image Category' :'تصنيف الصورة' }} </option>
-                                <option *ngFor="let item of imageTags" [ngValue]="item.name_en"> {{ activeLang === 'en' ? item.name_en : item.name_ar }} </option>
-                            
-                            </select>
-                            
-                            <span 
-                            
-                            style=" background-color: #F7F7F7;
-                                    width: 30px;
-                                    text-align: center;
-                                    border-radius: 10%;
-                                    height: 30px;
-                                    cursor: pointer;" (click)="deleteImgInitial(index)">
-                                <fa-icon style="font-size: 15px; position:relative; top:2px;" [icon]="faTrash" [styles]="{'stroke': 'red', 'color': 'red'}" class="user-faTimes"></fa-icon>
-                            </span>
-                        </span>
-                        
-                    </div>
-                </div>
-
-
-                <div class="row button-row" style="justify-content: end">
-                
-                    <button style="width: 150px;" (click)="next()" class="done">
-                        {{'button.actions.Done' | translate}}</button>
-                </div>
-
-            </div>
-            
-            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs nav-pills">
-                
-            </ul>
-            
-            <div [ngbNavOutlet]="nav"></div>
-        
-    </div>
-</div>
-

@@ -271,10 +271,12 @@ export class SinglePropertyComponent implements OnInit {
   }
 
   getCurrency(){
-    if(this.data['country_id'] === 1){
-      return this.translateService.instant('propertyDetails.EGP')
-    }else{
+    if(this.data['country_id'] === 2){
       return this.translateService.instant('propertyDetails.SAR')
+    }else if(this.data['country_id'] === 3){
+      return this.translateService.instant('propertyDetails.AED')
+    }else{
+      return this.translateService.instant('propertyDetails.EGP')
     }
   }
 

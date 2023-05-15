@@ -2,7 +2,7 @@
 
 .electronic-advisor{
     .sub-head{
-        background: url("../../../../assets/images/project.png") 0% 0% !important;
+        background: url("../../../../assets/images/project.jpg") 0% 0% !important;
         height: 360px !important;
 
         @media (max-width: 450px) {
@@ -123,6 +123,7 @@
                             width: 100%;
                             justify-content: center;
                             padding: 30px 0px;
+                            flex-wrap: wrap;
 
                             @media (max-width: 450px) {
                                 flex-direction: column;
@@ -132,8 +133,8 @@
                             .each-dropdown{
                                 border: 1px solid #ced4da;
                                 border-radius: 10px;
-                                width: 15%;
-                                margin: 0px 10px;
+                                // width: 15%;
+                                margin: 10px;
                                 height: 38px;
 
                                 @media (max-width: 450px) {
@@ -184,6 +185,7 @@
                             width: 100%;
                             justify-content: center;
                             padding: 30px 0px;
+                            flex-wrap: wrap;
 
                             @media (max-width: 450px) {
                                 flex-direction: column;
@@ -193,8 +195,7 @@
                             .each-input{
                                 border: 1px solid #ced4da;
                                 border-radius: 10px;
-                                width: 15%;
-                                margin: 0 10px;
+                                margin: 10px;
                                 height: 38px;
                                 padding: 10px;
 
@@ -227,16 +228,21 @@
     
                     .priorites-list {
                         .custom-element {
-                            @media (min-width: 1024px) {
-                                width: 12%;
-                            }
-                            @media (max-width: 450px) {
-                                width: 33%;
-                                padding: 5px;
-                            }
-                            @media only screen and (min-width: 768px) and (max-width: 1024px) {
-                                width: 20.87%;
-                            }
+                            width: 140px;
+                            margin: 0px 5px;
+                            padding: 0px 10px;
+
+                            // @media (min-width: 1024px) {
+                            //     width: 12%;
+                            // }
+                            // @media (max-width: 450px) {
+                            //     width: 33%;
+                            //     padding: 5px;
+                            // }
+                            // @media only screen and (min-width: 768px) and (max-width: 1024px) {
+                            //     width: 20.87%;
+                            // }
+                            
                             &.selected {
                                 display: none;
                             }
@@ -341,9 +347,9 @@
                 
                                         // padding: 9px 5px;
                                     }
-                                    @media only screen and (min-width: 768px) and (max-width: 1350px) {
-                                        margin-top: 10px;
-                                    }
+                                    // @media only screen and (min-width: 768px) and (max-width: 1350px) {
+                                    //     margin-top: 10px;
+                                    // }
                                 }
                 
                                 .text {
@@ -416,9 +422,9 @@
                 
                                         // padding: 9px 5px;
                                     }
-                                    @media only screen and (min-width: 768px) and (max-width: 1350px) {
-                                        margin-top: 10px;
-                                    }
+                                    // @media only screen and (min-width: 768px) and (max-width: 1350px) {
+                                    //     margin-top: 10px;
+                                    // }
                                     
                                 }
                                 .text {
@@ -517,6 +523,8 @@
                         .margin_all{
                             margin: 0% 4%;
                             justify-content: center;
+                            display: flex;
+                            flex-wrap: wrap;
                             // display: flex;
                             // flex-wrap: wrap;
                 
@@ -540,8 +548,8 @@
                                     }
 
                                     .margin_item{
-                                        margin: 2%;
-                                        width: 29%;
+                                        margin: 20px;
+                                        width: 315px;
 
                                         @media (max-width: 450px) {
                                             margin: 5% 0%;
@@ -603,8 +611,39 @@
             }
         }
     }
-
 }
+
+@media only screen and (min-width: 690px) and (max-width: 930px) {
+    .electronic-advisor{
+        .sub-head .bar h6{
+            padding: 10px 50px;
+        }
+        .button-holder button{
+            margin: 0 10px;
+        }
+
+        // .main-content .property-details .main-row .details .location .dropdown .each-dropdown{
+        //     width: 25%;
+        // }
+    }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 690px) {
+    .electronic-advisor{
+        .sub-head .bar h6{
+            padding: 10px 50px;
+        }
+        .button-holder button{
+            margin: 0 10px;
+        }
+
+        // .main-content .property-details .main-row .details .location .dropdown .each-dropdown{
+        //     width: 40%;
+        // }
+    }
+}
+
+
 
 
 

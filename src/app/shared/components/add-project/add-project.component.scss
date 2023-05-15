@@ -10,8 +10,9 @@
         url("../../../../assets/images/developers.jpg") 0% 75% !important;
 
         height: 315px !important;
+        background-size: cover !important;
 
-        @media (max-width: 450px) {
+        @media (max-width: 768px) {
             background-size: cover !important;
             height: 200px !important;
         }
@@ -28,7 +29,7 @@
                     justify-content: flex-start;
                     padding: 50px 0px;
 
-                    @media (max-width: 450px) {
+                    @media (max-width: 768px) {
                         align-items: center;
                         justify-content: center;
                     }
@@ -51,14 +52,14 @@
         background: white;
         border-radius: 20px;
 
-        @media (max-width: 450px) {
+        @media (max-width: 768px) {
             margin: -25px 0px 40px 0px;
         }
 
         .priorites-list {
             // margin: 30px 0px;
 
-            @media (max-width: 450px) {
+            @media (max-width: 768px) {
                 margin: 15px 0px;
             }
 
@@ -84,7 +85,7 @@
                         flex-wrap: wrap; 
                         margin-top: 15px;
 
-                        @media (max-width: 450px) {
+                        @media (max-width: 768px) {
                             margin: 0px;
                         }
 
@@ -92,7 +93,7 @@
                             width: 46%;
                             margin: 15px 2%;
 
-                            @media (max-width: 450px) {
+                            @media (max-width: 768px) {
                                 width: 96%;
                             }
 
@@ -112,7 +113,7 @@
                                     height: 38px;
                                     padding: 0px 5px;
 
-                                    @media (max-width: 450px) {
+                                    @media (max-width: 768px) {
                                         border-radius: 10px;
                                         height: initial;
                                         padding: 0px;
@@ -137,7 +138,7 @@
                                         align-items: center;
                                     }
 
-                                    @media (max-width: 450px) {
+                                    @media (max-width: 768px) {
                                         width: 100%;
                                         margin: 20px 0px;
                                     }
@@ -232,7 +233,7 @@
         border: none;
         border-radius: 10px;
 
-        @media (max-width: 450px) {
+        @media (max-width: 768px) {
             margin: 0px 25%;
         }
 
@@ -241,6 +242,14 @@
         }
     }
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .add-project .main-content .priorites-list .holder .register .inputs .each-input.upload .each-upload .avatar .main-img{
+        width: 180px;
+        height: 120px;
+    }
+}
+
 
 
 

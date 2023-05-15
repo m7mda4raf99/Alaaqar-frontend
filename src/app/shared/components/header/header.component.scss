@@ -394,11 +394,17 @@ ng-select{
     min-width: none !important;
 }
 
+@media (max-width:1440px){
+    .app-header__menu ul li{
+        margin-right: 22px;
+    }
+}
+
 
 @media (max-width:1169px){
     .app-header{
         position: fixed;
-        height: 140px;
+        // height: 80px;
         width: 100%;
         top: 0;
         left: 0;
@@ -563,78 +569,7 @@ ng-select{
     justify-content: center;
 }
 
-.country-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 9999;
-    background-color: #f5f5f5;
-    // opacity: 0.9;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    height: 275px;
-    justify-content: space-evenly;
 
-    @media (max-width: 450px) {
-        width: inherit;
-        height: 250px;
-    }
-    
-}
-    
-.country-popup h2 {
-    font-size: 28px;
-    text-align: center;
-    color: #184d47;
-
-    @media (max-width: 450px) {
-        font-size: 24px;
-    }
-}
-
-.country-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-
-.country-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 12px;
-    // box-shadow: 0 0 20px #184d47;
-    cursor: pointer;
-
-    &.egypt{
-        // box-shadow: 0px 0px 20px #990404;
-    }
-}
-
-.country-item:hover {
-}
-
-.country-item.selected {
-// border: 2px solid #007bff;
-}
-
-.country-item img {
-    border-radius: 20px;
-    border-radius: 10px;
-    height: 150px;
-
-    &:hover{
-        opacity: 0.5;
-    }
-}
-
-.country-item span {
-    text-align: center;
-    display: none;
-}
 
 // .navbar-collapse.show   {
 //       .main-header  & {

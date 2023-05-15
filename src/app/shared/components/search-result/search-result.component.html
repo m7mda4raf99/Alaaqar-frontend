@@ -1,12 +1,12 @@
 <div *ngIf="selected_country != 'saudi'" class="alaqaar-blogs" [ngClass]="{'rtl' : activeLang.title === 'ar' || activeLang === 'ar'}">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+    <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
         
     </ngx-spinner>
     <div class="row justify-content-center" style="margin: 25px 10px 0px 10px;">
         <div class="col-xs-12 col-sm-10" style="padding: 0px;">
             <div style="display:flex; margin: 0px;" class="breadcrumb">
-                <div class="col-md-10 col-xs-12 bg-head">
+                <div class="col-xs-12 bg-head">
                     <p class="main-title">{{'search.title' | translate}} <span>({{total_search_count}} {{'search.count' | translate}})</span></p>
                     <div class="head">
                         <p> <span style="color: #ABABB6;cursor: pointer;"> <span class="home-tab"
@@ -35,19 +35,21 @@
 
             </div>
 
-            <div class="search-filters" [ngStyle]="{'display': display}">
+            <div class="search-filters" [ngStyle]="{'display': display}" style="align-items: center;">
                 <div  class="search-filters__box">
                     <div class="search-filters__filter search_input">
-                        <ng-autocomplete 
+                        <ng-autocomplete #auto 
                             [data]="autoComplete"
                             [searchKeyword]="keyword"
                             placeholder="{{'buy.Placeholder' | translate}}"
                             (selected)='selectEvent($event)'
+                            (inputCleared)='inputCleared()'
                             (selectedValueRender)='getHint()'
                             (inputChanged)='onChangeSearch($event)'
                             [itemTemplate]="itemTemplate"
                             [debounceTime]="200"
-                            [focusFirst]="true">                                 
+                            [focusFirst]="true"
+                            [initialValue]="initialValue">                                 
                         </ng-autocomplete>
 
                         <ng-template #itemTemplate let-item>
@@ -57,12 +59,13 @@
 
                     <div class="search-filters__filter estate_type">
                         <angular2-multiselect [data]="RealEstateType" [(ngModel)]="SelectedRealEstateType" 
-                            [settings]="settingsUnitType">
+                            [settings]="settingsUnitType" (onSelect)="Getsearch()">
                         </angular2-multiselect>
                     </div>
                     
                     <div class="search-filters__filter propose">
-                        <angular2-multiselect [data]="dropdownListPropose" [(ngModel)]="selectedItemPropose" [settings]="settingsPropose">
+                        <angular2-multiselect [data]="dropdownListPropose" [(ngModel)]="selectedItemPropose"
+                         [settings]="settingsPropose" (onSelect)="Getsearch()">
                         </angular2-multiselect>
                     </div>
                     
@@ -90,6 +93,10 @@
                                 <div id="price_range">
                                     <div id="Price_range_q">
                                         {{'home.Price range' | translate}}
+
+                                        <button type="submit" (click)="searchPrice()" class="btn button-success"> 
+                                            <fa-icon [icon]="faSearch"></fa-icon>
+                                        </button>
                                     </div>
         
                                     <!-- <div id="slider">
@@ -123,8 +130,10 @@
                                         </div>
                                     
                                     </div>
-        
+
                                 </div>
+
+                                
                                 
                             </ul>
         
@@ -133,12 +142,14 @@
                     </div>
 
                     <div class="search-filters__filter space">
-                        <angular2-multiselect [data]="dropdownListSpace" [(ngModel)]="selectedItemSpace" [settings]="settingsSpace">
+                        <angular2-multiselect [data]="dropdownListSpace" [(ngModel)]="selectedItemSpace" 
+                        [settings]="settingsSpace" (onSelect)="Getsearch()">
                         </angular2-multiselect>
                     </div>
                     
                     <div class="search-filters__filter rooms">
-                        <angular2-multiselect [data]="dropdownListRoom" [(ngModel)]="selectedItemRoom" [settings]="settingsRoom">
+                        <angular2-multiselect [data]="dropdownListRoom" [(ngModel)]="selectedItemRoom" 
+                        [settings]="settingsRoom" (onSelect)="Getsearch()">
                         </angular2-multiselect>
                         <!-- <ng-select [placeholder]="activeLang == 'ar' ? 'عدد الغرف' : 'Rooms count'" class="_filter" [(ngModel)]="bedroom">
                             <ng-option [value]="room.id" *ngFor="let room of bedroom_arr">{{activeLang == 'ar' ? room.name_ar : room.name_en}}</ng-option>
@@ -148,17 +159,17 @@
                     <div *ngIf="activeTab != 'commercial'" class="ngSelect compound">
 
                         <div *ngIf="country_id === 1"> {{ 'home.Compound EGY' | translate }} </div>
-                        <div *ngIf="country_id === 2"> {{ 'home.Compound KSA' | translate }} </div>
+                        <div *ngIf="country_id === 2 || country_id === 3"> {{ 'home.Compound KSA' | translate }} </div>
 
-                        <ng-toggle style="margin: 0px 10px;" [(value)]="in_compound" [color]="{unchecked: '#939da2', checked: '#184d47'}"> Compound </ng-toggle>
+                        <ng-toggle style="margin: 0px 10px;" (change)="Getsearch()" [(value)]="in_compound" [color]="{unchecked: '#939da2', checked: '#184d47'}"> Compound </ng-toggle>
     
                     </div>
                 
                 </div>
                 
-                <button type="submit" (click)="Getsearch()" class="btn button-success"> 
-                    <fa-icon [icon]="faSearch"></fa-icon>
-                    <span> {{'search_button' | translate}} </span>
+                <button type="submit" (click)="clear()" class="btn button-success"> 
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                    <span> {{'clear_button' | translate}} </span>
                 </button>
                
             </div>
@@ -240,7 +251,7 @@
                 <div class="no-data">
                     <div class="no-data__icon">
 
-                        <img src="../../assets/images/no_results.jpg"/>
+                        <img src="../../assets/images/no_results.png"/>
                     </div>
                     <h4 style="color: #fd4965;margin:0;">{{'no_results' | translate}}</h4>
                     <p>{{'no_results_text' | translate}}</p>

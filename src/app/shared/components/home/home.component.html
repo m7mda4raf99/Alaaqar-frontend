@@ -1,5 +1,5 @@
 <div class="container-fluid home">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+    <ngx-spinner type="ball-scale-multiple" type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
     </ngx-spinner>
 
@@ -37,7 +37,7 @@
 
                 <div class="buttons">
                     <button (click)="searchKeyword()"
-                        class="btn button-bordered search-button">
+                        class="button-bordered search-button">
                         <fa-icon [icon]="faSearch"></fa-icon>
                     </button>
                     
@@ -80,7 +80,8 @@
                 <div class="separators" > </div>
                 
                 <a>
-                    <div class="each-option" (click)="scroll(download_app)">
+                    <!-- (click)="scroll(download_app)" -->
+                    <div class="each-option" >
                         <div class="image-container app-img"><img class="image-options" src="../../assets/images/appT.png" alt="..."></div>
                         <div class="text-options app"> 
 
@@ -251,7 +252,8 @@
         <div class="col-md-12 col-lg-6 image-sec d-none">
             <span class="overlay"></span>
         </div>
-        <div class="col-md-11 col-sm-12 search-sec" style="display: none;">
+        
+        <!-- <div class="col-md-11 col-sm-12 search-sec" style="display: none;">
             <div *ngIf="activeTab === 'buy'" class="buyRent-row">
                 <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'buy'}">
                 </ng-container>
@@ -271,10 +273,10 @@
                 <ng-container [ngTemplateOutlet]="sellRental" [ngTemplateOutletContext]="{type: 'rental'}">
                 </ng-container>
             </div>
-        </div>
+        </div> -->
 
         <!-- (What is ALAQAR?)-->
-        <div class="col-12 alaqaar-solution" style="display: none;">
+        <div *ngIf="country_id === 3" class="col-12 alaqaar-solution">
             <div class="container responsive">
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
@@ -317,7 +319,7 @@
             </div>
 
             <div class="section-body">
-                <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of top_projects">
+                <div class="mt-3 project-card" *ngFor="let card of top_projects">
                     <a routerLink='/single-project' [queryParams]="{id: card?.id}">
                         <div class="card" (click)="navigateToSingleProject(card)">
                             <div style="position: relative;">
@@ -397,6 +399,7 @@
                                     src="../../../../assets/images/Path 165.png" alt="..." />
                                 <img style="cursor: pointer;height: 230px;" (click)="navigateToSingleItem(item)"
                                     src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
+                                <!-- <button class="request-visit"> {{ 'propertyDetails.Request a visit' | translate }} </button> -->
                             
                             </div>
                             
@@ -502,7 +505,7 @@
         </div>
 
         <!-- How it works-->
-        <div #how_it_works class="how-it-works" style="display: none;">
+        <div *ngIf="country_id === 3" #how_it_works class="how-it-works">
             <div class="section-head-left">
                 <h2>
                     <span class="top"></span>
@@ -526,7 +529,7 @@
             </div>
         </div>
 
-        <div class="image-slider" style="display: none;">
+        <div *ngIf="country_id === 3" class="image-slider">
             <ng-image-slider *ngIf="switcher === 'buyer'" [images]="buyImages"
             [imageSize]="{width: 340, height: 495}" #nav></ng-image-slider>
 
@@ -720,6 +723,8 @@
 
                                                             <span *ngIf="country_id === 2"> {{'propertyDetails.SAR' | translate}} </span>
 
+                                                            <span *ngIf="country_id === 3"> {{'propertyDetails.AED' | translate}} </span>
+
                                                         </h5>
                                                         
                                                         <div class="space-between">
@@ -776,7 +781,7 @@
         </div>
             
         <!-- Download App-->
-        <div #download_app class="download-app">
+        <div #download_app class="download-app" style="display: none;">
 
             <div style="    display: flex;
             flex-direction: column;
@@ -817,6 +822,34 @@
 
         </div>
         
+        <!-- about-alaqaar -->
+        <div *ngIf="country_id === 3" class="row about-alaqaar">
+            <div class="row">
+                <div class="col-xs-12 col-md-11">
+                    <div class="row main-row">
+                        <div class="col-1 .d-none .d-sm-block"> </div>
+                        <div class="col-lg-6 col-xs-12 mt-3 images-sec">
+                            <img style="width: 100%;"
+                                src="../../../../assets/images/about_us_image.jpg" alt="..." />
+                        </div>
+                        <div class="col-lg-5 col-xs-12 mt-3">
+                            <div class="section-head-left">
+                                <h2>
+                                    <span class="top"></span>
+                                    <!-- {{'home.About Alaaqar.title' | translate}} -->
+                                    {{ lang === 'en' ? aboutUs.about_us_title_en : aboutUs.about_us_title_ar}}
+                                    <span></span>
+                                </h2>
+                                <p class="description col-xs-12 col-lg-10 desc">
+                                    {{ lang === 'en' ? aboutUs.about_us_description_en :
+                                    aboutUs.about_us_description_ar}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <!-- Blogs -->
         <div class="alaqaar-blogs" *ngIf="blogs && blogs.length > 0">
             <div class="section-head-center">
@@ -832,7 +865,7 @@
             </div>
 
             <div class="section-body">
-                <div class="col-xs-12 col-md-6 col-lg-4 mt-3" *ngFor="let card of blogs">
+                <div class="mt-3 blog-card" *ngFor="let card of blogs">
                     <div class="card" (click)="navigateToSingleBlog(card)">
                         <div style="position: relative;">
                             <span class="overlay"></span>
@@ -1287,6 +1320,22 @@
         </ng-template>
     </div>
 </div>
+
+<ng-template #CountryPop >
+    <div class="country-popup">
+        <h2> {{'header.Select Country' | translate}} </h2>
+        <div class="country-list">
+          <div class="country-item egypt" (click)="selectCountry(1)" >
+            <img src="../../../../assets/images/new_egypt.png"/>
+            <span>Egypt</span>
+          </div>
+          <div class="country-item" (click)="selectCountry(2)">
+            <img src="../../assets/images/new_ksa.png"/>
+            <span>Saudi Arabia</span>
+          </div>
+        </div>
+      </div>
+</ng-template>
 
 <!-- <div *ngIf="country_id === 2" class="coming-soon">
     <img src="../../assets/images/logo_header.png"/>

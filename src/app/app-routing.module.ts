@@ -59,7 +59,7 @@ const routes: Routes = [
   { path: 'favorites', component: FavouritesComponent, canActivate: [AuthGuard]  },
   { path: 'search-result', component: SearchResultComponent, },
   { path: 'share-your-request', component: QuestComponent, },
-  { path: 'developers', component: DevelopersComponent, },
+  { path: 'developers', component: DevelopersComponent, data: { queryParams: { country: 'ashraf' }},},
   { path: 'login-developer', component: LoginDeveloperComponent, },
   { path: 'single-developer', component: SingleDeveloperComponent, },
   { path: 'single-project', component: SingleProjectComponent, },

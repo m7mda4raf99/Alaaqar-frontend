@@ -1,5 +1,5 @@
 .results {
-    background-color: #F7F7F7;
+    // background-color: #F7F7F7;
     .main-row {
         margin-top: 50px;
 
@@ -26,6 +26,25 @@
             }
         }
         .results {
+            background-color: #f7f7f7;
+            border-radius: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px 0px;
+            margin: 3% 0%;
+
+            .loop{
+                margin: 10px;
+                width: 380px;
+
+                @media (max-width: 450px) {
+                    padding: 0px;
+                    margin: 2.5% 0%;
+                    width: 100%;
+                }
+            }
+
             .card-content {
                 border-top-left-radius: 20px;
                 overflow: hidden;
@@ -59,9 +78,8 @@
             }
             background-color: #F7F7F7;
             .bage {
-                width: 120px;
-                height: 40px;
-                background: transparent linear-gradient(180deg, rgba(253, 73, 101, 1) 0%, rgba(253, 115, 99, 1) 100%) 0% 0% no-repeat padding-box;
+                width: 100px;
+                background: #184d47;
                 position: absolute;
                 display: inline-block;
                 text-align: center;
@@ -70,6 +88,9 @@
                 left: 15px;
                 color: #fff;
                 top: 15px;
+                font-size: 13px;
+                line-height: 17px;
+                padding-bottom: 7px;
                 #mainApp.rtl & {
                     left: auto;
                     right: 10px;
@@ -88,6 +109,7 @@
             }
     
             .card {
+                height: 100%;
                 border:none;
                 border-radius: 20px;
                 .img-fluid {

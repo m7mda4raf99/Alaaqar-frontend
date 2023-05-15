@@ -1,128 +1,118 @@
-<div class="container-fluied login">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+<div class="login">
+    <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
     </ngx-spinner>
 
-    <div class="row justify-content-center" style="margin:0;">
+    <div class="login-area">
+        <!-- <img class="image" src="../../../../assets/images/joel-filipe-RFDP7_80v5A-unsplash.png" alt="..."/> -->
 
-        <div class="col-xs-11 col-md-10 login-area">
-            <div class="row main-row">
-                <div class="col-sm-12 col-lg-6 col-xl-5 login-container order-lg-0 order-sm-1">
-                    <div class="login-sec">
-                        <div class="section col-xs-12 col-md-10 m-auto">
-                            <div class="head">
-
-                                <b>
-                                    <label *ngIf="!haveOTP && !registrationRequest">
-                                        {{'signIn.Sign Up' | translate}}
-                                    </label>
-                                    <label *ngIf="haveOTP">{{'signIn.OTP Verification' | translate}}</label>
-                                    <label *ngIf="registrationRequest">{{'signIn.Your name and image' | translate}}</label>
-                                </b>
-                            </div>
-                            <div class="login-form col-md-10 m-auto">
-                                <form #f="ngForm" *ngIf="!haveOTP && !registrationRequest" [formGroup]="phoneForm">
-                                    <ngx-intl-tel-input style="display: block;width: 100%;margin-top: 27%;"
-                                        [cssClass]="'custom'" [preferredCountries]="preferredCountries"
-                                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
-                                        [searchCountryFlag]="true"
-                                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                        [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Egypt"
-                                        [maxLength]="10" [phoneValidation]="true"
-                                        [separateDialCode]="separateDialCode"
-                                        name="phone"
-                                        formControlName="phone"
-                                        customPlaceholder = "123 456 7891"
-                                        >
-                                        
-                                    </ngx-intl-tel-input>
-                                    <div *ngIf="(phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"
-                                        class="text-invalid">
-                                        {{'signIn.Please Enter a valid phone number' | translate}}
-                                    </div>
-
-                                    <button type="submit" class="submit-btn button-success" [disabled]="isLoading"
-                                        (click)="getOtP()">
-                                        <span *ngIf="!isLoading">{{'signIn.Request OTP' | translate}}</span>
-                                        <span *ngIf="isLoading">
-                                            <span class="spinner-border spinner-border-sm" role="status"
-                                                aria-hidden="true"></span>
-                                            Loading...
-                                        </span>
-                                    </button>
-                                    <!-- <p>The value of id is {{ "ana1" }}</p> -->
-                                </form>
-                                <div *ngIf="haveOTP">
-                                    <p style="text-align: center;font-size: 18px;margin-bottom: 30px;">{{'signIn.Enter the OTP sent to' | translate}} <b
-                                            style="color: #2C2C2C;">{{phoneForm.get('phone')?.value?.e164Number}}</b>
-                                    </p>
-                                    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:4}">
-                                    </ng-otp-input>
-                                    <p *ngIf="invalidPTO" style="text-align: center;color: red;">{{'signIn.Invalid OTP, Please try again' | translate}} </p>
-                                    <button (click)="verifyOtp()" [disabled]="validateOTP()" type="submit"
-                                        class="submit-btn button-success">{{'signIn.Submit' | translate}} </button>
-                                    <div class="resendOtp">
-                                        <p> {{'signIn.Did ont receive any code' | translate}}</p>
-                                        <span (click)="resendOtp()">{{'signIn.Re-send code' | translate}}</span>
-                                    </div>
-                                    <!-- <p>The value of id is {{ "ana2" }}</p> -->
-                                </div>
-                                <form #f="ngForm" *ngIf="!haveOTP && registrationRequest" [formGroup]="phoneForm">
-                                    <div>
-                                        <input hidden #file   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEvent($event)" />
-                                        <span class="avatar">
-                                            <img (click)="file.click()" class="main-img" src="{{setAvatarSrc()}}" alt="..."/>
-                                            <img (click)="file.click()" class="icon"
-                                                src="../../../../assets/images/Path 9801.png" alt="..."/>
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <label for="validationCustom01" class="form-label">{{'signIn.Name' | translate}}</label>
-                                        <input formControlName="name" type="text" class="form-control" id="name"
-                                            aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Name' | translate}}">
-                                    </div>
-                                    <div>
-                                        <label for="validationCustom01" class="form-label">{{'signIn.Email' | translate}}</label>
-                                        <input formControlName="email" type="email" class="form-control" id="email"
-                                            aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Email' | translate}}">
-                                    </div>
-                                    <!-- (change)="acceptTermsConditions($event)"  -->
-                                    <div style="cursor: pointer;" (click)="checkboxClick()" class="form-check mt-2">
-                                        <input [disabled]="!checkboxTerms" style="pointer-events: none;" mdbCheckbox class="form-check-input" type="checkbox" value="" [checked]="checkboxTerms"
-                                            id="flexCheckDefault" />
-                                        <label style="cursor: pointer;" class="form-check-label terms-agreement" for="flexCheckDefault">
-                                            {{'signIn.I agree the website' | translate}} 
-                                            <!-- routerLink='/login' (click)="navigateToTermsConditions()" -->
-                                            <a >{{'signIn.terms & conditions' | translate}}</a> {{'signIn.and' | translate}}
-                                                <!-- routerLink='/login' (click)="navigateToPrivacyPolicy()" -->
-                                            <a >{{'signIn.Privacy
-                                                policy' | translate}}</a>.
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="submit-btn button-success"
-                                        [disabled]="isLoading || !agreeTermsAndConditions" (click)="Register()">
-                                        <span *ngIf="!isLoading">{{'signIn.Login' | translate}}</span>
-                                        <span *ngIf="isLoading">
-                                            <span class="spinner-border spinner-border-sm" role="status"
-                                                aria-hidden="true"></span>
-                                            Loading...
-                                        </span>
-                                    </button>
-                                    <!-- <p>The value of id is {{ "ana3" }}</p> -->
-                                </form>
-                                
-                            </div>
-
-                        </div>
+        <div class="login-container">
+            <b>
+                <label *ngIf="!haveOTP && !registrationRequest">
+                    {{'signIn.Sign Up' | translate}}
+                </label>
+                <label *ngIf="haveOTP">{{'signIn.OTP Verification' | translate}}</label>
+                <label *ngIf="registrationRequest">{{'signIn.Your name and image' | translate}}</label>
+            </b>
+            
+            <div class="login-form">
+                <form class="requestOTP" #f="ngForm" *ngIf="!haveOTP && !registrationRequest" [formGroup]="phoneForm">
+                    <ngx-intl-tel-input style="display: block;width: 100%"
+                        [cssClass]="'custom'" [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Egypt"
+                        [maxLength]="10" [phoneValidation]="true"
+                        [separateDialCode]="separateDialCode"
+                        name="phone"
+                        formControlName="phone"
+                        customPlaceholder = "123 456 7891"
+                        >
+                        
+                    </ngx-intl-tel-input>
+                    <div *ngIf="(phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"
+                        class="text-invalid">
+                        {{'signIn.Please Enter a valid phone number' | translate}}
                     </div>
+
+                    <button type="submit" class="submit-btn button-success" [disabled]="isLoading"
+                        (click)="getOtP()">
+                        <span *ngIf="!isLoading">{{'signIn.Request OTP' | translate}}</span>
+                        <span *ngIf="isLoading">
+                            <span class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                            Loading...
+                        </span>
+                    </button>
+                    <!-- <p>The value of id is {{ "ana1" }}</p> -->
+                </form>
+                
+                <div class="verifyOTP" *ngIf="haveOTP">
+                    <p style="text-align: center;font-size: 18px;margin-bottom: 30px;">{{'signIn.Enter the OTP sent to' | translate}} <b
+                            style="color: #2C2C2C;">{{phoneForm.get('phone')?.value?.e164Number}}</b>
+                    </p>
+                    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:4}">
+                    </ng-otp-input>
+                    <p *ngIf="invalidPTO" style="text-align: center;color: red;">{{'signIn.Invalid OTP, Please try again' | translate}} </p>
+                    <button (click)="verifyOtp()" [disabled]="validateOTP()" type="submit"
+                        class="submit-btn button-success">{{'signIn.Submit' | translate}} </button>
+                    <div class="resendOTP">
+                        <p> {{'signIn.Did ont receive any code' | translate}}</p>
+                        <span (click)="resendOtp()">{{'signIn.Re-send code' | translate}}</span>
+                    </div>
+                    <!-- <p>The value of id is {{ "ana2" }}</p> -->
                 </div>
-                <div class="col-xl-7 col-lg-6 bg order-lg-1 order-sm-0">
-                    <img src="../../../../assets/images/joel-filipe-RFDP7_80v5A-unsplash.png" alt="..."/>
-                </div>
+                
+                <form class="registration" #f="ngForm" *ngIf="!haveOTP && registrationRequest" [formGroup]="phoneForm">
+                    <div class="photo">
+                        <input hidden #file   accept="image/png,image/jpeg" type="file" name="myFile" (change)="fileEvent($event)" />
+                        <span class="avatar">
+                            <img (click)="file.click()" class="main-img" src="{{setAvatarSrc()}}" alt="..."/>
+                            <img (click)="file.click()" class="icon"
+                                src="../../../../assets/images/Path 9801.png" alt="..."/>
+                        </span>
+                    </div>
+                    <div class="name">
+                        <label for="validationCustom01" class="form-label" style="display: none;">{{'signIn.Name' | translate}}</label>
+                        <input formControlName="name" type="text" class="form-control" id="name"
+                            aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Name' | translate}}">
+                    </div>
+                    <div class="email">
+                        <label for="validationCustom01" class="form-label" style="display: none;">{{'signIn.Email' | translate}}</label>
+                        <input formControlName="email" type="email" class="form-control" id="email"
+                            aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Email' | translate}}">
+                    </div>
+                    <!-- (change)="acceptTermsConditions($event)"  -->
+                    <div style="cursor: pointer;" (click)="checkboxClick()" class="form-check mt-2 terms">
+                        <input [disabled]="!checkboxTerms" style="pointer-events: none;" mdbCheckbox class="form-check-input" type="checkbox" value="" [checked]="checkboxTerms"
+                            id="flexCheckDefault" />
+                        <label style="cursor: pointer;" class="form-check-label terms-agreement" for="flexCheckDefault">
+                            {{'signIn.I agree the website' | translate}} 
+                            <!-- routerLink='/login' (click)="navigateToTermsConditions()" -->
+                            <a >{{'signIn.terms & conditions' | translate}}</a> {{'signIn.and' | translate}}
+                                <!-- routerLink='/login' (click)="navigateToPrivacyPolicy()" -->
+                            <a >{{'signIn.Privacy
+                                policy' | translate}}</a>.
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn button-success"
+                        [disabled]="isLoading || !agreeTermsAndConditions" (click)="Register()">
+                        <span *ngIf="!isLoading">{{'signIn.Login' | translate}}</span>
+                        <span *ngIf="isLoading">
+                            <span class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                            Loading...
+                        </span>
+                    </button>
+                    <!-- <p>The value of id is {{ "ana3" }}</p> -->
+                </form>
+                
 
             </div>
 
         </div>
+
     </div>
 
     <ng-template #alert let-c="close" let-d="dismiss">

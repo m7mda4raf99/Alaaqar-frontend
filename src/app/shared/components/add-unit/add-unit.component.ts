@@ -1218,7 +1218,7 @@ export class AddUnitComponent {
   setCompoundLocationNeigbhorhoodDropdown(){
 
     // laptop
-    if(window.matchMedia("(min-width: 450px)").matches){
+    if(window.matchMedia("(min-width: 565px)").matches){
       this.displayCompound = 'initial'
       this.displayLocation = 'block'
       this.displayNeigbhorhood = 'block'

@@ -100,10 +100,14 @@ export class BuyerUnitDetailsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if(window.matchMedia("(min-width: 768px)").matches){
-      this.customHeight = 500;
-    }else{
+    if(window.matchMedia("(max-width: 768px)").matches){
       this.customHeight = window.innerWidth / 1.64;
+    }
+    else if(window.matchMedia("(max-width: 992px)").matches){
+      this.customHeight = 400;
+    }
+    else{
+      this.customHeight = 500;
     }
     
     let snapshot: any = this.activeRouter.snapshot
@@ -414,10 +418,14 @@ export class BuyerUnitDetailsComponent implements OnInit {
   }
 
   getCurrency(){
-    if(this.propertyDetails['country_id'] === 1){
-      return this.translateService.instant('propertyDetails.EGP')
-    }else{
+    if(this.propertyDetails['country_id'] === 2){
       return this.translateService.instant('propertyDetails.SAR')
+    }
+    if(this.propertyDetails['country_id'] === 3){
+      return this.translateService.instant('propertyDetails.AED')
+    }
+    else{
+      return this.translateService.instant('propertyDetails.EGP')
     }
   }
 

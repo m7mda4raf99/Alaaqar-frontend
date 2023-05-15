@@ -12,6 +12,7 @@ export class AppServiceService {
   isLoggedInDeveloper$ = new BehaviorSubject<boolean>(false)
   propertyDetails$ = new BehaviorSubject<any>(<any>({}));
   country_id$ = new BehaviorSubject<number>(1)
+  selectedSearchQuery$ = new BehaviorSubject<string>('')
 
   // Buyer 
   priorityOne$ = new BehaviorSubject<any>(<any>({}));
@@ -28,6 +29,7 @@ export class AppServiceService {
   tabFour$ = new BehaviorSubject<any>(<any>({}));
   imgTags$ = new BehaviorSubject<any>(<any>([]));
   uploads$ = new BehaviorSubject<any>(<any>([]));
+  myFilesPreview$ = new BehaviorSubject<any>(<any>({}));
   imagesToUpload$ = new BehaviorSubject<any>(<any>([]));
   deletedImages$ = new BehaviorSubject<any>(<any>([]));
   propertyImagesPreview$ = new BehaviorSubject<any>(<any>({}));

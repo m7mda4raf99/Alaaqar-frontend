@@ -75,6 +75,19 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       //  console.log( this.propertyDetailsData)
     })
     this.sub4 = this.appService.uploads$.subscribe(val => this.attachments = val)
+    
+    this.sub5 = this.appService.myFilesPreview$.subscribe(val => {
+      this.myFilesPreview = val
+
+      for (let tag in this.myFilesPreview) {
+        if (tag != 'Initial') {
+          delete this.myFilesPreview[tag]
+        }
+      }
+
+      // console.log('this.myFilesPreview constructor: ', this.myFilesPreview)
+    }) 
+    
     this.sellerForm = this.prioritiesService.sellerForm
     // let sellerFormValue = this.prioritiesService.sellerForm.value
     //this.appService.uploads$
@@ -107,6 +120,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     })
     
   }
+  myFilesPreview: any = {}
   priorities: any
   sellerForm: any
   propertyDetailsData: any
@@ -118,6 +132,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   sub2 = new Subscription()
   sub3 = new Subscription()
   sub4 = new Subscription()
+  sub5 = new Subscription()
   searchObj: any = {
     images: [],
     options: []
@@ -600,6 +615,8 @@ export class SetupSellerPrioritiesComponent implements OnInit {
       setTimeout(() => { this.togglePanel('tab-' + this.activeTab) }, 20);
       this.appService.activeTab$.next(next)
       this.Stepper.next()
+    }else{
+      this.notificationsService.showError(this.translateService.instant('error.complete sell'))
     }
   }
   back() {
@@ -624,7 +641,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     }
   }
   validateSubmit(): boolean {
-    if (this.prioritiesService.sellerForm.valid && this.currentStep === 4) {
+    if (this.currentStep === 4) {
       // if(){
 
       // }else{
@@ -636,10 +653,27 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   }
   
   review(){
-    if(this.validateSubmit()){
+    // console.log("this.myFilesPreview before: ", this.myFilesPreview)
 
-    }else{
+    // console.log('this.prioritiesService.sellerForm before: ', this.prioritiesService.sellerForm.get('4')?.get('Unit photos')?.value)
+ 
+    // console.log('this.prioritiesService.sellerForm.valid before: ', this.prioritiesService.sellerForm.valid)
+    // console.log('this.currentStep before: ', this.currentStep)
+    
+    this.setImages()
+
+    // console.log("this.myFilesPreview after: ", this.myFilesPreview)
+
+    // console.log('this.prioritiesService.sellerForm: ', this.prioritiesService.sellerForm.get('4')?.get('Unit photos')?.value)
+
+    // console.log('this.prioritiesService.sellerForm.valid: ', this.prioritiesService.sellerForm.valid)
+    // console.log('this.currentStep: ', this.currentStep)
+    
+    if(this.prioritiesService.sellerForm.valid && this.currentStep === 4){
       this.doSearchQuery()
+    }else{
+      // notification
+      this.notificationsService.showError(this.translateService.instant('error.complete sell'))
     }
   }
 
@@ -1595,7 +1629,7 @@ export class SetupSellerPrioritiesComponent implements OnInit {
   setCompoundLocationNeigbhorhoodDropdown(){
 
     // laptop
-    if(window.matchMedia("(min-width: 450px)").matches){
+    if(window.matchMedia("(min-width: 565px)").matches){
       this.displayCompound = 'initial'
       this.displayLocation = 'block'
       this.displayNeigbhorhood = 'block'
@@ -1805,6 +1839,109 @@ export class SetupSellerPrioritiesComponent implements OnInit {
     this.priceValueInput = this.priceValueInput.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
     this.price = Number(this.priceValueInput.replace(/,/g, ''))
+  }
+
+  imagesToUpload: any = {}
+  myFiles: any = {};
+
+  setImages(){
+    if(this.validateImages()){
+      this.prioritiesService.sellerForm.get('4')?.get('Unit photos')?.setValue('')
+
+      for (let tag in this.myFilesPreview) {
+        if (tag != 'Initial') {
+          delete this.myFilesPreview[tag]
+        }
+      }
+  
+      this.imagesToUpload = {}
+      this.myFiles = {}
+  
+      if (this.myFilesPreview['Initial'] && this.myFilesPreview['Initial'].length > 0) {
+        for (let image of this.myFilesPreview['Initial']) {
+  
+          if (!this.myFiles[image['tag']]) {
+            this.myFiles[image['tag']] = []
+          }
+          this.myFiles[image['tag']].push(image['file'])
+  
+          if (!this.imagesToUpload[image['tag']]) {
+            this.imagesToUpload[image['tag']] = []
+          }
+          this.imagesToUpload[image['tag']].push(image['img'])
+  
+          if (!this.myFilesPreview[image['tag']]) {
+            this.myFilesPreview[image['tag']] = []
+          }
+          this.myFilesPreview[image['tag']].push(image['img'])
+        }
+  
+        this.appService.propertyImagesPreview$.next(this.myFilesPreview)
+        let tags = this.appService.imgTags$.value?.data
+        let images: any = []
+        let imagesToUpload: any = []
+    
+        for (const sTag in this.myFilesPreview) {
+          if (sTag != "Initial") {
+            this.myFilesPreview[sTag].forEach((el: any) => {
+              let sObj: any = {
+                tag_id: '',
+                image: ''
+              }
+              tags.forEach((element: any) => {
+                if (element.name_ar === sTag || element.name_en === sTag) {
+                  sObj.tag_id = element.id
+                }
+              });
+              sObj.image = el
+              images.push(sObj)
+            });
+          }
+    
+    
+        }
+    
+        for (const sTag in this.imagesToUpload) {
+          this.imagesToUpload[sTag].forEach((el: any) => {
+            let sObj: any = {
+              tag_id: '',
+              image: ''
+            }
+            tags.forEach((element: any) => {
+              if (element.name_ar === sTag || element.name_en === sTag) {
+                sObj.tag_id = element.id
+              }
+            });
+            sObj.image = el
+            imagesToUpload.push(sObj)
+          });
+    
+    
+        }
+    
+        this.appService.uploads$.next(images)
+        this.appService.imagesToUpload$.next(imagesToUpload)
+        this.prioritiesService.sellerForm.get('4')?.get('Unit photos')?.setValue([this.myFiles])
+  
+      }
+    }else{
+      this.notificationsService.showError(this.translateService.instant('error.images'))
+    }
+
+  }
+
+  validateImages(){
+    if(this.myFilesPreview['Initial'] && this.myFilesPreview['Initial'].length >= 5){
+      for(let x of this.myFilesPreview['Initial']){
+        if(x['tag'] === 'Initial' || x['tag'] === 'Image Category'){
+          return false
+        }
+      }
+      return true
+    }
+    else{
+      return false
+    }
   }
 
 }

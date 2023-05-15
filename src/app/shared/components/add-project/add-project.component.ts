@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
@@ -67,6 +67,7 @@ export class AddProjectComponent {
     private cookieService: CookieService,
     private translateService: TranslateService,
     private notificationsService: NotificationsService,
+    private cdRef: ChangeDetectorRef
     ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
@@ -636,7 +637,7 @@ export class AddProjectComponent {
 
   }
 
-  fileEventPhotos(e: any) {
+fileEventPhotos(e: any) {
     // this.spinner.show()
 
     for (var i = 0; i < e.target.files.length; i++) {
@@ -685,6 +686,9 @@ export class AddProjectComponent {
                     'image': base64data,
                   }
                 )
+
+                this.cdRef.detectChanges();
+
                 // console.log(this.photosURLs)
                 
               }

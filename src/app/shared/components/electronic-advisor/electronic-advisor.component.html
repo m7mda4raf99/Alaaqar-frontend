@@ -1,4 +1,4 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
     <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
   </ngx-spinner>
   
@@ -186,7 +186,7 @@
                                 <!-- high priorites -->
                                 <div *ngIf="stepper == 5" class="priorites-list" style="width: 100%;"> 
                                   <div class="main">
-                                    <div class="row margin_all">
+                                    <div class="margin_all">
                                       <!-- [class.selected]="item.selected === true" -->
                                       <div class="mt-3 custom-element" *ngFor="let item of getCriterias(1)">
                                           
@@ -299,7 +299,7 @@
                                 <!-- low priorites -->
                                 <div *ngIf="stepper == 7" class="priorites-list" style="width: 100%;"> 
                                   <div class="main">
-                                    <div class="row margin_all">
+                                    <div class="margin_all">
                                       <!-- [class.selected]="item.selected === true" -->
                                       <div class="mt-3 custom-element" *ngFor="let item of getCriterias(2)">
                                           

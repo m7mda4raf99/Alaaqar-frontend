@@ -1,4 +1,4 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+<ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
   <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
 </ngx-spinner>
 
@@ -27,7 +27,7 @@
                       <div style="display: flex">
                         <p class="title-head">{{'sell.Go to the best buyer' | translate}}</p>
                     
-                        <p class="required">*{{'sell.Required' | translate}}</p>
+                        <!-- <p class="required">*{{'sell.Required' | translate}}</p> -->
 
                       </div>
                     
@@ -117,7 +117,7 @@
                   activeIds="{{activeIds}}">
                   <ngb-panel id="tab-1">
                     <ng-template ngbPanelTitle>
-                      <b style="width: 95%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[0] : ArCriteriaParent[0]}}</b> 
+                      <b style="width: 94%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[0] : ArCriteriaParent[0]}}</b> 
                       <fa-icon class="up" [icon]="faChevronUp"></fa-icon> 
                       <fa-icon class="down" [icon]="faChevronDown"></fa-icon> 
                   </ng-template>
@@ -156,7 +156,7 @@
                   </ngb-panel>
                   <ngb-panel [disabled]="disableTab2" id="tab-2">
                     <ng-template ngbPanelTitle>
-                      <b style="width: 95%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[1] : ArCriteriaParent[1]}}</b> 
+                      <b style="width: 94%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[1] : ArCriteriaParent[1]}}</b> 
                       <fa-icon class="up" [icon]="faChevronUp"></fa-icon> 
                       <fa-icon class="down" [icon]="faChevronDown"></fa-icon> 
                   </ng-template>
@@ -194,7 +194,7 @@
                   </ngb-panel>
                   <ngb-panel [disabled]="disableTab3" id="tab-3">
                     <ng-template ngbPanelTitle>
-                      <b style="width: 95%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[2] : ArCriteriaParent[2]}}</b> 
+                      <b style="width: 94%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[2] : ArCriteriaParent[2]}}</b> 
                       <fa-icon class="up" [icon]="faChevronUp"></fa-icon> 
                       <fa-icon class="down" [icon]="faChevronDown"></fa-icon> 
                   </ng-template>
@@ -234,7 +234,7 @@
                   </ngb-panel>
                   <ngb-panel [disabled]="disableTab4" id="tab-4">
                     <ng-template ngbPanelTitle>
-                      <b style="width: 95%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[3] : ArCriteriaParent[3]}}</b> 
+                      <b style="width: 94%;display: inline-block;">{{activeLang === 'en' ? criteriaParent[3] : ArCriteriaParent[3]}}</b> 
                       <fa-icon class="up" [icon]="faChevronUp"></fa-icon> 
                       <fa-icon class="down" [icon]="faChevronDown"></fa-icon> 
                   </ng-template>
@@ -277,14 +277,14 @@
               
               <div class="button">
                 <!-- <button (click)="back()" [disabled]="currentStep === 1"
-                  class="button btn button-success next-back sub-action">{{'button.actions.Back' | translate}}</button> -->
+                  class="button  button-success next-back sub-action">{{'button.actions.Back' | translate}}</button> -->
                   <!-- [disabled]="validateNext()" -->
                 
                   <button *ngIf="validateSubmit()" (click)="scroll(holder); next();" 
-                  class="button btn button-success">{{'button.actions.Next' | translate}} </button>
+                  class="button  button-success">{{'button.actions.Next' | translate}} </button>
                   <!-- [disabled]='validateSubmit()' -->
-                <button *ngIf="!validateSubmit()" class="btn button-success"
-                  (click)="review()">{{'button.actions.Review' | translate}}</button>
+                  <button *ngIf="!validateSubmit()" class=" button-success"
+                    (click)="review()">{{'button.actions.Review' | translate}}</button>
               </div>
 
             </div>
@@ -292,11 +292,11 @@
               <div class="col-6"></div>
               <div class="button col-sm-6 col-xs-12 float-end">
                 <!-- <button (click)="back()" [disabled]="currentStep === 1"
-                  class="button btn button-success next-back sub-action">{{'button.actions.Back' | translate}}</button> -->
-                <button *ngIf="validateSubmit()" (click)="scroll(holder); next()" [disabled]="validateNext()"
-                  class="button btn button-success float-end">{{'button.actions.Next' | translate}} </button>
-                <button *ngIf="!validateSubmit()" [disabled]='validateSubmit()' class="btn button-success float-end"
-                  (click)="doSearchQuery()">{{'button.actions.Review' | translate}}</button>
+                  class="button  button-success next-back sub-action">{{'button.actions.Back' | translate}}</button> -->
+                <button *ngIf="validateSubmit()" (click)="scroll(holder); next()"
+                  class="button  button-success float-end">{{'button.actions.Next' | translate}} </button>
+                <button *ngIf="!validateSubmit()" class=" button-success float-end"
+                  (click)="review()">{{'button.actions.Review' | translate}}</button>
               </div>
             </div>
           </div>  
@@ -323,7 +323,7 @@
 
                 <div class="each-option">
                   <div class="ngSelect main">
-                    <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
+                    <p class="lable">{{'home.City' | translate}}</p>
                     
                     <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
                     [settings]="settingsCity"
@@ -343,7 +343,7 @@
                   <!-- area -->
       
                   <div *ngIf="dropdownListArea.length > 0 && selectedItemCity.length > 0" class="ngSelect area">
-                    <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+                    <p class="lable">{{'home.Area' | translate}}</p>
                     
                     <angular2-multiselect [data]="dropdownListArea" [(ngModel)]="selectedItemArea" 
                     [settings]="settingsArea"
@@ -363,7 +363,7 @@
                   <!-- location -->
                   <div *ngIf="selectedItemArea.length > 0 && dropdownListLocation.length > 0" class="ngSelect location" [ngStyle]="{'pointer-events': pointerEventsLocation, 'display': displayLocation,
                                                               'background': backgroundLocation }">
-                      <p [ngStyle]="{'color': colorLocation}" class="lable d-none d-lg-block">{{'home.Location' | translate}}</p>
+                      <p [ngStyle]="{'color': colorLocation}" class="lable">{{'home.Location' | translate}}</p>
                       
                           <angular2-multiselect [data]="dropdownListLocation" [(ngModel)]="selectedItemLocation" 
                           [settings]="settingsLocation"
@@ -381,7 +381,7 @@
       
                   <!-- neighborhood -->
                   <div *ngIf="dropdownListNeighborhood.length > 0 && !checkboxVar" class="ngSelect neighborhood" [ngStyle]="{'pointer-events': pointerEventsNeigbhorhood, 'display': displayNeigbhorhood }">
-                    <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+                    <p class="lable">{{'home.Neighborhood' | translate}}</p>
                         <angular2-multiselect 
                             [data]="dropdownListNeighborhood" 
                             [(ngModel)]="selectedItemNeighborhood" 
@@ -406,7 +406,7 @@
                         [checked]="checkboxVar"
                         (change)="changedCheckBox()"/>
                         <p *ngIf="country_id === 1" [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound EGY' | translate}}</p>
-                        <p *ngIf="country_id === 2" [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound KSA' | translate}}</p>
+                        <p *ngIf="country_id === 2 || country_id === 3" [ngStyle]="{'color': colorCompound }" (click)="changedCheckBox()" style="margin: 0%; display: initial !important;" class="lable d-none d-lg-block">{{'home.Compound KSA' | translate}}</p>
 
 
                     </div>
@@ -429,7 +429,7 @@
                         <span *ngIf="selectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
                         
                         <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar && country_id === 1">{{'setPriorities.select compound EGY' | translate}}</span>
-                        <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar && country_id === 2">{{'setPriorities.select compound KSA' | translate}}</span>
+                        <span (click)="changedCheckBox()" class="hint_span" *ngIf="!checkboxVar && (country_id === 2 || country_id === 3)">{{'setPriorities.select compound KSA' | translate}}</span>
 
 
                     </div>
@@ -446,7 +446,7 @@
                 
                 <div class="each-option">
                   <div class="ngSelect realState">
-                    <p class="lable d-none d-lg-block">{{'home.Propose' | translate}}</p>
+                    <p class="lable">{{'home.Propose' | translate}}</p>
                     
                     <angular2-multiselect [data]="dropdownListPropose" [(ngModel)]="selectedItemPropose" 
                         [settings]="settingsPropose"
@@ -462,7 +462,7 @@
                   </div>
 
                   <div class="ngSelect realState">
-                    <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+                    <p class="lable">{{'home.Real estate type' | translate}}</p>
                     
                     <angular2-multiselect [data]="dropdownListRealstateType" [(ngModel)]="SelectedRealEstateType" 
                         [settings]="settingsUnitType"
@@ -478,7 +478,7 @@
                   </div>
     
                   <div class="ngSelect price">
-                      <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
+                      <p class="lable">{{'home.Price' | translate}}</p>
                       <div class="price-input">
                           <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
                               translate}}</label>
@@ -496,7 +496,7 @@
               <div class="ngSelect submit_buttons">
                   <button #apply
                       (click)="SetSearchModelValues(container)"
-                      class="btn button-success applyBtn continueBtn float-end mb-3">{{'button.actions.Apply & Continue' |
+                      class="btn button-success apply continue float-end mb-3">{{'button.actions.Apply & Continue' |
                       translate}}</button>
               </div>
             </div>

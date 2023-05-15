@@ -126,6 +126,8 @@ export class SingleDeveloperComponent {
 
     let id: any = ''
 
+    // console.log('developer: ', developer)
+
     if(developer){
       this.isDeveloperLoggedIn = true
 

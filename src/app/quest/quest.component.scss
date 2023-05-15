@@ -1,5 +1,5 @@
 .sub-head .title{
-    @media (max-width: 450px) {
+    @media (max-width: 580px) {
         font-size: 25px !important;
     }
 }
@@ -72,7 +72,7 @@
             // padding: 15px;
         }
         .priorites-control {
-            @media (max-width: 450px) {
+            @media (max-width: 580px) {
                 display: none !important;
             }
 
@@ -218,7 +218,7 @@
             padding-left: 10px;
             padding-right: 10px;
 
-            @media (max-width: 450px) {
+            @media (max-width: 580px) {
                 padding-top: 5px !important;
                 font-size: 10px !important;
                 padding-left: 5px;
@@ -243,7 +243,7 @@
                 .price-input{
                     // padding: 0px 10px;
     
-                    @media (max-width: 450px) {
+                    @media (max-width: 580px) {
                         padding: 0;
                     }
                 }
@@ -282,7 +282,7 @@
                     display: inherit;
                 }
                 
-                @media (max-width: 450px) {
+                @media (max-width: 580px) {
                     padding: 10px 0;
     
                 }
@@ -294,7 +294,7 @@
                 .location{
                     display: flex;
 
-                    @media (max-width: 450px) {
+                    @media (max-width: 580px) {
                         flex-direction: column;
                     }
 
@@ -304,7 +304,7 @@
                         margin: 20px 10px;
                         width: 20%;
 
-                        @media (max-width: 450px) {
+                        @media (max-width: 580px) {
                             width: 100%;
                             margin: 10px 10px;
                         }
@@ -318,7 +318,7 @@
         .name{
             display: flex;
             
-            @media (max-width: 450px) {
+            @media (max-width: 580px) {
                 display: block;
 
             }
@@ -332,7 +332,7 @@
                 margin: 20px 10px;
                 height: 38px;
                 
-                @media (max-width: 450px) {
+                @media (max-width: 580px) {
                     margin: 20px 0px;
                 }
 
@@ -346,7 +346,7 @@
         .phone{
             margin: 10px 40px !important;
 
-            @media (max-width: 450px) {
+            @media (max-width: 580px) {
                 margin: 0px !important;
             }
         }
@@ -449,7 +449,7 @@
             margin: 30px 0px 10px 0px !important;
             width: 20%;
 
-            @media (max-width: 450px) {
+            @media (max-width: 580px) {
                 width: 40%;
             }
         }
@@ -468,7 +468,7 @@
             justify-content: center;
             cursor: pointer;
 
-            @media (max-width: 450px) {
+            @media (max-width: 580px) {
                 padding: 5px 10px;
             }
 

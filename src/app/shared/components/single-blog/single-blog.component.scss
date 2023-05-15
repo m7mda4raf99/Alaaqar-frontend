@@ -137,16 +137,17 @@
             img {
                 display: block;
                 // width: 100%;
-                height: 400px;
+                width: -webkit-fill-available;
                 border-radius: 20px;
                 margin: 20px auto;
-                @media (max-width:1024px) {
-                    height: auto;
-                }
+                
+                // @media (max-width:1024px) {
+                //     height: auto;
+                // }
 
-                @media (max-width:450px) {
-                    width: -webkit-fill-available;
-                }
+                // @media (max-width:450px) {
+                //     width: -webkit-fill-available;
+                // }
             }
             .description {
                 color: #2C2C2C;

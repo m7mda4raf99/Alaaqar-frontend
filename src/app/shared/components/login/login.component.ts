@@ -134,6 +134,14 @@ export class LoginComponent implements OnInit {
       this.isLoading = false
       // console.log("ashraf: ", doLogin?.data?.firstLogin)
       if (doLogin?.data?.firstLogin === 'Registration request') {
+        // params
+
+        this.router.navigate([], {
+          relativeTo: this.activeRouter,
+          queryParams: { step: 'register'},
+          queryParamsHandling: 'merge'
+        });
+        
         this.registrationRequest = true
         this.phoneForm.get('name')?.setValidators(Validators.required)
         this.phoneForm.get('avatar')?.setValidators(Validators.required)
@@ -146,6 +154,13 @@ export class LoginComponent implements OnInit {
             return this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
           }
         }
+
+        this.router.navigate([], {
+          relativeTo: this.activeRouter,
+          queryParams: { step: 'enterOTP'},
+          queryParamsHandling: 'merge'
+        });
+
         return this.haveOTP = true
       }
     }
@@ -226,7 +241,7 @@ export class LoginComponent implements OnInit {
       }
 
       else{
-        this.location.back()
+        this.router.navigate(['home'], { queryParams: { q: 'buy' } })
       }
       
       // this.firstLogin ? this.location.back() : this.router.navigate(['/home'])
@@ -256,14 +271,18 @@ export class LoginComponent implements OnInit {
     return this.avatarUrl ? this.avatarUrl : '../../../../assets/images/profile_pic.jpg'
   }
 
+
   async Register() {
+    const params = this.location.path()
+
     this.isLoading = true
     if (this.phoneForm.get('name')?.valid && this.phoneForm.get('phone')?.valid) {
       let obj = {
         'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
         'name': this.phoneForm.get('name')?.value,
         'email': this.phoneForm.get('email')?.value,
-        'avatar': this.avatarUrl
+        'avatar': this.avatarUrl,
+        'params': params
       }
       const register = await this.apiService.createUser(obj)
       // console.log("register",register)
@@ -275,6 +294,21 @@ export class LoginComponent implements OnInit {
         this.notificationService.showError(this.translateService.instant('error.someThing went Wrong'))
       } else {
         this.haveOTP = true
+        this.registrationRequest = false
+
+        window.dataLayer.push({
+          'event': 'User Registered',
+          'name': this.phoneForm.get('name')?.value,
+          'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1)
+        });
+
+        // params
+
+        this.router.navigate([], {
+          relativeTo: this.activeRouter,
+          queryParams: { step: 'enterOTP'},
+          queryParamsHandling: 'merge'
+        });
       }
     } else {
       this.notificationService.showError('UserName and email are required!')
