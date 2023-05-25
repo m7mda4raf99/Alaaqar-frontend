@@ -24,6 +24,11 @@ export class AppComponent {
   sub1 = new Subscription()
   sub2 = new Subscription()
 
+  subCountry = new Subscription()
+  country_id: any
+
+  subLanguage = new Subscription()
+  lang: string = ''
 
   constructor(
     private _store: Store<PostState>, 
@@ -33,6 +38,7 @@ export class AppComponent {
     private toastService: ToastService,
     private _activatedRoute: ActivatedRoute,
     private router: Router,
+    private appServiceService: AppServiceService,
 ) {
     // this._store.dispatch(new GetPosts())
     // this.posts$ = this._store.select(selectedPosts)
@@ -52,6 +58,15 @@ export class AppComponent {
         this.switchLang(val)
       }
     })
+
+    this.subCountry = this.appServiceService.country_id$.subscribe(async (res:any) =>{
+      this.country_id = res
+    })
+
+    this.subLanguage = this.appServiceService.lang$.subscribe(async val => {
+      this.lang = val
+    })
+
   }
 
   ngOnInit() {
@@ -88,5 +103,11 @@ export class AppComponent {
   }
   unloadBootstrapRtl(){
     document.getElementById('BTRtl')?.remove()
+  }
+
+  navigateToAboutUs(){
+    if(this.router.url != '/about'){
+      this.router.navigate(['/about'])
+    }    
   }
 }

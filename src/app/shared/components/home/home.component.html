@@ -1,11 +1,13 @@
 <div class="container-fluid home">
-    <ngx-spinner type="ball-scale-multiple" type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
-        <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+    <ngx-spinner type="ball-scale-multiple" type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium"
+        color="rgba(0, 0, 0, 0.0)" [fullScreen]="true">
+        <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;'
+            src='../../assets/images/logo-loader.png' />
     </ngx-spinner>
 
     <!-- First section (Find Your Perfect Future Home)-->
     <div class="row first-sec ">
-        
+
         <div class="col-md-12 col-lg-6 image-sec d-block d-lg-none sm-bg">
         </div>
 
@@ -15,45 +17,39 @@
 
             <div class="search-section">
 
-                <ng-autocomplete 
-                [data]="autoComplete"
-                [searchKeyword]="keyword"
-                placeholder="{{ autoComplete_placeholder }}"
-                (selected)='selectEvent($event)'
-                (inputChanged)='onChangeSearch($event)'
-                (inputFocused)='onFocused($event)'
-                [itemTemplate]="itemTemplate"
-                [debounceTime]="200"
-                [focusFirst]="true">                                 
+                <ng-autocomplete [data]="autoComplete" [searchKeyword]="keyword"
+                    placeholder="{{ autoComplete_placeholder }}" (selected)='selectEvent($event)'
+                    (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                    [itemTemplate]="itemTemplate" [debounceTime]="200" [focusFirst]="true">
                 </ng-autocomplete>
-                
+
                 <ng-template #itemTemplate let-item>
-                <a [innerHTML]="item.name"></a>
+                    <a [innerHTML]="item.name"></a>
                 </ng-template>
-                
+
                 <!-- <ng-template #notFoundTemplate let-notFound>
                 <div [innerHTML]="notFound"></div>
                 </ng-template> -->
 
                 <div class="buttons">
-                    <button (click)="searchKeyword()"
-                        class="button-bordered search-button">
+                    <button (click)="searchKeyword()" class="button-bordered search-button">
                         <fa-icon [icon]="faSearch"></fa-icon>
                     </button>
-                    
+
                 </div>
-                
+
             </div>
 
             <div class="other-options">
                 <a routerLink='/electronic-advisor'>
                     <div class="each-option" (click)="tryItNow()">
-                        <div class="image-container advisor-img"><img class="image-options" src="../../assets/images/advisorT.png" alt="..."></div>
-                        <div class="text-options"> 
-                            
+                        <div class="image-container advisor-img"><img class="image-options"
+                                src="../../assets/images/advisorT.png" alt="..."></div>
+                        <div class="text-options">
+
                             {{ 'electronic advisor1' | translate }}
-                            <br> 
-                            {{ 'electronic advisor2' | translate }} 
+                            <br>
+                            {{ 'electronic advisor2' | translate }}
 
                             <div class="coming ai">
                                 {{'home.AI' | translate}}
@@ -63,27 +59,29 @@
                     </div>
                 </a>
 
-                <div class="separators" > </div>
+                <div class="separators"> </div>
 
                 <a routerLink='/share-your-request'>
                     <div class="each-option">
-                        <div class="image-container how-it-works-img"><img class="image-options" src="../../assets/images/share.png" alt="..."></div>
-                        <div class="text-options request"> 
-                            {{ 'home.share_your_quests_title1' | translate }} 
+                        <div class="image-container how-it-works-img"><img class="image-options"
+                                src="../../assets/images/share.png" alt="..."></div>
+                        <div class="text-options request">
+                            {{ 'home.share_your_quests_title1' | translate }}
                             <br>
-                            {{ 'home.share_your_quests_title2' | translate }} 
+                            {{ 'home.share_your_quests_title2' | translate }}
 
                         </div>
                     </div>
                 </a>
 
-                <div class="separators" > </div>
-                
+                <div class="separators"> </div>
+
                 <a>
                     <!-- (click)="scroll(download_app)" -->
-                    <div class="each-option" >
-                        <div class="image-container app-img"><img class="image-options" src="../../assets/images/appT.png" alt="..."></div>
-                        <div class="text-options app"> 
+                    <div class="each-option">
+                        <div class="image-container app-img"><img class="image-options"
+                                src="../../assets/images/appT.png" alt="..."></div>
+                        <div class="text-options app">
 
                             <div class="logoAR" *ngIf="lang === 'ar'"> </div>
 
@@ -91,12 +89,12 @@
 
                             <!-- <img *ngIf="lang === 'ar'" src="../../assets/images/logo_header_arabic.png" />
                             <img *ngIf="lang != 'ar'" src="../../assets/images/logo_header.png" /> -->
-            
+
                             <div style="font-size: 15px;"> {{ 'mobile app' | translate }} </div>
 
                             <div class="coming">
-                                
-                            {{'footer.coming_soon' | translate}}
+
+                                {{'footer.coming_soon' | translate}}
                                 <!-- {{'header.Add property' | translate}} -->
                             </div>
 
@@ -109,7 +107,7 @@
 
         </div>
 
-        <div class="col-md-12 col-lg-6 custom-padding home-controls"  style="display: none;">
+        <div class="col-md-12 col-lg-6 custom-padding home-controls" style="display: none;">
             <h1>{{'home.Find Your Perfect' | translate}}<br> {{'home.Future Home' | translate}}</h1>
             <p #actions class="save" style="padding: 10px 0px 10px 0px;">
                 {{'home.Hassle Free . Save Time . No Hidden Fees' | translate}}</p>
@@ -247,12 +245,12 @@
             <div class="col-2"></div>
 
 
-        </div>                               
-                                        <!-- d-lg-block -->
+        </div>
+        <!-- d-lg-block -->
         <div class="col-md-12 col-lg-6 image-sec d-none">
             <span class="overlay"></span>
         </div>
-        
+
         <!-- <div class="col-md-11 col-sm-12 search-sec" style="display: none;">
             <div *ngIf="activeTab === 'buy'" class="buyRent-row">
                 <ng-container [ngTemplateOutlet]="buyRent" [ngTemplateOutletContext]="{type: 'buy'}">
@@ -285,9 +283,8 @@
                                 <source src="../../assets/images/{{video_src}}" type="video/mp4" />
                             </video> -->
 
-                            <img src="../../../../assets/images/video.jpg" alt="..."
-                                style="width: 100%; height: 100%;">
-                         
+                            <img src="../../../../assets/images/video.jpg" alt="..." style="width: 100%; height: 100%;">
+
                         </div>
                     </div>
                     <div class="col-md-6 col-xs-12 alaqaar-solution-text">
@@ -299,9 +296,9 @@
                             </h2>
                         </div>
                         <p class="large-text">{{'solution_text' | translate}}</p>
-                  <button (click)="tryItNow()" class="btn button-success more">{{'try_solution' |
-                            translate}}</button> 
-                            
+                        <button (click)="tryItNow()" class="btn button-success more">{{'try_solution' |
+                            translate}}</button>
+
                     </div>
                 </div>
             </div>
@@ -315,7 +312,7 @@
                     {{'home.Top projects.title' | translate}}
                     <span></span>
                 </h2>
-               
+
             </div>
 
             <div class="section-body">
@@ -325,17 +322,16 @@
                             <div style="position: relative;">
                                 <span class="overlay"></span>
                                 <img src="{{ card.image }}" class="main-img" alt="...">
-                            </div> 
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
-                                    {{lang === 'en' ? card.name_en : card.name_ar }}                                
+                                    {{lang === 'en' ? card.name_en : card.name_ar }}
                                 </h5>
-                                
+
                                 <div style="display: flex; justify-content: space-between;">
                                     <span class="location">
-                                        <img src="../../../../assets/images/noun_Location_1911856@2x.png"
-                                            alt="..." />
+                                        <img src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..." />
                                         {{lang === 'en' ? card.area_en : card.area_ar}}
                                         <!-- New Alamien -->
                                     </span>
@@ -349,7 +345,7 @@
                                     </span> -->
                                 </div>
 
-                                
+
                                 <!-- <div class="row card-foot">
                                     <div class="col">
                                         <img src="../../../../assets/images/Calendar copy.png" alt="..." />
@@ -367,7 +363,7 @@
             </div>
         </div>
 
-         <!-- (Featured Units)-->
+        <!-- (Featured Units)-->
         <div *ngIf="recentlyAdded && recentlyAdded.length > 0" class="recently-added">
             <div class="section-head-center">
                 <h2>
@@ -376,8 +372,8 @@
                     <span></span>
                 </h2>
             </div>
-            
-            <div class="results" >
+
+            <div class="results">
                 <div *ngFor="let item of recentlyAdded" class="hover">
                     <!-- {{ print(item) }} -->
                     <div class="card mb-3">
@@ -390,7 +386,7 @@
                                     class="img-fluid back-img" alt="..."> -->
 
                                 <span (click)="navigateToSingleItem(item)" class="overlay"></span>
-                                
+
                                 <span style="cursor: pointer;" (click)="navigateToSingleItem(item)"
                                     class="bage">{{getPropose(item)}}</span>
                                 <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
@@ -400,18 +396,18 @@
                                 <img style="cursor: pointer;height: 230px;" (click)="navigateToSingleItem(item)"
                                     src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
                                 <!-- <button class="request-visit"> {{ 'propertyDetails.Request a visit' | translate }} </button> -->
-                            
+
                             </div>
-                            
+
                             <div class="col-md-12">
                                 <div class="card-body" style="cursor: pointer;" (click)="navigateToSingleItem(item)">
-                                    
+
                                     <div class="row">
                                         <div class="col-12">
                                             <h6>
                                                 {{ item['title'] }}
                                             </h6>
-                                            
+
                                             <h5 class="card-title">
                                                 <!-- <br> -->
                                                 {{ numberWithCommas(item['price'])}}
@@ -419,24 +415,23 @@
                                                 {{ getCurrency() }}
                                             </h5>
 
-                                            
+
                                             <div class="space-between">
-                                                <span class="location" >
+                                                <span class="location">
                                                     <img src="../../../../assets/images/noun_Location_1911856@2x.png"
                                                         alt="..." />
                                                     {{lang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
                                                 </span>
 
                                                 <span class="date">
-                                                    <img src="../../../../assets/images/date.png"
-                                                        alt="..." />
-                                                        {{ 'home.Featured Units.listed_on' | translate }}   
+                                                    <img src="../../../../assets/images/date.png" alt="..." />
+                                                    {{ 'home.Featured Units.listed_on' | translate }}
 
-                                                        {{ setDate(item['created_at']) }}
+                                                    {{ setDate(item['created_at']) }}
                                                 </span>
                                             </div>
 
-                                            
+
                                         </div>
                                         <!-- <div class="col-4 float-end" style="position: relative;">
                                             <nz-progress class="float-end" nzType="circle"
@@ -449,12 +444,20 @@
                                     </div>
                                     <div class="card-text">
                                         <div class="space-between">
-                                            <div class="desc" *ngFor="let c of getItemCriteria(item['criteria']) | slice:0:4">
+                                            <div class="desc"
+                                                *ngFor="let c of getItemCriteria(item['criteria']) | slice:0:4">
                                                 <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
                                                 {{getCriteriaOptions(c)}}
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="request-visit">
+                                        <button type="submit" (click)="requestVisit(sellerContent, item['unit_id'])"
+                                            class="btn button-success">
+                                            <span> {{'propertyDetails.Request a visit' | translate}} </span>
+                                        </button>
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -477,7 +480,7 @@
                     <span></span>
                 </h2>
                 <p class="description">
-                    
+
                 </p>
             </div>
             <div class="justify-content-center">
@@ -486,9 +489,9 @@
                         <div *ngFor="let developer of top_developers" class="mt-3 card-container">
                             <div (click)="navigateToSingleDeveloper(developer)" class="card">
                                 <span class="icons">
-                                    <img style="border-radius: 20px;" src="{{ developer['image'] }}" class="card-img-top"
-                                        alt="...">
-    
+                                    <img style="border-radius: 20px;" src="{{ developer['image'] }}"
+                                        class="card-img-top" alt="...">
+
                                 </span>
                                 <div class="card-body">
                                     <h5 class="card-title">
@@ -499,7 +502,7 @@
                         </div>
 
                     </div>
-    
+
                 </div>
             </div>
         </div>
@@ -519,22 +522,23 @@
             </div>
 
             <div class="btn-group btn-group-toggle switcher" ngbRadioGroup name="radioBasic"
-                    (change)="onChangeSwitcher()" [(ngModel)]="switcher">
+                (change)="onChangeSwitcher()" [(ngModel)]="switcher">
                 <label ngbButtonLabel class="switch-tab left" [class.active]="switcher == 'buyer'">
                     <input hidden ngbButton type="radio" value="buyer"> {{'howItWorks.a Buyer Tenant' | translate}}
                 </label>
                 <label ngbButtonLabel class="switch-tab right" [class.active]="switcher == 'seller'">
-                    <input hidden ngbButton type="radio" [value]="seller"> {{'howItWorks.a Seller Landlord' | translate}}
+                    <input hidden ngbButton type="radio" [value]="seller"> {{'howItWorks.a Seller Landlord' |
+                    translate}}
                 </label>
             </div>
         </div>
 
         <div *ngIf="country_id === 3" class="image-slider">
-            <ng-image-slider *ngIf="switcher === 'buyer'" [images]="buyImages"
-            [imageSize]="{width: 340, height: 495}" #nav></ng-image-slider>
+            <ng-image-slider *ngIf="switcher === 'buyer'" [images]="buyImages" [imageSize]="{width: 340, height: 495}"
+                #nav></ng-image-slider>
 
-            <ng-image-slider *ngIf="switcher === 'seller'" [images]="sellImages"
-            [imageSize]="{width: 340, height: 495}" #nav></ng-image-slider>
+            <ng-image-slider *ngIf="switcher === 'seller'" [images]="sellImages" [imageSize]="{width: 340, height: 495}"
+                #nav></ng-image-slider>
         </div>
 
         <!-- Top Searched Areas-->
@@ -546,7 +550,7 @@
                     <span></span>
                 </h2>
                 <p class="description">
-                    
+
                 </p>
             </div>
             <div class="justify-content-center">
@@ -557,7 +561,7 @@
                                 <span class="icons">
                                     <img style="border-radius: 20px;" src="{{ area['img'] }}" class="card-img-top"
                                         alt="...">
-    
+
                                 </span>
                                 <div class="card-body">
                                     <h5 class="card-title">
@@ -627,9 +631,9 @@
                                 </div>
                             </div>
                         </div> -->
-                       
+
                     </div>
-    
+
                 </div>
             </div>
         </div>
@@ -638,8 +642,8 @@
         <div class="share-your-quests">
             <div class="justify-content-center">
                 <div class="col-xs-12">
-                    <div class="col-sm-10 container">                        
-                        <div class="quest_image">  </div>
+                    <div class="col-sm-10 container">
+                        <div class="quest_image"> </div>
 
                         <div class="quest">
                             <h2>
@@ -651,15 +655,15 @@
                                 {{'home.share_your_quests_description' | translate}}
                             </p>
 
-                            <button (click)="share_your_quests()">{{'quest_button' |  translate}}
-                            </button>             
+                            <button (click)="share_your_quests()">{{'quest_button' | translate}}
+                            </button>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
         </div>
-        
+
         <!-- Recently Added-->
         <div *ngIf="recentlyAdded && recentlyAdded.length > 0" style="display: none;">
             <div class="recently-added">
@@ -674,13 +678,14 @@
                                 <span></span>
                             </h2>
                             <p class="description" style="display: none;">
-                                VIt is a long established fact that a reader will be distracted by the<br> readable content of a
+                                VIt is a long established fact that a reader will be distracted by the<br> readable
+                                content of a
                                 page
                                 when looking at its layout
                             </p>
                         </div>
-                        
-                        <div class="row mt-3 results" >
+
+                        <div class="row mt-3 results">
                             <div *ngFor="let item of recentlyAdded" class="col-xs-12 col-sm-6 col-xl-4 hover">
                                 <!-- {{ print(item) }} -->
                                 <div class="card mb-3">
@@ -691,59 +696,65 @@
                                                 style="border-radius: 20px;"></span>
                                             <img src="{{item['image'] ? item['image']  : '../../../../assets/images/empty.jpeg'}}"
                                                 class="img-fluid back-img" alt="..."> -->
-        
+
                                             <span (click)="navigateToSingleItem(item)" class="overlay"></span>
-                                            
+
                                             <span style="cursor: pointer;" (click)="navigateToSingleItem(item)"
                                                 class="bage">{{getPropose(item)}}</span>
                                             <img *ngIf="item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
                                                 src="../../../../assets/images/Path 165 copy.png" alt="..." />
                                             <img *ngIf="!item['isFavorite']" (click)="toggleFavorite(item)" class="fav"
                                                 src="../../../../assets/images/Path 165.png" alt="..." />
-                                            <img style="cursor: pointer;height: 230px;" (click)="navigateToSingleItem(item)"
-                                                src="{{setImagesSrc(item)}}" class="img-fluid" alt="...">
-                                        
+                                            <img style="cursor: pointer;height: 230px;"
+                                                (click)="navigateToSingleItem(item)" src="{{setImagesSrc(item)}}"
+                                                class="img-fluid" alt="...">
+
                                         </div>
-                                        
+
                                         <div class="col-md-12">
-                                            <div class="card-body" style="cursor: pointer;" (click)="navigateToSingleItem(item)">
-                                                
+                                            <div class="card-body" style="cursor: pointer;"
+                                                (click)="navigateToSingleItem(item)">
+
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <h6>
                                                             {{ item['title'] }}
                                                         </h6>
-                                                        
+
                                                         <h5 class="card-title">
-                                                            
+
                                                             <!-- <br> -->
                                                             {{ numberWithCommas(item['price'])}}
 
-                                                            <span *ngIf="country_id === 1"> {{'propertyDetails.EGP' | translate}} </span>
+                                                            <span *ngIf="country_id === 1"> {{'propertyDetails.EGP' |
+                                                                translate}} </span>
 
-                                                            <span *ngIf="country_id === 2"> {{'propertyDetails.SAR' | translate}} </span>
+                                                            <span *ngIf="country_id === 2"> {{'propertyDetails.SAR' |
+                                                                translate}} </span>
 
-                                                            <span *ngIf="country_id === 3"> {{'propertyDetails.AED' | translate}} </span>
+                                                            <span *ngIf="country_id === 3"> {{'propertyDetails.AED' |
+                                                                translate}} </span>
 
                                                         </h5>
-                                                        
+
                                                         <div class="space-between">
-                                                            <span class="location" >
+                                                            <span class="location">
                                                                 <img src="../../../../assets/images/noun_Location_1911856@2x.png"
                                                                     alt="..." />
-                                                                {{lang === 'en' ? item['area_name_en'] : item['area_name_ar']}}
+                                                                {{lang === 'en' ? item['area_name_en'] :
+                                                                item['area_name_ar']}}
                                                             </span>
-    
+
                                                             <span class="date">
                                                                 <img src="../../../../assets/images/date.png"
                                                                     alt="..." />
-                                                                    {{ 'home.Recently Added.listed_on' | translate }}   
-    
-                                                                    {{ setDate(item['created_at']) }}
+                                                                {{ 'home.Recently Added.listed_on' | translate }}
+
+                                                                {{ setDate(item['created_at']) }}
                                                             </span>
                                                         </div>
 
-                                                      
+
                                                     </div>
                                                     <!-- <div class="col-4 float-end" style="position: relative;">
                                                         <nz-progress class="float-end" nzType="circle"
@@ -752,24 +763,26 @@
                                                         </nz-progress>
                                                         <span class="score">{{getScore(item['score'])}}%</span>
                                                     </div> -->
-            
+
                                                 </div>
                                                 <div class="card-text">
                                                     <div class="space-between">
-                                                        <div class="desc" *ngFor="let c of getItemCriteria(item['criteria']) | slice:0:4">
-                                                            <img class="img-icon" src="{{getCriteriaImageSrc(c)}}" alt=".." />
+                                                        <div class="desc"
+                                                            *ngFor="let c of getItemCriteria(item['criteria']) | slice:0:4">
+                                                            <img class="img-icon" src="{{getCriteriaImageSrc(c)}}"
+                                                                alt=".." />
                                                             {{getCriteriaOptions(c)}}
                                                         </div>
                                                     </div>
                                                 </div>
-        
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-        
+
                             </div>
-        
+
                         </div>
                     </div>
 
@@ -779,7 +792,7 @@
             </div>
 
         </div>
-            
+
         <!-- Download App-->
         <div #download_app class="download-app" style="display: none;">
 
@@ -799,8 +812,7 @@
                 </div>
                 <div class="left-sec" style="margin: 0% 5%;">
                     <div class="downlaod">
-                        <img (click)="navigateToAppStore()" src="../../../../assets/images/ios.png"
-                            alt="..." />
+                        <img (click)="navigateToAppStore()" src="../../../../assets/images/ios.png" alt="..." />
                         <img (click)="navigateToGooglePlay()" src="../../../../assets/images/googleplay.png"
                             alt="..." />
                     </div>
@@ -821,7 +833,7 @@
             </div>
 
         </div>
-        
+
         <!-- about-alaqaar -->
         <div *ngIf="country_id === 3" class="row about-alaqaar">
             <div class="row">
@@ -829,8 +841,7 @@
                     <div class="row main-row">
                         <div class="col-1 .d-none .d-sm-block"> </div>
                         <div class="col-lg-6 col-xs-12 mt-3 images-sec">
-                            <img style="width: 100%;"
-                                src="../../../../assets/images/about_us_image.jpg" alt="..." />
+                            <img style="width: 100%;" src="../../../../assets/images/about_us_image.jpg" alt="..." />
                         </div>
                         <div class="col-lg-5 col-xs-12 mt-3">
                             <div class="section-head-left">
@@ -850,56 +861,54 @@
                 </div>
             </div>
 
-        <!-- Blogs -->
-        <div class="alaqaar-blogs" *ngIf="blogs && blogs.length > 0">
-            <div class="section-head-center">
-                <h2>
-                    <span class="top"></span>
-                    {{'home.Our Blog.title' | translate}}
-                    <span></span>
-                </h2>
-                <p class="description" style="padding: 0px 10px; display: none;">
-                    {{'home.Our Blog.description1' | translate}},<br>{{'home.Our Blog.description2' |
-                    translate}},<br>{{'home.Our Blog.description3' | translate}}
-                </p>
-            </div>
+            <!-- Blogs -->
+            <div class="alaqaar-blogs" *ngIf="blogs && blogs.length > 0">
+                <div class="section-head-center">
+                    <h2>
+                        <span class="top"></span>
+                        {{'home.Our Blog.title' | translate}}
+                        <span></span>
+                    </h2>
+                    <p class="description" style="padding: 0px 10px; display: none;">
+                        {{'home.Our Blog.description1' | translate}},<br>{{'home.Our Blog.description2' |
+                        translate}},<br>{{'home.Our Blog.description3' | translate}}
+                    </p>
+                </div>
 
-            <div class="section-body">
-                <div class="mt-3 blog-card" *ngFor="let card of blogs">
-                    <div class="card" (click)="navigateToSingleBlog(card)">
-                        <div style="position: relative;">
-                            <span class="overlay"></span>
-                            <img src="{{ card.image }}" class="main-img" alt="...">
-                        </div> 
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
-
-                                {{lang === 'en' ? card.title_en : card.title_ar }}
-
-
-                                <!-- {{subString(card.title)}} -->
-                            </h5>
-                            
-                            <div style="display: flex; justify-content: space-between;">
-                                <span class="location">
-                                    <img src="../../../../assets/images/noun_Location_1911856@2x.png"
-                                        alt="..." />
-                                    {{lang === 'en' ? card.tag.name_en : card.tag.name_ar}}
-                                    <!-- New Alamien -->
-                                </span>
-
-                                <span class="date">
-                                    <img src="../../../../assets/images/date.png"
-                                        alt="..." />
-
-                                        {{ 'blog.start_date' | translate }}   
-                                        {{card.created_at}}
-                                </span>
+                <div class="section-body">
+                    <div class="mt-3 blog-card" *ngFor="let card of blogs">
+                        <div class="card" (click)="navigateToSingleBlog(card)">
+                            <div style="position: relative;">
+                                <span class="overlay"></span>
+                                <img src="{{ card.image }}" class="main-img" alt="...">
                             </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <!-- {{lang === 'en' ? subString(card.title_en) : subString(card.title_ar)}} -->
 
-                            
-                            <!-- <div class="row card-foot">
+                                    {{lang === 'en' ? card.title_en : card.title_ar }}
+
+
+                                    <!-- {{subString(card.title)}} -->
+                                </h5>
+
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span class="location">
+                                        <img src="../../../../assets/images/noun_Location_1911856@2x.png" alt="..." />
+                                        {{lang === 'en' ? card.tag.name_en : card.tag.name_ar}}
+                                        <!-- New Alamien -->
+                                    </span>
+
+                                    <span class="date">
+                                        <img src="../../../../assets/images/date.png" alt="..." />
+
+                                        {{ 'blog.start_date' | translate }}
+                                        {{card.created_at}}
+                                    </span>
+                                </div>
+
+
+                                <!-- <div class="row card-foot">
                                 <div class="col">
                                     <img src="../../../../assets/images/Calendar copy.png" alt="..." />
                                     Start Date: {{card.created_at}}
@@ -909,435 +918,459 @@
                                     {{card.views}} View
                                 </div>
                             </div> -->
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="">
-                    <div class="row">
-                        <!-- <button (click)="navigateToBlogs()"
+                    <div class="">
+                        <div class="row">
+                            <!-- <button (click)="navigateToBlogs()"
                             class="btn button-success more">{{'button.actions.More' | translate}}
                         </button> -->
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <ng-template #buyRentSearch let-type="type">
-            <div class="ngSelect search_textbox">
+            <ng-template #buyRentSearch let-type="type">
+                <div class="ngSelect search_textbox">
                     <!-- <div class="search-container"> -->
 
-                        <div style="width: -webkit-fill-available; position:relative">
-                            <input type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()" placeholder="{{'buy.Placeholder'| translate}}">
-                            <fa-icon [icon]="faSearch"></fa-icon>
+                    <div style="width: -webkit-fill-available; position:relative">
+                        <input type="text" [(ngModel)]="searchQuery" (input)="GetHintSearch()"
+                            placeholder="{{'buy.Placeholder'| translate}}">
+                        <fa-icon [icon]="faSearch"></fa-icon>
 
-                        </div>
-                        <!-- <button type="submit">Search</button> -->
-                        
-                        <div>
-                            <ul style="background-color: white; height: fit-content; padding: 1%;" *ngIf="response && response.data.length > 0 && response.data !=='no results found' && isListVisible">
-                                <li style="width: 100%; cursor: pointer;" (click)="selectItem(result.name_en)" *ngFor="let result of response.data.slice(0,10)">{{ result.name_en }}</li>
-                            </ul>
-                        </div>
-                        
+                    </div>
+                    <!-- <button type="submit">Search</button> -->
+
+                    <div>
+                        <ul style="background-color: white; height: fit-content; padding: 1%;"
+                            *ngIf="response && response.data.length > 0 && response.data !=='no results found' && isListVisible">
+                            <li style="width: 100%; cursor: pointer;" (click)="selectItem(result.name_en)"
+                                *ngFor="let result of response.data.slice(0,10)">{{ result.name_en }}</li>
+                        </ul>
+                    </div>
+
                     <!-- </div> -->
 
 
 
-            </div>
-
-            <div class="actions" >
-                <div class="ngSelect submit_buttons">
-                    <button (click)="Getsearch()"
-                        class="btn button-success applyBtn float-end button-bordered">{{'search_button' |
-                        translate}}</button>
-    
-                </div>
-    
-                <div class="another-option">
-                    <!-- (click)="file.click()" -->
-                    <a  (click)="buyRentSearchFlag = !buyRentSearchFlag; scroll(actions);"
-                        style=" color: #f55441; ">
-                        {{'buy.Choose Options' | translate}}    
-                    </a>
-    
-                    <fa-icon style="padding: 0px 5px 0px 5px;" [icon]="faChevronDown" [styles]="{'color': 'red'}"></fa-icon>
-    
-    
                 </div>
 
-            </div>
-        </ng-template>
+                <div class="actions">
+                    <div class="ngSelect submit_buttons">
+                        <button (click)="Getsearch()"
+                            class="btn button-success applyBtn float-end button-bordered">{{'search_button' |
+                            translate}}</button>
+
+                    </div>
+
+                    <div class="another-option">
+                        <!-- (click)="file.click()" -->
+                        <a (click)="buyRentSearchFlag = !buyRentSearchFlag; scroll(actions);" style=" color: #f55441; ">
+                            {{'buy.Choose Options' | translate}}
+                        </a>
+
+                        <fa-icon style="padding: 0px 5px 0px 5px;" [icon]="faChevronDown"
+                            [styles]="{'color': 'red'}"></fa-icon>
 
 
-        <ng-template #buyRent let-type="type">
-            <div class="options">
-                <div class="all-options">
-                    <div class="text_search">
-                        <span style="font-family: 'Rubik-bold'; font-weight: bolder;"> {{'buy.Text search' | translate}} </span>
+                    </div>
 
-                        <div style="display: flex; align-items: center; margin-top: 10px;">
+                </div>
+            </ng-template>
 
-                            <ng-autocomplete 
-                            [data]="autoComplete"
-                            [searchKeyword]="keyword"
-                            placeholder="{{'buy.Placeholder' | translate}}"
-                            (selected)='selectEvent($event)'
-                            (inputChanged)='onChangeSearch($event)'
-                            (inputFocused)='onFocused($event)'
-                            [itemTemplate]="itemTemplate"
-                            [debounceTime]="200"
-                            [focusFirst]="true">                                 
-                            </ng-autocomplete>
-                            
-                            <ng-template #itemTemplate let-item>
-                            <a [innerHTML]="item.name"></a>
-                            </ng-template>
-                            
-                            <!-- <ng-template #notFoundTemplate let-notFound>
+
+            <ng-template #buyRent let-type="type">
+                <div class="options">
+                    <div class="all-options">
+                        <div class="text_search">
+                            <span style="font-family: 'Rubik-bold'; font-weight: bolder;"> {{'buy.Text search' |
+                                translate}} </span>
+
+                            <div style="display: flex; align-items: center; margin-top: 10px;">
+
+                                <ng-autocomplete [data]="autoComplete" [searchKeyword]="keyword"
+                                    placeholder="{{'buy.Placeholder' | translate}}" (selected)='selectEvent($event)'
+                                    (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                                    [itemTemplate]="itemTemplate" [debounceTime]="200" [focusFirst]="true">
+                                </ng-autocomplete>
+
+                                <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item.name"></a>
+                                </ng-template>
+
+                                <!-- <ng-template #notFoundTemplate let-notFound>
                             <div [innerHTML]="notFound"></div>
                             </ng-template> -->
 
-                            <div class="buttons">
-                                <button (click)="searchKeyword()"
-                                    class="btn button-bordered search_button">
-                                    <fa-icon [icon]="faSearch"></fa-icon>
-                                </button>
-                                
+                                <div class="buttons">
+                                    <button (click)="searchKeyword()" class="btn button-bordered search_button">
+                                        <fa-icon [icon]="faSearch"></fa-icon>
+                                    </button>
+
+                                </div>
+
                             </div>
-                            
+
                         </div>
 
-                    </div>
+                        <div class="text_attributes">
+                            <span style="font-family: 'Rubik-bold'; font-weight: bolder;"> {{'buy.Attributes search' |
+                                translate}} </span>
 
-                    <div class="text_attributes">
-                        <span style="font-family: 'Rubik-bold'; font-weight: bolder;"> {{'buy.Attributes search' | translate}} </span>
+                            <div class="attributes">
+                                <div class="ngSelect city">
+                                    <angular2-multiselect [data]="dropdownListAreaNew" [(ngModel)]="selectedItemAreaNew"
+                                        [settings]="settingsAreaNew" (onSelect)="onItemSelectAreaNeW($event)"
+                                        (onDeSelect)=onItemDeSelectArea($event) (onDeSelectAll)="onDeSelectAllArea()">
+                                    </angular2-multiselect>
 
-                        <div class="attributes">
-                            <div class="ngSelect city">
-                                <angular2-multiselect [data]="dropdownListAreaNew" 
-                                    [(ngModel)]="selectedItemAreaNew" 
-                                    [settings]="settingsAreaNew" 
-                                    (onSelect)="onItemSelectAreaNeW($event)" (onDeSelect) =onItemDeSelectArea($event)
-                                    (onDeSelectAll)="onDeSelectAllArea()"
-                                    >
-                                </angular2-multiselect>
-                
-                                <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-                            </div>
-                    
-                            <div class="ngSelect realState">                
-                                <angular2-multiselect [data]="dropdownListRealNew" [(ngModel)]="selectedItemRealNew" 
-                                    [settings]="settingsRealNew"
-                                    (onSelect)="onItemSelectRealNeW($event)">
-                                </angular2-multiselect>
-        
-        
-                                <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!' |
-                                    translate}}</span>
-                            </div>
-                
-                            <div class="ngSelect priceRange">
-                                <div class="dropdown" ngbDropdown (openChange)="checkDropDown($event)">
-                                    <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)" #dropdownMenuButton1
-                                        class="btn dropdown-toggle setPriceBtn ngSelect-input"
-                                        type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                        style="display: flex; justify-content: space-between; align-items: center; width: 100%;
+                                    <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' |
+                                        translate}}</span>
+                                </div>
+
+                                <div class="ngSelect realState">
+                                    <angular2-multiselect [data]="dropdownListRealNew" [(ngModel)]="selectedItemRealNew"
+                                        [settings]="settingsRealNew" (onSelect)="onItemSelectRealNeW($event)">
+                                    </angular2-multiselect>
+
+
+                                    <span *ngIf="SelectedRealEstateTypeNotValid"> {{'validation.This Filed Is Required!'
+                                        |
+                                        translate}}</span>
+                                </div>
+
+                                <div class="ngSelect priceRange">
+                                    <div class="dropdown" ngbDropdown (openChange)="checkDropDown($event)">
+                                        <button ngbDropdownToggle [class.dimmed]="(!priceMinRange && !priceMaxRange)"
+                                            #dropdownMenuButton1 class="btn dropdown-toggle setPriceBtn ngSelect-input"
+                                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false" style="display: flex; justify-content: space-between; align-items: center; width: 100%;
                                         color: #2c2c2c; font-size: .85rem; height: 39px;">
-                                        {{setPricePlaceHolder()}}
-        
-                                        <fa-icon style="position: initial; color: #aaaaaa"  [icon]="faChevronDown"></fa-icon>
-        
-                                    </button>
-        
-                                    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                                        (click)="$event.stopPropagation()" style="overflow: visible; transform: translate3d(0px, 15px, 0px);">
-                                        
-                                        <div id="price_range">
-                                            <div id="Price_range_q">
-                                                {{'home.Price range' | translate}}
-                                            </div>
-                
-                                            <div style="display: flex;">
-                                                <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;" [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}" class="user-faExclamationCircle"></fa-icon>
-                
-                                                <div id="Price_range_hint">
-                                                    {{'home.Price range hint' | translate}} {{ abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' | translate}} 
+                                            {{setPricePlaceHolder()}}
+
+                                            <fa-icon style="position: initial; color: #aaaaaa"
+                                                [icon]="faChevronDown"></fa-icon>
+
+                                        </button>
+
+                                        <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                                            (click)="$event.stopPropagation()"
+                                            style="overflow: visible; transform: translate3d(0px, 15px, 0px);">
+
+                                            <div id="price_range">
+                                                <div id="Price_range_q">
+                                                    {{'home.Price range' | translate}}
                                                 </div>
-                                            </div>
-                
-                                            <div id="slider">
-                                                <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
-                                                (userChange)="userChangeMin(true); userChangeMax(true);"
-                                                ></ngx-slider>
-        
-                                                <!-- (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)" -->
-        
-                                            </div>
-                
-                                            <div id="textboxes">
-                      
-                                                <div id="from">
-                                                    {{lang === 'en' ? 'From' : 'من'}}
-                        
-                                                    <div id="fromTextbox">
-                                              
-                                                        <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput" 
-                                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                                        [allowNegative]="false" type="text"
-                                                        (change)="userChangeMin(false)"/>
+
+                                                <div style="display: flex;">
+                                                    <fa-icon style="padding: 0px 3px 0px 3px; font-size: 14px;"
+                                                        [icon]="faExclamationCircle" [styles]="{'color': '#f75d5d'}"
+                                                        class="user-faExclamationCircle"></fa-icon>
+
+                                                    <div id="Price_range_hint">
+                                                        {{'home.Price range hint' | translate}} {{
+                                                        abbreviateNumber(minValueText) }} {{'propertyDetails.EGP' |
+                                                        translate}}
                                                     </div>
                                                 </div>
-                                                
-                                                <div id="to">
-                                                    {{lang === 'en' ? 'To' : 'إلى'}}
-                                                  
-                                                    <div id="fromTextbox">
-                                              
-                                                        <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput" 
-                                                        placeholder="Min value" ngxNumberFormat="#,###,###,###"
-                                                        [allowNegative]="false" type="text"
-                                                        (keyup)="userChangeMax(false)"/>
-                                                    </div>
+
+                                                <div id="slider">
+                                                    <ngx-slider [(value)]="minValue" [(highValue)]="maxValue"
+                                                        [options]="options"
+                                                        (userChange)="userChangeMin(true); userChangeMax(true);"></ngx-slider>
+
+                                                    <!-- (valueChange)="userChangeMin(true)" (highValueChange)="userChangeMax(true)" -->
+
                                                 </div>
-                                            
-                                              </div>
-                
-                                        </div>
-                                      
-                                    </ul>
-                
+
+                                                <div id="textboxes">
+
+                                                    <div id="from">
+                                                        {{lang === 'en' ? 'From' : 'من'}}
+
+                                                        <div id="fromTextbox">
+
+                                                            <input id="Rectangle_1314_rbk" [(ngModel)]="minValueInput"
+                                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                                [allowNegative]="false" type="text"
+                                                                (change)="userChangeMin(false)" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="to">
+                                                        {{lang === 'en' ? 'To' : 'إلى'}}
+
+                                                        <div id="fromTextbox">
+
+                                                            <input id="Rectangle_1314_rbk" [(ngModel)]="maxValueInput"
+                                                                placeholder="Min value" ngxNumberFormat="#,###,###,###"
+                                                                [allowNegative]="false" type="text"
+                                                                (keyup)="userChangeMax(false)" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </ul>
+
+                                    </div>
+
                                 </div>
-                                
+
+                                <div class="ngSelect compound" [ngStyle]="{'margin-top': quickSearchMargin}">
+                                    <div class="buttons" style="width: 100%; margin: 0px 15px;">
+                                        <button (click)="search()"
+                                            class="btn button-success applyBtn button-bordered">{{'search_button' |
+                                            translate}}
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                            <div class="ngSelect compound" [ngStyle]="{'margin-top': quickSearchMargin}">
-                                <div class="buttons" style="width: 100%; margin: 0px 15px;">
-                                    <button (click)="search()"
-                                        class="btn button-success applyBtn button-bordered">{{'search_button' |
-                                        translate}}
-                                    </button>
-                                    
-                                </div>
-            
-                            </div>
-    
                         </div>
-
                     </div>
+
                 </div>
 
-            </div>
-
-            <div class="ngSelect actions">
-                <div class="advisor-description" style="display: flex;">
-                   <!-- <p style="font-size: larger;"> {{'advisor_description1' | translate}}&nbsp;</p> 
+                <div class="ngSelect actions">
+                    <div class="advisor-description" style="display: flex;">
+                        <!-- <p style="font-size: larger;"> {{'advisor_description1' | translate}}&nbsp;</p> 
                    <p style="font-size: larger; font-weight: 700;"> {{'advisor_description2' | translate}}&nbsp;</p> 
                    <p style="font-size: larger;"> {{'advisor_description3' | translate}} </p> -->
 
-                    <p style="font-size: calc(1.075rem + 0.35vw); font-weight: 700;text-align: center; margin: 0px">
-                        {{'advisor_description1' | translate}} <span style="color: #fd4c65"> {{'advisor_description2' | translate}} </span> {{'advisor_description3' | translate}}
+                        <p style="font-size: calc(1.075rem + 0.35vw); font-weight: 700;text-align: center; margin: 0px">
+                            {{'advisor_description1' | translate}} <span style="color: #fd4c65">
+                                {{'advisor_description2' | translate}} </span> {{'advisor_description3' | translate}}
 
-                    </p>
+                        </p>
 
+
+                    </div>
+
+                    <div class="advisor-button">
+                        <button #apply (click)="tryItNow()" class="btn button-success applyBtn firstbtn"
+                            style="height: 50px; font-size: larger;"> {{'electronic_consultant' |
+                            translate}}
+                        </button>
+                    </div>
 
                 </div>
 
-                <div class="advisor-button">
-                    <button #apply (click)="tryItNow()"
-                    class="btn button-success applyBtn firstbtn" style="height: 50px; font-size: larger;"> {{'electronic_consultant' |
-                    translate}}
-                    </button>
-                </div>
 
-            </div>
+            </ng-template>
 
 
-        </ng-template>
-        
-        
-        <ng-template #sellRental let-type="type">
-            <div class="options">
-                <div class="all-options">
-                    <div class="ngSelect main">
-                        <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
-                        
-                        <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity" 
-                        [settings]="settingsCity"
-                        (onSelect)="onChangeCity($event)"
-                        (onDeSelectAll)="onDeSelectAllCity()">
-                        </angular2-multiselect>
+            <ng-template #sellRental let-type="type">
+                <div class="options">
+                    <div class="all-options">
+                        <div class="ngSelect main">
+                            <p class="lable d-none d-lg-block">{{'home.City' | translate}}</p>
 
-                        <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
+                            <angular2-multiselect [data]="dropdownListCity" [(ngModel)]="selectedItemCity"
+                                [settings]="settingsCity" (onSelect)="onChangeCity($event)"
+                                (onDeSelectAll)="onDeSelectAllCity()">
+                            </angular2-multiselect>
 
-                    </div>
-        
-                    <div class="ngSelect separator">
-        
-                    </div>
-        
-                    <div class="ngSelect city">
-                        <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
-                       
-                        <angular2-multiselect [data]="dropdownListArea" 
-                            [(ngModel)]="selectedItemArea" 
-                            [settings]="settingsArea" 
-                            (onSelect)="onItemSelectArea($event)" (onDeSelect) =onItemDeSelectArea($event)
-                            (onDeSelectAll)="onDeSelectAllArea()">
-                        </angular2-multiselect>
-        
-                        <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-        
-                    </div>
-                    
-                    <div class="ngSelect separator">
-        
-                    </div>
-        
-        
-                    <div class="ngSelect neighborhood">
-                        <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
-                        
-                        <angular2-multiselect 
-                            [data]="dropdownListNeighborhood" 
-                            [(ngModel)]="selectedItemNeighborhood" 
-                            [settings]="settingsNeigbhorhood"
-                            (onSelect)="onItemSelectNeighborhood($event)"
-                            (onDeSelect) =onItemDeSelectNeighborhood($event)>
-                        </angular2-multiselect>
+                            <span *ngIf="selectedCityNotValid">{{'validation.This Filed Is Required!' |
+                                translate}}</span>
 
-                        <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
-                            translate}}</span>
-        
-                    </div>
-        
-                    <div class="ngSelect separator">
-        
-                    </div>
-        
-                    <div class="ngSelect realState">
-                        <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
-                        
-                        <angular2-multiselect [data]="dropdownListRealstateType" [(ngModel)]="SelectedRealEstateType" 
-                            [settings]="settingsUnitType"
-                            (onSelect)="onItemSelectUnitType($event)">
-                        </angular2-multiselect>
-
-                        <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
-                            translate}}</span>
-                    </div>
-        
-                    <div class="ngSelect separator">
-        
-                    </div>
-        
-                    <div class="ngSelect price">
-                        <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
-                        <div>
-                            <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
-                                translate}}</label>
-                            <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price" placeholder="{{'home.Price' | translate}}"
-                                [allowNegative]="false" type="text" ngxNumberFormat="#,###,###,###" />
                         </div>
-        
-                        <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |
-                            translate}}</span>
-                            
-                    </div>
 
-                </div>
-                
-                <div class="another-option" >
-                    <!-- (click)="file.click()" -->
-    
-                    <div class="ngSelect compound">
-                        <input
-                            class="checkbox"
-                            type="checkbox"
-                            [checked]="checkboxVar"
-                            [disabled]="true"
-                            (change)="checkboxVar = !checkboxVar"/>
-    
-                        <div class="dropdown">
-                            <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
-                                <angular2-multiselect 
-                                    [data]="dropdownListCompound" 
-                                    [(ngModel)]="selectedItemCompound" 
-                                    [settings]="settingsCompound"
-                                    (onSelect)="onItemSelectCompound($event)"
-                                    (onDeSelect) =onItemDeSelectCompound($event)>
-                                </angular2-multiselect>
-            
-                            </div>
-        
-                            <div class="multiselect" *ngIf="checkboxVar">
-                                <angular2-multiselect 
-                                    [data]="dropdownListCompound" 
-                                    [(ngModel)]="selectedItemCompound" 
-                                    [settings]="settingsCompound"
-                                    (onSelect)="onItemSelectCompound($event)"
-                                    (onDeSelect) =onItemDeSelectCompound($event)>
-                                </angular2-multiselect>
-            
-                            </div>
-        
-                            <span *ngIf="SelectedCompoundNotValid">{{'validation.This Filed Is Required!' | translate}}</span>
-        
-    
+                        <div class="ngSelect separator">
+
                         </div>
-    
+
+                        <div class="ngSelect city">
+                            <p class="lable d-none d-lg-block">{{'home.Area' | translate}}</p>
+
+                            <angular2-multiselect [data]="dropdownListArea" [(ngModel)]="selectedItemArea"
+                                [settings]="settingsArea" (onSelect)="onItemSelectArea($event)"
+                                (onDeSelect)=onItemDeSelectArea($event) (onDeSelectAll)="onDeSelectAllArea()">
+                            </angular2-multiselect>
+
+                            <span *ngIf="selectedAreaNotValid">{{'validation.This Filed Is Required!' |
+                                translate}}</span>
+
+                        </div>
+
+                        <div class="ngSelect separator">
+
+                        </div>
+
+
+                        <div class="ngSelect neighborhood">
+                            <p class="lable d-none d-lg-block">{{'home.Neighborhood' | translate}}</p>
+
+                            <angular2-multiselect [data]="dropdownListNeighborhood"
+                                [(ngModel)]="selectedItemNeighborhood" [settings]="settingsNeigbhorhood"
+                                (onSelect)="onItemSelectNeighborhood($event)"
+                                (onDeSelect)=onItemDeSelectNeighborhood($event)>
+                            </angular2-multiselect>
+
+                            <span *ngIf="SelectedNeighborhoodNotValid"> {{'validation.This Filed Is Required!' |
+                                translate}}</span>
+
+                        </div>
+
+                        <div class="ngSelect separator">
+
+                        </div>
+
+                        <div class="ngSelect realState">
+                            <p class="lable d-none d-lg-block">{{'home.Real estate type' | translate}}</p>
+
+                            <angular2-multiselect [data]="dropdownListRealstateType"
+                                [(ngModel)]="SelectedRealEstateType" [settings]="settingsUnitType"
+                                (onSelect)="onItemSelectUnitType($event)">
+                            </angular2-multiselect>
+
+                            <span *ngIf="SelectedRealEstateTypeNotValid">{{'validation.This Filed Is Required!' |
+                                translate}}</span>
+                        </div>
+
+                        <div class="ngSelect separator">
+
+                        </div>
+
+                        <div class="ngSelect price">
+                            <p class="lable d-none d-lg-block">{{'home.Price' | translate}}</p>
+                            <div>
+                                <label class="d-none d-lg-inline-block" style="width:20%;">{{'propertyDetails.EGP' |
+                                    translate}}</label>
+                                <input class="ngSelect-input" (keydown)="onChangePrice()" [(ngModel)]="price"
+                                    placeholder="{{'home.Price' | translate}}" [allowNegative]="false" type="text"
+                                    ngxNumberFormat="#,###,###,###" />
+                            </div>
+
+                            <span *ngIf="PriceNotValid">{{'validation.This Filed Is Required!' |
+                                translate}}</span>
+
+                        </div>
+
                     </div>
-    
+
+                    <div class="another-option">
+                        <!-- (click)="file.click()" -->
+
+                        <div class="ngSelect compound">
+                            <input class="checkbox" type="checkbox" [checked]="checkboxVar" [disabled]="true"
+                                (change)="checkboxVar = !checkboxVar" />
+
+                            <div class="dropdown">
+                                <div class="multiselect" style="pointer-events: none;" *ngIf="!checkboxVar">
+                                    <angular2-multiselect [data]="dropdownListCompound"
+                                        [(ngModel)]="selectedItemCompound" [settings]="settingsCompound"
+                                        (onSelect)="onItemSelectCompound($event)"
+                                        (onDeSelect)=onItemDeSelectCompound($event)>
+                                    </angular2-multiselect>
+
+                                </div>
+
+                                <div class="multiselect" *ngIf="checkboxVar">
+                                    <angular2-multiselect [data]="dropdownListCompound"
+                                        [(ngModel)]="selectedItemCompound" [settings]="settingsCompound"
+                                        (onSelect)="onItemSelectCompound($event)"
+                                        (onDeSelect)=onItemDeSelectCompound($event)>
+                                    </angular2-multiselect>
+
+                                </div>
+
+                                <span *ngIf="SelectedCompoundNotValid">{{'validation.This Filed Is Required!' |
+                                    translate}}</span>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-            </div>
 
-
-            <div class="ngSelect submit_buttons">
-                <button #apply
-                    (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,price,priceMaxRange,unitDescription})"
-                    class="btn button-success applyBtn continueBtn float-end mb-3">{{'button.actions.Apply & Continue' |
-                    translate}}</button>
-            </div>
-
-
-        </ng-template>
-
-        <ng-template #alert let-c="close" let-d="dismiss">
-            <div class="modal-header">
-                <div style="width: 100%;">
-                       <p style="    font-family: Rubik-medium;
-                       color: #ff725f;"> {{ 'buy.fail' |  translate }} </p>
+                <div class="ngSelect submit_buttons">
+                    <button #apply
+                        (click)="submit({defaultCountry,selectedArea,selectedNeighborhood,SelectedRealEstateType,price,priceMaxRange,unitDescription})"
+                        class="btn button-success applyBtn continueBtn float-end mb-3">{{'button.actions.Apply &
+                        Continue' |
+                        translate}}</button>
                 </div>
-            </div>
-            <div class="modal-body">
-                    <p style="text-align: center;"> {{ 'buy.fail_message' |  translate }} </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-save" (click)="routeToHome()">{{'buy.fail_button' |
-                    translate}}</button>
-            </div>
-        </ng-template>
+
+
+            </ng-template>
+
+            <ng-template #alert let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <div style="width: 100%;">
+                        <p style="    font-family: Rubik-medium;
+                       color: #ff725f;"> {{ 'buy.fail' | translate }} </p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align: center;"> {{ 'buy.fail_message' | translate }} </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-save" (click)="routeToHome()">{{'buy.fail_button' |
+                        translate}}</button>
+                </div>
+            </ng-template>
+        </div>
     </div>
+
+    <ng-template #CountryPop>
+        <div class="country-popup">
+            <h2> {{'header.Select Country' | translate}} </h2>
+            <div class="country-list">
+                <div class="country-item egypt" (click)="selectCountry(1)">
+                    <img src="../../../../assets/images/new_egypt.png" />
+                    <span>Egypt</span>
+                </div>
+                <div class="country-item" (click)="selectCountry(2)">
+                    <img src="../../assets/images/new_ksa.png" />
+                    <span>Saudi Arabia</span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #sellerContent let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                <img src="{{evaluator.avatar ? evaluator.avatar : '../../../../../../assets/images/default.png'}}"
+                    alt="..." />
+                <p>{{evaluator.name}}</p>
+                <div class="raiting-model">
+                    <ngb-rating [max]="5" [rate]="5">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <p style="text-align: center;">
+                {{'model.one of our agents will contact you' | translate}} <br><b
+                    style="color: #FD4964;">{{evaluator.workingHours}}</b>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="navigateToMyVisits()">{{'button.actions.Done' |
+                translate}}</button>
+        </div>
+    </ng-template>
+
 </div>
 
-<ng-template #CountryPop >
-    <div class="country-popup">
-        <h2> {{'header.Select Country' | translate}} </h2>
-        <div class="country-list">
-          <div class="country-item egypt" (click)="selectCountry(1)" >
-            <img src="../../../../assets/images/new_egypt.png"/>
-            <span>Egypt</span>
-          </div>
-          <div class="country-item" (click)="selectCountry(2)">
-            <img src="../../assets/images/new_ksa.png"/>
-            <span>Saudi Arabia</span>
-          </div>
-        </div>
-      </div>
-</ng-template>
-
-<!-- <div *ngIf="country_id === 2" class="coming-soon">
+<!-- <div *ngIf="country_id === 3" class="coming-soon">
     <img src="../../assets/images/logo_header.png"/>
     <h1>{{'coming_soon' | translate}}</h1>
 </div> -->

@@ -14,6 +14,10 @@
                 <label *ngIf="haveOTP">{{'signIn.OTP Verification' | translate}}</label>
                 <label *ngIf="registrationRequest">{{'signIn.Your name and image' | translate}}</label>
             </b>
+
+            <h5 *ngIf="activeRoute.queryParams.type_id">
+                {{'sell.Sell login' | translate}}
+            </h5>
             
             <div class="login-form">
                 <form class="requestOTP" #f="ngForm" *ngIf="!haveOTP && !registrationRequest" [formGroup]="phoneForm">
@@ -22,7 +26,7 @@
                         [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
                         [searchCountryFlag]="true"
                         [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                        [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Egypt"
+                        [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
                         [maxLength]="10" [phoneValidation]="true"
                         [separateDialCode]="separateDialCode"
                         name="phone"

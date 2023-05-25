@@ -88,6 +88,7 @@ import { AddProjectComponent } from './shared/components/add-project/add-project
 import { AddUnitComponent } from './shared/components/add-unit/add-unit.component';
 import { ElectronicAdvisorComponent } from './shared/components/electronic-advisor/electronic-advisor.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { RequestVisitComponent } from './shared/components/request-visit/request-visit.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     SingleProjectComponent,
     AddProjectComponent,
     AddUnitComponent,
-    ElectronicAdvisorComponent
+    ElectronicAdvisorComponent,
+    RequestVisitComponent
   ],
   imports: [
     AngularEditorModule,

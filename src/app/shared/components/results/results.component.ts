@@ -8,6 +8,8 @@ import { ApiService } from '../../services/api.service';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-results',
@@ -28,6 +30,8 @@ export class ResultsComponent implements OnInit {
   isLoading: boolean = true;
 
   constructor(
+    public modalService: NgbModal,
+    private cookieService: CookieService,
     private router: Router,
     private notificationsService: NotificationsService,
     private appService: AppServiceService,
@@ -221,5 +225,49 @@ export class ResultsComponent implements OnInit {
 
   scroll(el: HTMLElement) {
     el.scrollIntoView();
+  }
+
+  evaluator: any = {
+    name: '',
+    avatar: '',
+    workingHours: '',
+    id: 0,
+    rate: 0
+  }
+
+  async requestVisit(content: any, unit_id: any) {
+    const user = this.cookieService.get('user')
+
+    if (user) {
+      let data = {
+        'unit_id': unit_id
+      }
+
+      let request = await this.apiService.requestVisit(data)
+
+
+      if (request) {
+        window.dataLayer.push({
+          'event': 'RequestVisitClicked',
+          'user_id': JSON.parse(user).id,
+          'user_name': JSON.parse(user).name,
+          'user_phone': JSON.parse(user).phone,
+        });
+
+        this.evaluator.name = request.data.agent.name
+        this.evaluator.workingHours = request.data.agent.working_hours
+        this.evaluator.avatar = request.data.agent.avatar
+        this.modalService.open(content);
+        // return true
+      }
+    }else{
+      this.router.navigate(['/request-visit'], { queryParams: { id: unit_id } })
+    }
+  }
+
+
+  navigateToMyVisits() {
+    this.modalService.dismissAll()
+    this.router.navigate(['/visits'])
   }
 }

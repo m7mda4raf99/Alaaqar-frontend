@@ -1823,20 +1823,24 @@
                 // }
             }
 
+
             .request-visit{
-                display: none;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                color: white;
-                background: #184d47;
-                border-radius: 20px;
-                padding: 10px 20px;
-                border: 0px;
-                box-shadow: 10px;
-                box-shadow: 0px 0px 60px #FD4965;
-                transition: 0.3s;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .button-success{
+                    margin-top: 25px;
+                    width: 50%;
+                    color: #fff;
+                    background: #184d47;
+                    border-radius: 40px;
+                    padding: 10px 20px;
+                    box-shadow: 10px;
+                    box-shadow: 0px 10px 15px #a3a3a3;
+                }
+               
             }
             
             &:hover {
@@ -1852,10 +1856,10 @@
                 //         padding-box;
                 // }
 
-                .request-visit{
-                    display: initial;
-                    transition: 0.3s;
-                }
+                // .request-visit{
+                //     display: initial;
+                //     transition: 0.3s;
+                // }
             }
             .img-fluid {
                 border-radius: 10px;
@@ -1883,7 +1887,7 @@
             background-color: #f7f7f7;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-evenly;
         
             .main-row {
                 margin-top: 50px;
@@ -1953,7 +1957,7 @@
             }
 
             .hover{
-                width: 380px;
+                width: 370px;
                 margin: 10px;
 
                 @media (max-width: 450px) {
@@ -2690,10 +2694,10 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-evenly;
 
             .project-card{
-                width: 400px;
+                width: 380px;
 
                 @media (max-width: 450px) {
                     width: 100%;
