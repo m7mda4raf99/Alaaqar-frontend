@@ -16,6 +16,7 @@ import { Options } from '@angular-slider/ngx-slider';
 import { CookieService } from 'ngx-cookie-service';
 import { DecimalPipe } from '@angular/common';
 import { AutocompleteComponent } from 'angular-ng-autocomplete';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -95,6 +96,8 @@ export class SearchResultComponent implements OnInit {
 
   initialValue: any= ''
 
+  firstSearch: boolean = true
+
   changeFilter(){
     if(this.display === 'none'){
       this.display = 'flex'
@@ -112,7 +115,9 @@ export class SearchResultComponent implements OnInit {
     private translateService: TranslateService,
     private activatedRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,
-    private decimalPipe: DecimalPipe) {
+    private decimalPipe: DecimalPipe,
+    public modalService: NgbModal
+    ) {
     this.sub2 = this.appService.lang$.subscribe(val => {
       this.activeLang = val
 
@@ -137,10 +142,10 @@ export class SearchResultComponent implements OnInit {
 
     this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
 
-      // if(res != this.country_id){
+      if(res != this.country_id){
         // console.log("country changed so restart search")
         // country changed
-
+        // if(!this.firstSearch){
         this.country_id = res
 
         this.putAutoComplete()    
@@ -167,12 +172,16 @@ export class SearchResultComponent implements OnInit {
         
 
         this.isLoading = true
+
+        // this.router.navigate([], { queryParams: { activeTab: this.activeTab, search_query: JSON.stringify(this.search_model) } })
           
-        await this.search(false)
+        // await this.search(false)
 
         this.activeCity = this.search_model.cities
         this.activeRealEstateType = this.search_model.type
-      // }
+        // }
+        
+      }
     })
 
     this.sub3 = this.appService.selectedSearchQuery$.subscribe(val => {
@@ -207,28 +216,32 @@ export class SearchResultComponent implements OnInit {
     // this.appService.selected_country$.subscribe((res:any) =>{
     //   this.selected_country = res
     // })
-    // this.search_model = JSON.parse(this.activatedRoute.snapshot.queryParams['search_query'])
-    // this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
-    // this.search_model.limit = this.limit
-    // this.search_model.sort = 'orderByDesc'
-    // this.search_model.offset = 0
+    // if(this.activatedRoute.snapshot.queryParams['search_query']){
+    this.search_model = JSON.parse(this.activatedRoute.snapshot.queryParams['search_query'])
+    this.search_model.propose == 'rent' ? this.search_model.propose = 'rental' : ''
+    this.search_model.limit = this.limit
+    this.search_model.sort = 'orderByDesc'
+    this.search_model.offset = 0
 
-    // this.search_model.in_compound = this.in_compound
+    this.search_model.in_compound = this.in_compound
     
-    // // console.log("oninit: ", this.search_model)
+    await this.search(false)
 
-    // await this.search(false)
-    await this.get_bedrooms_options(5)
-    await this.get_space_options(4)
+    this.activeCity = this.search_model.cities
+    this.activeRealEstateType = this.search_model.type
+
+    this.firstSearch = false
+    // }
 
     // console.log("get_bedrooms_options:", this.dropdownListRoom)
     // console.log("get_space_options:", this.dropdownListSpace)
 
     /// New Search filter 
-    // this.activeCity = this.search_model.cities
-    // this.activeRealEstateType = this.search_model.type
+    
     // await this.getCity(true)
     // await this.getAreaLocations(true)
+    await this.get_bedrooms_options(5)
+    await this.get_space_options(4)
     this.getUnitTypes()
   }
 
@@ -703,45 +716,24 @@ export class SearchResultComponent implements OnInit {
     this.autoComplete = []
 
     if(this.country_id === 1){
-      if(this.activeLang === 'en'){
-        this.autoComplete = [
-          { id: 1, name: 'Cairo' },
-          { id: 2, name: 'Al Giza' },
-          { id: 3, name: 'Alexandria' },
-          { id: 4, name: 'Al Suez' }
-        ]
-      }else{
-        this.autoComplete = [
-          { id: 1, name: 'القاهرة' },
-          { id: 2, name: 'الجيزة' },
-          { id: 3, name: 'الاسكندريه' },
-          { id: 4, name: 'السويس' }
-        ]
-      }
+      this.autoComplete = [
+        { id: 1, name: this.activeLang === 'en' ? 'Cairo' : 'القاهرة' },
+        { id: 2, name: this.activeLang === 'en' ? 'Al Giza' : 'الجيزة' },
+        { id: 3, name: this.activeLang === 'en' ? 'Alexandria' : 'الاسكندريه' },
+        { id: 4, name: this.activeLang === 'en' ? 'Al Suez' : 'السويس' }
+      ]
     }
     
     if(this.country_id === 2){
-      if(this.activeLang === 'en'){
-        this.autoComplete = [
-          { id: 1, name: 'Riyadh' }
-        ]
-      }else{
-        this.autoComplete = [
-          { id: 1, name: 'الرياض' }
-        ]
-      }
+      this.autoComplete = [
+        { id: 1, name: this.activeLang === 'en' ? 'Riyadh' : 'الرياض' }
+      ]
     }
 
     if(this.country_id === 3){
-      if(this.activeLang === 'en'){
-        this.autoComplete = [
-          { id: 1, name: 'Dubai' }
-        ]
-      }else{
-        this.autoComplete = [
-          { id: 1, name: 'دبي' }
-        ]
-      }
+      this.autoComplete = [
+        { id: 1, name: this.activeLang === 'en' ? 'Dubai': 'دبي' }
+      ] 
     }
   }
 
@@ -1027,5 +1019,48 @@ export class SearchResultComponent implements OnInit {
 
     this.auto.clear()
     this.auto.close()
+  }
+
+  evaluator: any = {
+    name: '',
+    avatar: '',
+    workingHours: '',
+    id: 0,
+    rate: 0
+  }
+
+  async requestVisit(content: any, unit_id: any) {
+    const user = this.cookieService.get('user')
+
+    if (user) {
+      let data = {
+        'unit_id': unit_id
+      }
+
+      let request = await this.apiService.requestVisit(data)
+
+
+      if (request) {
+        window.dataLayer.push({
+          'event': 'RequestVisitClicked',
+          'user_id': JSON.parse(user).id,
+          'user_name': JSON.parse(user).name,
+          'user_phone': JSON.parse(user).phone,
+        });
+
+        this.evaluator.name = request.data.agent.name
+        this.evaluator.workingHours = request.data.agent.working_hours
+        this.evaluator.avatar = request.data.agent.avatar
+        this.modalService.open(content);
+        // return true
+      }
+    }else{
+      this.router.navigate(['/request-visit'], { queryParams: { id: unit_id } })
+    }
+  }
+
+  navigateToMyVisits() {
+    this.modalService.dismissAll()
+    this.router.navigate(['/visits'])
   }
 }

@@ -267,12 +267,12 @@ export class HomeComponent implements OnInit {
     ) {
     this.sub1 = this.appServiceService.lang$.subscribe(async val => {
       this.lang = val
-      this.setMultiSelection('buy')
-      this.getCity(false)
-      this.getUnitTypes()
-      this.getNeig(false)
-      this.getAreaLocations(false)
-      this.getCompound(false)
+      // this.setMultiSelection('buy')
+      // this.getCity(false)
+      // this.getUnitTypes()
+      // this.getNeig(false)
+      // this.getAreaLocations(false)
+      // this.getCompound(false)
 
       this.putAutoComplete()
 
@@ -478,6 +478,7 @@ export class HomeComponent implements OnInit {
     this.getHomeAboutSectionData()
     this.getFooterContact()
     this.getAboutUsHome()
+    this.getUnitTypes()
     // this.getHomeBlogs()
     this.resetFormData()
 
@@ -619,7 +620,21 @@ export class HomeComponent implements OnInit {
       }
 
       if(this.activeTab === 'commercial'){
-        this.search_bar_model.type = [14, 15, 16, 17, 18, 19]
+        this.search_bar_model.type = []
+
+        for(let type of this.dropdownListRealstateType){
+          if(type['category_id'] === 2 || type['category_id'] === 3){
+            this.search_bar_model.type.push(type['id'])
+          }
+        }
+
+      }else{
+        for(let type of this.dropdownListRealstateType){
+          if(type['category_id'] === 1){
+            this.search_bar_model.type.push(type['id'])
+          }
+        }
+
       }
 
       // Compounds
@@ -666,7 +681,21 @@ export class HomeComponent implements OnInit {
       }
 
       if(this.activeTab === 'commercial'){
-        this.search_model.type = [14, 15, 16, 17, 18, 19]
+        this.search_bar_model.type = []
+
+        for(let type of this.dropdownListRealstateType){
+          if(type['category_id'] === 2 || type['category_id'] === 3){
+            this.search_bar_model.type.push(type['id'])
+          }
+        }
+
+      }else{
+        for(let type of this.dropdownListRealstateType){
+          if(type['category_id'] === 1){
+            this.search_bar_model.type.push(type['id'])
+          }
+        }
+
       }
 
       // console.log("this.search_model: ", this.search_model)
@@ -2286,46 +2315,26 @@ export class HomeComponent implements OnInit {
     this.autoComplete = []
 
     if(this.country_id === 1){
-      if(this.lang === 'en'){
-        this.autoComplete = [
-          { id: 1, name: 'Cairo' },
-          { id: 2, name: 'Al Giza' },
-          { id: 3, name: 'Alexandria' },
-          { id: 4, name: 'Al Suez' }
-        ]
-      }else{
-        this.autoComplete = [
-          { id: 1, name: 'القاهرة' },
-          { id: 2, name: 'الجيزة' },
-          { id: 3, name: 'الاسكندريه' },
-          { id: 4, name: 'السويس' }
-        ]
-      }
+      this.autoComplete = [
+        { id: 1, name: this.lang === 'en' ? 'Cairo' : 'القاهرة' },
+        { id: 2, name: this.lang === 'en' ? 'Al Giza' : 'الجيزة' },
+        { id: 3, name: this.lang === 'en' ? 'Alexandria' : 'الاسكندريه' },
+        { id: 4, name: this.lang === 'en' ? 'Al Suez' : 'السويس' }
+      ]
     }
     
     if(this.country_id === 2){
-      if(this.lang === 'en'){
-        this.autoComplete = [
-          { id: 1, name: 'Riyadh' }
-        ]
-      }else{
-        this.autoComplete = [
-          { id: 1, name: 'الرياض' }
-        ]
-      }
-
-      if(this.country_id === 3){
-        if(this.lang === 'en'){
-          this.autoComplete = [
-            { id: 1, name: 'Dubai' }
-          ]
-        }else{
-          this.autoComplete = [
-            { id: 1, name: 'دبي' }
-          ]
-        }
-      }
+      this.autoComplete = [
+        { id: 1, name: this.lang === 'en' ? 'Riyadh' : 'الرياض' }
+      ]
     }
+
+    if(this.country_id === 3){
+      this.autoComplete = [
+        { id: 1, name: this.lang === 'en' ? 'Dubai': 'دبي' }
+      ] 
+    }
+    
   }
 
   async onChangeSearch(val: string) {
@@ -2363,41 +2372,26 @@ export class HomeComponent implements OnInit {
   settingsRealNew = {};
   selectedRealNewNotValidNew: boolean = false
 
-  getUnitTypes() {
-    if (this.dropdownListRealstateType && this.dropdownListRealstateType.length > 0) {
+  async getUnitTypes() {
+      let unit_types: any = await this.apiService.getUnitTypes()
+      let values:any[] =Object.values(unit_types['data']);
       let array = []
-  
-      for(let item of this.dropdownListRealstateType){
+
+      for(let item of values){
+
         let obj = {
           id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
+          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")": item.name_ar + " (" + item.units_count + ")",
           name_en: item.name_en,
           name_ar: item.name_ar,
-          units_count: item.units_count
+          units_count: item.units_count,
+          category_id: item.category_id
         }
-  
+
         array.push(obj)
       }
-  
+
       this.dropdownListRealstateType = array
-
-      array = []
-  
-      for(let item of this.SelectedRealEstateType){
-        let obj = {
-          id: item.id,
-          itemName: this.lang === 'en' ? item.name_en + " (" + item.units_count + ")":  item.name_ar + " (" + item.units_count + ")",
-          name_en: item.name_en,
-          name_ar: item.name_ar,
-          units_count: item.units_count
-        }
-  
-        array.push(obj)
-      }
-  
-      this.SelectedRealEstateType = array
-
-    }
 }
 
 async getRealNnew() {
@@ -2587,6 +2581,49 @@ async onItemSelectRealNeW(item: any){
   switchLang(val: string) {
     localStorage.setItem('lang', val.toUpperCase())
     return this.appServiceService.lang$.next(val)
+  }
+
+  evaluator: any = {
+    name: '',
+    avatar: '',
+    workingHours: '',
+    id: 0,
+    rate: 0
+  }
+  
+  async requestVisit(content: any, unit_id: any) {
+    const user = this.cookieService.get('user')
+
+    if (user) {
+      let data = {
+        'unit_id': unit_id
+      }
+
+      let request = await this.apiService.requestVisit(data)
+
+
+      if (request) {
+        window.dataLayer.push({
+          'event': 'RequestVisitClicked',
+          'user_id': JSON.parse(user).id,
+          'user_name': JSON.parse(user).name,
+          'user_phone': JSON.parse(user).phone,
+        });
+
+        this.evaluator.name = request.data.agent.name
+        this.evaluator.workingHours = request.data.agent.working_hours
+        this.evaluator.avatar = request.data.agent.avatar
+        this.modalService.open(content);
+        // return true
+      }
+    }else{
+      this.router.navigate(['/request-visit'], { queryParams: { id: unit_id } })
+    }
+  }
+
+  navigateToMyVisits() {
+    this.modalService.dismissAll()
+    this.router.navigate(['/visits'])
   }
 
 }

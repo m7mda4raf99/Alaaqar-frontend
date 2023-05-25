@@ -383,9 +383,10 @@ export class SetupSellerPrioritiesComponent implements OnInit {
         "3": [],
         "4": [],
       }
+
       let data = this.criteria.data
 
-      // console.log("arr now before setup: ", this.data)
+      // console.log("arr now before setup: ", data)
 
       if (!Object.keys(this.data).length) {
         this.criteriaParent = []
@@ -396,14 +397,22 @@ export class SetupSellerPrioritiesComponent implements OnInit {
           if (key !== 'icons_path' && key !== 'parentCount') {
             this.criteriaParent.push(key)
             let obj: any = val
+
+            // console.log("obj: ", obj);
+
             for (let [k, values] of Object.entries(obj)) {
               let sValue: any = values
+
+              // console.log("k: ", k, "values: ", values)
+
               sValue['iconUrl'] = this.baseUrl + sValue.icon
               if (arr[index]?.length >= Object.keys(obj).length) { index += 1 }
 
               if(!arr[index].includes(data[k])){
                 arr[index].push(sValue)
               }
+
+              // console.log(arr)
             }
           }
         }

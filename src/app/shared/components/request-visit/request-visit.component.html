@@ -1,0 +1,124 @@
+<div class="login">
+    <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
+        <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
+    </ngx-spinner>
+
+    <div class="login-area">
+        <!-- <img class="image" src="../../../../assets/images/joel-filipe-RFDP7_80v5A-unsplash.png" alt="..."/> -->
+
+        <div class="login-container">
+            <h4>
+                {{'buy.Request Visit' | translate}}
+                
+            </h4>
+            
+            <div class="login-form">
+                <form class="requestOTP" #f="ngForm"[formGroup]="phoneForm">
+                    <div class="name">
+                        <label for="validationCustom01" class="form-label" style="display: none;">{{'signIn.Name' | translate}}</label>
+                        <input formControlName="name" type="text" class="form-control" id="name" style="height: 50px;"
+                            aria-describedby="inputGroupPrepend" placeholder="{{'signIn.Name' | translate}}">
+                    </div>
+
+                    <ngx-intl-tel-input style="display: block;width: 100%"
+                        [cssClass]="'custom'" [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+                        [maxLength]="10" [phoneValidation]="true"
+                        [separateDialCode]="separateDialCode"
+                        name="phone"
+                        formControlName="phone"
+                        customPlaceholder = "123 456 7891"
+                        >
+                        
+                    </ngx-intl-tel-input>
+                    
+                    <div *ngIf="(phoneForm.get('phone')?.status === 'INVALID' && phoneForm.get('phone')?.touched)"
+                        class="text-invalid">
+                        {{'signIn.Please Enter a valid phone number' | translate}}
+                    </div>
+
+                    <div class="contact-info">
+                        
+                        <div class="img-container">
+                            <div class="form-check">
+                                <input
+                                    (click)="checkboxWhatsapp()"
+                                    mdbCheckbox
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="isWhatsapp"
+                                    [checked]="isWhatsapp"
+                                    id="flexCheckDefault"
+                                />
+                                
+                                <img src="../../../../assets/images/whatsapp-icon-green.png" alt="...">
+
+                                {{'buy.Whatsapp' | translate}}
+
+
+                              </div>
+
+                        </div>
+
+                        <div class="img-container">
+                            <div class="form-check">
+                                <input
+                                    (click)="checkboxCall()"
+                                    mdbCheckbox
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="isCall"
+                                    [checked]="isCall"
+                                    id="flexCheckDefault"
+                                />
+                                
+                                <img src="../../../../assets/images/phone-icon-green.png" alt="...">
+
+                                {{'buy.Call' | translate}}
+
+                              </div>
+
+                        </div>
+                    
+                    </div>
+
+                    <button type="submit" class="submit-btn button-success" [disabled]="isLoading"
+                        (click)="requestVisit()">
+                        <span *ngIf="!isLoading">{{'buy.Submit Request' | translate}}</span>
+                        <span *ngIf="isLoading">
+                            <span class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                            Loading...
+                        </span>
+                    
+                    </button>
+                    <!-- <p>The value of id is {{ "ana1" }}</p> -->
+                </form>
+             
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <ng-template #alert let-c="close" let-d="dismiss">
+        <div [class.rtl]="lang != 'en'">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">{{ alert_header }} </h4>
+            </div>
+            <div class="modal-body">
+              <p><strong> {{ alert_message }} </strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="dismiss()" class="btn btn-danger">{{'alert.ok' |
+                    translate}}</button>
+            </div>
+  
+        </div>
+    </ng-template>
+
+</div>

@@ -223,7 +223,6 @@ export class SellFormTemplateComponent implements OnInit {
         selected: false,
       }
 
-
       return this.stepForm.get(key)?.setValue([obj])
     }
 

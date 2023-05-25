@@ -1,4 +1,4 @@
-<div *ngIf="selected_country != 'saudi'" class="alaqaar-blogs" [ngClass]="{'rtl' : activeLang.title === 'ar' || activeLang === 'ar'}">
+<div class="alaqaar-blogs" [ngClass]="{'rtl' : activeLang.title === 'ar' || activeLang === 'ar'}">
     <ngx-spinner type="ball-scale-multiple" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(0, 0, 0, 0.0)"   [fullScreen]="true">
         <img class="spinner-img" style='animation:flip-with-scale 3s infinite;position: relative;top:-100px;' src='../../assets/images/logo-loader.png'/>
         
@@ -224,6 +224,14 @@
                                     {{getCriteriaOptions(c)}}
                                 </div>
                             </div>
+
+                            <div class="request-visit">
+                                <button type="submit" (click)="requestVisit(sellerContent, item['unit_id'])"
+                                    class="btn button-success">
+                                    <span> {{'propertyDetails.Request a visit' | translate}} </span>
+                                </button>
+                            </div>
+                            
                             <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                         </div>
                         
@@ -261,9 +269,36 @@
 
         </div>
     </div>
+
+    <ng-template #sellerContent let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                <img src="{{evaluator.avatar ? evaluator.avatar : '../../../../../../assets/images/default.png'}}"
+                    alt="..." />
+                <p>{{evaluator.name}}</p>
+                <div class="raiting-model">
+                    <ngb-rating [max]="5" [rate]="5">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <p style="text-align: center;">
+                {{'model.one of our agents will contact you' | translate}} <br><b
+                    style="color: #FD4964;">{{evaluator.workingHours}}</b>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="navigateToMyVisits()">{{'button.actions.Done' |
+                translate}}</button>
+        </div>
+    </ng-template>
 </div>
 
-<div *ngIf="selected_country == 'saudi'" class="coming-soon">
+<!-- <div *ngIf="country_id === 3" class="coming-soon">
     <img src="../../assets/images/logo-header.svg"/>
     <h1>{{'coming_soon' | translate}}</h1>
-</div>
+</div> -->

@@ -31,8 +31,7 @@
                 font-size: 29px;
             }
 
-            h5{
-                margin-top: 15%;
+            h4{
                 text-align: center;
             }
 
@@ -42,67 +41,61 @@
                 .submit-btn{
                     display: block;
                     width: 100%;
-                    margin-top: 40px;
+                    // margin-top: 40px;
                     border-radius: 10px;
                     padding: 12px 0;
                 }
-
-                .registration{
-                    margin: 10% 0px;
-
-                    .name{
-                        margin: 20px 0px;
-                    }
-
-                    .email{
-                        margin: 20px 0px;
-                    }
-
-                    .terms{
-                        margin: 20px 0px;
-                    }
-                }
-
-                .avatar{
-                    display: block;
-                    width: 150px;
-                    margin: 0 auto;
-                    position: relative;
-                    cursor: pointer;
-
-                    .main-img{
-                        width: 150px;
-                        height: 150px;
-                        border-radius: 50%;
-                        border: 4px solid #FF725F;
-                    }
-
-                    .icon{
-                        position: absolute;
-                        right: 0;
-                        bottom: 31px;
-                        background-color: #99b2af;
-                        padding: 7px;
-                        border-radius: 50%;
-                        width: 35px;
-                        height: 35px;
-                    }
-                }
-
-                .resendOTP{
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    margin-top: 40px;
-                }
-
                 .requestOTP{
                     margin: 15% 5%;
+
+                    .name{
+                        margin-bottom: 20px;
+                    }
+
+                    .contact-info{
+                        margin: 40px 0px;
+                        display: flex;
+                        justify-content: space-around;
+
+                        .form-check{
+                            display: flex;
+                            align-items: center;
+
+                            @media (max-width: 450px) {
+                                font-size: 14px;
+                            }
+                        }
+
+                        .form-check-input{
+                            width: 1.5em;
+                            height: 1.5em;
+                            margin-left: 0px;
+
+                            @media (max-width: 450px) {
+                                width: 1em;
+                                height: 1em;
+                            }
+                        }
+
+                
+                        img{
+                            width: 40px;
+                            height: 40px;
+                            margin: 0px 5px;
+
+                            @media (max-width: 450px) {
+                                width: 30px;
+                                height: 30px;
+                            }
+                            
+                        }
+
+                    
+                    }
+
                 }
 
-                .verifyOTP{
-                    margin: 15% 0px;
-                }
+
             }
 
             

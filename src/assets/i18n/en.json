@@ -388,7 +388,8 @@
             "Select category masterplan": "Upload the master plan and unit photos if it available",
             "Add photo for the":"Add at least 1 photo for the",
             "add images":"add images"
-        }
+        },
+        "Sell login": "Add your property for free to Alaaqar and quickly market it. List all property data, images and your phone number, and buyers will contact you immediately."
     },
     "buy":{
         "Choose Priority":"Choose Priority",
@@ -403,7 +404,13 @@
         "Attributes search": "SEARCH WITH ATTRIBUTES",
         "fail": "Sorry!",
         "fail_message": "You have reached the maximum number of units allowed for you.",
-        "fail_button": "Okay"
+        "fail_button": "Okay",
+        "Request Visit": "Welcome to Alaaqar, for further information about the units and payment methods, please provide a contact number and select a suitable method of communication: phone call or WhatsApp text messaging.",
+        "Submit Request": "Submit Request",
+        "Whatsapp": "WhatsApp",
+        "Call": "Call",
+        "success_message": "Your request was successfully submitted. We will try to contact you as soon as possible.",
+        "fail_message2": "Unfortunately, an error has occurred. Please try submitting the request again." 
 
     },
     "propertyDetails":{

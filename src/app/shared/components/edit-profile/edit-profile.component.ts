@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AppServiceService } from 'src/app/services/app-service.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { ApiService } from '../../services/api.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,9 +28,12 @@ export class EditProfileComponent implements OnInit {
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  preferredCountries: CountryISO[] = [CountryISO.Egypt, CountryISO.SaudiArabia, CountryISO.UnitedArabEmirates];
   separateDialCode = true;
-  
+  selectedCountryISO: any = CountryISO.Egypt
+
+  subCountry = new Subscription()
+  country_id: any
 
   constructor(
     private apiService: ApiService,
@@ -38,7 +42,21 @@ export class EditProfileComponent implements OnInit {
      private spinner: NgxSpinnerService,
      private translateService: TranslateService,
      private router: Router,
-     private appService: AppServiceService) { }
+     private appService: AppServiceService) {
+
+      this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
+        this.country_id = res
+  
+        if(this.country_id === 2){
+          this.selectedCountryISO = CountryISO.SaudiArabia
+        }else if(this.country_id === 3){
+          this.selectedCountryISO = CountryISO.UnitedArabEmirates
+        }else{
+          this.selectedCountryISO = CountryISO.Egypt
+        }
+      })
+
+      }
      phone:any
 
   ngOnInit(): void {

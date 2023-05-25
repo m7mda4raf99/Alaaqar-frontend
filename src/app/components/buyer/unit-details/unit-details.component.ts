@@ -532,7 +532,7 @@ export class BuyerUnitDetailsComponent implements OnInit {
     
       this.appServiceService.sellerContent$.next(content)
 
-      this.router.navigate(['/login'], { queryParams: { id: activeRoute.queryParams.id, 
+      this.router.navigate(['/request-visit'], { queryParams: { id: activeRoute.queryParams.id, 
         type: activeRoute.queryParams.type } })
     }
   }

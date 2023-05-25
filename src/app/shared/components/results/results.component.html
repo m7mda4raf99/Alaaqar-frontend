@@ -45,21 +45,18 @@
                                 <div class="card-body" style="cursor: pointer;" (click)="navigateToItemDetails(item)">
                                     <div class="row">
                                         <div class="col-12">
+                                                <div class="col-4 float-end" style="position: relative;    transform: translate(10px, -56px);">
+                                                    <nz-progress class="float-end" nzType="circle" style="background: radial-gradient(circle at center, #f7f7f7 0%,#fbfbfb 47%,#ffffff 47%,#23bc2b00 47%,#23bc2b05 48%);"
+                                                        [nzPercent]="getScore(item['score'])"
+                                                        [nzStrokeColor]="{ '0%': '#288bd8','50%':'#ea666b','70%':'#f8c069', '100%': '#ad8ee5' }">
 
-                                                
-                                                    
-                                                    <div class="col-4 float-end" style="position: relative;    transform: translate(10px, -56px);">
-                                                        <nz-progress class="float-end" nzType="circle" style="background: radial-gradient(circle at center, #f7f7f7 0%,#fbfbfb 47%,#ffffff 47%,#23bc2b00 47%,#23bc2b05 48%);"
-                                                            [nzPercent]="getScore(item['score'])"
-                                                            [nzStrokeColor]="{ '0%': '#288bd8','50%':'#ea666b','70%':'#f8c069', '100%': '#ad8ee5' }">
+                                                        <!-- [nzPercent]="getScore(item['score'])" -->
+                                                        <!-- [nzStrokeColor]="{ '0%': '#ef8169','50%':'#288bd8','70%':'#ad8ee5', '100%': '#ea666b' }"> -->
 
-                                                            <!-- [nzPercent]="getScore(item['score'])" -->
-                                                            <!-- [nzStrokeColor]="{ '0%': '#ef8169','50%':'#288bd8','70%':'#ad8ee5', '100%': '#ea666b' }"> -->
-
-                                                        </nz-progress>
-                                                        <span class="score">{{getScore(item['score'])}}%</span>
-                                                        <span class="score1"> Matching</span>
-                                                    </div>
+                                                    </nz-progress>
+                                                    <span class="score">{{getScore(item['score'])}}%</span>
+                                                    <span class="score1"> Matching</span>
+                                                </div>
                                                 <h6>
                                                     {{ item['title'] }}
                                                 </h6>
@@ -85,6 +82,13 @@
                                                     </span>
     
                                                 </div>
+
+                                                <!-- <div class="request-visit">
+                                                    <button type="submit" (click)="requestVisit(sellerContent, item['unit_id'])"
+                                                        class="btn button-success">
+                                                        <span> {{'propertyDetails.Request a visit' | translate}} </span>
+                                                    </button>
+                                                </div> -->
                                         
 
                                         </div>
@@ -100,6 +104,13 @@
                                         </div>
                                     </div>
                                  </div>
+
+                                 <div class="request-visit">
+                                    <button type="submit" (click)="requestVisit(sellerContent, item['unit_id'])"
+                                        class="btn button-success">
+                                        <span> {{'propertyDetails.Request a visit' | translate}} </span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,4 +147,31 @@
                 </div>
             </div>
     </div>
+
+    <ng-template #sellerContent let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div style="width: 100%;">
+                <img src="{{evaluator.avatar ? evaluator.avatar : '../../../../../../assets/images/default.png'}}"
+                    alt="..." />
+                <p>{{evaluator.name}}</p>
+                <div class="raiting-model">
+                    <ngb-rating [max]="5" [rate]="5">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <p style="text-align: center;">
+                {{'model.one of our agents will contact you' | translate}} <br><b
+                    style="color: #FD4964;">{{evaluator.workingHours}}</b>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-save" (click)="navigateToMyVisits()">{{'button.actions.Done' |
+                translate}}</button>
+        </div>
+    </ng-template>
 </div>

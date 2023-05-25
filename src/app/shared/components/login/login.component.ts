@@ -10,9 +10,9 @@ import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-
 import { NgxSpinnerService } from "ngx-spinner"
 import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  preferredCountries: CountryISO[] = [CountryISO.Egypt, CountryISO.SaudiArabia];
+  preferredCountries: CountryISO[] = [CountryISO.Egypt, CountryISO.SaudiArabia, CountryISO.UnitedArabEmirates];
+  selectedCountryISO: any = CountryISO.Egypt
   haveOTP: boolean = false
   registrationRequest: boolean = false
   invalidPTO: boolean = false
@@ -49,12 +50,15 @@ export class LoginComponent implements OnInit {
   phone:any
   avatar:any
   lang: string = ''
-
+  from: string = "Login"
 
   activeRoute: any
 
   terms: any = {}
   sub1 = new Subscription()
+
+  subCountry = new Subscription()
+	country_id: any
 
   constructor(
     private apiService: ApiService,
@@ -87,17 +91,29 @@ export class LoginComponent implements OnInit {
       this.sub1 = this.appService.lang$.subscribe(async val => {
         this.lang = val;
       })
-     }
 
-     isLoggedInDeveloper(){
-      const developer = this.cookieService.get('developer')
+      this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
+        this.country_id = res
+  
+        if(this.country_id === 2){
+          this.selectedCountryISO = CountryISO.SaudiArabia
+        }else if(this.country_id === 3){
+          this.selectedCountryISO = CountryISO.UnitedArabEmirates
+        }else{
+          this.selectedCountryISO = CountryISO.Egypt
+        }
+      })
+  }
+
+  isLoggedInDeveloper(){
+    const developer = this.cookieService.get('developer')
+    
+    if (developer) {
+      this.notificationsService.showError(this.translateService.instant('error.developer'))
       
-      if (developer) {
-        this.notificationsService.showError(this.translateService.instant('error.developer'))
-        
-        this.router.navigate(['/single-developer'])
-      }
+      this.router.navigate(['/single-developer'])
     }
+  }
 
   async ngOnInit(): Promise<void> {
     this.isLoggedInDeveloper()
@@ -133,6 +149,14 @@ export class LoginComponent implements OnInit {
       const doLogin: any = await this.apiService.login(phoneNumber.substring(1))
       this.isLoading = false
       // console.log("ashraf: ", doLogin?.data?.firstLogin)
+
+      window.dataLayer.push({
+        'event': 'User Registered',
+        'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
+        'action': 'User writes his number',
+        'fromWhichPage': this.activeRoute.queryParams['type_id'] ? "Sell your property" : "Sign Up"
+      });
+      
       if (doLogin?.data?.firstLogin === 'Registration request') {
         // params
 
@@ -186,6 +210,15 @@ export class LoginComponent implements OnInit {
     }
     if (verifyOtp.data?.token) {
       // Store user profile to cookies
+      window.dataLayer.push({
+        'event': 'User Registered',
+        'name': verifyOtp.data.user.name,
+        'phone': verifyOtp.data.user.phone,
+        'action': 'User enters a correct OTP',
+        'fromWhichPage': this.activeRoute.queryParams['type_id'] ? "Sell your property" : "Sign Up",
+        'register_login': this.from 
+      });
+
       this.cookieService.set('token', JSON.stringify(verifyOtp.data.token), { expires: 2, sameSite: 'Lax', secure: false });
       let obj = {
         id: verifyOtp.data.user.id,
@@ -296,10 +329,14 @@ export class LoginComponent implements OnInit {
         this.haveOTP = true
         this.registrationRequest = false
 
+        this.from = "Register"
+
         window.dataLayer.push({
           'event': 'User Registered',
           'name': this.phoneForm.get('name')?.value,
-          'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1)
+          'phone': this.phoneForm.get('phone')?.value.e164Number.substring(1),
+          'action': 'User registers: writes his name and email',
+          'fromWhichPage': this.activeRoute.queryParams['type_id'] ? "Sell your property" : "Sign Up"
         });
 
         // params

@@ -33,6 +33,7 @@ import { SingleProjectComponent } from './shared/components/single-project/singl
 import { AddProjectComponent } from './shared/components/add-project/add-project.component';
 import { AddUnitComponent } from './shared/components/add-unit/add-unit.component';
 import { ElectronicAdvisorComponent } from './shared/components/electronic-advisor/electronic-advisor.component';
+import { RequestVisitComponent } from './shared/components/request-visit/request-visit.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, },
@@ -66,6 +67,7 @@ const routes: Routes = [
   { path: 'add-project', component: AddProjectComponent, },
   { path: 'add-unit', component: AddUnitComponent, },
   { path: 'electronic-advisor', component: ElectronicAdvisorComponent, },
+  { path: 'request-visit', component: RequestVisitComponent, },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: OopsComponent }
 ];

@@ -1,6 +1,18 @@
 
 <div id="mainApp" class="{{pageDir}}" dir="{{pageDir}}">
   <app-header></app-header>
-  <router-outlet></router-outlet>
+  
+  <!-- *ngIf="country_id === 1 || country_id === 2"  -->
+  <router-outlet ></router-outlet>
+
+  <div *ngIf="country_id === 3" class="coming-soon">
+    <!-- <img *ngIf="lang === 'en'" src="../../assets/images/logo_header.png"/>
+    <img *ngIf="lang != 'en'" src="../../assets/images/logo_header_arabic.png" />
+    <h1>{{'coming_soon' | translate}}</h1> -->
+
+    {{ navigateToAboutUs() }}
+
+  </div>
+
   <app-footer></app-footer>
 </div>

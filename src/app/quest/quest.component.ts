@@ -19,6 +19,7 @@ export class QuestComponent {
 
   subCountry = new Subscription()
 	country_id: any
+  selectedCountryISO: any = CountryISO.Egypt
 
   constructor(
     public appService: AppServiceService,
@@ -39,6 +40,14 @@ export class QuestComponent {
 
     this.subCountry = this.appService.country_id$.subscribe(async (res:any) =>{
       this.country_id = res
+
+      if(this.country_id === 2){
+        this.selectedCountryISO = CountryISO.SaudiArabia
+      }else if(this.country_id === 3){
+        this.selectedCountryISO = CountryISO.UnitedArabEmirates
+      }else{
+        this.selectedCountryISO = CountryISO.Egypt
+      }
 
       this.spinner.show()
 
@@ -131,7 +140,7 @@ export class QuestComponent {
   PhoneNumberFormat = PhoneNumberFormat;
   separateDialCode = true;
   CountryISO = CountryISO;
-  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  preferredCountries: CountryISO[] = [CountryISO.Egypt, CountryISO.SaudiArabia, CountryISO.UnitedArabEmirates];
 
   alert_message: any = ""
   alert_header: any = ""
@@ -297,7 +306,7 @@ export class QuestComponent {
   }
 
   dismiss(){
-    if(this.alert_header === "Success" || this.alert_header === "فشل"){
+    if(this.alert_header === "Success" || this.alert_header === "نجاح"){
       this.router.navigate(['/home'])
     }
 

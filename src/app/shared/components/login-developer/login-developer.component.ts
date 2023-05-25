@@ -31,7 +31,8 @@ export class LoginDeveloperComponent {
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  preferredCountries: CountryISO[] = [CountryISO.Egypt, CountryISO.SaudiArabia];
+  preferredCountries: CountryISO[] = [CountryISO.Egypt, CountryISO.SaudiArabia, CountryISO.UnitedArabEmirates];
+  selectedCountryISO: any = CountryISO.Egypt
   haveOTP: boolean = false
   registrationRequest: boolean = false
   invalidPTO: boolean = false
@@ -141,6 +142,15 @@ export class LoginDeveloperComponent {
 
       this.subCountry = this.appService.country_id$.subscribe((res:any) =>{
         this.country_id = res
+
+        if(this.country_id === 2){
+          this.selectedCountryISO = CountryISO.SaudiArabia
+        }else if(this.country_id === 3){
+          this.selectedCountryISO = CountryISO.UnitedArabEmirates
+        }else{
+          this.selectedCountryISO = CountryISO.Egypt
+        }
+
       })
      }
   
